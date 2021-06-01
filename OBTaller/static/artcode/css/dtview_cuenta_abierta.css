@@ -1,0 +1,20 @@
+
+
+
+.infoMain{
+
+    /*background-color: #0c84ff;*/
+    height: 100% !important;
+    width: 100%;
+    min-height: 100% !important;
+}
+
+.elRow {
+    padding-top: 5px;
+    padding-left: 5px;
+    font-size: 13px;
+}
+
+.elRow div a {
+    color: #0c84ff !important;
+}

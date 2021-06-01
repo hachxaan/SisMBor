@@ -1,0 +1,30 @@
+{% extends '../../Classes/list.html' %}
+{% load static %}
+{% block head_list %}
+
+{% endblock %}
+
+{% block columns %}
+    <tr>
+
+
+        <th scope="col" style="width: 5%;">ID Unidad</th>
+        <th scope="col" style="width: 7%;">Cliente</th>
+        <th scope="col" style="width: 15%;">Placa</th>
+        <th scope="col" style="width: 15%;">Marca</th>
+        <th scope="col" style="width: 8%;">Modelo</th>
+        <th scope="col" style="width: 8%;">Motor</th>
+        <th scope="col" style="width: 8%;">Chasis</th>
+        <th scope="col" style="width: 8%;">Acción</th>
+
+
+    </tr>
+{% endblock %}
+
+{% block rows %}
+
+{% endblock %}
+{% block scripts_lista %}
+    <script src="{% static 'sismbor/js/list-cat-unidad.js' %}"></script>
+{% endblock %}
+

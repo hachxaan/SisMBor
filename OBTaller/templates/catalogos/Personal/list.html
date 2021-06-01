@@ -1,0 +1,25 @@
+{% extends '../../Classes/list.html' %}
+{% load static %}
+{% block head_list %}
+
+{% endblock %}
+
+{% block columns %}
+    <tr>
+        <th scope="col" style="width: 5%;">ID Personal</th>
+        <th scope="col" style="width: 7%;">Nombre</th>
+        <th scope="col" style="width: 15%;">Apellido</th>
+        <th scope="col" style="width: 8%;">Usuario Alta</th>
+        <th scope="col" style="width: 13%;">Fecha Registro</th>
+        <th scope="col" style="width: 15%;">Opciones</th>
+
+    </tr>
+{% endblock %}
+
+{% block rows %}
+
+{% endblock %}
+{% block scripts_lista %}
+    <script src="{% static 'sismbor/js/list-cat-personal.js' %}"></script>
+{% endblock %}
+

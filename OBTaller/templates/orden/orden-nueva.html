@@ -1,0 +1,164 @@
+{% extends 'body.html' %}
+{% load static %}
+id_unidad
+{% block contento %}
+    <div class="row">
+        <div class="col-md-6">
+
+            <form action="." enctype="multipart/form-data" method="post">
+                <!-- Nueva Orden -->
+                <div class="card card-info">
+                    <div class="card-header">
+                        <h3 class="card-title">Nueva orden de taller</h3>
+                    </div>
+
+
+                    {% csrf_token %}
+                    <input type="hidden" name="id_uniadad" id="id_uniadad" value="0">
+                    <div class="card-body">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-primary">Placa</span>
+                            </div>
+                            <input id="edtPlaca" name="placa" type="text" class="form-control uppercase" required
+                                   placeholder="ABC-123">
+                            <span class="input-group-append">
+                                    <button type="button" class="btn btn-info btn">Buscar</button>
+                                    <button type="button"
+                                            class="btn btn-info btn ml-1 bg-lightblue color-palette">Nuevo</button>
+                                </span>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-primary">Kilometraje</span>
+                            </div>
+                            <input name="kilometraje" id="edtKilometraje" type="number" step="10" class="form-control"
+                                   required placeholder="Kilometraje actual">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-primary">Operador</span>
+                            </div>
+                            <input id="nombre_entrega" id="edtOperador" type="text" class="form-control" required
+                                   placeholder="Nombre de quien entrega la unidad">
+                        </div>
+                        <button id="btnCreaOrden" type="submit" class="btn btn-primary">Crear orden</button>
+
+                        <h4>Unidad</h4>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Marca</span>
+                            </div>
+                            <input id="edtMarca" type="text" class="form-control" placeholder="">
+                            <div class="input-group-prepend ml-3">
+                                <span class="input-group-text">Modelo</span>
+                            </div>
+                            <input id="edtModelo" type="text" class="form-control" placeholder="">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Motor</span>
+                            </div>
+                            <input id="edtMotor" type="text" class="form-control" placeholder="">
+                            <div class="input-group-prepend ml-3">
+                                <span class="input-group-text">Chasis</span>
+                            </div>
+                            <input id="edtChasis" type="text" class="form-control" placeholder="">
+                        </div>
+
+
+                        <h4 class="mt-4 mb-2">Utlimo servicio</h4>
+
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Fecha</span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Sin historial de servicio">
+                            <div class="input-group-prepend ml-3">
+                                <span class="input-group-text">Kilometraje</span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Sin historial de servicio">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Responsable</span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Sin historial de servicio">
+                            <div class="input-group-prepend ml-3">
+                                <span class="input-group-text">Chasis</span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Sin historial de servicio">
+                        </div>
+                        <!-- /input-group -->
+                    </div>
+
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </form>
+        </div>
+        <div class="col-md-6">
+            <!-- Cliente -->
+            <div class="card card-olive">
+                <div class="card-header">
+                    <h3 class="card-title">Cliente</h3>
+                </div>
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Empresa</span>
+                        </div>
+                        <input id="edtEmpresa" type="text" class="form-control uppercase" placeholder="">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">RUP</span>
+                        </div>
+                        <input id="edtRup" type="text" class="form-control" placeholder="">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Telefono</span>
+                        </div>
+                        <input id="edtTelefono" type="text" class="form-control" placeholder="">
+                        <div class="input-group-prepend ml-3">
+                            <span class="input-group-text">Celular</span>
+                        </div>
+                        <input id="edtCelular" type="text" class="form-control" placeholder="">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Dirección</span>
+                        </div>
+                        <input id="edtDireccion" type="text" class="form-control" placeholder="">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Representante</span>
+                        </div>
+                        <input id="edtRepresentante" type="text" class="form-control" placeholder="">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Email</span>
+                        </div>
+                        <input id="edtEmail" type="text" class="form-control" placeholder="">
+                    </div>
+                    <!-- /input-group -->
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'sismbor/js/orden-nueva.js' %}" type="text/javascript"></script>
+{% endblock %}

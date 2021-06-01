@@ -1,0 +1,28 @@
+{% extends '../../Classes/list.html' %}
+{% load static %}
+{% block head_list %}
+
+{% endblock %}
+
+{% block columns %}
+    <tr>
+
+        <th scope="col" style="width: 5%;">ID</th>
+        <th scope="col" style="width: 5%;">Clave</th>
+        <th scope="col" style="width: 7%;">Descripción mano de obra</th>
+        <th scope="col" style="width: 15%;">Categoria</th>
+        <th scope="col" style="width: 15%;">Precio de venta</th>
+        <th scope="col" style="width: 8%;">Tipo de servicio</th>
+        <th scope="col" style="width: 8%;">Hora hombre</th>
+        <th scope="col" style="width: 8%;">Periodo Kilometraje</th>
+        <th scope="col" style="width: 8%;">Acción</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+
+{% endblock %}
+{% block scripts_lista %}
+    <script src="{% static 'sismbor/js/list-cat-manobra.js' %}"></script>
+{% endblock %}
+
