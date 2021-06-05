@@ -84,6 +84,8 @@ class PersonalCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Cr
         context['entity'] = 'Persona'
         context['list_url'] = self.success_url
         context['action'] = 'add'
+        context['catalogos']='menu-is-opening menu-open'
+        context['personal']='active'
         return context
 # **********************************************************************************************************************
 # **********************************************************************************************************************
@@ -123,6 +125,8 @@ class PersonalUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Up
         context['entity'] = 'Persona'
         context['list_url'] = self.success_url
         context['action'] = 'edit'
+        context['catalogos']='menu-is-opening menu-open'
+        context['personal']='active'
         return context
 
 # **********************************************************************************************************************
@@ -156,4 +160,6 @@ class PersonalDeleteView(LoginRequiredMixin, ValidatePermissionRequiredMixin, De
         context['title'] = 'Eliminar personal del catálogo'
         context['entity'] = 'Persona'
         context['list_url'] = self.success_url
+        context['catalogos']='menu-is-opening menu-open'
+        context['personal']='active'
         return context

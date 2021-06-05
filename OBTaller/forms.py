@@ -15,7 +15,7 @@ class ClienteForm(ModelForm):
 
     class Meta:
         model = Cliente
-        fields = '__all__'
+        fields = ['id_cliente','rup','nombre_empresa','telefono_contacto','celular_contacto','correo_electronico','direccion','nombre','apellido']
         widgets = {
             'rup': TextInput(
                 attrs={
@@ -51,7 +51,7 @@ class UnidadForm(forms.ModelForm):
 
     class Meta:
         model = Unidad
-        fields = "__all__"
+        fields = '__all__'
         widgets={
             'id_cliente': Select(
                 attrs={

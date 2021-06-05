@@ -1,4 +1,4 @@
-
+@charset "UTF-8";
 
 table.dataTable td {
     font-size: .9em;
@@ -13,3 +13,11 @@ table.dataTable td {
 table.dataTable th {
     font-size: .8em;
 }
+
+@media (min-width: 576px) {
+    .modal-dialog {
+        max-width: 80% !important;
+        margin: 1.75rem auto;
+    }
+}
+

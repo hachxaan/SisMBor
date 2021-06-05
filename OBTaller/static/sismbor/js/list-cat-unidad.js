@@ -1,6 +1,9 @@
 $(function () {
-
+    // console.log(window.location.pathname)
     $('#data').DataTable({
+        language: {
+                url: '../../static/libs/datatables-es.json'
+            },
         responsive: true,
         autoWidth: false,
         destroy: true,
@@ -8,6 +11,10 @@ $(function () {
         ajax: {
             url: window.location.pathname,
             type: 'POST',
+            beforeSend: function(request) {
+                request.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+            },
+
             data: {
                 'action': 'searchdata'
             },

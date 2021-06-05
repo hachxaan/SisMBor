@@ -1,18 +1,21 @@
 $(function () {
     "use strict"
     $('#dataTables4').DataTable({
-        deferRender: true,
+        // deferRender: true,
+        language: {
+            url: '../static/libs/datatables-es.json'
+        },
         paging: true,
-        colReorder: true,
-        stateSave: true,
-        fixedHeader: true,
-        stripeClasses: [],
+        // colReorder: true,
+        // stateSave: true,
+        // fixedHeader: true,
+        // stripeClasses: [],
         responsive: true,
-        autoWidth: false,
+        // autoWidth: true,
         destroy: true,
         hover: true,
         select: true,
-        dom: '',
+        // dom: '',
         ajax: {
             url: window.location.pathname,
             type: 'POST',
@@ -38,73 +41,124 @@ $(function () {
             {"data": "kilometraje"},
             {"data": "nombre_entrega"},
             {"data": "status"},
-            {"data": "modelo"}
+            {"data": "modelo"},
+            {"data": null},
         ],
-        columnDefs: [
-                    {
-                        targets: [ 4,5,6,7,8,9,10,11,12, 13],
-                        visible: false
-                    },
-                    {
-                        targets: [1],
-                        render: function (data, type, row) {
-                             return `<a href="#" ><i class="fas fa-search-plus"></i></a>${data}`
+        columnDefs: [{
+            targets: [-1],
+            class: 'text-center',
+            orderable: false,
+            render: function (data, type, row) {
+                var EditarTrabajoEnabled = 'disabled bg-gradient-secundary';
+                if (parseInt(row['status']) <= 1){ EditarTrabajoEnabled = 'bg-gradient-info'; }
+                var IniciaTrabajoEnabled = 'disabled bg-gradient-secundary';
+                if (row['status'] == '0'){ IniciaTrabajoEnabled = 'bg-gradient-primary'; }
+                var TerminaTrabajoEnabled = 'disabled bg-gradient-secundary';
+                if (row['status'] == '1'){ TerminaTrabajoEnabled = 'bg-gradient-success'; }
+                var CancelarTrabajoEnabled = 'disabled bg-gradient-secundary';
+                if (parseInt(row['status']) <= 1){ CancelarTrabajoEnabled = 'bg-gradient-danger'; }
+
+                if (parseInt(row['status']) <= 1) {
+                    var buttons =
+                        `<div class="btn-group-lg">
+                            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-briefcase"></i>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu" role="menu" style="">
+                                <!-- E D I T A R -->
+                                <a data-folio=${ row['folio'] } class="${ EditarTrabajoEnabled } dropdown-item btn-block btn" href="#"><i class="fas fa-edit"></i>Editar</a>
+                                <div class="dropdown-divider"></div>
+                                <!-- I N I C I A R -->
+                                <a data-folio=${ row['folio'] } class="${IniciaTrabajoEnabled} dropdown-item btn-block btn" id="btnIniciaTrabajo"><i class="fas fa-play-circle"></i>Inicia trabajo</a>
+                                <!-- T E R M I N R -->
+                                <a data-folio=${ row['folio'] } class="${TerminaTrabajoEnabled} dropdown-item btn-block btn" id="btnTerminaTrabajo"><i class="fas fa-check-circle"></i>Termina trabajo</a>
+                                <div class="dropdown-divider"></div>
+                                <!-- C A N C E L A R -->
+                                <a data-folio=${ row['folio'] } class="${CancelarTrabajoEnabled} dropdown-item btn-block btn" id="btnCancelarTrabajo"><i class="fas fa-ban"></i>Cancelar orden</a>
+                            </div>
+                          </div>`;
+                } else {
+                     var buttons =
+                        `<div class="btn-group-lg">
+                            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-briefcase"></i>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu" role="menu" style="">
+                                <!-- DETALLE -->
+                                <a data-folio=${ row['folio'] } class="bg-gradient-info dropdown-item btn-block btn"><i class="fas fa-edit"></i>  Detalle</a>
+                            </div>
+                          </div>`;
+                }
+                return buttons;
+            }
+        },
+            {
+                targets: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+                visible: false
+            },
+            {
+                targets: [1],
+                render: function (data, type, row) {
+                    return `<a href="#" ><i class="mr-3 fas fa-search-plus"></i></a>${data}`
+                }
+            },
+            {
+                targets: [2],
+                render: function (data, type, row) {
+
+                    switch (row['status']) {
+                        case 0: {
+                            return `<span class="badge badge-warning">${data}</span>`
+                            break;
                         }
-                    },
-                    {  targets: [2],
-                        render: function (data, type, row) {
-
-                            switch (row['status']) {
-                                case 0: {
-                                    return `<span class="badge badge-warning">${data}</span>`
-                                    break;
-                                }
-                                case 1: {
-                                    return `<span class="badge badge-info">${data}</span>`
-                                    break;
-                                }
-                                case 2: {
-                                    return `<span class="badge badge-success">${data}</span>`
-                                    break;
-                                }
-                                case 3: {
-                                    return `<span class="badge badge-danger">${data}</span>`
-                                    break;
-                                }
-                            };
-
-
-
+                        case 1: {
+                            return `<span class="badge badge-info">${data}</span>`
+                            break;
                         }
-                    },
+                        case 2: {
+                            return `<span class="badge badge-success">${data}</span>`
+                            break;
+                        }
+                        case 3: {
+                            return `<span class="badge badge-danger">${data}</span>`
+                            break;
+                        }
+                    }
+                    ;
 
-                    {
-                        targets: [ 3],
-                        createdCell: function (td, cellData, rowData, row, col) {
-                                $(td).css('padding', '0px')
-                        },
-                        render: function (data, type, row) {
-                                var $elDiv = $('<div></div>');
-                            var $Main = $(`<div class="infoMain"></div>`);
-                            var $RowD =  $('<div class="row elRow"></div>');
-                            $RowD.append(`<div class="col-lg-3 col-md-4 col-sm-12"><span> Cliente: </span><a data-id_cliente="${row['id_cliente']}" >${row['cliente']}  </a></div>`);
-                            $RowD.append(`<div class="col-lg-3 col-md-4 col-sm-12"><span> Entregó: </span><a> ${row['nombre_entrega']}  </a></div>`);
-                            $RowD.append(`<div class="col-lg-3 col-md-4 col-sm-12"><span> Km Actual: </span><a>${row['kilometraje']}  </a></div>`);
-                            $RowD.append(`<div class="col-lg-3 col-md-4 col-sm-12"><span> Alta: </span><a> ${row['usu_alta']}  </a></div>`);
 
-                            $RowD.append(`<div class="col-lg-3 col-md-4 col-sm-12"><span> Modelo: </span><a>${row['modelo']} </a></div>`);
-                            $RowD.append(`<div class="col-lg-3 col-md-4 col-sm-12"><span> Ult. Serv.: </span><a>   </a></div>`);
-                            $RowD.append(`<div class="col-lg-3 col-md-4 col-sm-12"><span> Km Anterior: </span><a>  </a></div>`);
-                            $RowD.append(`<div class="col-lg-3 col-md-4 col-sm-12"><span> Cuenta: </span><a >${row['cuenta']}</a></div>`);
+                }
+            },
 
-                            $Main.append($RowD);
-                            // $Main.append(`<a>   ${row['cuenta']}  </a>` );
+            {
+                targets: [3],
+                createdCell: function (td, cellData, rowData, row, col) {
+                    $(td).css('padding', '0px')
+                },
+                render: function (data, type, row) {
+                    var $elDiv = $('<div></div>');
+                    var $Main = $(`<div class="infoMain"></div>`);
+                    var $RowD = $('<div class="row elRow"></div>');
+                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Cliente: </span><a data-id_cliente="${row['id_cliente']}" >${row['cliente']}  </a></div>`);
+                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Entregó: </span><a> ${row['nombre_entrega']}  </a></div>`);
+                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Km Actual: </span><a>${row['kilometraje']}  </a></div>`);
+                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Alta: </span><a> ${row['usu_alta']}  </a></div>`);
 
-                            $elDiv.append( $Main);
+                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Modelo: </span><a>${row['modelo']} </a></div>`);
+                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Ult. Serv.: </span><a>   </a></div>`);
+                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Km Anterior: </span><a>  </a></div>`);
+                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Cuenta: </span><a >${row['cuenta']}</a></div>`);
 
-                            return $elDiv.clone().html() ;
-                        },
-                    },
+                    $Main.append($RowD);
+                    // $Main.append(`<a>   ${row['cuenta']}  </a>` );
+
+                    $elDiv.append($Main);
+
+                    return $elDiv.clone().html();
+                },
+            },
         ],
 
         // columnDefs: [
@@ -261,24 +315,40 @@ $(function () {
         //     }
         //     $(row).children().addClass(classBackground);
         // },
-        // initComplete: function (settings, json) {
-        //     $(document).on("click", "a[id^=btnEliminar]", function (event) {
-        //         var idrenc = $(this).data('idrenc');
-        //         var parameters = {'idrenc': idrenc, 'index': $(this).data('index')};
-        //         ajax_confirm("cbrenca/del/", 'Confirmación',
-        //             `¿Eliminar la conciliación ${$(this).data('idrenc')}?`, parameters,
-        //             function (response) {
-        //                 if (response.hasOwnProperty('info')) {
-        //                     message_info(response['info'], null, null)
-        //                     return false;
-        //                 }
-        //                 location.href = '/';
-        //                 return true;
-        //             });
-        //     });
-        //
-        // }
+        initComplete: function (settings, json) {
+
+            $(document).on("click", "a[id^=btnIniciaTrabajo]", function (event) {
+                let folio = $(this).data('folio');
+                UpdSitStatus(folio, 1)
+            });
+            $(document).on("click", "a[id^=btnTerminaTrabajo]", function (event) {
+                let folio = $(this).data('folio');
+                UpdSitStatus(folio, 2)
+            });
+            $(document).on("click", "a[id^=btnCancelarTrabajo]", function (event) {
+                let folio = $(this).data('folio');
+                UpdSitStatus(folio, 3)
+            });
+
+            // $(document).on("click", "a[id^=btnEliminar]", function (event) {
+            //     var idrenc = $(this).data('idrenc');
+            //     var parameters = {'idrenc': idrenc, 'index': $(this).data('index')};
+            //     ajax_confirm("cbrenca/del/", 'Confirmación',
+            //         `¿Eliminar la conciliación ${$(this).data('idrenc')}?`, parameters,
+            //         function (response) {
+            //             if (response.hasOwnProperty('info')) {
+            //                 message_info(response['info'], null, null)
+            //                 return false;
+            //             }
+            //             location.href = '/';
+            //             return true;
+            //         });
+            // });
+
+        }
     });
+
+
     // $.fn.dataTable.ext.search.push(
     //     function (settings, searchData, index, rowData, counter) {
     //
@@ -292,3 +362,14 @@ $(function () {
     // );
 
 });
+
+    function UpdSitStatus( folio, status ){
+        let parameters = {"folio": folio, "status": status }
+        console.log(parameters);
+        //?folios=${folio}&statuses=${status}
+        submit_with_ajax_json(`../stp/updsitorden/`, 'Notificación', '¿Inician los trabajos de la orden?', parameters, function (response) {
+            var table = $('#dataTables4').DataTable();
+            table.ajax.reload();
+            // location.href =  '../operacion/';
+        });
+    }

@@ -9,32 +9,31 @@ from OBTaller.views.cliente.views import ClienteListView, ClienteCreateView, Cli
 from OBTaller.views.manobra.views import ManobraListView, ManobraCreateView, ManobraUpdateView, ManobraDeleteView
 from OBTaller.views.personal.views import PersonalListView, PersonalCreateView, PersonalUpdateView, PersonalDeleteView
 from OBTaller.views.unidad.views import UnidadListView, UnidadCreateView, UnidadUpdateView, UnidadDeleteView
-from OBTaller.views.views import WCuentaAbiertaListView, login, addConceptoCategoria, addTipoServicio, \
-    getInfoUnidad, OrdenNuevaView
+from OBTaller.views.views import login, addConceptoCategoria, addTipoServicio, \
+    getInfoUnidad
+
+from OBTaller.views.orden_view import WCuentaAbiertaListView, OrdenNuevaView, UpdSitOrden
 
 app_name='OBTaller'
 
 
 urlpatterns=[
 
-
-
     path( '', WCuentaAbiertaListView.as_view(), name='panel-operacion' ),
     path( '', login, name='login' ),
-    # path( 'panel/', panel, name='panel' ),
     path( 'operacion/', WCuentaAbiertaListView.as_view(), name='panel-operacion' ),
-    path( 'ordennueva/', OrdenNuevaView, name='orden-nueva' ),
+    path( 'ordennueva/', OrdenNuevaView, name='orden_nueva' ),
     path( 'ordennueva/getInfoUnidad/', getInfoUnidad, name='get_info_unidad' ),
 
-    # path('unidad/', UnidadView.as_view(), name='unidad-list'),
-    # path('unidad/<int:id_unidad>/', UnidadDetailView.as_view(), name='unidad-detail'),
-    # path('unidad/edit/<int:id_unidad>/', Unidadedit, name='unidad-edit'),
-    # path('unidad/create/', Unidadcreate, name='unidad-create'),
-    # path('unidad/delete/<int:id_unidad>/', Unidaddelete, name='unidad-delete'),
     # *******************************************************************************************************************
-    # STORE PROCEDURES
+    # STORED PROCEDURE
     # *******************************************************************************************************************
         path( 'stp/insorden/', StpInsOrden, name='ins_orden' ),
+
+    # *******************************************************************************************************************
+    # UPDATE
+    # *******************************************************************************************************************
+        path( 'stp/updsitorden/', UpdSitOrden, name='upd_sit_orden' ),
     # *******************************************************************************************************************
     # C A T A L O G O S
     # *******************************************************************************************************************
@@ -68,9 +67,7 @@ urlpatterns=[
                 path( 'catalogo/conceptocategoria/add/', addConceptoCategoria, name='conceptocategoria_create' ),
                 path( 'catalogo/tiposervicio/add/', addTipoServicio, name='tiposervicio_create' ),
 
-                # path( 'cliente/add/', ClienteCreateView.as_view(), name='cliente_create' ),
-                # path( 'cliente/update/<int:pk>/', ClienteUpdateView.as_view(), name='cliente_update' ),
-                # path( 'cliente/delete/<int:pk>/', ClienteDeleteView.as_view(), name='cliente_delete' ),
+
 
 
 ]  + static( settings.STATIC_URL, document_root=settings.STATIC_ROOT )

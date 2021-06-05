@@ -1,6 +1,9 @@
 $(function () {
 
     $('#data').DataTable({
+        language: {
+                url: '../../static/libs/datatables-es.json'
+            },
         responsive: true,
         autoWidth: false,
         destroy: true,

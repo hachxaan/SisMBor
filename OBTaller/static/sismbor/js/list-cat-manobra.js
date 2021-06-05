@@ -1,8 +1,11 @@
 (function ($) {
     "use strict"
     $(function () {
-        console.log(window.location.pathname+'js');
+        // console.log(window.location.pathname+'js');
         $('#data').DataTable({
+            language: {
+                url: '../../static/libs/datatables-es.json'
+            },
             responsive: true,
             autoWidth: false,
             destroy: true,

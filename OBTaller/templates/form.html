@@ -42,6 +42,9 @@
                     <div class="form-group">
                         <label for="email">{{ field.label }}:</label>
                         {{ field|add_class:'form-control'|attr:'autocomplete:off' }}
+                        {% if form.readonly %}
+                            {{ field|attr:'readonly' }}
+                        {% endif %}
                     </div>
                 {% endfor %}
             {% block acciones %}{% endblock %}
@@ -80,8 +83,21 @@
         $('form').on('submit', function (e) {
             e.preventDefault();
             var parameters = new FormData(this);
-            submit_with_ajax(window.location.pathname, 'Notificación', '¿Estas seguro de realizar la siguiente acción?', parameters, function () {
-                location.href = '{{ list_url }}';
+            submit_with_ajax(window.location.pathname, 'Notificación', '¿Estas seguro de realizar la siguiente acción?', parameters, function (context) {
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const myParam = urlParams.get('orden');
+                if (myParam){
+                    {#console.log('context: ', context);#}
+                    location.href = '../../ordennueva/?placa='+context['placa'];
+                } else {
+                    location.href = '{{ list_url }}';
+                }
+
+
+                {#var url = new URL(url_string);#}
+                {#var c = url.searchParams.get("c");#}
+
             });
         });
 

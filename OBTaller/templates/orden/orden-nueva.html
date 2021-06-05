@@ -1,6 +1,11 @@
 {% extends 'body.html' %}
 {% load static %}
-id_unidad
+
+{% block stylesheet %}
+    {% include '../MainSections/CSS-DataTables.html' %}
+{% endblock %}
+
+
 {% block contento %}
     <div class="row">
         <div class="col-md-6">
@@ -14,17 +19,19 @@ id_unidad
 
 
                     {% csrf_token %}
-                    <input type="hidden" name="id_uniadad" id="id_uniadad" value="0">
+                    <input type="hidden" name="id_unidad" id="edtUnidad" value="0">
                     <div class="card-body">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text bg-primary">Placa</span>
                             </div>
                             <input id="edtPlaca" name="placa" type="text" class="form-control uppercase" required
-                                   placeholder="ABC-123">
+                                   placeholder="ABC-123" value="{{ placa }}">
                             <span class="input-group-append">
-                                    <button type="button" class="btn btn-info btn">Buscar</button>
-                                    <button type="button"
+{#                                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#NuevoConceptoCategoria" data-id_tipo_concepto="2" data-whatever="@fat"> Agregar categoria de mano de obra </button>#}
+                                    <button type="button" class="btn btn-info btn" data-toggle="modal"
+                                            data-target="#BuscarUnidadModal">Buscar</button>
+                                    <button type="button" id="btnNuevaUnidadOrden"
                                             class="btn btn-info btn ml-1 bg-lightblue color-palette">Nuevo</button>
                                 </span>
                         </div>
@@ -33,7 +40,7 @@ id_unidad
                             <div class="input-group-prepend">
                                 <span class="input-group-text bg-primary">Kilometraje</span>
                             </div>
-                            <input name="kilometraje" id="edtKilometraje" type="number" step="10" class="form-control"
+                            <input name="kilometraje" id="edtKilometraje" type="number" step="1" class="form-control"
                                    required placeholder="Kilometraje actual">
                         </div>
 
@@ -41,10 +48,12 @@ id_unidad
                             <div class="input-group-prepend">
                                 <span class="input-group-text bg-primary">Operador</span>
                             </div>
-                            <input id="nombre_entrega" id="edtOperador" type="text" class="form-control" required
+                            <input name="nombre_entrega" id="edtOperador" type="text" class="form-control" required
                                    placeholder="Nombre de quien entrega la unidad">
                         </div>
-                        <button id="btnCreaOrden" type="submit" class="btn btn-primary">Crear orden</button>
+                        <div class="d-flex flex-row-reverse">
+                            <button id="btnCreaOrden" type="submit" class="btn btn-danger">Crear orden</button>
+                        </div>
 
                         <h4>Unidad</h4>
 
@@ -157,8 +166,54 @@ id_unidad
             <!-- /.card -->
         </div>
     </div>
+
+    {# ************************************************************************************************ #}
+    {# BUSCADOR MAIN#}
+    {# ************************************************************************************************ #}
+    <div class="modal fade" id="BuscarUnidadModal" tabindex="-1" role="dialog" aria-labelledby="BuscarUnidadModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="BuscarUnidadModalLabel">Buscar unidad</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {# ************************************************************************************************ #}
+                    {# BUSCADOR TABLA #}
+                    {# ************************************************************************************************ #}
+                    <table class="table table-bordered" id="dtBuscador">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="width: 5%;">ID Unidad</th>
+                                <th scope="col" style="width: 7%;">Cliente</th>
+                                <th scope="col" style="width: 15%;">Placa</th>
+                                <th scope="col" style="width: 15%;">Marca</th>
+                                <th scope="col" style="width: 8%;">Modelo</th>
+                                <th scope="col" style="width: 8%;">Motor</th>
+                                <th scope="col" style="width: 8%;">Chasis</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    {# ************************************************************************************************ #}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button id="btnSeleccionarUnidad" type="button" class="btn btn-primary">Seleccionar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {# ************************************************************************************************ #}
+
+
+
 {% endblock %}
 
 {% block scripts %}
+    {% include '../MainSections/JS-DataTables.html' %}
     <script src="{% static 'sismbor/js/orden-nueva.js' %}" type="text/javascript"></script>
+    <script src="{% static 'sismbor/js/buscador-unidad.js' %}"></script>
 {% endblock %}

@@ -95,6 +95,8 @@ class ManobraCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Cre
         context['entity'] = 'Mano de obra'
         context['list_url'] = self.success_url
         context['action'] = 'add'
+        context['catalogos']='menu-is-opening menu-open'
+        context['manobra']='active'
         return context
 # **********************************************************************************************************************
 # **********************************************************************************************************************
@@ -130,10 +132,12 @@ class ManobraUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Upd
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Editar Unidad'
+        context['title'] = 'Editar Mano de obra'
         context['entity'] = 'Mano de obra'
         context['list_url'] = self.success_url
         context['action'] = 'edit'
+        context['catalogos']='menu-is-opening menu-open'
+        context['manobra']='active'
         return context
 
 # **********************************************************************************************************************
@@ -167,4 +171,6 @@ class ManobraDeleteView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Del
         context['title'] = 'Eliminar Mano de Obra del catálogo'
         context['entity'] = 'Unidades'
         context['list_url'] = self.success_url
+        context['catalogos']='menu-is-opening menu-open'
+        context['manobra']='active'
         return context

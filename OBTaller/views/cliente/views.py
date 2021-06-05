@@ -82,6 +82,8 @@ class ClienteCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Cre
         context['entity'] = 'Clientes'
         context['list_url'] = self.success_url
         context['action'] = 'add'
+        context['catalogos']='menu-is-opening menu-open'
+        context['clientes']='active'
         return context
 # **********************************************************************************************************************
 # **********************************************************************************************************************
@@ -121,6 +123,8 @@ class ClienteUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Upd
         context['entity'] = 'Clientes'
         context['list_url'] = self.success_url
         context['action'] = 'edit'
+        context['catalogos']='menu-is-opening menu-open'
+        context['clientes']='active'
         return context
 
 # **********************************************************************************************************************
@@ -154,4 +158,6 @@ class ClienteDeleteView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Del
         context['title'] = 'Eliminar cliente del catálogo'
         context['entity'] = 'Clientes'
         context['list_url'] = self.success_url
+        context['catalogos']='menu-is-opening menu-open'
+        context['clientes']='active'
         return context

@@ -10,7 +10,7 @@
 
 {% block acciones %}
 
-    <button  type="button" class="btn btn-secondary" data-toggle="modal" data-target="#NuevoConceptoCategoria" data-id_tipo_concepto="2" data-whatever="@fat"> Agregar categoria de mano de obra </button>
+    <button id="btnNuevoConceptoCategoria" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#NuevoConceptoCategoria" data-id_tipo_concepto="2" data-whatever="@fat"> Agregar categoria de mano de obra </button>
     <button  type="button" class="btn btn-secondary" data-toggle="modal" data-target="#NuevoTipoServicio" data-id_tipo_concepto="2" data-whatever="@fat"> Agregar tipo de servicio </button>
 
 {% endblock %}
@@ -29,7 +29,7 @@
             <form>
               <div class="form-group">
                 <label for="recipient-name" class="col-form-label">Descripcion de la Categoría:</label>
-                <input type="text" class="form-control" id="edtDescConceptoCategoria">
+                <input id="edtDescConceptoCategoria" type="text" class="form-control" id="edtDescConceptoCategoria">
               </div>
             </form>
           </div>
@@ -55,13 +55,13 @@
             <form>
               <div class="form-group">
                 <label for="recipient-name" class="col-form-label">Descripcion del tipo de servicio:</label>
-                <input type="text" class="form-control" id="edtDescTipoServicio">
+                <input id="edtNuevoTipoServicio" type="text" class="form-control" id="edtDescTipoServicio">
               </div>
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button id="btnGuardarTipoServicio" type="button" class="btn btn-primary">Guardar</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <button id="btnGuardarTipoServicio" type="button" class="btn btn-primary">Guardar</button>
           </div>
         </div>
       </div>
@@ -71,10 +71,20 @@
 
 {% block scripts %}
     <script>
+
+            $("#NuevoConceptoCategoria").on('shown.bs.modal', function(){
+                $(this).find('#edtDescConceptoCategoria').focus();
+            });
+
+            $("#NuevoTipoServicio").on('shown.bs.modal', function(){
+                $(this).find('#edtNuevoTipoServicio').focus();
+            });
+
            $('#btnGuardarConceptoCategoria').on('click', function (event) {
                 var v_desc_categoria = $("#edtDescConceptoCategoria").val()
                 var _parameters = {'id_tipo_concepto' : 2,'desc_categoria' : v_desc_categoria}
                 if ( v_desc_categoria.length > 0 ){
+                    $('#edtDescConceptoCategoria').val('');
                     _ajax('../../catalogo/conceptocategoria/add/', _parameters, function (data) {
                         $('#id_id_categoria').append(`<option value="${data['id_categoria']}">${ data['desc_categoria'] }</option>'`)
                         $('#id_id_categoria').val(data['id_categoria'])
@@ -91,7 +101,7 @@
             })
 
             $('#btnGuardarTipoServicio').on('click', function (event) {
-                var v_desc_tipo_servicio = $("#edtDescTipoServicio").val()
+                var v_desc_tipo_servicio = $("#edtNuevoTipoServicio").val()
                 var _parameters = {'desc_tipo_servicio' : v_desc_tipo_servicio}
                 if ( v_desc_tipo_servicio.length > 0 ){
                     _ajax('../../catalogo/tiposervicio/add/', _parameters, function (data) {
@@ -102,7 +112,10 @@
                     });
                 } else
                 {
-                    message_error('Ingresa una descripción');
+                    message_error_callback('Ingresa una descripción', function(result){
+                        $('#edtNuevoTipoServicio').focus();
+                    });
+
                 }
 
 

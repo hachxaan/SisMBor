@@ -1,37 +1,39 @@
 $(function () {
     'use strict';
-
     $('form').on('submit', function (e) {
+        console.log('ready...302');
             e.preventDefault();
+            console.log('ready...303');
             var parameters = new FormData(this);
             console.log('parameters: ', parameters)
             submit_with_ajax('../stp/insorden/', 'Notificación', '¿Estas seguro de realizar la siguiente acción?', parameters, function (response) {
-                console.log('response: ', response)
-                // location.href = '{{ list_url }}';
+                location.href =  '../operacion/';
             });
         });
-    // $("#btnCreaOrden").on('click', function (e) {
-    //
-    //     // if () {
-    //     //
-    //     // }
-    //      Swal.fire({
-    //                 title: 'Prueba!',
-    //                 html: 'OK',
-    //                 icon: 'success'
-    //             });
-    //
-    // })
-
-
     $("#edtPlaca").change(function (e) {
+        pValidaPlaca($(this).val());
+    });
+    $('#btnNuevaUnidadOrden').on('click', function (e) {
+        console.log('ready...301');
+            location.href =  '../unidad/add/?orden=true';
+        });
+    $(document).ready(function () {
+        console.log('ready...');
+        console.log($("#edtPlaca").val());
+        console.log('ready...2');
+        if ($("#edtPlaca").val() !== '') {
+            console.log('pValidaPlaca...');
+            pValidaPlaca($("#edtPlaca").val());
+        }
+        console.log('ready...3');
+    });
+});
 
-        var v_placa = $(this).val()
-        var _parameters = {'placa' : v_placa, 'action': 'searchdata'}
-        if ( v_placa.length > 0 ){
+function pValidaPlaca( placa ){
+
+        var _parameters = {'placa' : placa, 'action': 'searchdata'}
+        if ( placa.length > 0 ){
             _ajax('getInfoUnidad/', _parameters, function (data) {
-
-                 console.log(data);
                  if (data.length > 0) {
 
                     $("#edtPlaca").addClass('bg-olive');
@@ -40,8 +42,7 @@ $(function () {
                     $("#edtModelo").val(data[0].modelo);
                     $("#edtChasis").val(data[0].chasis);
 
-
-                    $("#id_uniadad").val(data[0].id_uniadad);
+                    $("#edtUnidad").val(data[0].id_unidad);
                     $("#edtEmpresa").val(data[0].nombre_empresa);
                     $("#edtRup").val(data[0].rup);
                     $("#edtTelefono").val(data[0].telefono_contacto);
@@ -49,22 +50,28 @@ $(function () {
                     $("#edtDireccion").val(data[0].direccion);
                     $("#edtRepresentante").val(data[0].nombre + ' ' + data[0].apellido);
                     $("#edtEmail").val(data[0].correo_electronico);
-
+                    $("#edtKilometraje").focus();
 
                  } else {
                     $("#edtPlaca").removeClass('bg-olive');
+                    $("#edtMotor").val('');
+                    $("#edtMarca").val('');
+                    $("#edtModelo").val('');
+                    $("#edtChasis").val('');
+
+
+                    $("#edtUnidad").val('');
+                    $("#edtEmpresa").val('');
+                    $("#edtRup").val('');
+                    $("#edtTelefono").val('');
+                    $("#edtCelular").val('');
+                    $("#edtDireccion").val('');
+                    $("#edtRepresentante").val('');
+                    $("#edtEmail").val('');
                  }
-
-
-             // $('#id_id_tipo_servicio').append(`<option value="${data['id_tipo_servicio']}">${ data['desc_tipo_servicio'] }</option>'`)
-                // $('#id_id_tipo_servicio').val(data['id_tipo_servicio'])
-                // $("#edtDescTipoServicio").empty()
-                // $("#NuevoTipoServicio").modal('hide');
             });
         } else
         {
             message_error('Ingresa una descripción');
         }
-    });
-
-});
+    }

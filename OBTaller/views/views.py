@@ -43,25 +43,7 @@ def addTipoServicio(request):
 
 
 
-def OrdenNuevaView(request):
-    # request['manobra']='active'
 
-
-
-    context = {}
-    context['nueva_orden'] = 'active'
-    return render( request, 'orden/orden-nueva.html', context )
-
-    # def get_context_data(self, **kwargs):
-    #     context=super().get_context_data( **kwargs )
-    #     context['title']='Ordenes de taller activas'
-    #     # context['inventario']='active'
-    #     context['escritorio']='active'
-    #     # context['catalogos']='menu-is-opening menu-open'
-    #     # context['unidades']='active'
-    #     # context['create_url']=reverse_lazy( 'CBR:cbrenca_nueva' )
-    #     # context['list_url']=reverse_lazy( 'CBR:cbrenca-list' )
-    #     return context
 
 
 def getInfoUnidad(request):
@@ -166,45 +148,6 @@ def operacion(request):
 
 
 
-class WCuentaAbiertaListView( ListView ):
-    model=WCuentaAbierta
-    template_name='orden/orden-operacion.html'
 
-    # @method_decorator( csrf_exempt )
-    @method_decorator( login_required )
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch( request, *args, **kwargs )
-
-    def post(self, request, *args, **kwargs):
-        data={}
-        try:
-            action=request.POST['action']
-            if action == 'searchdata':
-                data=[]
-                position=1
-                for i in WCuentaAbierta.objects.all():
-                    item=i.toJSON()
-                    # item['ID']=position
-                    # item['archivobco']=i.archivobco.name
-                    # item['archivoerp']=i.archivoerp.name
-                    data.append( item )
-                    position+=1
-                print(data)
-            else:
-                data['error']='Ha ocurrido un error'
-        except Exception as e:
-            data['error']=str( e )
-        return JsonResponse( data, safe=False )
-
-    def get_context_data(self, **kwargs):
-        context=super().get_context_data( **kwargs )
-        context['title']='Ordenes de taller activas'
-        # context['inventario']='active'
-        context['escritorio']='active'
-        # context['catalogos']='menu-is-opening menu-open'
-        # context['unidades']='active'
-        # context['create_url']=reverse_lazy( 'CBR:cbrenca_nueva' )
-        # context['list_url']=reverse_lazy( 'CBR:cbrenca-list' )
-        return context
 
 
