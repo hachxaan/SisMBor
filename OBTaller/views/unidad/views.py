@@ -15,7 +15,8 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from OBTaller.forms import UnidadForm
 from OBTaller.mixins import ValidatePermissionRequiredMixin
-from OBTaller.models import Unidad
+from OBTaller.models import Unidad, WbUnidad
+
 
 # **********************************************************************************************************************
 # **********************************************************************************************************************
@@ -43,7 +44,12 @@ class UnidadListView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListVi
                 for i in Unidad.objects.all():
                     data.append(i.toJSON())
             else:
-                data['error'] = 'Ha ocurrido un error'
+                if action == 'searchdata_buscador':
+                    data=[]
+                    for i in WbUnidad.objects.all():
+                        data.append( i.toJSON() )
+                else:
+                    data['error'] = 'Ha ocurrido un error'
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
@@ -64,15 +70,14 @@ class UnidadCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Crea
     form_class = UnidadForm
     template_name ='catalogos/Unidad/create.html'
     success_url = reverse_lazy('OBTaller:unidad_list')
-    # success_url=reverse_lazy( 'OBTaller:orden_nueva' )
-    # permission_required = 'OB. add_unidad'
+    # permission_required = 'OB. add_cliente'
 
-    url_redirect = success_url
+
+    url_redirect=success_url
 
     @method_decorator( login_required )
     def dispatch(self, request, *args, **kwargs):
-        self.object=self.get_object()
-        return super().dispatch( request, *args, **kwargs )
+        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -84,10 +89,6 @@ class UnidadCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Crea
         context['unidades']='active'
         context['esorden']= 'dsadsadas'
         return context
-
-    def get_object(self):
-        id_unidad=self.kwargs.get( 'id_unidad' )
-        return get_object_or_404( Unidad , id_unidad=id_unidad )
 
     def post(self, request, *args, **kwargs):
         data = {}

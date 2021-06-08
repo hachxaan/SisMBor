@@ -75,11 +75,6 @@
             $("#NuevoConceptoCategoria").on('shown.bs.modal', function(){
                 $(this).find('#edtDescConceptoCategoria').focus();
             });
-
-            $("#NuevoTipoServicio").on('shown.bs.modal', function(){
-                $(this).find('#edtNuevoTipoServicio').focus();
-            });
-
            $('#btnGuardarConceptoCategoria').on('click', function (event) {
                 var v_desc_categoria = $("#edtDescConceptoCategoria").val()
                 var _parameters = {'id_tipo_concepto' : 2,'desc_categoria' : v_desc_categoria}
@@ -95,11 +90,12 @@
                 {
                     message_error('Ingresa una descripción');
                 }
+            });
 
 
-
-            })
-
+           $("#NuevoTipoServicio").on('shown.bs.modal', function(){
+                $(this).find('#edtNuevoTipoServicio').focus();
+            });
             $('#btnGuardarTipoServicio').on('click', function (event) {
                 var v_desc_tipo_servicio = $("#edtNuevoTipoServicio").val()
                 var _parameters = {'desc_tipo_servicio' : v_desc_tipo_servicio}

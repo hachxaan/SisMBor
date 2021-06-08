@@ -2,25 +2,25 @@
 {% load static %}
 {% block head %}
 
-    <link rel="stylesheet" href="{% static 'artcode/css/dtview_cuenta_abierta.css' %}">
-    <script src="{% static 'artcode/js/dtview_cuenta_abierta.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'sismbor/css/dtview_cuenta_abierta.css' %}">
+    <script src="{% static 'sismbor/js/dtview_cuenta_abierta.js' %}"></script>
 {% endblock %}
-{% block botones %}
+{% comment %}{% block botones %}
     <div class="row">
-{#        <a href="{{ list_url }}" class="btn btn-info btn-flat mb-3" data-toggle="tooltip" data-placement="bottom"#}
-{#           title="Recargar datos">#}
-{#            <i class="fas fa-sync"></i>#}
-{#        </a>#}
-{#        <a href="{{ create_url }}" class="btn btn-primary btn-flat mb-3" data-toggle="tooltip" data-placement="bottom"#}
-{#           title="Crear nueva conciliación">#}
-{#            <i class="fas fa-plus"></i>#}
-{#        </a>#}
-{#        <div class="custom-control custom-checkbox ml-5 mt-2">#}
-{#            <input id="cbox_conciliados" class="custom-control-input" type="checkbox" value="option1">#}
-{#            <label for="cbox_conciliados" class="custom-control-label">Conciliados</label>#}
-{#        </div>#}
+        <a href="{{ list_url }}" class="btn btn-info btn-flat mb-3" data-toggle="tooltip" data-placement="bottom"
+           title="Recargar datos">
+            <i class="fas fa-sync"></i>
+        </a>
+        <a href="{{ create_url }}" class="btn btn-primary btn-flat mb-3" data-toggle="tooltip" data-placement="bottom"
+           title="Crear nueva conciliación">
+            <i class="fas fa-plus"></i>
+        </a>
+        <div class="custom-control custom-checkbox ml-5 mt-2">
+            <input id="cbox_conciliados" class="custom-control-input" type="checkbox" value="option1">
+            <label for="cbox_conciliados" class="custom-control-label">Conciliados</label>
+        </div>
     </div>
-{% endblock %}
+{% endblock %}{% endcomment %}
 {% block columns %}
     <tr>
         <th scope="col" style="width: 2%;">Folio</th>

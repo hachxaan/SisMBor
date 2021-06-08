@@ -12,7 +12,8 @@ from OBTaller.views.unidad.views import UnidadListView, UnidadCreateView, Unidad
 from OBTaller.views.views import login, addConceptoCategoria, addTipoServicio, \
     getInfoUnidad
 
-from OBTaller.views.orden_view import WCuentaAbiertaListView, OrdenNuevaView, UpdSitOrden
+from OBTaller.views.orden_view import WCuentaAbiertaListView, OrdenNuevaView, UpdSitOrden, OrdenListaEditar, \
+    OrdenListaDetalle
 
 app_name='OBTaller'
 
@@ -25,6 +26,10 @@ urlpatterns=[
     path( 'ordennueva/', OrdenNuevaView, name='orden_nueva' ),
     path( 'ordennueva/getInfoUnidad/', getInfoUnidad, name='get_info_unidad' ),
 
+
+    path( 'operacion/ordendetalle/', OrdenListaDetalle.as_view(), name='detalle_order' ),
+    path( 'ordendetalle/', OrdenListaDetalle.as_view(), name='detalle_order' ),
+
     # *******************************************************************************************************************
     # STORED PROCEDURE
     # *******************************************************************************************************************
@@ -34,6 +39,13 @@ urlpatterns=[
     # UPDATE
     # *******************************************************************************************************************
         path( 'stp/updsitorden/', UpdSitOrden, name='upd_sit_orden' ),
+    # *******************************************************************************************************************
+    # PROCESOS
+    # *******************************************************************************************************************
+    #     ORDEN EDITAR
+        path( 'operacion/ordeneditar/', OrdenListaEditar.as_view(), name='editar_order' ),
+        path( 'ordeneditar/', OrdenListaEditar.as_view(), name='editar_order' ),
+        # path( 'operacion/ordeneditar/lista/', OrdenListaEditar.as_view(), name='lista_editar_order' ),
     # *******************************************************************************************************************
     # C A T A L O G O S
     # *******************************************************************************************************************

@@ -155,7 +155,8 @@ class Concepto(models.Model):
     b_numero_serie = models.IntegerField(db_column='B_NUMERO_SERIE')  
     precio_compra = models.DecimalField(db_column='PRECIO_COMPRA', max_digits=18, decimal_places=2)  
     id_tipo_servicio = models.ForeignKey( TipoServicio, models.DO_NOTHING, db_column='ID_TIPO_SERVICIO')  
-    b_agrega_conceptos = models.CharField(db_column='B_AGREGA_CONCEPTOS', max_length=1, blank=True, null=True)  
+    b_agrega_conceptos = models.CharField(db_column='B_AGREGA_CONCEPTOS', max_length=1, blank=True, null=True)
+    stock=models.IntegerField( db_column='STOCK' )
 
     def toJSON(self):
         item = model_to_dict(self)
@@ -284,6 +285,29 @@ class Orden(models.Model):
         managed = False
         db_table = 'orden'
 
+class OrdenDetalle(models.Model):
+    id_orden_detalle=models.IntegerField( db_column='ID_ORDEN_DETALLE', primary_key=True )
+    folio = models.IntegerField(db_column='FOLIO')  # Field name made lowercase.
+    consecutivo = models.IntegerField(db_column='CONSECUTIVO')  # Field name made lowercase.
+    cantidad = models.IntegerField(db_column='CANTIDAD')  # Field name made lowercase.
+    id_concepto = models.IntegerField(db_column='ID_CONCEPTO')  # Field name made lowercase.
+    id_personal=models.IntegerField( db_column='ID_PERSONAL' )  # Field name made lowercase.
+    no_serie = models.CharField(db_column='NO_SERIE', max_length=512, blank=True, null=True)  # Field name made lowercase.
+    precio_compra = models.DecimalField(db_column='PRECIO_COMPRA', max_digits=10, decimal_places=2)  # Field name made lowercase.
+    precio_venta = models.DecimalField(db_column='PRECIO_VENTA', max_digits=10, decimal_places=2)  # Field name made lowercase.
+    tx_referencia = models.CharField(db_column='TX_REFERENCIA', max_length=1024, blank=True, null=True)  # Field name made lowercase.
+    cve_usu_alta = models.CharField(db_column='CVE_USU_ALTA', max_length=45, blank=True, null=True)  # Field name made lowercase.
+    fh_registro = models.DateTimeField(db_column='FH_REGISTRO')  # Field name made lowercase.
+    sit_code = models.CharField(db_column='SIT_CODE', max_length=45)  # Field name made lowercase.
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        managed = False
+        db_table = 'orden_detalle'
+        unique_together = (('folio', 'consecutivo'),)
 
 class OrdenReferencias(models.Model):
     id_orden_referencia = models.AutoField(db_column='ID_ORDEN_REFERENCIA', primary_key=True)  
@@ -419,7 +443,9 @@ class WCuentaAbierta(models.Model):
     placa = models.CharField(db_column='PLACA', max_length=16, blank=True, null=True)  
     kilometraje = models.IntegerField(db_column='KILOMETRAJE', blank=True, null=True)  
     nombre_entrega = models.CharField(db_column='NOMBRE_ENTREGA', max_length=128, blank=True, null=True)  
-    modelo=models.CharField( db_column='MODELO', max_length=64, blank=True, null=True )  
+    modelo=models.CharField( db_column='MODELO', max_length=64, blank=True, null=True )
+
+    no_conceptos=models.IntegerField( db_column='NO_CONCEPTOS', blank=True, null=True )
 
     def toJSON(self):
         item = model_to_dict(self)
@@ -457,11 +483,12 @@ class WConceptosMain(models.Model):
     stock = models.IntegerField(db_column='STOCK', blank=True, null=True)  
     clave_sel = models.CharField(db_column='CLAVE_SEL', max_length=32, db_collation='utf8_general_ci')  
     b_numero_serie = models.IntegerField(db_column='B_NUMERO_SERIE')  
-    precio_compra = models.DecimalField(db_column='PRECIO_COMPRA', max_digits=18, decimal_places=2)  
-    descripcion = models.CharField(db_column='DESCRIPCION', max_length=227, db_collation='utf8_general_ci', blank=True, null=True)  
-    af_inventario = models.CharField(db_column='AF_INVENTARIO', max_length=1, db_collation='utf8_general_ci', blank=True, null=True)  
-    cve_operacion = models.CharField(db_column='CVE_OPERACION', max_length=16, db_collation='utf8_general_ci', blank=True, null=True)  
-    b_agrega_conceptos = models.CharField(db_column='B_AGREGA_CONCEPTOS', max_length=1, db_collation='utf8_general_ci', blank=True, null=True)  
+    precio_compra = models.DecimalField(db_column='PRECIO_COMPRA', max_digits=18, decimal_places=2)
+    descripcion = models.CharField(db_column='DESCRIPCION', max_length=227, db_collation='utf8_general_ci', blank=True, null=True)
+    af_inventario = models.CharField(db_column='AF_INVENTARIO', max_length=1, db_collation='utf8_general_ci', blank=True, null=True)
+    cve_operacion = models.CharField(db_column='CVE_OPERACION', max_length=16, db_collation='utf8_general_ci', blank=True, null=True)
+    b_personal = models.IntegerField(db_column='B_PERSONAL')
+    b_agrega_conceptos = models.CharField(db_column='B_AGREGA_CONCEPTOS', max_length=1, db_collation='utf8_general_ci', blank=True, null=True)
 
     def toJSON(self):
         item = model_to_dict(self)
@@ -472,3 +499,78 @@ class WConceptosMain(models.Model):
         db_table = 'w_conceptos_main'
 
 
+class WbUnidad(models.Model):
+    id_unidad = models.IntegerField(db_column='ID_UNIDAD', primary_key=True)  # Field name made lowercase.
+    id_cliente = models.IntegerField(db_column='ID_CLIENTE')  # Field name made lowercase.
+    placa = models.CharField(db_column='PLACA', max_length=16, db_collation='utf8_general_ci')  # Field name made lowercase.
+    marca = models.CharField(db_column='MARCA', max_length=32, db_collation='utf8_general_ci', blank=True, null=True)  # Field name made lowercase.
+    modelo = models.CharField(db_column='MODELO', max_length=32, db_collation='utf8_general_ci', blank=True, null=True)  # Field name made lowercase.
+    motor = models.CharField(db_column='MOTOR', max_length=64, db_collation='utf8_general_ci', blank=True, null=True)  # Field name made lowercase.
+    chasis = models.CharField(db_column='CHASIS', max_length=64, db_collation='utf8_general_ci', blank=True, null=True)  # Field name made lowercase.
+    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', blank=True, null=True)  # Field name made lowercase.
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'wb_unidad'
+
+
+class WOrdenDetalle(models.Model):
+    id_orden_detalle = models.IntegerField(db_column='ID_ORDEN_DETALLE', primary_key=True)  # Field name made lowercase.
+    folio_od = models.IntegerField(db_column='FOLIO_OD')  # Field name made lowercase.
+    consecutivo = models.IntegerField(db_column='CONSECUTIVO')  # Field name made lowercase.
+    cantidad = models.IntegerField(db_column='CANTIDAD')  # Field name made lowercase.
+    id_personal = models.IntegerField(db_column='ID_PERSONAL', blank=True, null=True)  # Field name made lowercase.
+    no_serie_od = models.CharField(db_column='NO_SERIE_OD', max_length=512, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  # Field name made lowercase.
+    precio_compra_od = models.DecimalField(db_column='PRECIO_COMPRA_OD', max_digits=10, decimal_places=2)  # Field name made lowercase.
+    precio_venta_od = models.DecimalField(db_column='PRECIO_VENTA_OD', max_digits=10, decimal_places=2)  # Field name made lowercase.
+    tx_referencia = models.CharField(db_column='TX_REFERENCIA', max_length=1024, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  # Field name made lowercase.
+    cve_usu_alta_od = models.CharField(db_column='CVE_USU_ALTA_OD', max_length=45, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  # Field name made lowercase.
+    fh_registro = models.DateTimeField(db_column='FH_REGISTRO')  # Field name made lowercase.
+    sit_code = models.CharField(db_column='SIT_CODE', max_length=45, db_collation='utf8mb4_0900_ai_ci')  # Field name made lowercase.
+    folio = models.IntegerField(db_column='FOLIO', blank=True, null=True)  # Field name made lowercase.
+    id_unidad = models.IntegerField(db_column='ID_UNIDAD', blank=True, null=True)  # Field name made lowercase.
+    kilometraje = models.IntegerField(db_column='KILOMETRAJE', blank=True, null=True)  # Field name made lowercase.
+    fh_alta = models.DateTimeField(db_column='FH_ALTA', blank=True, null=True)  # Field name made lowercase.
+    fh_inicio = models.DateTimeField(db_column='FH_INICIO', blank=True, null=True)  # Field name made lowercase.
+    fh_salida = models.DateTimeField(db_column='FH_SALIDA', blank=True, null=True)  # Field name made lowercase.
+    nombre_entrega = models.CharField(db_column='NOMBRE_ENTREGA', max_length=128, db_collation='utf8_general_ci', blank=True, null=True)  # Field name made lowercase.
+    status = models.IntegerField(db_column='STATUS', blank=True, null=True)  # Field name made lowercase.
+    id_concepto = models.IntegerField(db_column='ID_CONCEPTO', blank=True, null=True)  # Field name made lowercase.
+    cve_concepto = models.CharField(db_column='CVE_CONCEPTO', max_length=32, db_collation='utf8_general_ci', blank=True, null=True)  # Field name made lowercase.
+    desc_concepto = models.CharField(db_column='DESC_CONCEPTO', max_length=128, db_collation='utf8_general_ci', blank=True, null=True)  # Field name made lowercase.
+    id_tipo_concepto = models.IntegerField(db_column='ID_TIPO_CONCEPTO', blank=True, null=True)  # Field name made lowercase.
+    id_categoria = models.IntegerField(db_column='ID_CATEGORIA', blank=True, null=True)  # Field name made lowercase.
+    precio_venta = models.DecimalField(db_column='PRECIO_VENTA', max_digits=18, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+    id_unidad_medida = models.IntegerField(db_column='ID_UNIDAD_MEDIDA', blank=True, null=True)  # Field name made lowercase.
+    id_periodo_km = models.IntegerField(db_column='ID_PERIODO_KM', blank=True, null=True)  # Field name made lowercase.
+    vida_util_km = models.IntegerField(db_column='VIDA_UTIL_KM', blank=True, null=True)  # Field name made lowercase.
+    vida_util_hr = models.IntegerField(db_column='VIDA_UTIL_HR', blank=True, null=True)  # Field name made lowercase.
+    descuento = models.DecimalField(db_column='DESCUENTO', max_digits=18, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+    id_marca = models.IntegerField(db_column='ID_MARCA', blank=True, null=True)  # Field name made lowercase.
+    hora_hombre = models.DecimalField(db_column='HORA_HOMBRE', max_digits=9, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+    cve_usu_alta = models.CharField(db_column='CVE_USU_ALTA', max_length=8, db_collation='utf8_general_ci', blank=True, null=True)  # Field name made lowercase.
+    no_serie = models.CharField(db_column='NO_SERIE', max_length=128, db_collation='utf8_general_ci', blank=True, null=True)  # Field name made lowercase.
+    b_numero_serie = models.IntegerField(db_column='B_NUMERO_SERIE', blank=True, null=True)  # Field name made lowercase.
+    precio_compra = models.DecimalField(db_column='PRECIO_COMPRA', max_digits=18, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+    id_tipo_servicio = models.IntegerField(db_column='ID_TIPO_SERVICIO', blank=True, null=True)  # Field name made lowercase.
+    b_agrega_conceptos = models.CharField(db_column='B_AGREGA_CONCEPTOS', max_length=1, db_collation='utf8_general_ci', blank=True, null=True)  # Field name made lowercase.
+    stock = models.IntegerField(db_column='STOCK', blank=True, null=True)  # Field name made lowercase.
+    desc_tipo_concepto = models.CharField(db_column='DESC_TIPO_CONCEPTO', max_length=32, db_collation='utf8_general_ci', blank=True, null=True)  # Field name made lowercase.
+    b_personal = models.CharField(db_column='B_PERSONAL', max_length=1, db_collation='utf8_general_ci', blank=True, null=True)  # Field name made lowercase.
+    desc_categoria = models.CharField(db_column='DESC_CATEGORIA', max_length=32, db_collation='utf8_general_ci', blank=True, null=True)  # Field name made lowercase.
+    nombre = models.CharField(db_column='NOMBRE', max_length=40, db_collation='utf8_general_ci', blank=True, null=True)  # Field name made lowercase.
+    apellido = models.CharField(db_column='APELLIDO', max_length=40, db_collation='utf8_general_ci', blank=True, null=True)  # Field name made lowercase.
+    nombre_persona = models.CharField(db_column='NOMBRE_PERSONA', max_length=81, db_collation='utf8_general_ci', blank=True, null=True)  # Field name made lowercase.
+    abreb_unidad_medida = models.CharField(db_column='ABREB_UNIDAD_MEDIDA', max_length=81, db_collation='utf8_general_ci', blank=True, null=True)  # Field name made lowercase.
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'w_orden_detalle'

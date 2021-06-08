@@ -1,0 +1,36 @@
+
+table.dataTable td {
+    padding: 6px 5px 2px 5px !important;
+    font-size: 12px !important;
+}
+
+.card-primary {
+    margin : 0 !important;
+}
+
+.card-body {
+    padding-bottom: 0 !important;
+}
+
+.dtRepuestos_wrapper:first-child {
+    height: 20px !important;
+}
+
+.footerSlim {
+    height:35px !important;
+}
+
+.dataTables_filter {
+    float: left !important;
+}
+
+.col-md-6 {
+    margin : auto !important;
+    width: 60% !important;
+}
+.dataTables_length {
+    width : 50px;
+}
+.dataTables_length label{
+    width : 100%;
+}

@@ -14,56 +14,56 @@ function getCookie(name) {
             }
         }
     }
-    console.log({'cookieValue':cookieValue});
     return cookieValue;
 }
+
 // # ***************************************************************************************************************** #
 // # ***************************************************************************************************************** #
-function _ajax(url, parameters, callback){
-    console.log('_ajax->: '+ parameters);
+function _ajax(url, parameters, callback) {
     $.ajax({
-            url: url, //window.location.pathname
-            type: 'POST',
-            beforeSend: function(request) {
-                request.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-            },
-            data: parameters,
-            dataType: 'json'
-            // processData: false,
-            // contentType: false,
-        }).done(function (data) {
-            if (!data.hasOwnProperty('error')) {
-                  if (data.hasOwnProperty('msgInfo')) {
-                      message_info(data.msgInfo, callback, data);
-                      return false;
-                  }
-
-                  if ( data.hasOwnProperty('msgConfirmar') ){
-
-                      message_info(data.msgConfirmar, function (data){
-
-
-                            parameters.set("confirmado", true);
-
-                            _ajax( url, parameters, callback(data));
-                      }, data);
-                      return false;
-                  }
-                  callback(data);
-                  return false;
+        url: url, //window.location.pathname
+        type: 'POST',
+        beforeSend: function (request) {
+            request.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        },
+        data: parameters,
+        dataType: 'json'
+        // processData: false,
+        // contentType: false,
+    }).done(function (data) {
+        if (!data.hasOwnProperty('error')) {
+            if (data.hasOwnProperty('msgInfo')) {
+                message_info(data.msgInfo, callback, data);
+                return false;
             }
 
-            if (data['error'].indexOf('1062') == 1){
-                message_error('Registro duplicado '+ data['info_datos']);
-            } else {
-                message_error(data.error);
-            }
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-            alert(textStatus + ': ' + errorThrown);
-        }).always(function (data) {
+            if (data.hasOwnProperty('msgConfirmar')) {
 
-        });
+                message_info(data.msgConfirmar, function (data) {
+
+
+                    parameters.set("confirmado", true);
+
+                    _ajax(url, parameters, callback(data));
+                }, data);
+                return false;
+            }
+            callback(data);
+            return false;
+        }
+
+        if (data['error'].indexOf('1062') == 1) {
+            message_error('Registro duplicado ' + data['info_datos']);
+        } else {
+            message_error(data.error);
+        }
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        alert(textStatus + ': ' + errorThrown);
+    }).always(function (data) {
+
+    });
 }
+
 // # ***************************************************************************************************************** #
 // # ***************************************************************************************************************** #
 function submit_(url, title, content, parameters, callback) {
@@ -86,7 +86,7 @@ function submit_(url, title, content, parameters, callback) {
                     $.ajax({
                         url: url, //window.location.pathname
                         type: 'POST',
-                        beforeSend: function(request) {
+                        beforeSend: function (request) {
                             request.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
                         },
                         data: parameters,
@@ -95,23 +95,23 @@ function submit_(url, title, content, parameters, callback) {
                         contentType: false,
                     }).done(function (data) {
                         if (!data.hasOwnProperty('error')) {
-                              if (data.hasOwnProperty('msgInfo')) {
+                            if (data.hasOwnProperty('msgInfo')) {
 
-                                  message_info(data.msgInfo, callback, data);
-                                  return false;
-                              }
+                                message_info(data.msgInfo, callback, data);
+                                return false;
+                            }
 
-                              if ( data.hasOwnProperty('msgArchivoCargado') ){
-                                  message_info(data.msgArchivoCargado, function (data){
-                                        parameters.set("sobreescribir", true);
-                                        submit_(window.location.pathname, 'Notificación', '¿Sobre escribir carga anterior? ', parameters, function (data) {
-                                            location.href = '/';
-                                        });
-                                  }, data);
-                                  return false;
-                              }
-                              callback(data);
-                              return false;
+                            if (data.hasOwnProperty('msgArchivoCargado')) {
+                                message_info(data.msgArchivoCargado, function (data) {
+                                    parameters.set("sobreescribir", true);
+                                    submit_(window.location.pathname, 'Notificación', '¿Sobre escribir carga anterior? ', parameters, function (data) {
+                                        location.href = '/';
+                                    });
+                                }, data);
+                                return false;
+                            }
+                            callback(data);
+                            return false;
                         }
                         message_error(data.error);
                     }).fail(function (jqXHR, textStatus, errorThrown) {
@@ -131,6 +131,7 @@ function submit_(url, title, content, parameters, callback) {
         }
     })
 }
+
 // # ***************************************************************************************************************** #
 // # ***************************************************************************************************************** #
 function ajax_confirm(url, title, content, parameters, callback) {
@@ -153,7 +154,7 @@ function ajax_confirm(url, title, content, parameters, callback) {
                     $.ajax({
                         url: url, //window.location.pathname
                         type: 'POST',
-                        beforeSend: function(request) {
+                        beforeSend: function (request) {
                             request.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
                         },
                         data: parameters,
@@ -183,6 +184,7 @@ function ajax_confirm(url, title, content, parameters, callback) {
         }
     })
 }
+
 // # ***************************************************************************************************************** #
 // # ***************************************************************************************************************** #
 function message_info(obj, callback, data) {
@@ -202,11 +204,12 @@ function message_info(obj, callback, data) {
         icon: 'info',
         confirmButtonText: 'Aceptar',
         allowOutsideClick: false
-    }).then( function(result){
-            if (callback != null)
-                callback(data);
-          });
+    }).then(function (result) {
+        if (callback != null)
+            callback(data);
+    });
 }
+
 // # ***************************************************************************************************************** #
 // # ***************************************************************************************************************** #
 function message_error(obj) {
@@ -227,6 +230,7 @@ function message_error(obj) {
     });
 
 }
+
 // # ***************************************************************************************************************** #
 // # ***************************************************************************************************************** #
 function message_error_callback(obj, callback) {
@@ -244,9 +248,12 @@ function message_error_callback(obj, callback) {
         title: 'Error!',
         html: html,
         icon: 'error'
-    }).then(function(result) { callback(result) });
+    }).then(function (result) {
+        callback(result)
+    });
 
 }
+
 // # ***************************************************************************************************************** #
 // # ***************************************************************************************************************** #
 function confirmar_accion(title, content, callback) {
@@ -278,6 +285,7 @@ function confirmar_accion(title, content, callback) {
         }
     })
 }
+
 // # ***************************************************************************************************************** #
 // # ***************************************************************************************************************** #
 
@@ -306,8 +314,8 @@ function submit_with_ajax(url, title, content, parameters, callback) {
                         },
                         data: parameters,
                         dataType: 'json',
-                        processData: false,
-                        contentType: false,
+                        dataSrc: "",
+                        processData: false
                     }).done(function (data) {
                         //console.log(data);
                         if (!data.hasOwnProperty('error')) {
@@ -332,6 +340,35 @@ function submit_with_ajax(url, title, content, parameters, callback) {
         }
     })
 }
+
+// # ***************************************************************************************************************** #
+// # ***************************************************************************************************************** #
+function submit_with_ajax_action(parameters, callback) {
+    $.ajax({
+        url: window.location.pathname,
+        type: 'POST',
+        beforeSend: function (request) {
+            request.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        },
+        data: parameters,
+        dataType: 'json',
+        dataSrc: "",
+        // processData: false
+    }).done(function (response) {
+        console.log({"dataRespons": response});
+        if (!response.hasOwnProperty('error')) {
+            callback(response);
+            return false;
+        }
+        message_error(response.error);
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        alert(textStatus + ': ' + errorThrown);
+    }).always(function (response) {
+
+    });
+
+}
+
 
 // # ***************************************************************************************************************** #
 // # ***************************************************************************************************************** #
