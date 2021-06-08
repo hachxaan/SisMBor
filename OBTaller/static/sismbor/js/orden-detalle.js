@@ -28,8 +28,8 @@ $(function () {
         console.log(_parameters)
         if (v_tx_referencia.length > 0) {
             _ajax(window.location.pathname, _parameters, function (data) {
-                $(cNameDT_OrdenDetalle).DataTable().ajax.reload();
-                $("#edtTxReferencia").empty()
+                ajax_reload(cNameDT_OrdenDetalle);
+                $("#edtTxReferencia").empty();
                 $("#TxReferenciaModal").modal('hide');
             });
         } else {
@@ -63,7 +63,7 @@ $(function () {
         console.log(_parameters)
         if (v_NoSerie.length > 0) {
             _ajax(window.location.pathname, _parameters, function (data) {
-                $(cNameDT_OrdenDetalle).DataTable().ajax.reload();
+                ajax_reload(cNameDT_OrdenDetalle);
                 $("#edtNoSerie").empty()
                 $("#NoSerieModal").modal('hide');
             });
@@ -99,7 +99,7 @@ $(function () {
         console.log(_parameters)
         if (v_Personal.length > 0) {
             _ajax(window.location.pathname, _parameters, function (data) {
-                $(cNameDT_OrdenDetalle).DataTable().ajax.reload();
+                ajax_reload(cNameDT_OrdenDetalle);
                 // $("#cbPersonal").empty()
                 $("#PersonalModal").modal('hide');
             });
@@ -121,7 +121,7 @@ $(function () {
         }
 
         submit_with_ajax_action(parameters, function (response) {
-            $(cNameDT_OrdenDetalle).DataTable().ajax.reload();
+            ajax_reload(cNameDT_OrdenDetalle);
         });
     }
 

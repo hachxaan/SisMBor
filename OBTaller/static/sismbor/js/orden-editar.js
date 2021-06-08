@@ -84,12 +84,10 @@ $(function () {
 
     /******************************************************************************************************************/
     function ajaxReaod() {
-
-        $(cNameDT_Repuestos).DataTable().ajax.reload();
-        $(cNameDT_Mantenimiento).DataTable().ajax.reload();
-        $(cNameDT_ManoObra).DataTable().ajax.reload();
-        $(cNameDT_OrdenDetalle).DataTable().ajax.reload();
-
+        ajax_reload(cNameDT_Repuestos);
+        ajax_reload(cNameDT_Mantenimiento);
+        ajax_reload(cNameDT_ManoObra);
+        ajax_reload(cNameDT_OrdenDetalle);
     }
 
     /******************************************************************************************************************/
@@ -115,8 +113,9 @@ $(function () {
         console.log(_parameters)
         if (v_tx_referencia.length > 0) {
             _ajax(window.location.pathname, _parameters, function (data) {
-                $(cNameDT_OrdenDetalle).DataTable().ajax.reload();
-                $("#edtTxReferencia").empty()
+
+                ajax_reload(cNameDT_OrdenDetalle);
+                $("#edtTxReferencia").empty();
                 $("#TxReferenciaModal").modal('hide');
             });
         } else {
@@ -150,7 +149,7 @@ $(function () {
         console.log(_parameters)
         if (v_NoSerie.length > 0) {
             _ajax(window.location.pathname, _parameters, function (data) {
-                $(cNameDT_OrdenDetalle).DataTable().ajax.reload();
+                ajax_reload(cNameDT_OrdenDetalle);
                 $("#edtNoSerie").empty()
                 $("#NoSerieModal").modal('hide');
             });
@@ -186,8 +185,7 @@ $(function () {
         console.log(_parameters)
         if (v_Personal.length > 0) {
             _ajax(window.location.pathname, _parameters, function (data) {
-                $(cNameDT_OrdenDetalle).DataTable().ajax.reload();
-                // $("#cbPersonal").empty()
+                ajax_reload(cNameDT_OrdenDetalle);
                 $("#PersonalModal").modal('hide');
             });
         } else {

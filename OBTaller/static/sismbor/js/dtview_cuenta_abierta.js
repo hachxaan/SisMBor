@@ -208,7 +208,7 @@ $(function () {
     });
 
     $('.filtros').on('change', function (event) {
-        $('#dataTables4').DataTable().ajax.reload();
+        ajax_reload('dataTables4');
         if ($(this).is(":checked")) var valor = '1'; else var valor =  '0';
         setParametro( '../parametros/', $(this).data('cve_parametro'), valor);
     });
