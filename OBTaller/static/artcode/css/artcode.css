@@ -7,3 +7,20 @@
     padding-top: 2px !important;
     padding-bottom: 2px !important;
 }
+
+.status {
+    margin-top: 5px;
+    padding-top: 9px;
+    height: 30px;
+    width: 100%;
+}
+
+.status_table {
+    padding-top: 9px;
+    height: 30px;
+    width: 100%;
+}
+
+.fh_info {
+    font-size: small;
+}

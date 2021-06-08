@@ -258,13 +258,13 @@ $(function () {
 
 
         function ShowOrdeEdita(columns, aIdTipoConcepto, aNameDataTable) {
-            $.fn.dataTable.ext.buttons.aceptar = {
-                text: '<span class="far fa-file-excel"></span> Aceptar',
-                className: "btn btn-secondary actionBtnExcel",
-                init: function (api, node, config) {
-                    $(node).removeClass('dt-button ');
-                }
-            };
+            // $.fn.dataTable.ext.buttons.aceptar = {
+            //     text: '<span class="far fa-file-excel"></span> Aceptar',
+            //     className: "btn btn-secondary actionBtnExcel",
+            //     init: function (api, node, config) {
+            //         $(node).removeClass('dt-button ');
+            //     }
+            // };
             $(aNameDataTable).DataTable({
                 language: {
                     url: '../../static/libs/datatables-es_orde-editar.json'

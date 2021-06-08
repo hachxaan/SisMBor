@@ -1,5 +1,7 @@
 $(function () {
     "use strict"
+
+
     $('#dataTables4').DataTable({
         // deferRender: true,
         language: {
@@ -15,7 +17,7 @@ $(function () {
         destroy: true,
         hover: true,
         select: true,
-        // dom: '',
+        dom: '<"status_filter">flrtip',
         ajax: {
             url: window.location.pathname,
             type: 'POST',
@@ -50,13 +52,21 @@ $(function () {
             orderable: false,
             render: function (data, type, row) {
                 var EditarTrabajoEnabled = 'disabled bg-gradient-secundary';
-                if (parseInt(row['status']) <= 1){ EditarTrabajoEnabled = 'bg-gradient-info'; }
+                if (parseInt(row['status']) <= 1) {
+                    EditarTrabajoEnabled = 'bg-gradient-info';
+                }
                 var IniciaTrabajoEnabled = 'disabled bg-gradient-secundary';
-                if (row['status'] == '0'){ IniciaTrabajoEnabled = 'bg-gradient-primary'; }
+                if (row['status'] == '0') {
+                    IniciaTrabajoEnabled = 'bg-gradient-primary';
+                }
                 var TerminaTrabajoEnabled = 'disabled bg-gradient-secundary';
-                if (row['status'] == '1'){ TerminaTrabajoEnabled = 'bg-gradient-success'; }
+                if (row['status'] == '1') {
+                    TerminaTrabajoEnabled = 'bg-gradient-success';
+                }
                 var CancelarTrabajoEnabled = 'disabled bg-gradient-secundary';
-                if (parseInt(row['status']) <= 1){ CancelarTrabajoEnabled = 'bg-gradient-danger'; }
+                if (parseInt(row['status']) <= 1) {
+                    CancelarTrabajoEnabled = 'bg-gradient-danger';
+                }
 
                 if (parseInt(row['status']) <= 1) {
                     var buttons =
@@ -67,19 +77,19 @@ $(function () {
                             </button>
                             <div class="dropdown-menu" role="menu" style="">
                                 <!-- E D I T A R -->
-                                <a data-folio=${ row['folio'] } class="${ EditarTrabajoEnabled } dropdown-item btn-block btn" id="btnEditaTrabajo"><i class="fas fa-plus"></i>Agregar Conceptos</a>
+                                <a data-folio=${row['folio']} class="${EditarTrabajoEnabled} dropdown-item btn-block btn" id="btnEditaTrabajo"><i class="fas fa-plus"></i>Agregar Conceptos</a>
                                 <div class="dropdown-divider"></div>
                                 <!-- I N I C I A R -->
-                                <a data-folio=${ row['folio'] } class="${IniciaTrabajoEnabled} dropdown-item btn-block btn" id="btnIniciaTrabajo"><i class="fas fa-play-circle"></i>Inicia trabajo</a>
+                                <a data-folio=${row['folio']} class="${IniciaTrabajoEnabled} dropdown-item btn-block btn" id="btnIniciaTrabajo"><i class="fas fa-play-circle"></i>Inicia trabajo</a>
                                 <!-- T E R M I N R -->
-                                <a data-folio=${ row['folio'] } class="${TerminaTrabajoEnabled} dropdown-item btn-block btn" id="btnTerminaTrabajo"><i class="fas fa-check-circle"></i>Termina trabajo</a>
+                                <a data-folio=${row['folio']} class="${TerminaTrabajoEnabled} dropdown-item btn-block btn" id="btnTerminaTrabajo"><i class="fas fa-check-circle"></i>Termina trabajo</a>
                                 <div class="dropdown-divider"></div>
                                 <!-- C A N C E L A R -->
-                                <a data-folio=${ row['folio'] } class="${CancelarTrabajoEnabled} dropdown-item btn-block btn" id="btnCancelarTrabajo"><i class="fas fa-ban"></i>Cancelar orden</a>
+                                <a data-folio=${row['folio']} class="${CancelarTrabajoEnabled} dropdown-item btn-block btn" id="btnCancelarTrabajo"><i class="fas fa-ban"></i>Cancelar orden</a>
                             </div>
                           </div>`;
                 } else {
-                     var buttons =
+                    var buttons =
                         `<div class="btn-group-lg">
                             <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-briefcase"></i>
@@ -87,7 +97,7 @@ $(function () {
                             </button>
                             <div class="dropdown-menu" role="menu" style="">
                                 <!-- DETALLE -->
-                                <a data-folio=${ row['folio'] } class="bg-gradient-info dropdown-item btn-block btn"><i class="fas fa-edit"></i>  Detalle</a>
+                                <a data-folio=${row['folio']} class="bg-gradient-info dropdown-item btn-block btn" id="btnDetalle"><i class="fas fa-edit"></i>  Detalle</a>
                             </div>
                           </div>`;
                 }
@@ -109,21 +119,25 @@ $(function () {
                 targets: [2],
                 render: function (data, type, row) {
 
-                    switch (row['status']) {
+                    switch (parseInt(row['status'])) {
                         case 0: {
-                            return `<span class="badge badge-warning">${data}</span>`
+                            return `<span class="status_table badge badge-warning">${data}</span>
+                                    <br><span class="fh_info"> ${row['fh_registro']}</span>`
                             break;
                         }
                         case 1: {
-                            return `<span class="badge badge-info">${data}</span>`
+                            return `<span class="status_table badge badge-info">${data}</span>
+                                    <br><span class="fh_info"> ${row['fh_inicio']}</span>`
                             break;
                         }
                         case 2: {
-                            return `<span class="badge badge-success">${data}</span>`
+                            return `<span class="status_table badge badge-success">${data}</span>
+                                    <br><span class="fh_info"> ${row['fh_salida']}</span>`
                             break;
                         }
                         case 3: {
-                            return `<span class="badge badge-danger">${data}</span>`
+                            return `<span class="status_table badge badge-danger">${data}</span>
+                                    <br><span class="fh_info"> ${row['fh_cancela']}</span>`
                             break;
                         }
                     }
@@ -167,7 +181,7 @@ $(function () {
 
             $(document).on("click", "a[id^=btnEditaTrabajo]", function (event) {
                 let folio = $(this).data('folio');
-                location.href =  `ordeneditar/?folio=${ folio }`;
+                location.href = `ordeneditar/?folio=${folio}`;
             });
 
             $(document).on("click", "a[id^=btnIniciaTrabajo]", function (event) {
@@ -182,47 +196,43 @@ $(function () {
                 let folio = $(this).data('folio');
                 UpdSitStatus(folio, 3)
             });
+            $(document).on("click", "a[id^=btnDetalle]", function (event) {
+                let folio = $(this).data('folio');
+                location.href = `ordendetalle/?folio=${folio}`
+            });
 
-            // $(document).on("click", "a[id^=btnEliminar]", function (event) {
-            //     var idrenc = $(this).data('idrenc');
-            //     var parameters = {'idrenc': idrenc, 'index': $(this).data('index')};
-            //     ajax_confirm("cbrenca/del/", 'Confirmación',
-            //         `¿Eliminar la conciliación ${$(this).data('idrenc')}?`, parameters,
-            //         function (response) {
-            //             if (response.hasOwnProperty('info')) {
-            //                 message_info(response['info'], null, null)
-            //                 return false;
-            //             }
-            //             location.href = '/';
-            //             return true;
-            //         });
-            // });
+            $(".status_filter").html(`<div class="filtros-status"></div>`);
+
 
         }
     });
 
+    $('.filtros').on('change', function (event) {
+        $('#dataTables4').DataTable().ajax.reload();
+        if ($(this).is(":checked")) var valor = '1'; else var valor =  '0';
+        setParametro( '../parametros/', $(this).data('cve_parametro'), valor);
+    });
 
-    // $.fn.dataTable.ext.search.push(
-    //     function (settings, searchData, index, rowData, counter) {
-    //
-    //         if ($('#cbox_conciliados').is(":checked")) {
-    //             return (rowData['status'] <= 4)
-    //         } else {
-    //             return (rowData['status'] <= 3);
-    //
-    //         }
-    //     }
-    // );
+    $.fn.dataTable.ext.search.push(
+        function (settings, searchData, index, rowData, counter) {
+            var EnProceso, Terminados, Cancelados = false;
+            EnProceso = $('#chkEnProceso').is(":checked")  && (parseInt(rowData['status']) < 2) ;
+            Terminados = $('#chkTerminados').is(":checked")  && (parseInt(rowData['status']) == 2) ;
+            Cancelados = $('#chkCancelados').is(":checked")  && (parseInt(rowData['status']) == 3) ;
+            return EnProceso || Terminados || Cancelados;
+
+        }
+    );
 
 });
 
-    function UpdSitStatus( folio, status ){
-        let parameters = {"folio": folio, "status": status }
-        console.log(parameters);
-        //?folios=${folio}&statuses=${status}
-        submit_with_ajax_json(`../stp/updsitorden/`, 'Notificación', '¿Inician los trabajos de la orden?', parameters, function (response) {
-            var table = $('#dataTables4').DataTable();
-            table.ajax.reload();
-            // location.href =  '../operacion/';
-        });
-    }
+function UpdSitStatus(folio, status) {
+    let parameters = {"folio": folio, "status": status}
+    console.log(parameters);
+    //?folios=${folio}&statuses=${status}
+    submit_with_ajax_json(`../stp/updsitorden/`, 'Notificación', '¿Inician los trabajos de la orden?', parameters, function (response) {
+        var table = $('#dataTables4').DataTable();
+        table.ajax.reload();
+        // location.href =  '../operacion/';
+    });
+}

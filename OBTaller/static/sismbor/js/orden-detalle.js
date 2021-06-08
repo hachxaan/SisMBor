@@ -232,12 +232,17 @@ $(function () {
                     class: 'text-center',
                     orderable: false,
                     render: function (data, type, row) {
-                        var
+
                             // buttons  = `<input id="edtKilometraje" type="number" step="1" class="form-control">`;
                             // buttons += '<a href="operacion/ordeneditar/delete/' + row.id_concepto + '/"               class="btn btn-danger btn-xs btn-flat"><i class="fas fa-minus-circle"></i></a> ';
-                            buttons = `<a  
-                                          data-id_orden_detalle=${row['id_orden_detalle']} 
-                                        type="button" class="btn btn-danger btn-xs btn-flat" id="btnQuitaConcepto"><i class="fas fa-minus-circle"></i></a>`;
+                            if (parseInt(row['status']) < 2){
+                                var buttons = `<a
+                                                data-id_orden_detalle=${row['id_orden_detalle']} 
+                                                type="button" class="btn btn-danger btn-xs btn-flat" id="btnQuitaConcepto"><i class="fas fa-minus-circle"></i></a>`;
+                            } else {
+                                var buttons = '';
+                            }
+
                         return buttons;
                     }
                 },

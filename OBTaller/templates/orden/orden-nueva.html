@@ -19,13 +19,13 @@
 
 
                     {% csrf_token %}
-                    <input type="hidden" name="id_unidad" id="edtUnidad" value="0">
+                    <input type="hidden" name="id_unidad" id="id_unidad" value="0">
                     <div class="card-body">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text bg-primary">Placa</span>
                             </div>
-                            <input id="edtPlaca" name="placa" type="text" class="form-control uppercase" required
+                            <input id="placa" name="placa" type="text" class="form-control uppercase" required
                                    placeholder="ABC-123" value="{{ placa }}">
                             <span class="input-group-append">
 {#                                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#NuevoConceptoCategoria" data-id_tipo_concepto="2" data-whatever="@fat"> Agregar categoria de mano de obra </button>#}
@@ -40,7 +40,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text bg-primary">Kilometraje</span>
                             </div>
-                            <input name="kilometraje" id="edtKilometraje" type="number" step="1" class="form-control"
+                            <input name="kilometraje" id="kilometraje" type="number" step="1" class="form-control"
                                    required placeholder="Kilometraje actual">
                         </div>
 
@@ -48,7 +48,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text bg-primary">Operador</span>
                             </div>
-                            <input name="nombre_entrega" id="edtOperador" type="text" class="form-control" required
+                            <input name="nombre_entrega" id="nombre_entrega" type="text" class="form-control" required
                                    placeholder="Nombre de quien entrega la unidad">
                         </div>
                         <div class="d-flex flex-row-reverse">

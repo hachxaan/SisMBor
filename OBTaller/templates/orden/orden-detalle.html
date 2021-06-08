@@ -12,29 +12,61 @@
     <div class="col-12">
         <div class="card card-primary">
             <div class="card-header row pb-0">
-                <div class="col-md-2 col-sm-12">
-                    <a href="{% url 'OBTaller:panel-operacion' %}" class="btn btn-secondary "> <i class="fas fa-backward"> Regresar</i></a>
+                <div class="col-md-1 col-sm-12 pt-2" >
+                    <a href="{% url 'OBTaller:panel-operacion' %}" class="btn btn-secondary "> <i
+                            class="fas fa-backward"> Regresar</i></a>
+                    <span class="status badge badge-{{ status_tipo }}">{{ status_desc }}</span>
                 </div>
-                <div class="col-md-10">
-                    <div class="col-md-6 form-group row">
+                <div class="col-md-4 col-sm-12">
+                    <div class="form-group row">
                         <label for="placa" class="col-sm-2 col-form-label">Placa</label>
-                        <div class="col-sm-4">
-                            <input value="{{ placa }}" name="placa" readonly type="text" class="form-control" id="edtPlaca" >
+                        <div class="col-4">
+                            <input value="{{ placa }}" name="placa" readonly type="text" class="form-control"
+                                   id="edtPlaca">
                         </div>
                         <label for="kilometraje" class="col-sm-2 col-form-label">Km</label>
-                        <div class="col-sm-4">
-                            <input value="{{ kilometraje }}" name="kilometraje" readonly type="text" class="form-control" id="edtKilometraje" >
+                        <div class="col-4">
+                            <input value="{{ kilometraje }}" name="kilometraje" readonly type="text"
+                                   class="form-control" id="edtKilometraje">
                         </div>
                     </div>
-                    <div class="col-md-6 form-group row">
+                    <div class="form-group row">
                         <label for="cliente" class="col-sm-2 col-form-label">Cliente</label>
                         <div class="col-sm-10">
-                            <input value="{{ cliente }}" readonly name="cliente" type="text" class="form-control" id="edtCliente" >
+                            <input value="{{ cliente }}" readonly name="cliente" type="text" class="form-control"
+                                   id="edtCliente">
                         </div>
                     </div>
 
                 </div>
-
+                <div class="col-md-3 col-sm-12">
+                    <div class="form-group row">
+                        <label for="inicio" class="col-sm-4 col-form-label">Inició</label>
+                        <div class="col-sm-8">
+                            <input value="{{ fh_inicio }}" readonly name="fh_inicio" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="termino" class="col-sm-4 col-form-label">Terminó</label>
+                        <div class="col-sm-8">
+                            <input value="{{ fh_salida }}" readonly name="fh_salida" type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <div class="form-group row">
+                        <label for="folio" class="col-sm-4 col-form-label">Folio</label>
+                        <div class="col-sm-8">
+                            <input value="{{ folio }}" readonly name="folio" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="usuario" class="col-sm-4 col-form-label">Usuario</label>
+                        <div class="col-sm-8">
+                            <input value="{{ usu_alta }}" readonly name="usuario" type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
 
 
             </div>
@@ -64,9 +96,10 @@
             <div class="card-footer">
                 {% block buttons_list %}
                     {% if status < 2 %}
-                    <a href="{% url 'OBTaller:editar_order'%}?folio={{ orden.folio }}" class="btn btn-info btn-flat btnTest">
-                        <i class="fas fa-plus"></i> Agragar Conceptos
-                    </a>
+                        <a href="{% url 'OBTaller:editar_order' %}?folio={{ orden.folio }}"
+                           class="btn btn-info btn-flat btnTest">
+                            <i class="fas fa-plus"></i> Agragar Conceptos
+                        </a>
                     {% endif %}
                     <a href="{{ list_url }}" class="btn btn-success btn-flat">
                         <i class="fas fa-sync"></i> Actualizar

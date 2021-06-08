@@ -68,7 +68,7 @@ $(function () {
 
         if ($($(this).parent()).hasClass('selected')) {
             let placa = $(table.cells(rowIdx, 2).nodes()).text();
-            $("#edtPlaca").val(placa);
+            $("#placa").val(placa);
             pValidaPlaca(placa);
             $("#BuscarUnidadModal").modal('hide');
 

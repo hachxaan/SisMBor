@@ -4,13 +4,14 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
+from OBTaller.models import Parametros
 from OBTaller.views.StoreProcedures import StpInsOrden
 from OBTaller.views.cliente.views import ClienteListView, ClienteCreateView, ClienteUpdateView, ClienteDeleteView
 from OBTaller.views.manobra.views import ManobraListView, ManobraCreateView, ManobraUpdateView, ManobraDeleteView
 from OBTaller.views.personal.views import PersonalListView, PersonalCreateView, PersonalUpdateView, PersonalDeleteView
 from OBTaller.views.unidad.views import UnidadListView, UnidadCreateView, UnidadUpdateView, UnidadDeleteView
 from OBTaller.views.views import login, addConceptoCategoria, addTipoServicio, \
-    getInfoUnidad
+    getInfoUnidad, SetParametros
 
 from OBTaller.views.orden_view import WCuentaAbiertaListView, OrdenNuevaView, UpdSitOrden, OrdenListaEditar, \
     OrdenListaDetalle
@@ -22,6 +23,7 @@ urlpatterns=[
 
     path( '', WCuentaAbiertaListView.as_view(), name='panel-operacion' ),
     path( '', login, name='login' ),
+    path( 'parametros/', SetParametros, name='parametros' ),
     path( 'operacion/', WCuentaAbiertaListView.as_view(), name='panel-operacion' ),
     path( 'ordennueva/', OrdenNuevaView, name='orden_nueva' ),
     path( 'ordennueva/getInfoUnidad/', getInfoUnidad, name='get_info_unidad' ),

@@ -1,9 +1,11 @@
 from django.db import connection
 from django.http import JsonResponse
 
+from OBTaller.models import Unidad
+
 
 def StpInsOrden(request):
-    peID_UNIDAD = request.POST.get('id_unidad')
+    placa = request.POST.get('placa')
     peKILOMETRAJE = request.POST.get('kilometraje')
     peCVE_USU_ALTA = request.user.username;
     peNOMBRE_ENTREGA =  request.POST.get('nombre_entrega')
@@ -13,6 +15,8 @@ def StpInsOrden(request):
     psSTR_RESP = ''
     try:
         try:
+            DataSet = Unidad.objects.filter(placa=placa).values( 'id_unidad')
+            peID_UNIDAD = DataSet[0]['id_unidad']
             cursor.callproc('StpInsertaOrden', [peID_UNIDAD, peKILOMETRAJE, peCVE_USU_ALTA, peNOMBRE_ENTREGA, peTX_REFERENCIA, psSTR_RESP])
 
             # cursor.execute('SELECT @StpInsertaOrden')

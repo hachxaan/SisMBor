@@ -433,7 +433,10 @@ class WCuentaAbierta(models.Model):
     cliente = models.CharField(db_column='Cliente', max_length=64, blank=True, null=True)  
     cuenta = models.DecimalField(db_column='Cuenta', max_digits=18, decimal_places=2)  
     fh_registro = models.CharField(db_column='FH_REGISTRO', max_length=19, blank=True, null=True)  
-    status = models.IntegerField(db_column='STATUS', blank=True, null=True)  
+    fh_inicio = models.CharField(db_column='FH_INICIO', max_length=19, blank=True, null=True)
+    fh_salida = models.CharField(db_column='FH_SALIDA', max_length=19, blank=True, null=True)
+    fh_cancela = models.CharField(db_column='FH_CANCELA', max_length=19, blank=True, null=True)
+    status = models.IntegerField(db_column='STATUS', blank=True, null=True)
     desc_status=models.CharField( db_column='DESC_STATUS', max_length=31, blank=True);
 
 
@@ -574,3 +577,11 @@ class WOrdenDetalle(models.Model):
     class Meta:
         managed = False  # Created from a view. Don't remove.
         db_table = 'w_orden_detalle'
+
+class Parametros(models.Model):
+    cve_parametro = models.CharField(primary_key=True, max_length=128)
+    valor = models.CharField(max_length=512, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'parametros'

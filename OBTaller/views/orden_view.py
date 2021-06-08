@@ -8,7 +8,8 @@ from django.utils.decorators import method_decorator
 from django.views.generic import ListView
 
 from OBTaller import forms
-from OBTaller.models import WCuentaAbierta, Orden, WConceptosMain, OrdenDetalle, Concepto, WOrdenDetalle, Personal
+from OBTaller.models import WCuentaAbierta, Orden, WConceptosMain, OrdenDetalle, Concepto, WOrdenDetalle, Personal, \
+    Parametros
 
 
 def UpdSitOrden(request):
@@ -336,11 +337,39 @@ class OrdenListaDetalle( ListView ):
         context['escritorio']='active'
         context['personal']= Personal.objects.all();
         folio= self.request.GET['folio']
-        dataSet = WCuentaAbierta.objects.filter(folio=folio).values('status', 'placa', 'cliente', 'kilometraje' )
+        dataSet = WCuentaAbierta.objects.filter(folio=folio).values('status',
+                                                                    'placa',
+                                                                    'cliente',
+                                                                    'kilometraje',
+                                                                    'folio',
+                                                                    'usu_alta',
+                                                                    'fh_inicio',
+                                                                    'fh_salida',
+
+                                                                    )
+        status = dataSet[0]['status'];
+        if (status == 0):
+            context['status_tipo'] = 'warning'
+            context['status_desc']='PENDIENTE'
+        if (status == 1):
+            context['status_tipo']='info'
+            context['status_desc']='TRABAJANDO'
+        if (status == 2):
+            context['status_tipo']='success'
+            context['status_desc']='TERMINADO'
+
+        if (status == 3):
+            context['status_tipo']='danger'
+            context['status_desc']='CANCELADO'
+
         context['placa'] =dataSet[0]['placa']
         context['cliente'] =dataSet[0]['cliente']
         context['kilometraje'] =dataSet[0]['kilometraje']
-        context['status'] =dataSet[0]['status']
+        context['status'] =status
+        context['folio']=dataSet[0]['folio']
+        context['usu_alta']=dataSet[0]['usu_alta']
+        context['fh_inicio']=dataSet[0]['fh_inicio']
+        context['fh_salida']=dataSet[0]['fh_salida']
 
 
         return context
@@ -365,16 +394,34 @@ class WCuentaAbiertaListView( ListView ):
                     item=i.toJSON()
                     data.append( item )
                     position+=1
+            if action == 'setStatusFiltro':
+                cve_parametro=request.POST['cve_parametro']
+                valor=request.POST['valor']
 
-            else:
-                data['error']='Ha ocurrido un error'
+
+
+            # else:
+            #     data['error']='Ha ocurrido un error'
         except Exception as e:
             data['error']=str( e )
         return JsonResponse( data, safe=False )
 
     def get_context_data(self, **kwargs):
         context=super().get_context_data( **kwargs )
-        context['title']='Ordenes de taller activas'
+
+
+
+        Parametro=Parametros.objects.get(cve_parametro='status_filtro_enproceso')
+        if (Parametro.valor== '1'):
+            context['status_filtro_enproceso']='checked'
+        Parametro=Parametros.objects.get( cve_parametro='status_filtro_terminado' )
+        if (Parametro.valor == '1'):
+            context['status_filtro_terminado']='checked'
+        Parametro=Parametros.objects.get( cve_parametro='status_filtro_cancelado' )
+        if (Parametro.valor == '1'):
+            context['status_filtro_cancelado']='checked'
+
+        context['title']='Ordenes de taller'
         context['escritorio']='active'
         context['icono']='fa-desktop'
         return context

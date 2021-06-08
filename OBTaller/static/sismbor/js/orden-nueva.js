@@ -4,11 +4,19 @@ $(function () {
         console.log('ready...302');
             e.preventDefault();
             console.log('ready...303');
-            var parameters = new FormData(this);
+            // var parameters = new FormData(this);
+            var placa = $('#placa').val();
+            var kilometraje = $('#kilometraje').val();
+            var nombre_entrega = $('#nombre_entrega').val();
+            var parameters = {"placa": placa, "kilometraje" : kilometraje, "nombre_entrega": nombre_entrega}
             console.log('parameters: ', parameters)
-            submit_with_ajax('../stp/insorden/', 'Notificación', '¿Estas seguro de realizar la siguiente acción?', parameters, function (response) {
-                location.href =  '../operacion/';
+
+            _ajax('../stp/insorden/', parameters, function(response){
+                 location.href =  '../operacion/';
             });
+            // submit_('../stp/insorden/', 'Notificación', '¿Crear nueva orde? Placa: '+placa, parameters, function (response) {
+            //     location.href =  '../operacion/';
+            // });
         });
     $("#edtPlaca").change(function (e) {
         pValidaPlaca($(this).val());

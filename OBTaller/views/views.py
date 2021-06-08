@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView
 from OBTaller.forms import UnidadForm
-from OBTaller.models import WCuentaAbierta, Unidad, WcUnidad, ConceptoCategoria, TipoServicio, Cliente
+from OBTaller.models import WCuentaAbierta, Unidad, WcUnidad, ConceptoCategoria, TipoServicio, Cliente, Parametros
 
 
 def addConceptoCategoria(request):
@@ -45,6 +45,22 @@ def addTipoServicio(request):
 
 
 
+def SetParametros(request):
+    if request.method == 'POST':
+        data={}
+        try:
+            action=request.POST['action']
+            if action == 'SetParametro':
+                valor=request.POST['valor']
+                cve_parametro=request.POST['cve_parametro']
+                data=[]
+                parametro=Parametros.objects.get(cve_parametro=cve_parametro)
+                parametro.valor=valor
+                parametro.save()
+        except Exception as e:
+            data['error']=str( e )
+        return JsonResponse( data, safe=False )
+
 
 def getInfoUnidad(request):
 
@@ -63,70 +79,6 @@ def getInfoUnidad(request):
         except Exception as e:
             data['error']=str( e )
         return JsonResponse( data, safe=False )
-
-
-#
-# class UnidadView( LoginRequiredMixin, ListView ):
-#     template_name='catalogos/unidad-list.html'
-#     context_object_name='unidad_list'
-#
-#     def get_object(self):
-#         id_unidad=self.kwargs.get( 'id_unidad' )
-#         return get_object_or_404( WcUnidad , id_unidad=id_unidad )
-#
-#     def get_queryset(self):
-#         return WcUnidad.objects.all()
-#     def get_context_data(self, **kwargs):
-#         context=super().get_context_data( **kwargs )
-#         context['catalogos']='menu-is-opening menu-open'
-#         context['unidades']='active'
-#         # context['cliente']=
-#         return context
-#
-#
-# class UnidadDetailView( DetailView ):
-#     model=Unidad
-#     template_name='catalogos/unidad-detail.html'
-#
-#     def get_object(self):
-#         id_unidad=self.kwargs.get( 'id_unidad' )
-#         return get_object_or_404( Unidad, id_unidad=id_unidad )
-#
-# def Unidadcreate(request):
-#     if request.method == 'POST':
-#         form = UnidadForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('OBTaller:unidad-list')
-#     form = UnidadForm()
-#     def get_context_data(self, **kwargs):
-#         context=super().get_context_data( **kwargs )
-#         return context
-#
-#     return render(request, 'catalogos/unidad-create.html', {'form': form})
-#
-# def Unidadedit(request, id_unidad, template_name='catalogos/unidad-edit.html'):
-#     unidad = get_object_or_404(Unidad, id_unidad=id_unidad)
-#     form = UnidadForm(request.POST or None, instance=unidad)
-#
-#
-#     if form.is_valid():
-#         form.save()
-#         return redirect('OBTaller:unidad-list')
-#     return render(request, template_name, {'form':form})
-#
-# def Unidaddelete(request, id_unidad, template_name='catalogos/confirm_delete.html'):
-#     unidad = get_object_or_404(Unidad, id_unidad=id_unidad)
-#     if request.method=='POST':
-#         unidad.delete()
-#         return redirect('OBTaller:unidad-list')
-#     return render(request, template_name, {'object':unidad})
-
-
-
-
-
-
 
 
 
