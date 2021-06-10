@@ -1,0 +1,86 @@
+{% extends '../Classes/list.html' %}
+{% load static %}
+{% block head_list %}
+    <link rel="stylesheet" href="{% static 'sismbor/css/inventario.css' %}">
+{% endblock %}
+
+{% block columns %}
+    <tr>
+
+        <th scope="col" style="width: 3%;">ID</th>
+        <th scope="col" style="width: 5%;">Clave</th>
+        <th scope="col" style="width: 2%;">U/Medida</th>
+        <th scope="col" style="width: 20%;">Descripción</th>
+        <th scope="col" style="width: 7%;">Categoria</th>
+        <th scope="col" style="width: 5%;">P / Compra</th>
+        <th scope="col" style="width: 5%;">P / Venta</th>
+        <th scope="col" style="width: 8%;">Solicita Numero de Serie:</th>
+        <th scope="col" style="width: 8%;">Numero de Serie obligatorio:</th>
+        <th scope="col" style="width: 8%;">Hora hombre:</th>
+        <th scope="col" style="width: 15%;">Vida Util KM:</th>
+        <th scope="col" style="width: 15%;">Vida Util HR:</th>
+        <th scope="col" style="width: 8%;">Periodo KM</th>
+        <th scope="col" style="width: 3%;">Stock</th>
+        <th scope="col" style="width: 8%;">Entrada / Salida</th>
+    </tr>
+{% endblock %}
+
+
+
+{% block modals %}
+    <div class="modal fade modal-lg" id="EntradaInventarioModal" tabindex="-1" role="dialog"
+         aria-labelledby="EntradaInventarioLabel" aria-hidden="true"
+         data-id_concepto="0" data-cve_operacion="" >
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title" id="EntradaInventarioLabel">Entrada de inventario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Concepto</label>
+                            <input id="edtDescripcion" type="text" class="form-control" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="edtCantidad" class="col-form-label">Cantidad</label>
+                            <input id="edtCantidad" step="1" min="1" value="1" type="number" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-radio">
+                                <input data-cve_operacion="COMPRA" class="custom-control-input" type="radio" id="ingreso_compra" name="ingreso_compra">
+                                <label for="ingreso_compra" class="custom-control-label">INGRESO POR COMPRA</label>
+                            </div>
+                            <div class="mt-2 custom-control custom-radio">
+                                <input data-cve_operacion="NCOMPRA" class="custom-control-input" type="radio" id="ingreso_sin_compra" name="ingreso_compra">
+                                <label for="ingreso_sin_compra" class="custom-control-label">INGRSO SIN COMPRA</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="edtTxReferencia" class="col-form-label">Referencia</label>
+                            <textarea id="edtTxReferencia" value="" type="textarea" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group grupo-compra" hidden>
+                            <label for="edtPrecio" class="col-form-label">Precio de compra</label>
+                            <input id="edtPrecio" value="0.00" type="number" class="form-control" required>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button id="btnGuardarEntradaInventario" type="button" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts_lista %}
+    <script src="{% static 'sismbor/js/inventario.js' %}"></script>
+{% endblock %}
+

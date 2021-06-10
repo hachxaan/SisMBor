@@ -1,0 +1,194 @@
+{% extends 'form.html' %}
+
+{% block fieldscontrol %}
+    <input type="hidden" name="id_tipo_concepto" value="{{ id_tipo_concepto }}">
+    <input type="hidden" name="id_tipo_servicio" value="1">
+
+
+
+{% endblock %}
+
+{% block acciones %}
+
+    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#NuevoConceptoCategoria">
+        Agregar categoria de Repuesto
+    </button>
+    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#NuevoMarcaModal">
+        Agregar nueva Marca
+    </button>
+    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#NuevoUnidadMedidaModal">
+        Agregar nueva Unidad de Medida
+    </button>
+{% endblock %}
+
+{% block modals %}
+    <div class="modal fade" id="NuevoConceptoCategoria" tabindex="-1" role="dialog"
+         aria-labelledby="NuevoConceptoCategoriaLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="NuevoConceptoCategoriaLabel">Nueva categoría de Repuesto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Descripcion de la Categoría:</label>
+                            <input id="edtDescConceptoCategoria" type="text" class="form-control"
+                                   id="edtDescConceptoCategoria">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button id="btnGuardarConceptoCategoria" data-id_tipo_concepto="{{ id_tipo_concepto }}"
+                            type="button" class="btn btn-primary">Guardar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="NuevoMarcaModal" tabindex="-1" role="dialog" aria-labelledby="NuevoMarcaLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="NuevoMarcaLabel">Nueva Marca</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Descripcion del la Marca</label>
+                            <input id="edtDescMarca" type="text" class="form-control">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button id="btnGuardarNuevoMarca" data-id_tipo_concepto="{{ id_tipo_concepto }}" type="button"
+                            class="btn btn-primary">Guardar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="NuevoUnidadMedidaModal" tabindex="-1" role="dialog"
+         aria-labelledby="NuevoUnidadMedidaLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="NuevoUnidadMedidaLabel">Nueva Unidad de Medida</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Descripcion</label>
+                            <input id="edtDescripcion" type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Abrebiatura</label>
+                            <input id="edtAbrebiatura" type="text" class="form-control">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button id="btnGuardarNuevoUnidadMedida" type="button" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block scripts %}
+    <script>
+
+        $("#NuevoConceptoCategoria").on('shown.bs.modal', function () {
+            $(this).find('#edtDescConceptoCategoria').focus();
+        });
+        $('#btnGuardarConceptoCategoria').on('click', function (event) {
+            var v_desc_categoria = $("#edtDescConceptoCategoria").val();
+            var v_id_tipo_concepto = $(this).data('id_tipo_concepto');
+            var _parameters = {'id_tipo_concepto': v_id_tipo_concepto, 'desc_categoria': v_desc_categoria}
+            console.log({"_parameters": _parameters});
+            if (v_desc_categoria.length > 0) {
+                $('#edtDescConceptoCategoria').val('');
+                _ajax('../../catalogo/conceptocategoria/add/', _parameters, function (data) {
+                    $('#id_id_categoria').append(`<option value="${data['id_categoria']}">${data['desc_categoria']}</option>'`)
+                    $('#id_id_categoria').val(data['id_categoria'])
+                    $("#edtDescConceptoCategoria").empty()
+                    $("#NuevoConceptoCategoria").modal('hide');
+                });
+            } else {
+                message_error('Ingresa una descripción');
+            }
+        });
+
+
+        $("#NuevoMarcaModal").on('shown.bs.modal', function () {
+            $(this).find('#edtDescMarca').focus();
+        });
+        $('#btnGuardarNuevoMarca').on('click', function (event) {
+            var v_desc_marca = $("#edtDescMarca").val()
+            var v_id_tipo_concepto = $(this).data('id_tipo_concepto');
+            var _parameters = {'id_tipo_concepto': v_id_tipo_concepto, 'desc_marca': v_desc_marca}
+            console.log({"_parameters": _parameters});
+            if (v_desc_marca.length > 0) {
+                _ajax('../../catalogo/marca/add/', _parameters, function (data) {
+                    $('#id_id_marca').append(`<option value="${data['id_marca']}">${data['desc_marca']}</option>'`)
+                    $('#id_id_marca').val(data['id_marca'])
+                    $("#edtDescMarca").empty()
+                    $("#NuevoMarcaModal").modal('hide');
+                });
+            } else {
+                message_error_callback('Ingresa una descripción', function (result) {
+                    $('#edtDescMarca').focus();
+                });
+
+            }
+
+
+        });
+
+
+        $("#NuevoUnidadMedidaModal").on('shown.bs.modal', function () {
+            $(this).find('#edtDescripcion').focus();
+        });
+        $('#btnGuardarNuevoUnidadMedida').on('click', function (event) {
+            var v_desc_unidad_medida = $("#edtDescripcion").val()
+            var v_abreb_unidad_medida = $("#edtAbrebiatura").val()
+
+            var _parameters = {'desc_unidad_medida': v_desc_unidad_medida, 'abreb_unidad_medida': v_abreb_unidad_medida}
+            if ((v_desc_unidad_medida.length > 0) && (v_abreb_unidad_medida.length > 0) ){
+                _ajax('../../catalogo/umedida/add/', _parameters, function (data) {
+                    $('#id_id_unidad_medida').append(`<option value="${data['id_unidad_medida']}">${data['desc_unidad_medida']} </option>'`)
+                    $('#id_id_unidad_medida').val(data['id_unidad_medida'])
+                    $("#edtDescripcion").empty()
+                    $("#edtAbrebiatura").empty()
+                    $("#NuevoUnidadMedidaModal").modal('hide');
+                });
+            } else {
+                message_error_callback('Ingresa una descripción y su abreviación', function (result) {
+                    $('#edtDescripcion').focus();
+                });
+
+            }
+
+
+        });
+
+    </script>
+{% endblock %}
