@@ -1,7 +1,8 @@
 {% extends 'form.html' %}
 
 {% block fieldscontrol %}
-    <input type="hidden" name="id_tipo_concepto" value="2">
+    <input type="hidden" name="id_tipo_concepto" value="{{ id_tipo_concepto }}">
+    <input type="hidden" name="stock" value="0">
     <input type="hidden" name="b_numero_serie" value="0">
     <input type="hidden" name="precio_compra" value="0">
 

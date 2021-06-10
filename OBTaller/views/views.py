@@ -5,7 +5,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView
 from OBTaller.forms import UnidadForm
-from OBTaller.models import WCuentaAbierta, Unidad, WcUnidad, ConceptoCategoria, TipoServicio, Cliente, Parametros
+from OBTaller.models import WCuentaAbierta, Unidad, WcUnidad, ConceptoCategoria, TipoServicio, Cliente, Parametros, \
+    ConceptoTipoMarca, UnidadMedida
 
 
 def addConceptoCategoria(request):
@@ -24,6 +25,39 @@ def addConceptoCategoria(request):
             data['info_datos']=desc_categoria
         return JsonResponse( data )
 
+
+def addConceptoMarca(request):
+    if request.method == 'POST':
+        id_tipo_concepto=request.POST['id_tipo_concepto']
+        desc_marca=request.POST['desc_marca']
+        try:
+            data = {}
+            rocordLast = ConceptoTipoMarca.objects.create( id_tipo_concepto=id_tipo_concepto,
+                                                           desc_marca=desc_marca )
+            data={'id_marca': rocordLast.id_marca,
+                 'desc_marca': rocordLast.desc_marca}
+
+        except Exception as e:
+            data['error']=str( e )
+            data['info_datos']=desc_marca
+        return JsonResponse( data )
+
+
+def addUnidadMedida(request):
+    if request.method == 'POST':
+        desc_unidad_medida=request.POST['desc_unidad_medida']
+        abreb_unidad_medida=request.POST['abreb_unidad_medida']
+        try:
+            data = {}
+            rocordLast = UnidadMedida.objects.create( desc_unidad_medida=desc_unidad_medida,
+                                                      abreb_unidad_medida=abreb_unidad_medida )
+            data={'id_unidad_medida': rocordLast.id_unidad_medida,
+                  'desc_unidad_medida': rocordLast.desc_unidad_medida +' ('+ rocordLast.abreb_unidad_medida +')'}
+
+        except Exception as e:
+            data['error']=str( e )
+            data['info_datos']=desc_unidad_medida
+        return JsonResponse( data )
 
 def addTipoServicio(request):
     if request.method == 'POST':

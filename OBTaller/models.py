@@ -104,21 +104,7 @@ class ConceptoCategoria(models.Model):
         managed = False
         db_table = 'concepto_categoria'
 
-class PeriodoKm(models.Model):
-    id_periodo_km = models.IntegerField(db_column='ID_PERIODO_KM', primary_key=True)  
-    kilometraje = models.IntegerField(db_column='KILOMETRAJE')  
-    desc_periodo_km = models.CharField(db_column='DESC_PERIODO_KM', max_length=16, blank=True, null=True)  
 
-    def toJSON(self):
-        item = model_to_dict(self)
-        return item
-
-    def __str__(self):
-        return self.desc_periodo_km
-
-    class Meta:
-        managed = False
-        db_table = 'periodo_km'
 
 
 class TipoServicio(models.Model):
@@ -136,6 +122,57 @@ class TipoServicio(models.Model):
         managed = False
         db_table = 'tipo_servicio'
 
+class ConceptoTipoMarca(models.Model):
+    id_marca = models.AutoField(db_column='ID_MARCA', primary_key=True)
+    desc_marca = models.CharField(db_column='DESC_MARCA', unique=True, max_length=64)
+    id_tipo_concepto = models.IntegerField(db_column='ID_TIPO_CONCEPTO', blank=True, null=True)
+
+    def __str__(self):
+        return self.desc_marca
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        managed = False
+        db_table = 'concepto_tipo_marca'
+
+
+class PeriodoKm(models.Model):
+    id_periodo_km = models.IntegerField(db_column='ID_PERIODO_KM', primary_key=True)
+    kilometraje = models.IntegerField(db_column='KILOMETRAJE')
+    desc_periodo_km = models.CharField(db_column='DESC_PERIODO_KM', max_length=16, blank=True, null=True)
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    def __str__(self):
+        return self.desc_periodo_km
+
+    class Meta:
+        managed = False
+        db_table = 'periodo_km'
+
+
+
+class UnidadMedida(models.Model):
+    id_unidad_medida = models.AutoField(db_column='ID_UNIDAD_MEDIDA', primary_key=True)
+    desc_unidad_medida = models.CharField(db_column='DESC_UNIDAD_MEDIDA', max_length=45, blank=True, null=True)
+    abreb_unidad_medida = models.CharField(db_column='ABREB_UNIDAD_MEDIDA', max_length=45, blank=True, null=True)
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+    def __str__(self):
+        return self.desc_unidad_medida + ' (' + self.abreb_unidad_medida +')'
+    class Meta:
+        managed = False
+        db_table = 'unidad_medida'
+
+
+
 class Concepto(models.Model):
     id_concepto=models.IntegerField( db_column='ID_CONCEPTO', primary_key=True)
     cve_concepto = models.CharField(db_column='CVE_CONCEPTO', unique=True,max_length=32)  
@@ -143,20 +180,21 @@ class Concepto(models.Model):
     id_tipo_concepto = models.IntegerField(db_column='ID_TIPO_CONCEPTO')  
     id_categoria = models.ForeignKey( ConceptoCategoria, models.DO_NOTHING, db_column='ID_CATEGORIA')  
     precio_venta = models.DecimalField(db_column='PRECIO_VENTA', max_digits=18, decimal_places=2)  
-    id_unidad_medida = models.IntegerField(db_column='ID_UNIDAD_MEDIDA', blank=True, null=True)  
+    id_unidad_medida = models.ForeignKey(UnidadMedida, models.DO_NOTHING,db_column='ID_UNIDAD_MEDIDA', blank=True, null=True)
     id_periodo_km = models.ForeignKey( PeriodoKm, models.DO_NOTHING, db_column='ID_PERIODO_KM', blank=True, null=True)  
     vida_util_km = models.IntegerField(db_column='VIDA_UTIL_KM', blank=True, null=True)  
     vida_util_hr = models.IntegerField(db_column='VIDA_UTIL_HR', blank=True, null=True)  
     descuento = models.DecimalField(db_column='DESCUENTO', max_digits=18, decimal_places=2, blank=True, null=True)  
-    id_marca = models.IntegerField(db_column='ID_MARCA', blank=True, null=True)  
+    id_marca = models.ForeignKey(ConceptoTipoMarca, models.DO_NOTHING, db_column='ID_MARCA', blank=True, null=True)
     hora_hombre = models.DecimalField(db_column='HORA_HOMBRE', max_digits=9, decimal_places=2, blank=True, null=True)  
     cve_usu_alta = models.CharField(db_column='CVE_USU_ALTA', max_length=8, blank=True, null=True)  
     no_serie = models.CharField(db_column='NO_SERIE', max_length=128, blank=True, null=True)  
-    b_numero_serie = models.IntegerField(db_column='B_NUMERO_SERIE')  
+    b_numero_serie = models.BooleanField(db_column='B_NUMERO_SERIE')
     precio_compra = models.DecimalField(db_column='PRECIO_COMPRA', max_digits=18, decimal_places=2)  
     id_tipo_servicio = models.ForeignKey( TipoServicio, models.DO_NOTHING, db_column='ID_TIPO_SERVICIO')  
     b_agrega_conceptos = models.CharField(db_column='B_AGREGA_CONCEPTOS', max_length=1, blank=True, null=True)
     stock=models.IntegerField( db_column='STOCK' )
+    b_nserie_obligatorio=models.BooleanField( db_column='B_NSERIE_OBLIGATORIO' )
 
     def toJSON(self):
         item = model_to_dict(self)
@@ -201,21 +239,7 @@ class ConceptoTipo(models.Model):
         db_table = 'concepto_tipo'
 
 
-class ConceptoTipoMarca(models.Model):
-    id_marca = models.AutoField(db_column='ID_MARCA', primary_key=True)  
-    desc_marca = models.CharField(db_column='DESC_MARCA', unique=True, max_length=64)  
-    id_tipo_concepto = models.IntegerField(db_column='ID_TIPO_CONCEPTO', blank=True, null=True)  
 
-    def __str__(self):
-        return self.desc_marca
-
-    def toJSON(self):
-        item = model_to_dict(self)
-        return item
-
-    class Meta:
-        managed = False
-        db_table = 'concepto_tipo_marca'
 
 
 class Cuenta(models.Model):
@@ -234,17 +258,6 @@ class Cuenta(models.Model):
         db_table = 'cuenta'
 
 
-class Inventario(models.Model):
-    cve_concepto = models.OneToOneField(Concepto, models.DO_NOTHING, db_column='CVE_CONCEPTO', primary_key=True)  
-    stock = models.IntegerField(db_column='STOCK')  
-
-    def toJSON(self):
-        item = model_to_dict(self)
-        return item
-
-    class Meta:
-        managed = False
-        db_table = 'inventario'
 
 
 class Operacion(models.Model):
@@ -363,18 +376,6 @@ class Unidad(models.Model):
         db_table = 'unidad'
 
 
-class UnidadMedida(models.Model):
-    id_unidad_medida = models.AutoField(db_column='ID_UNIDAD_MEDIDA', primary_key=True)  
-    desc_unidad_medida = models.CharField(db_column='DESC_UNIDAD_MEDIDA', max_length=45, blank=True, null=True)  
-    abreb_unidad_medida = models.CharField(db_column='ABREB_UNIDAD_MEDIDA', max_length=45, blank=True, null=True)  
-
-    def toJSON(self):
-        item = model_to_dict(self)
-        return item
-
-    class Meta:
-        managed = False
-        db_table = 'unidad_medida'
 
 
 class Usuario(models.Model):
@@ -436,6 +437,8 @@ class WCuentaAbierta(models.Model):
     fh_inicio = models.CharField(db_column='FH_INICIO', max_length=19, blank=True, null=True)
     fh_salida = models.CharField(db_column='FH_SALIDA', max_length=19, blank=True, null=True)
     fh_cancela = models.CharField(db_column='FH_CANCELA', max_length=19, blank=True, null=True)
+    fh_registro_unidad=models.CharField( db_column='FH_REGISTRO_UNIDAD', max_length=19, blank=True, null=True )
+    fh_ultimo_servicio=models.CharField( db_column='FH_ULTIMO_SERVICIO', max_length=19, blank=True, null=True )
     status = models.IntegerField(db_column='STATUS', blank=True, null=True)
     desc_status=models.CharField( db_column='DESC_STATUS', max_length=31, blank=True);
 
@@ -445,8 +448,14 @@ class WCuentaAbierta(models.Model):
     id_cliente = models.IntegerField(db_column='ID_CLIENTE', blank=True, null=True)  
     placa = models.CharField(db_column='PLACA', max_length=16, blank=True, null=True)  
     kilometraje = models.IntegerField(db_column='KILOMETRAJE', blank=True, null=True)  
-    nombre_entrega = models.CharField(db_column='NOMBRE_ENTREGA', max_length=128, blank=True, null=True)  
+    km_anterior = models.IntegerField(db_column='KM_ANTERIOR', blank=True, null=True)
+    folio_ultima_orden = models.IntegerField(db_column='FOLIO_ULTIMA_ORDEN', blank=True, null=True)
+    nombre_entrega = models.CharField(db_column='NOMBRE_ENTREGA', max_length=128, blank=True, null=True)
+    marca=models.CharField( db_column='MARCA', max_length=64, blank=True, null=True )
     modelo=models.CharField( db_column='MODELO', max_length=64, blank=True, null=True )
+    motor=models.CharField( db_column='MOTOR', max_length=64, blank=True, null=True )
+    chasis=models.CharField( db_column='CHASIS', max_length=64, blank=True, null=True )
+    cuenta_formato=models.CharField( db_column='CUENTA_FORMATO', max_length=64, blank=True, null=True )
 
     no_conceptos=models.IntegerField( db_column='NO_CONCEPTOS', blank=True, null=True )
 
@@ -485,7 +494,10 @@ class WConceptosMain(models.Model):
     no_serie = models.CharField(db_column='NO_SERIE', max_length=128, db_collation='utf8_general_ci', blank=True, null=True)  
     stock = models.IntegerField(db_column='STOCK', blank=True, null=True)  
     clave_sel = models.CharField(db_column='CLAVE_SEL', max_length=32, db_collation='utf8_general_ci')  
-    b_numero_serie = models.IntegerField(db_column='B_NUMERO_SERIE')  
+    bs_numero_serie = models.CharField(db_column='BS_NUMERO_SERIE', max_length=32, db_collation='utf8_general_ci')
+    b_numero_serie = models.IntegerField(db_column='B_NUMERO_SERIE')
+    b_nserie_obligatorio = models.IntegerField(db_column='B_NSERIE_OBLIGATORIO')
+    bs_nserie_obligatorio=models.CharField( db_column='BS_NSERIE_OBLIGATORIO', max_length=32, db_collation='utf8_general_ci' )
     precio_compra = models.DecimalField(db_column='PRECIO_COMPRA', max_digits=18, decimal_places=2)
     descripcion = models.CharField(db_column='DESCRIPCION', max_length=227, db_collation='utf8_general_ci', blank=True, null=True)
     af_inventario = models.CharField(db_column='AF_INVENTARIO', max_length=1, db_collation='utf8_general_ci', blank=True, null=True)

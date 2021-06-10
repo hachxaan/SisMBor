@@ -21,6 +21,7 @@ from OBTaller.models import WConceptosMain, Concepto
 # **********************************************************************************************************************
 # **********************************************************************************************************************
 from appMainSite import settings
+from appMainSite.const import TCONCEPTO_MANOBRA
 
 
 class ManobraListView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListView):
@@ -33,7 +34,7 @@ class ManobraListView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListV
         return super().dispatch(request, *args, **kwargs)
 
     def get_object(self):
-        id_concepto=self.kwargs.get( 'cve_concepto' )
+        id_concepto=self.kwargs.get( 'id_concepto' )
         return get_object_or_404( WConceptosMain , id_concepto=id_concepto )
 
     def post(self, request, *args, **kwargs):
@@ -97,6 +98,8 @@ class ManobraCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Cre
         context['action'] = 'add'
         context['catalogos']='menu-is-opening menu-open'
         context['manobra']='active'
+        context['id_tipo_concepto']=TCONCEPTO_MANOBRA
+
         return context
 # **********************************************************************************************************************
 # **********************************************************************************************************************

@@ -4,14 +4,15 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from OBTaller.models import Parametros
-from OBTaller.views.StoreProcedures import StpInsOrden
+
+from OBTaller.views.StoreProcedures import StpInsOrden, StpInsBitInventario
 from OBTaller.views.cliente.views import ClienteListView, ClienteCreateView, ClienteUpdateView, ClienteDeleteView
+from OBTaller.views.inventario import InventarioView, InventarioCreateView
 from OBTaller.views.manobra.views import ManobraListView, ManobraCreateView, ManobraUpdateView, ManobraDeleteView
 from OBTaller.views.personal.views import PersonalListView, PersonalCreateView, PersonalUpdateView, PersonalDeleteView
 from OBTaller.views.unidad.views import UnidadListView, UnidadCreateView, UnidadUpdateView, UnidadDeleteView
 from OBTaller.views.views import login, addConceptoCategoria, addTipoServicio, \
-    getInfoUnidad, SetParametros
+    getInfoUnidad, SetParametros, addConceptoMarca, addUnidadMedida
 
 from OBTaller.views.orden_view import WCuentaAbiertaListView, OrdenNuevaView, UpdSitOrden, OrdenListaEditar, \
     OrdenListaDetalle
@@ -32,10 +33,14 @@ urlpatterns=[
     path( 'operacion/ordendetalle/', OrdenListaDetalle.as_view(), name='detalle_order' ),
     path( 'ordendetalle/', OrdenListaDetalle.as_view(), name='detalle_order' ),
 
+    path( 'inventario/', InventarioView.as_view(), name='inventario' ),
+    path( 'inventario/add/', InventarioCreateView.as_view(), name='inventario_create' ),
+
     # *******************************************************************************************************************
     # STORED PROCEDURE
     # *******************************************************************************************************************
         path( 'stp/insorden/', StpInsOrden, name='ins_orden' ),
+        path( 'stp/entradainventario/', StpInsBitInventario, name='entrada_inventario' ),
 
     # *******************************************************************************************************************
     # UPDATE
@@ -80,6 +85,8 @@ urlpatterns=[
                 # Catálogos generales
                 path( 'catalogo/conceptocategoria/add/', addConceptoCategoria, name='conceptocategoria_create' ),
                 path( 'catalogo/tiposervicio/add/', addTipoServicio, name='tiposervicio_create' ),
+                path( 'catalogo/marca/add/', addConceptoMarca, name='marca_create' ),
+                path( 'catalogo/umedida/add/', addUnidadMedida, name='umedida_create' ),
 
 
 

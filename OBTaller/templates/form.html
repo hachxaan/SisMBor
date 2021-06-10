@@ -1,5 +1,6 @@
 {% extends 'layout.html' %}
 {% load widget_tweaks %}
+{% load templates_codeart %}
 {% block head %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
     {% block head_form %}
@@ -39,8 +40,11 @@
                     </div>
                 {% endif %}
                 {% for field in form.visible_fields %}
+{#                    <label>{{ field.class_custom.data }}</label>#}
+{#                    <label>{{ field.class_custom }}</label>#}
+{#                    <label>{{ class_custom|get_obj_attr:class_custom }}</label>#}
                     <div class="form-group">
-                        <label for="email">{{ field.label }}:</label>
+                        <label for="">{{ field.label }}:</label>
                         {{ field|add_class:'form-control'|attr:'autocomplete:off' }}
                         {% if form.readonly %}
                             {{ field|attr:'readonly' }}

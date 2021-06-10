@@ -34,16 +34,23 @@ $(function () {
             {"data": "placa"},
             {"data": "desc_status"},
             {"data": "info"},
-            {"data": "cliente", name: "cliente"},
-            {"data": "cuenta", name: "cuenta", render: $.fn.dataTable.render.number(',', '.', 2, '$')},
-            {"data": "fh_registro"},
-            {"data": "usu_alta"},
-            {"data": "descuento_cuenta"},
-            {"data": "id_cliente"},
-            {"data": "kilometraje"},
-            {"data": "nombre_entrega"},
-            {"data": "status"},
-            {"data": "modelo"},
+            // {"data": "cliente", name: "cliente"},
+            // {"data": "cuenta", name: "cuenta", render: $.fn.dataTable.render.number(',', '.', 2, '$')},
+            {"data": "marca", class: 'none'},
+            {"data": "modelo", class: 'none'},
+            {"data": "motor", class: 'none'},
+            {"data": "chasis", class: 'none'},
+            {"data": "cliente", class: 'none'},
+            {"data": "fh_registro", class: 'none'},
+            {"data": "fh_inicio", class: 'none'},
+            {"data": "fh_salida", class: 'none'},
+            {"data": "usu_alta", class: 'none'},
+            // {"data": "descuento_cuenta"},
+            // {"data": "id_cliente"},
+            // {"data": "kilometraje"},
+            // {"data": "nombre_entrega"},
+            // {"data": "status"},
+            // {"data": "modelo"},
             {"data": null},
         ],
         columnDefs: [{
@@ -104,10 +111,14 @@ $(function () {
                 return buttons;
             }
         },
+            // {
+            //     targets: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+            //     visible: false
+            // },
             {
-                targets: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
-                visible: false
-            },
+                targets: [0],
+                class: 'pl-5 pt-3',
+             },
             {
                 targets: [1],
                 render: function (data, type, row) {
@@ -117,6 +128,7 @@ $(function () {
             },
             {
                 targets: [2],
+                class: 'pb-0',
                 render: function (data, type, row) {
 
                     switch (parseInt(row['status'])) {
@@ -149,6 +161,7 @@ $(function () {
 
             {
                 targets: [3],
+                class : 'pt-2',
                 createdCell: function (td, cellData, rowData, row, col) {
                     $(td).css('padding', '0px')
                 },
@@ -156,16 +169,14 @@ $(function () {
                     var $elDiv = $('<div></div>');
                     var $Main = $(`<div class="infoMain"></div>`);
                     var $RowD = $('<div class="row elRow"></div>');
-                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Cliente: </span><a data-id_cliente="${row['id_cliente']}" >${row['cliente']}  </a></div>`);
+                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Conceptos: </span><a >${row['no_conceptos']}</a></div>`);
                     $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Entregó: </span><a> ${row['nombre_entrega']}  </a></div>`);
                     $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Km Actual: </span><a>${row['kilometraje']}  </a></div>`);
-                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Alta: </span><a> ${row['usu_alta']}  </a></div>`);
+                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Km Anterior: </span><a> ${row['km_anterior']}   </a></div>`);
+                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Ult. Serv.: </span><a> ${row['fh_ultimo_servicio']}    </a></div>`);
 
-                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Modelo: </span><a>${row['modelo']} </a></div>`);
-                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Ult. Serv.: </span><a>   </a></div>`);
-                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Km Anterior: </span><a>  </a></div>`);
-                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Cuenta: </span><a >${row['cuenta']}</a></div>`);
-                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Conceptos: </span><a >${row['no_conceptos']}</a></div>`);
+                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Cuenta: </span><a >${row['cuenta_formato']}</a></div>`);
+
 
                     $Main.append($RowD);
                     // $Main.append(`<a>   ${row['cuenta']}  </a>` );
@@ -208,7 +219,7 @@ $(function () {
     });
 
     $('.filtros').on('change', function (event) {
-        ajax_reload('dataTables4');
+        ajax_reload('#dataTables4');
         if ($(this).is(":checked")) var valor = '1'; else var valor =  '0';
         setParametro( '../parametros/', $(this).data('cve_parametro'), valor);
     });
@@ -219,6 +230,10 @@ $(function () {
             EnProceso = $('#chkEnProceso').is(":checked")  && (parseInt(rowData['status']) < 2) ;
             Terminados = $('#chkTerminados').is(":checked")  && (parseInt(rowData['status']) == 2) ;
             Cancelados = $('#chkCancelados').is(":checked")  && (parseInt(rowData['status']) == 3) ;
+            console.log({"EnProceso":EnProceso})
+            console.log({"Terminados":Terminados})
+            console.log({"Cancelados":Cancelados})
+
             return EnProceso || Terminados || Cancelados;
 
         }

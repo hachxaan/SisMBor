@@ -74,6 +74,12 @@
                 {# ************************************************************************************************ #}
                 {#  S E L E C C I O N   T A B L A  #}
                 {# ************************************************************************************************ #}
+                {% if status < 2 %}
+                        <a href="{% url 'OBTaller:editar_order' %}?folio={{ folio }}"
+                           class="btn btn-info btn-flat btnTest">
+                            <i class="fas fa-plus"></i> Agragar Conceptos
+                        </a>
+                    {% endif %}
                 <table class="table table-bordered" style="width:100%" id="dtOrdenDetalle">
                     <thead>
                     <tr>
@@ -95,12 +101,7 @@
             </div>
             <div class="card-footer">
                 {% block buttons_list %}
-                    {% if status < 2 %}
-                        <a href="{% url 'OBTaller:editar_order' %}?folio={{ orden.folio }}"
-                           class="btn btn-info btn-flat btnTest">
-                            <i class="fas fa-plus"></i> Agragar Conceptos
-                        </a>
-                    {% endif %}
+
                     <a href="{{ list_url }}" class="btn btn-success btn-flat">
                         <i class="fas fa-sync"></i> Actualizar
                     </a>
