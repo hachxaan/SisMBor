@@ -1,10 +1,10 @@
 $(function () {
     'use strict';
 
-    const cNameDT_Inventario = '#dtRepuestos';
+    const cNameDT_Inventario = '#data';
     $(document).ready(function ($) {
 
-        $('cNameDT_Inventario').DataTable({
+        $(cNameDT_Inventario).DataTable({
             language: {
                 url: '../../static/libs/datatables-es_orde-editar.json'
             },
