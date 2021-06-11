@@ -13,7 +13,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from appMainSite import const
-from OBTaller.forms import ManobraForm, InventarioForm
+from OBTaller.forms import ManobraForm, InventarioForm, InventarioFormEdit
 from OBTaller.mixins import ValidatePermissionRequiredMixin
 from OBTaller.models import WConceptosMain, Concepto
 
@@ -103,11 +103,11 @@ class InventarioCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, 
 # **********************************************************************************************************************
 # **********************************************************************************************************************
     
-class ManobraUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, UpdateView):
+class InventarioUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, UpdateView):
     model = Concepto
-    form_class = ManobraForm
-    template_name = 'catalogos/Manobra/create.html'
-    success_url = reverse_lazy('OBTaller:manobra_list')
+    form_class = InventarioFormEdit
+    template_name = 'inventario/create.html'
+    success_url = reverse_lazy('OBTaller:inventario')
     # permission_required = 'erp.change_category'
     url_redirect = success_url
 
@@ -134,12 +134,14 @@ class ManobraUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Upd
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Editar Mano de obra'
-        context['entity'] = 'Mano de obra'
+        context['title'] = 'Editar Repusto'
+        context['entity'] = 'Repuesto   '
         context['list_url'] = self.success_url
         context['action'] = 'edit'
         context['catalogos']='menu-is-opening menu-open'
-        context['manobra']='active'
+        context['inventario']='active'
+        context['id_tipo_concepto']=TCONCEPTO_REPUESTOS
+        context['edit_stock']='ready'
         return context
 
 # **********************************************************************************************************************

@@ -313,6 +313,156 @@ class InventarioForm(forms.ModelForm):
         return data
 
 
+class InventarioFormEdit(forms.ModelForm):
+    id_categoria=forms.ModelChoiceField(
+        queryset=ConceptoCategoria.objects.filter(id_tipo_concepto = TCONCEPTO_REPUESTOS))
+    id_unidad_medida=forms.ModelChoiceField(queryset=UnidadMedida.objects.all())
+    id_marca=forms.ModelChoiceField(
+        queryset=ConceptoTipoMarca.objects.filter( id_tipo_concepto=TCONCEPTO_REPUESTOS ) )
+
+    b_numero_serie=forms.BooleanField()
+    b_nserie_obligatorio=forms.BooleanField()
+
+    def clean_name(self):
+        if not self['id_tipo_concepto'].html_name in self.data:
+            return self.fields['id_tipo_concepto'].initial
+        return self.cleaned_data['id_tipo_concepto']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__( *args, **kwargs )
+
+        # super().__init__(*args, **kwargs)
+        self.fields['cve_concepto'].widget.attrs['autofocus'] = True
+        self.fields['id_tipo_concepto'].widget.attrs['value']=TCONCEPTO_REPUESTOS
+        self.fields['id_tipo_servicio'].widget.attrs['value']=0
+
+        self.fields['id_tipo_concepto'].widget=forms.HiddenInput()
+        self.fields['id_tipo_servicio'].widget=forms.HiddenInput()
+
+        self.fields['id_categoria'].label = "Categoría"
+        self.fields['id_marca'].label = "Marca"
+        self.fields['id_unidad_medida'].label = "Unidad de Medida"
+        self.fields['id_periodo_km'].label="Kilometraje sugerido"
+        self.fields['b_numero_serie'].label="Registra número de serie"
+        self.fields['b_nserie_obligatorio'].label="Obligartorio agregar número de serie"
+        self.fields['stock'].label="Stock"
+        self.fields['stock'].required=True
+        self.fields['precio_venta'].required=True
+        self.fields['precio_compra'].required=True
+        self.fields['vida_util_km'].required=True
+        self.fields['vida_util_hr'].required=True
+        self.fields['b_numero_serie'].required=False
+        self.fields['b_nserie_obligatorio'].required=False
+
+
+    class Meta:
+        model = Concepto
+        fields = ['cve_concepto',
+                  'desc_concepto',
+                  'stock',
+                  'precio_compra',
+                  'precio_venta',
+                  'id_categoria',
+                  'id_marca',
+                  'id_unidad_medida',
+                  'vida_util_km',
+                  'vida_util_hr',
+                  'id_periodo_km',
+                  'id_tipo_concepto',
+                  'b_numero_serie',
+                  'b_nserie_obligatorio',
+                  'id_tipo_servicio'
+                  ]
+        widgets = {
+
+            'id_periodo_km': Select(
+                attrs={
+                    'class': 'select2',
+                    'style': 'width: 100%'
+                }
+            ),
+            'id_unidad_medida': Select(
+                attrs={
+                    'class': 'select2',
+                    'style': 'width: 100%'
+                }
+            ),
+
+            'stock': TextInput(
+                attrs={
+                    'readonly': 'readonly',
+                    'class': 'col col-md-4 col-sm-12',
+                    'type':"number",
+                    'min':"0",
+                    'step':"1",
+                }
+            ),
+            'precio_compra': TextInput(
+                attrs={
+                    'class': 'col col-md-4 col-sm-12',
+                    'type':"number",
+                    'min':"0",
+                    'step':"any",
+                    'data-class_custom': 'col col-md-4 col-sm-12'
+                }
+            ),
+            'precio_venta': TextInput(
+                attrs={
+                    'class': 'col col-md-4 col-sm-12',
+                    'type': "number",
+                    'min': "0",
+                    'step': "any",
+                    'data-class_custom': 'col col-md-4 col-sm-12'
+                }
+            ),
+            'vida_util_km': TextInput(
+                attrs={
+                    'class': 'col col-md-4 col-sm-12',
+                    'type': "number",
+                    'min': "0",
+                    'step': "any",
+                    'data-class_custom': 'col col-md-4 col-sm-12'
+                }
+            ),
+            'vida_util_hr': TextInput(
+                attrs={
+                    'class': 'col col-md-4 col-sm-12',
+                    'type': "number",
+                    'min': "0",
+                    'step': "any",
+                    'data-class_custom': 'col col-md-4 col-sm-12'
+                }
+            ),
+            'b_numero_serie': TextInput(
+                attrs={
+                    'class': 'd-inline-flex p-2',
+                    'type': "checkbox"
+                }
+            ),
+            'b_nserie_obligatorio': TextInput(
+                attrs={
+                    'class': 'd-inline-flex p-2',
+                    'type': "checkbox"
+                }
+            ),
+            # 'id_categoria': floppyforms.widgets.Input( datalist=ConceptoCategoria.objects.filter(id_tipo_concepto = 2) )
+
+
+        }
+    def save(self, commit=True):
+        data={}
+        form=super()
+
+        try:
+            if form.is_valid():
+                form.save()
+            else:
+                data['error']=form.errors
+        except Exception as e:
+            data['error']=str( e )
+        return data
+
+
 class PersonalForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

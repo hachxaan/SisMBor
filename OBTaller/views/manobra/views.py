@@ -149,16 +149,15 @@ class ManobraUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Upd
 class ManobraDeleteView(LoginRequiredMixin, ValidatePermissionRequiredMixin, DeleteView):
     model = Concepto
     template_name = 'catalogos/Manobra/delete.html'
-    success_url = reverse_lazy('OBTaller:id_concepto_list')
+    success_url = reverse_lazy('OBTaller:manobra_list')
     # permission_required = 'erp.delete_category'
     url_redirect = success_url
 
     def get_object(self):
         id_concepto=self.kwargs.get( 'id_concepto' )
-        return get_object_or_404( Concepto , id_concepto=id_concepto )
+        return get_object_or_404( Concepto, id_concepto=id_concepto )
 
     def dispatch(self, request, *args, **kwargs):
-        self.object = self.get_object()
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):

@@ -14,7 +14,25 @@ $(function () {
         }
 
         submit_with_ajax_action(parameters, function (response) {
-            ajaxReaod();
+
+             //
+            if (response['result']['hay_b_nserie_obligatorio']){
+                message_error('Se requiere Número de Serie');
+                var table = $(cNameDT_OrdenDetalle).DataTable();
+                response['result']['sol_serie'].forEach(function(rowJSON, r_index) {
+                    var r_id_orden_detalle = rowJSON['id_orden_detalle']
+                    table.rows().data().each(function (value, index) {
+                        var t_id_orden_detalle= value.id_orden_detalle;
+                        if (r_id_orden_detalle == t_id_orden_detalle){
+                            var rows = $(cNameDT_OrdenDetalle+' tr');
+                            rows.eq(index+1).find('td').eq(6).addClass('bg-danger');
+                        }
+                    });
+                });
+            } else {
+                ajaxReaod();
+            }
+
 
         });
     }

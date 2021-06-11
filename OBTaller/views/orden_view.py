@@ -62,22 +62,22 @@ class OrdenListaEditar( ListView ):
                         item=i.toJSON()
                         data.append( item )
                 if action == 'addItem':
-                    result=self.pInsOrdenDetalle( request )
+                    data['result']=self.pInsOrdenDetalle( request )
 
                 if action == 'delItem':
-                    result=self.pDelOrdenDetalle( request )
+                    data['result']=self.pDelOrdenDetalle( request )
 
                 if action == 'addTxReferencia':
-                    result=self.pUpdTxReferencia( request )
+                    data['result']=self.pUpdTxReferencia( request )
 
                 if action == 'addNoSerie':
-                    result=self.pUpdNoSerie( request )
+                    data['result']=self.pUpdNoSerie( request )
 
                 if action == 'addPersonal':
-                    result=self.pUpdPersonal( request )
+                    data['result']=self.pUpdPersonal( request )
 
                 if action == 'addsOrden':
-                    result=self.pAddsOrden( request )
+                    data['result']=self.pAddsOrden( request )
 
                 if action == 'OrdenDetalle':
                     data=[]
@@ -96,11 +96,24 @@ class OrdenListaEditar( ListView ):
 
     def pAddsOrden(self, request ):
         folio=request.POST['folio']
+        hay_b_nserie_obligatorio = False
 
-        for addsOrdem in OrdenDetalle.objects.filter( folio=folio ):
-            addsOrdem.sit_code='AC'
-            addsOrdem.save()
-        data={"psSTR_RESP": 'OK'}
+        sol_serie=[]
+        for addsOrdem in OrdenDetalle.objects.filter( folio=folio, sit_code='PE'):
+            dataSet=Concepto.objects.filter( id_concepto=addsOrdem.id_concepto ).values( 'b_nserie_obligatorio' )
+            b_nserie_obligatorio=dataSet[0]['b_nserie_obligatorio']
+            no_serie= addsOrdem.no_serie
+
+            if (b_nserie_obligatorio & (no_serie==None or no_serie=='')):
+                hay_b_nserie_obligatorio = True
+                sol_serie.append(addsOrdem.toJSON())
+            else:
+                addsOrdem.sit_code='AC'
+                addsOrdem.save()
+
+        data={"psSTR_RESP": 'OK',
+              "hay_b_nserie_obligatorio":hay_b_nserie_obligatorio,
+              "sol_serie":sol_serie}
         return data
 
     def pUpdTxReferencia(self, request ):

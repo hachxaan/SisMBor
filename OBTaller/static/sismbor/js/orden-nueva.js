@@ -5,7 +5,7 @@ $(function () {
             e.preventDefault();
             console.log('ready...303');
             // var parameters = new FormData(this);
-            var placa = $('#placa').val();
+            var placa = $('#edtPlaca').val();
             var kilometraje = $('#kilometraje').val();
             var nombre_entrega = $('#nombre_entrega').val();
             var parameters = {"placa": placa, "kilometraje" : kilometraje, "nombre_entrega": nombre_entrega}

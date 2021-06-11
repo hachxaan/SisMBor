@@ -10,8 +10,27 @@ $(function () {
         // console.log('Aqui seleccionar');
 
         // saber registro seleccionado //
+        var table = $('#dtBuscador').DataTable();
+        var count = table.rows( { selected: true } ).count();
+        if (count == 0){
+            Swal.fire({
+                title: 'Notificación!',
+                html: 'Selecciona una unidad',
+                icon: 'error'
+            }).then(function (result) {
 
-        $("#BuscarUnidadModal").modal('hide');
+            });
+        } else {
+            var rowIdx = table.row('.selected').index()
+            let placa = $(table.cells(rowIdx, 2).nodes()).text();
+            $("#edtPlaca").val(placa);
+            pValidaPlaca(placa);
+            $("#BuscarUnidadModal").modal('hide');
+        }
+
+
+
+
     });
     $( "#BuscarUnidadModal" ).on('show.bs.modal', function(){
         $('#dtBuscador').DataTable({
@@ -21,9 +40,22 @@ $(function () {
             responsive: true,
             autoWidth: false,
             destroy: true,
-            select: true,
+        //      buttons: [
+        //     {
+        //         text: 'Get selected data',
+        //         action: function () {
+        //             var count = table.rows( { selected: true } ).count();
+        //
+        //             events.prepend( '<div>'+count+' row(s) selected</div>' );
+        //         }
+        //     }
+        // ]
+            select: {
+                style: 'single'
+            },
             stripeClasses: [],
             deferRender: true,
+
             ajax: {
                 url: '/unidad/list/',
                 type: 'POST',
@@ -68,7 +100,7 @@ $(function () {
 
         if ($($(this).parent()).hasClass('selected')) {
             let placa = $(table.cells(rowIdx, 2).nodes()).text();
-            $("#placa").val(placa);
+            $("#edtPlaca").val(placa);
             pValidaPlaca(placa);
             $("#BuscarUnidadModal").modal('hide');
 

@@ -57,6 +57,7 @@ $(function () {
                     render: function (data, type, row) {
                         var buttons = `<button data-id_concepto="${row['id_concepto']}" data-desc_concepto="${row['desc_concepto']}" type="button" data-toggle="modal" data-target="#EntradaInventarioModal" class="btn btn-success btn-xs btn-flat"><i class="fas fa-plus"></i></button> `;
                         buttons += '<a href="/inventario/salida/' + row.id_concepto + '/" type="button" class="ml-3 btn btn-warning btn-xs btn-flat"><i class="fas fa-minus"></i></a>';
+                        buttons += '<a href="/inventario/update/' + row.id_concepto + '/" type="button" class="ml-3 btn btn-primary btn-xs btn-flat"><i class="fas fa-edit"></i></a> ';
                         return buttons;
                     }
                 },

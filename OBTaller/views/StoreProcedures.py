@@ -43,6 +43,7 @@ def StpInsBitInventario(request):
     pePRECIO_COMPRA = request.POST.get('precio')
     peTX_REFERENCIA = request.POST.get('tx_referencia')
     peFOLIO='0'
+    peID_ORDEN_DETALLE=0
     psID_TRANS_INVENTARIO = 0
     psCOD_RESP = 0
     psSTR_RESP = ''
@@ -58,6 +59,7 @@ def StpInsBitInventario(request):
                              pePRECIO_COMPRA,
                              peTX_REFERENCIA,
                              peFOLIO,
+                             peID_ORDEN_DETALLE,
                              psID_TRANS_INVENTARIO,
                              psCOD_RESP,
                              psSTR_RESP

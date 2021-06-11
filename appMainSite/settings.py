@@ -90,6 +90,18 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+
+# DATABASES = {
+#     'default': {StpInsOrdenDetalle
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'sismbor',
+#         'USER': 'admin',
+#         'PASSWORD': 'CveDb.123456',
+#         'HOST': 'database-hotelweb.cjg26m5mzcaw.us-east-2.rds.amazonaws.com',   # Or an IP Address that your DB is hosted on
+#         'PORT': '3306',
+#     }
+# }
+
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 

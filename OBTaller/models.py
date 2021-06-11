@@ -313,6 +313,7 @@ class OrdenDetalle(models.Model):
     fh_registro = models.DateTimeField(db_column='FH_REGISTRO')  # Field name made lowercase.
     sit_code = models.CharField(db_column='SIT_CODE', max_length=45)  # Field name made lowercase.
 
+
     def toJSON(self):
         item = model_to_dict(self)
         return item

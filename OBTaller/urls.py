@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 
 from OBTaller.views.StoreProcedures import StpInsOrden, StpInsBitInventario
 from OBTaller.views.cliente.views import ClienteListView, ClienteCreateView, ClienteUpdateView, ClienteDeleteView
-from OBTaller.views.inventario import InventarioView, InventarioCreateView
+from OBTaller.views.inventario_view import InventarioView, InventarioCreateView, InventarioUpdateView
 from OBTaller.views.manobra.views import ManobraListView, ManobraCreateView, ManobraUpdateView, ManobraDeleteView
 from OBTaller.views.personal.views import PersonalListView, PersonalCreateView, PersonalUpdateView, PersonalDeleteView
 from OBTaller.views.unidad.views import UnidadListView, UnidadCreateView, UnidadUpdateView, UnidadDeleteView
@@ -35,7 +35,7 @@ urlpatterns=[
 
     path( 'inventario/', InventarioView.as_view(), name='inventario' ),
     path( 'inventario/add/', InventarioCreateView.as_view(), name='inventario_create' ),
-
+    path( 'inventario/update/<int:id_concepto>/', InventarioUpdateView.as_view(), name='inventario_update' ),
     # *******************************************************************************************************************
     # STORED PROCEDURE
     # *******************************************************************************************************************
