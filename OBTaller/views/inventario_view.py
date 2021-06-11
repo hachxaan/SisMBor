@@ -40,6 +40,7 @@ class InventarioView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListVi
     def post(self, request, *args, **kwargs):
         data = {}
         try:
+
             action = request.POST['action']
             if action == 'searchdata':
                 data = []

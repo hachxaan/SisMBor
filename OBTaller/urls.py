@@ -12,7 +12,7 @@ from OBTaller.views.manobra.views import ManobraListView, ManobraCreateView, Man
 from OBTaller.views.personal.views import PersonalListView, PersonalCreateView, PersonalUpdateView, PersonalDeleteView
 from OBTaller.views.unidad.views import UnidadListView, UnidadCreateView, UnidadUpdateView, UnidadDeleteView
 from OBTaller.views.views import login, addConceptoCategoria, addTipoServicio, \
-    getInfoUnidad, SetParametros, addConceptoMarca, addUnidadMedida
+    getInfoUnidad, SetParametros, addConceptoMarca, addUnidadMedida, EsDemo
 
 from OBTaller.views.orden_view import WCuentaAbiertaListView, OrdenNuevaView, UpdSitOrden, OrdenListaEditar, \
     OrdenListaDetalle
@@ -25,6 +25,7 @@ urlpatterns=[
     path( '', WCuentaAbiertaListView.as_view(), name='panel-operacion' ),
     path( '', login, name='login' ),
     path( 'parametros/', SetParametros, name='parametros' ),
+    path( 'esdemo/', EsDemo, name='es_demo' ),
     path( 'operacion/', WCuentaAbiertaListView.as_view(), name='panel-operacion' ),
     path( 'ordennueva/', OrdenNuevaView, name='orden_nueva' ),
     path( 'ordennueva/getInfoUnidad/', getInfoUnidad, name='get_info_unidad' ),

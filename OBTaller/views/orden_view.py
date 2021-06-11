@@ -24,7 +24,6 @@ def UpdSitOrden(request):
             context['error']=str( e )
         return JsonResponse( context, safe=False )
 
-
 def OrdenNuevaView(request):
     # request['manobra']='active'
     context={}
@@ -143,7 +142,6 @@ class OrdenListaEditar( ListView ):
         data={"psSTR_RESP": 'OK'}
         return data
 
-
     def pDelOrdenDetalle(self, request):
         data={}
         id_orden_detalle=request.POST['id_orden_detalle']
@@ -163,6 +161,7 @@ class OrdenListaEditar( ListView ):
 
             data['error']='Sin Stock. Agregue stock en Inventario.'
         else:
+
             folio=request.POST['folio']
             id_concepto=request.POST['id_concepto']
             id_personal=request.POST['id_personal']

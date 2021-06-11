@@ -77,5 +77,14 @@
             });
         }
     });
+    $(document).ready(function ($) {
+        _ajax('/esdemo/', {}, function (response) {
+            bEsDemo = response['esDemo']
+            console.log(response)
+            console.log(bEsDemo)
+        });
+
+
+    });
 
 })(jQuery);

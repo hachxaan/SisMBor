@@ -16,58 +16,68 @@ function getCookie(name) {
     }
     return cookieValue;
 }
-// # ***************************************************************************************************************** #
-// # ***************************************************************************************************************** #
-function setParametro(url, cve_parametro, valor){
 
-    const parameters = {"action": "SetParametro", "cve_parametro" : cve_parametro, "valor":valor }
-    _ajax(url, parameters, function(){})
+// # ***************************************************************************************************************** #
+// # ***************************************************************************************************************** #
+function setParametro(url, cve_parametro, valor) {
+
+    const parameters = {"action": "SetParametro", "cve_parametro": cve_parametro, "valor": valor}
+    _ajax(url, parameters, function () {
+    })
 }
+
 // # ***************************************************************************************************************** #
 // # ***************************************************************************************************************** #
 function _ajax(url, parameters, callback) {
-    $.ajax({
-        url: url, //window.location.pathname
-        type: 'POST',
-        beforeSend: function (request) {
-            request.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-        },
-        data: parameters,
-        dataType: 'json'
-        // processData: false,
-        // contentType: false,
-    }).done(function (data) {
-        if (!data.hasOwnProperty('error')) {
-            if (data.hasOwnProperty('msgInfo')) {
-                message_info(data.msgInfo, callback, data);
+
+    if (bEsDemo) {
+        message_error('Cuenta demo. Solo lectura');
+    } else {
+        $.ajax({
+            url: url, //window.location.pathname
+            type: 'POST',
+            beforeSend: function (request) {
+                request.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+            },
+            data: parameters,
+            dataType: 'json'
+            // processData: false,
+            // contentType: false,
+        }).done(function (data) {
+            if (!data.hasOwnProperty('error')) {
+                if (data.hasOwnProperty('msgInfo')) {
+                    message_info(data.msgInfo, callback, data);
+                    return false;
+                }
+
+                if (data.hasOwnProperty('msgConfirmar')) {
+
+                    message_info(data.msgConfirmar, function (data) {
+
+
+                        parameters.set("confirmado", true);
+
+                        _ajax(url, parameters, callback(data));
+                    }, data);
+                    return false;
+                }
+                callback(data);
                 return false;
             }
 
-            if (data.hasOwnProperty('msgConfirmar')) {
+            if (data['error'].indexOf('1062') == 1) {
+                message_error('Registro duplicado ' + data['info_datos']);
+            } else {
+                message_error(data.error);
+            }   
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            alert(textStatus + ': ' + errorThrown);
+        }).always(function (data) {
 
-                message_info(data.msgConfirmar, function (data) {
+        });
 
+    }
 
-                    parameters.set("confirmado", true);
-
-                    _ajax(url, parameters, callback(data));
-                }, data);
-                return false;
-            }
-            callback(data);
-            return false;
-        }
-
-        if (data['error'].indexOf('1062') == 1) {
-            message_error('Registro duplicado ' + data['info_datos']);
-        } else {
-            message_error(data.error);
-        }
-    }).fail(function (jqXHR, textStatus, errorThrown) {
-        alert(textStatus + ': ' + errorThrown);
-    }).always(function (data) {
-
-    });
 }
 
 // # ***************************************************************************************************************** #
@@ -291,13 +301,13 @@ function confirmar_accion(title, content, callback) {
         }
     })
 }
-function ajax_reload(TableName){
-    $(TableName).DataTable().ajax.reload(null,false);
+
+function ajax_reload(TableName) {
+    $(TableName).DataTable().ajax.reload(null, false);
 }
 
 // # ***************************************************************************************************************** #
 // # ***************************************************************************************************************** #
-
 
 
 function submit_with_ajax_catalogos(url, title, content, parameters, callback) {
@@ -351,6 +361,7 @@ function submit_with_ajax_catalogos(url, title, content, parameters, callback) {
         }
     })
 }
+
 // # ***************************************************************************************************************** #
 // # ***************************************************************************************************************** #
 

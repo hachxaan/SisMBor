@@ -128,6 +128,13 @@ def panel(request):
     return render(request, 'panel.html')
 
 
+def EsDemo(request):
+    if request.method == 'POST':
+        session=request.user.groups.all().values( 'name' )
+        nombre=session[0]['name']
+        data={"esDemo": (nombre == 'Demo') }
+    return JsonResponse( data, safe=False )
+
 
 def operacion(request):
     return render(request, 'orden/orden-operacion.html')
