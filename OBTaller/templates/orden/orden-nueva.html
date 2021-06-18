@@ -12,7 +12,7 @@
 
             <form action="." enctype="multipart/form-data" method="post">
                 <!-- Nueva Orden -->
-                <div class="card card-info">
+                <div class="card card-primary">
                     <div class="card-header">
                         <h3 class="card-title">Nueva orden de taller</h3>
                     </div>
@@ -23,36 +23,35 @@
                     <div class="card-body">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text bg-primary">Placa</span>
+                                <span class="input-group-text bg-olive">Placa</span>
                             </div>
                             <input id="edtPlaca" name="placa" type="text" class="form-control uppercase" required
                                    placeholder="ABC-123" value="{{ placa }}">
                             <span class="input-group-append">
-{#                                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#NuevoConceptoCategoria" data-id_tipo_concepto="2" data-whatever="@fat"> Agregar categoria de mano de obra </button>#}
-                                    <button type="button" class="btn btn-info btn" data-toggle="modal"
+                                    <button type="button" class="btn btn-outline-info btn" data-toggle="modal"
                                             data-target="#BuscarUnidadModal">Buscar</button>
                                     <button type="button" id="btnNuevaUnidadOrden"
-                                            class="btn btn-info btn ml-1 bg-lightblue color-palette">Nuevo</button>
+                                            class="btn btn-info btn ml-1 bg-info">Nuevo</button>
                                 </span>
                         </div>
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text bg-primary">Kilometraje</span>
+                                <span class="input-group-text bg-olive">Kilometraje</span>
                             </div>
                             <input name="kilometraje" id="kilometraje" type="number" step="1" class="form-control"
-                                   required placeholder="Kilometraje actual">
+                                   required placeholder="Kilometraje actual" value="{{ kilometraje }}">
                         </div>
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text bg-primary">Operador</span>
+                                <span class="input-group-text bg-olive">Operador</span>
                             </div>
                             <input name="nombre_entrega" id="nombre_entrega" type="text" class="form-control" required
-                                   placeholder="Nombre de quien entrega la unidad">
+                                   placeholder="Nombre de quien entrega la unidad" value="{{ nombre_entrega }}">
                         </div>
                         <div class="d-flex flex-row-reverse">
-                            <button id="btnCreaOrden" type="submit" class="btn btn-danger">Crear orden</button>
+                            <button id="btnCreaOrden" type="submit" class="btn btn-info">Crear orden</button>
                         </div>
 
                         <h4>Unidad</h4>
@@ -61,21 +60,21 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Marca</span>
                             </div>
-                            <input id="edtMarca" type="text" class="form-control" placeholder="">
+                            <input readonly id="edtMarca" type="text" class="form-control" placeholder="">
                             <div class="input-group-prepend ml-3">
                                 <span class="input-group-text">Modelo</span>
                             </div>
-                            <input id="edtModelo" type="text" class="form-control" placeholder="">
+                            <input readonly id="edtModelo" type="text" class="form-control" placeholder="">
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Motor</span>
                             </div>
-                            <input id="edtMotor" type="text" class="form-control" placeholder="">
+                            <input readonly id="edtMotor" type="text" class="form-control" placeholder="">
                             <div class="input-group-prepend ml-3">
                                 <span class="input-group-text">Chasis</span>
                             </div>
-                            <input id="edtChasis" type="text" class="form-control" placeholder="">
+                            <input readonly id="edtChasis" type="text" class="form-control" placeholder="">
                         </div>
 
 
@@ -84,24 +83,33 @@
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
+                                <span class="input-group-text">Folio</span>
+
+                            </div>
+                            <input readonly id="edtFolio" type="text" class="form-control" placeholder="Sin historial de servicio">
+                            <span class="input-group-append">
+                                    <button id="btnVerOrden" type="button" class="btn btn-outline-info btn">Ver</button>
+                            </span>
+                            <div class="input-group-prepend  ml-3">
                                 <span class="input-group-text">Fecha</span>
                             </div>
-                            <input type="text" class="form-control" placeholder="Sin historial de servicio">
-                            <div class="input-group-prepend ml-3">
-                                <span class="input-group-text">Kilometraje</span>
-                            </div>
-                            <input type="text" class="form-control" placeholder="Sin historial de servicio">
+                            <input readonly id="edtFhUltSer"  type="text" class="form-control" placeholder="Sin historial de servicio">
+
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
+                                <span class="input-group-text">Kilometraje</span>
+                            </div>
+                            <input readonly id="edtKmUltSer" type="text" class="form-control" placeholder="Sin historial de servicio">
+                            <div class="input-group-prepend ml-3">
                                 <span class="input-group-text">Responsable</span>
                             </div>
-                            <input type="text" class="form-control" placeholder="Sin historial de servicio">
-                            <div class="input-group-prepend ml-3">
-                                <span class="input-group-text">Chasis</span>
-                            </div>
-                            <input type="text" class="form-control" placeholder="Sin historial de servicio">
+                            <input readonly id="edtRespUltSer" type="text" class="form-control" placeholder="Sin historial de servicio">
                         </div>
+{#                        <div class="input-group mb-3">#}
+{#                            #}
+{##}
+{#                        </div>#}
                         <!-- /input-group -->
                     </div>
 
@@ -112,7 +120,7 @@
         </div>
         <div class="col-md-6">
             <!-- Cliente -->
-            <div class="card card-olive">
+            <div class="card card-primary">
                 <div class="card-header">
                     <h3 class="card-title">Cliente</h3>
                 </div>
@@ -121,43 +129,43 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">Empresa</span>
                         </div>
-                        <input id="edtEmpresa" type="text" class="form-control uppercase" placeholder="">
+                        <input readonly id="edtEmpresa" type="text" class="form-control uppercase" placeholder="">
                     </div>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">RUP</span>
                         </div>
-                        <input id="edtRup" type="text" class="form-control" placeholder="">
+                        <input readonly id="edtRup" type="text" class="form-control" placeholder="">
                     </div>
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Telefono</span>
                         </div>
-                        <input id="edtTelefono" type="text" class="form-control" placeholder="">
+                        <input readonly id="edtTelefono" type="text" class="form-control" placeholder="">
                         <div class="input-group-prepend ml-3">
                             <span class="input-group-text">Celular</span>
                         </div>
-                        <input id="edtCelular" type="text" class="form-control" placeholder="">
+                        <input readonly id="edtCelular" type="text" class="form-control" placeholder="">
                     </div>
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Dirección</span>
                         </div>
-                        <input id="edtDireccion" type="text" class="form-control" placeholder="">
+                        <input readonly id="edtDireccion" type="text" class="form-control" placeholder="">
                     </div>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Representante</span>
                         </div>
-                        <input id="edtRepresentante" type="text" class="form-control" placeholder="">
+                        <input readonly id="edtRepresentante" type="text" class="form-control" placeholder="">
                     </div>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Email</span>
                         </div>
-                        <input id="edtEmail" type="text" class="form-control" placeholder="">
+                        <input readonly id="edtEmail" type="text" class="form-control" placeholder="">
                     </div>
                     <!-- /input-group -->
                 </div>

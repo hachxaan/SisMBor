@@ -1,0 +1,133 @@
+
+.contener-admin {
+    background-image: url(/static/sismbor/img/NeumaticosAdmin.png);
+    background-size:  cover;
+    background-position: center;
+    width: 400px;
+    height: 640px;
+    min-width:400px !important;
+    max-width:400px !important;
+    min-height: 640px !important;
+    max-height: 640px !important;
+
+
+}
+
+.btns-group {
+    text-align: center;
+}
+.btn-neumatico {
+    position: absolute !important;
+    width: 28px !important;
+    height: 32px !important;
+    padding-left: 4px !important;
+    padding-top: 3px !important;
+}
+
+#llanta-1{
+    left: 65px !important;
+    top: 40px !important;
+}
+
+#llanta-2{
+    left: 290px !important;
+    top: 40px !important;
+}
+#llanta-3{
+    left: 20px !important;
+    top: 205px !important;
+}
+
+#llanta-4{
+    left: 78px !important;
+    top: 205px !important;
+}
+
+#llanta-5{
+    left: 280px !important;
+    top: 205px !important;
+}
+
+#llanta-6{
+    left: 340px !important;
+    top: 205px !important;
+}
+#llanta-7{
+    left: 20px !important;
+    top: 278px !important;
+}
+
+#llanta-8{
+    left: 75px !important;
+    top: 278px !important;
+}
+#llanta-9{
+    left: 280px !important;
+    top: 278px !important;
+}
+
+#llanta-10{
+    left: 340px !important;
+    top: 278px !important;
+}
+
+
+#llanta-11{
+    left: 20px !important;
+    top: 400px !important;
+}
+
+#llanta-12{
+    left: 75px !important;
+    top: 400px !important;
+}
+#llanta-13{
+    left: 280px !important;
+    top: 400px !important;
+}
+
+#llanta-14{
+    left: 340px !important;
+    top: 400px !important;
+}
+
+
+
+#llanta-15{
+    left: 20px !important;
+    top: 475px !important;
+}
+
+#llanta-16{
+    left: 75px !important;
+    top: 475px !important;
+}
+#llanta-17{
+    left: 280px !important;
+    top: 475px !important;
+}
+
+#llanta-18{
+    left: 340px !important;
+    top: 475px !important;
+}
+
+
+#llanta-19{
+    left: 20px !important;
+    top: 550px !important;
+}
+
+#llanta-20{
+    left: 75px !important;
+    top: 550px !important;
+}
+#llanta-21{
+    left: 280px !important;
+    top: 550px !important;
+}
+
+#llanta-22{
+    left: 340px !important;
+    top: 550px !important;
+}

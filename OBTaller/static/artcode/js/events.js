@@ -9,18 +9,16 @@
                 table.colReorder.reset();
             });
     });
+
+
     /******************************************************************************************************************/
     /******************************************************************************************************************/
-    $("#btnCerrarConciliacion").on('click', function (e) {
-        const idrenc = urlParams.get('idrenc');
-        var parameters = {'idrenc': idrenc};
-        ajax_confirm("../cerrarConciliacion/", 'Notificación',
-            '¿Cerrar conciliación? La conciliación se pasará a estus Conculiado y revisado.', parameters,
-            function (response) {
-                location.href = `../cbsres/?idrenc=${response['idrenc']}`;
-                return false;
-            });
-    });
+
+
+
+    /******************************************************************************************************************/
+    /******************************************************************************************************************/
+
     /******************************************************************************************************************/
     /******************************************************************************************************************/
     $("#btnConciliar").on('click', function () {
@@ -78,11 +76,14 @@
         }
     });
     $(document).ready(function ($) {
-        _ajax('/esdemo/', {}, function (response) {
-            bEsDemo = response['esDemo']
-            console.log(response)
-            console.log(bEsDemo)
-        });
+        // $('.loading-click').on('click', function (e) {
+        //         blockUI_();
+        //     })
+        // _ajax('/esdemo/', {}, function (response) {
+        //     bEsDemo = response['esDemo']
+        //     // console.log(response)
+        //     // console.log(bEsDemo)
+        // });
 
 
     });

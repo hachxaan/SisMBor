@@ -9,6 +9,8 @@ from OBTaller.views.StoreProcedures import StpInsOrden, StpInsBitInventario
 from OBTaller.views.cliente.views import ClienteListView, ClienteCreateView, ClienteUpdateView, ClienteDeleteView
 from OBTaller.views.inventario_view import InventarioView, InventarioCreateView, InventarioUpdateView
 from OBTaller.views.manobra.views import ManobraListView, ManobraCreateView, ManobraUpdateView, ManobraDeleteView
+from OBTaller.views.mantenimiento.views import MantenimientoListView, MantenimientoCreateView, MantenimientoUpdateView, \
+    MantenimientoDeleteView
 from OBTaller.views.personal.views import PersonalListView, PersonalCreateView, PersonalUpdateView, PersonalDeleteView
 from OBTaller.views.unidad.views import UnidadListView, UnidadCreateView, UnidadUpdateView, UnidadDeleteView
 from OBTaller.views.views import login, addConceptoCategoria, addTipoServicio, \
@@ -16,6 +18,8 @@ from OBTaller.views.views import login, addConceptoCategoria, addTipoServicio, \
 
 from OBTaller.views.orden_view import WCuentaAbiertaListView, OrdenNuevaView, UpdSitOrden, OrdenListaEditar, \
     OrdenListaDetalle
+
+from OBTaller.views.neumaticos_view import NeumaticosAdmin
 
 app_name='OBTaller'
 
@@ -28,13 +32,18 @@ urlpatterns=[
     path( 'esdemo/', EsDemo, name='es_demo' ),
     path( 'operacion/', WCuentaAbiertaListView.as_view(), name='panel-operacion' ),
     path( 'ordennueva/', OrdenNuevaView, name='orden_nueva' ),
+    path( 'getInfoUnidad/', getInfoUnidad, name='get_info_unidad' ),
     path( 'ordennueva/getInfoUnidad/', getInfoUnidad, name='get_info_unidad' ),
 
 
     path( 'operacion/ordendetalle/', OrdenListaDetalle.as_view(), name='detalle_order' ),
     path( 'ordendetalle/', OrdenListaDetalle.as_view(), name='detalle_order' ),
 
-    path( 'inventario/', InventarioView.as_view(), name='inventario' ),
+    path( 'neumaticosadmin/', NeumaticosAdmin, name='neumaticos_admin' ),
+
+
+
+    path( 'inventario/', InventarioView.as_view(), name='inventario_list' ),
     path( 'inventario/add/', InventarioCreateView.as_view(), name='inventario_create' ),
     path( 'inventario/update/<int:id_concepto>/', InventarioUpdateView.as_view(), name='inventario_update' ),
     # *******************************************************************************************************************
@@ -42,6 +51,7 @@ urlpatterns=[
     # *******************************************************************************************************************
         path( 'stp/insorden/', StpInsOrden, name='ins_orden' ),
         path( 'stp/entradainventario/', StpInsBitInventario, name='entrada_inventario' ),
+        path( 'stp/salidainventario/', StpInsBitInventario, name='salida_inventario' ),
 
     # *******************************************************************************************************************
     # UPDATE
@@ -75,7 +85,11 @@ urlpatterns=[
                 path( 'manobra/add/', ManobraCreateView.as_view(), name='manobra_create' ),
                 path( 'manobra/update/<int:id_concepto>/', ManobraUpdateView.as_view(), name='manobra_update' ),
                 path( 'manobra/delete/<int:id_concepto>/', ManobraDeleteView.as_view(), name='manobra_delete' ),
-
+                # Mantenimiento
+                path( 'mantenimiento/list/', MantenimientoListView.as_view(), name='mantenimiento_list' ),
+                path( 'mantenimiento/add/', MantenimientoCreateView.as_view(), name='mantenimiento_create' ),
+                path( 'mantenimiento/update/<int:id_concepto>/', MantenimientoUpdateView.as_view(), name='mantenimiento_update' ),
+                path( 'mantenimiento/delete/<int:id_concepto>/', MantenimientoDeleteView.as_view(), name='mantenimiento_delete' ),
                 # Personal
                 path( 'personal/list/', PersonalListView.as_view(), name='personal_list' ),
                 path( 'personal/add/', PersonalCreateView.as_view(), name='personal_create' ),

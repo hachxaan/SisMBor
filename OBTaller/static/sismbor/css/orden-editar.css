@@ -1,4 +1,10 @@
 
+#dtOrdenDetalle_wrapper div:first-child{
+    float: right;
+    margin-bottom: 3px;
+    margin-right: 3px;
+}
+
 table.dataTable td {
     padding: 6px 5px 2px 5px !important;
     font-size: 12px !important;

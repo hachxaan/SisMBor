@@ -20,9 +20,29 @@ from OBTaller.models import *
 # Create your tests here.
 
 
-dataSet = Concepto.objects.filter( id_concepto=1 ).values('precio_compra', 'precio_venta');
-print(dataSet)
-print(dataSet[0]['precio_compra'])
+# dataSet = Concepto.objects.filter( id_concepto=1 ).values('precio_compra', 'precio_venta');
+# print(dataSet)
+# print(dataSet[0]['precio_compra'])
+
+
+kilometraje = 74900
+if (kilometraje < 25000):
+    kilometraje = 25000
+else:
+    RetVecesVal = round(kilometraje/25000)
+    kilometraje = RetVecesVal * 25000
+
+
+print({"kilometraje":kilometraje})
+
+
+vFieldFilter = {
+    '{0}'.format('m'+str(kilometraje)): '1'
+}
+
+dataSet = WListaMantenimiento.objects.filter(**vFieldFilter).values('id_concepto')
+for i in WListaMantenimiento.objects.filter(**vFieldFilter):
+    print(i.id_concepto)
 
 
 

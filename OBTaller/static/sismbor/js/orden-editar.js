@@ -55,7 +55,7 @@ $(function () {
     /******************************************************************************************************************/
 
     /******************************************************************************************************************/
-    function pAgregaConceptoMain(id_concepto, stock, b_numero_serie, b_personal) {
+    function pAgregaConceptoMain(id_concepto, id_tipo_concepto, stock, b_numero_serie, b_personal, b_agrega_conceptos) {
         var id_personal = 0;
         var no_serie = '';
 
@@ -65,7 +65,7 @@ $(function () {
         }
 
         function pSolicitaNoSerie() {
-            console.log('ajax pSolicitaNoSerie...');
+
             pAgregaConcepto();
         }
 
@@ -74,11 +74,14 @@ $(function () {
                 "action": 'addItem',
                 "folio": cfolio,
                 "id_concepto": id_concepto,
+                "id_tipo_concepto": id_tipo_concepto,
                 "id_personal": id_personal,
                 "stock": stock,
                 "b_numero_serie": b_numero_serie,
                 "no_serie": no_serie,
-                "b_personal": b_personal
+                "b_personal": b_personal,
+                "b_agrega_conceptos": b_agrega_conceptos
+
             }
 
 
@@ -185,7 +188,6 @@ $(function () {
     $("#PersonalModal").on('shown.bs.modal', function (event) {
         var button = $(event.relatedTarget);
         var id_orden_detalle = button.data('id_orden_detalle');
-        console.log('DSADSADASDSDASDASDASDAS', id_orden_detalle)
         var dato = button.data('dato');
         $(this).find('#id_orden_detalle').val(id_orden_detalle)
         $(this).find('#cbPersonal').val(dato)
@@ -234,7 +236,7 @@ $(function () {
             {"data": "vida_util_hr", class: "none"},
             {"data": "desc_periodo_km", class: "none"},
             {"data": "stock", class: 'all text-center'},
-            {"data": null}
+            {"data": null, class: 'all text-center'}
         ];
         ShowOrdeEdita(cColumsRepuestos, ID_REPUESTOS, cNameDT_Repuestos);
         // ##########################################################################################
@@ -251,7 +253,7 @@ $(function () {
                 render: $.fn.dataTable.render.number(',', '.', 2, 'S/.')
             },
             {"data": "hora_hombre"},
-            {"data": null}
+            {"data": null, class: 'all text-center'}
         ];
         ShowOrdeEdita(cColumsMantenimiento, ID_MANTENIMIENTO, cNameDT_Mantenimiento);
         // ##########################################################################################
@@ -268,19 +270,13 @@ $(function () {
                 render: $.fn.dataTable.render.number(',', '.', 2, 'S/.')
             },
             {"data": "hora_hombre"},
-            {"data": null}
+            {"data": null, class: 'all text-center'}
         ];
         ShowOrdeEdita(cColumsManoObra, ID_MANO_OBRA, cNameDT_ManoObra);
 
 
         function ShowOrdeEdita(columns, aIdTipoConcepto, aNameDataTable) {
-            // $.fn.dataTable.ext.buttons.aceptar = {
-            //     text: '<span class="far fa-file-excel"></span> Aceptar',
-            //     className: "btn btn-secondary actionBtnExcel",
-            //     init: function (api, node, config) {
-            //         $(node).removeClass('dt-button ');
-            //     }
-            // };
+
             $(aNameDataTable).DataTable({
                 language: {
                     url: '../../static/libs/datatables-es_orde-editar.json'
@@ -306,26 +302,7 @@ $(function () {
                     dataSrc: ""
                 },
                 columns: columns,
-                dom: 'Bfrtip',
-                buttons: [
-                    {
-                        text: 'Regresar',
-                        className: 'btn-info',
-                        action: function (e, dt, node, config) {
-                            location.href = '../'
-                        }
-
-                    },
-                    {
-                        text: 'Agregar a Orden',
-                        className: 'btn-success',
-                        action: function (e, dt, node, config) {
-                            pAgregarConceptoOrden();
-                        }
-
-                    }
-                ],
-
+                dom: 'frtip',
                 columnDefs: [
                     {
                         "targets": '0',
@@ -346,6 +323,8 @@ $(function () {
                                               data-b_numero_serie=${row['b_numero_serie']} 
                                               data-b_personal=${row['b_personal']}  
                                               data-stock=${row['stock']} 
+                                              data-b_agrega_conceptos=${row['b_agrega_conceptos']} 
+                                              data-id_tipo_concepto=${row['id_tipo_concepto']} 
                                               
                                               type="button" class="btn btn-success btn-xs btn-flat" id="btnAgegarConcepto"><i class="fas fa-plus-circle"></i></a>`;
                             return buttons;
@@ -357,15 +336,18 @@ $(function () {
                     // $(document).on("click", "a[id^=btnAgegarConcepto]", function (event) {
                     $(aNameDataTable).on("click", "a[id^=btnAgegarConcepto]", function (event) {
                         var id_concepto = $(this).data('id_concepto');
+                        var id_tipo_concepto = $(this).data('id_tipo_concepto');
                         var stock = $(this).data('stock');
                         var b_numero_serie = $(this).data('b_numero_serie');
                         var b_personal = $(this).data('b_personal');
+                        var b_agrega_conceptos = $(this).data('b_agrega_conceptos');
 
-                        pAgregaConceptoMain(id_concepto, stock, b_numero_serie, b_personal);
+                        pAgregaConceptoMain(id_concepto, id_tipo_concepto, stock, b_numero_serie, b_personal, b_agrega_conceptos);
 
                     });
                 }
             });
+
 
 
         }
@@ -380,8 +362,18 @@ $(function () {
             destroy: true,
             deferRender: true,
             paging: false,
-            dom: '',
+            dom: 'B',
             lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            buttons: [
+                    {
+                        text: 'Agregar conceptos seleecionados a la orden',
+                        className: 'ml-1 btn-success',
+                        action: function (e, dt, node, config) {
+                            pAgregarConceptoOrden();
+                        }
+
+                    }
+                ],
             ajax: {
                 url: window.location.pathname,
                 type: 'POST',
@@ -404,7 +396,7 @@ $(function () {
                 {"data": "nombre_persona"},
                 {"data": "tx_referencia"},
                 // {"data": "b_numero_serie", className: 'none'},
-                {"data": null}
+                {"data": null, class: 'all text-center'}
             ],
             columnDefs: [
                 {
@@ -492,8 +484,10 @@ $(function () {
                 });
 
 
+
             }
         });
+
     });
 
 

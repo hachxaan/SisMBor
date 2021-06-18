@@ -26,57 +26,74 @@ function setParametro(url, cve_parametro, valor) {
     })
 }
 
+function UnblockUI_(){
+    $('.wrapper').unblock();
+}
+
+function blockUI_(){
+      $('.wrapper').block({
+                message: '<img width="90" height="79" src="/static/sismbor/img/loading.gif" />',
+                overlayCSS: { backgroundColor: '#fff',opacity: 1 },
+                css: {
+                    border: 'none',
+                    opacity: 1,
+                    color: '#fff'
+                }
+            });
+}
+
 // # ***************************************************************************************************************** #
 // # ***************************************************************************************************************** #
 function _ajax(url, parameters, callback) {
 
-    if (bEsDemo) {
-        message_error('Cuenta demo. Solo lectura');
-    } else {
-        $.ajax({
-            url: url, //window.location.pathname
-            type: 'POST',
-            beforeSend: function (request) {
-                request.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-            },
-            data: parameters,
-            dataType: 'json'
-            // processData: false,
-            // contentType: false,
-        }).done(function (data) {
-            if (!data.hasOwnProperty('error')) {
-                if (data.hasOwnProperty('msgInfo')) {
-                    message_info(data.msgInfo, callback, data);
-                    return false;
-                }
-
-                if (data.hasOwnProperty('msgConfirmar')) {
-
-                    message_info(data.msgConfirmar, function (data) {
-
-
-                        parameters.set("confirmado", true);
-
-                        _ajax(url, parameters, callback(data));
-                    }, data);
-                    return false;
-                }
-                callback(data);
+    // if (bEsDemo) {
+    //     message_error('Cuenta demo. Solo lectura');
+    // } else {
+    $.ajax({
+        url: url, //window.location.pathname
+        type: 'POST',
+        beforeSend: function (request) {
+            request.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        },
+        data: parameters,
+        dataType: 'json'
+        // processData: false,
+        // contentType: false,
+    }).done(function (data) {
+        if (!data.hasOwnProperty('error')) {
+            if (data.hasOwnProperty('msgInfo')) {
+                message_info(data.msgInfo, callback, data);
                 return false;
             }
 
-            if (data['error'].indexOf('1062') == 1) {
-                message_error('Registro duplicado ' + data['info_datos']);
-            } else {
-                message_error(data.error);
-            }   
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-            alert(textStatus + ': ' + errorThrown);
-        }).always(function (data) {
+            if (data.hasOwnProperty('msgConfirmar')) {
 
-        });
+                message_info(data.msgConfirmar, function (data) {
 
-    }
+
+                    parameters.set("confirmado", true);
+
+                    _ajax(url, parameters, callback(data));
+                }, data);
+                return false;
+            }
+            callback(data);
+            return false;
+        }
+
+        if (data['error'].indexOf('1062') == 1) {
+            message_error('Registro duplicado ' + data['info_datos']);
+        } else {
+            message_error(data.error);
+        }
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        alert(textStatus + ': ' + errorThrown);
+    }).always(function (data) {
+
+
+    });
+
+    // }
 
 }
 

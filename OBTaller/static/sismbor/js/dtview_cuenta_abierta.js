@@ -84,7 +84,13 @@ $(function () {
                             </button>
                             <div class="dropdown-menu" role="menu" style="">
                                 <!-- E D I T A R -->
-                                <a data-folio=${row['folio']} class="${EditarTrabajoEnabled} dropdown-item btn-block btn" id="btnEditaTrabajo"><i class="fas fa-plus"></i>Agregar Conceptos</a>
+                                <a data-folio=${row['folio']} 
+                                    data-kilometraje=${row['kilometraje']}
+                                    data-placa=${row['placa']}
+                                    data-modelo=${row['modelo']}
+                                    data-nombre_entrega=${row['nombre_entrega']}
+                                    data-row_num=${row['row_num']}
+                                    class="${EditarTrabajoEnabled} dropdown-item btn-block btn" id="btnEditaTrabajo"><i class="fas fa-plus"></i>Agregar Conceptos</a>
                                 <div class="dropdown-divider"></div>
                                 <!-- I N I C I A R -->
                                 <a data-folio=${row['folio']} class="${IniciaTrabajoEnabled} dropdown-item btn-block btn" id="btnIniciaTrabajo"><i class="fas fa-play-circle"></i>Inicia trabajo</a>
@@ -118,12 +124,17 @@ $(function () {
             {
                 targets: [0],
                 class: 'pl-5 pt-3',
-             },
+            },
             {
                 targets: [1],
                 render: function (data, type, row) {
-
-                    return `<a href="ordendetalle/?folio=${row['folio']}"  ><i class="mr-3 fas fa-search-plus"></i></a>${data}`
+                    var folio = row.folio;
+                    var prev = '/operacion/';
+                    // RASTREO AQUI PORTI
+                    var placa = row.placa;
+                    var kilometraje = '';
+                    var nombre_entrega = '';
+                    return `<a href="/ordendetalle/?prev=${prev}&folio=${folio}&placa=${placa}&kilometraje=${kilometraje}&nombre_entrega=${nombre_entrega}" ><i class="mr-3 fas fa-search-plus"></i></a>${data}`
                 }
             },
             {
@@ -161,7 +172,7 @@ $(function () {
 
             {
                 targets: [3],
-                class : 'pt-2',
+                class: 'pt-2',
                 createdCell: function (td, cellData, rowData, row, col) {
                     $(td).css('padding', '0px')
                 },
@@ -171,11 +182,10 @@ $(function () {
                     var $RowD = $('<div class="row elRow"></div>');
                     $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Conceptos: </span><a >${row['no_conceptos']}</a></div>`);
                     $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Entregó: </span><a> ${row['nombre_entrega']}  </a></div>`);
+                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Cuenta: </span><a >${row['cuenta_formato']}</a></div>`);
                     $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Km Actual: </span><a>${row['kilometraje']}  </a></div>`);
                     $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Km Anterior: </span><a> ${row['km_anterior']}   </a></div>`);
-                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Ult. Serv.: </span><a> ${row['fh_ultimo_servicio']}    </a></div>`);
-
-                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Cuenta: </span><a >${row['cuenta_formato']}</a></div>`);
+                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Ult. Serv: </span><a> ${row['fh_ultimo_servicio']}    </a></div>`);
 
 
                     $Main.append($RowD);
@@ -191,8 +201,17 @@ $(function () {
         initComplete: function (settings, json) {
 
             $(document).on("click", "a[id^=btnEditaTrabajo]", function (event) {
-                let folio = $(this).data('folio');
-                location.href = `ordeneditar/?folio=${folio}`;
+                var folio = $(this).data('folio');
+                var prev = '/operacion/';
+                var placa = $(this).data('placa');
+                var kilometraje = $(this).data('kilometraje');
+                var modelo = $(this).data('modelo');
+                var nombre_entrega = $(this).data('nombre_entrega');
+                var nombre_empresa = $(this).data('nombre_empresa');
+                var row_num = $(this).data('row_num');
+                location.href = `/ordeneditar/?prev=${prev}&prev_old=&folio=${folio}&placa=${placa}&kilometraje=${kilometraje}&nombre_entrega=${nombre_entrega}&modelo=${modelo}&row_num=${row_num}&nombre_empresa=${nombre_empresa}`
+
+
             });
 
             $(document).on("click", "a[id^=btnIniciaTrabajo]", function (event) {
@@ -209,30 +228,32 @@ $(function () {
             });
             $(document).on("click", "a[id^=btnDetalle]", function (event) {
                 let folio = $(this).data('folio');
-                location.href = `ordendetalle/?folio=${folio}`
+
+                let prev = '/operacion/';
+                location.href = `ordendetalle/?folio=${folio}&prev=${prev}&placa=&nombre_entrega=&modelo=&nom_empresa=&kilometraje=`
             });
 
             $(".status_filter").html(`<div class="filtros-status"></div>`);
 
-
+            UnblockUI_();
         }
     });
 
     $('.filtros').on('change', function (event) {
         ajax_reload('#dataTables4');
-        if ($(this).is(":checked")) var valor = '1'; else var valor =  '0';
-        setParametro( '../parametros/', $(this).data('cve_parametro'), valor);
+        if ($(this).is(":checked")) var valor = '1'; else var valor = '0';
+        setParametro('../parametros/', $(this).data('cve_parametro'), valor);
     });
 
     $.fn.dataTable.ext.search.push(
         function (settings, searchData, index, rowData, counter) {
             var EnProceso, Terminados, Cancelados = false;
-            EnProceso = $('#chkEnProceso').is(":checked")  && (parseInt(rowData['status']) < 2) ;
-            Terminados = $('#chkTerminados').is(":checked")  && (parseInt(rowData['status']) == 2) ;
-            Cancelados = $('#chkCancelados').is(":checked")  && (parseInt(rowData['status']) == 3) ;
-            console.log({"EnProceso":EnProceso})
-            console.log({"Terminados":Terminados})
-            console.log({"Cancelados":Cancelados})
+            EnProceso = $('#chkEnProceso').is(":checked") && (parseInt(rowData['status']) < 2);
+            Terminados = $('#chkTerminados').is(":checked") && (parseInt(rowData['status']) == 2);
+            Cancelados = $('#chkCancelados').is(":checked") && (parseInt(rowData['status']) == 3);
+            // console.log({"EnProceso": EnProceso})
+            // console.log({"Terminados": Terminados})
+            // console.log({"Cancelados": Cancelados})
 
             return EnProceso || Terminados || Cancelados;
 

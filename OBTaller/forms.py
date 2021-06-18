@@ -1,8 +1,7 @@
-from msilib.schema import CheckBox
+# from msilib.schema import CheckBox
 
 from django import forms
 from django.forms import Select, ModelForm, TextInput, Textarea
-from floppyforms.templatetags import floppyforms
 
 from appMainSite.const import *
 from .models import Unidad, Cliente, Concepto, ConceptoCategoria, Personal, ConceptoTipoMarca, UnidadMedida
@@ -91,9 +90,17 @@ class ManobraForm(forms.ModelForm):
         self.fields['id_tipo_concepto'].widget=forms.HiddenInput()
         self.fields['b_numero_serie'].widget=forms.HiddenInput()
         self.fields['precio_compra'].widget=forms.HiddenInput()
+        self.fields['stock'].widget=forms.HiddenInput()
+        self.fields['stock'].widget.attrs['value'] = 0
+        self.fields['b_nserie_obligatorio'].widget=forms.HiddenInput()
+        self.fields['b_nserie_obligatorio'].widget.attrs['value'] = 0
         self.fields['id_categoria'].label = "Categoría"
         self.fields['id_tipo_servicio'].label="Tipo de servicio"
         self.fields['id_periodo_km'].label="Kilometraje sugerido"
+        self.fields['hora_hombre'].required = True
+        self.fields['id_tipo_servicio'].required = True
+        self.fields['id_periodo_km'].required = True
+
 
 
     class Meta:
@@ -107,7 +114,9 @@ class ManobraForm(forms.ModelForm):
                   'id_periodo_km',
                   'id_tipo_concepto',
                   'b_numero_serie',
-                  'precio_compra'
+                  'b_nserie_obligatorio',
+                  'precio_compra',
+                  'stock',
                   ]
         widgets = {
             # 'id_categoria': TextInput( attrs={'style': 'width:20px'} ),
@@ -128,6 +137,91 @@ class ManobraForm(forms.ModelForm):
                     'style': 'width: 50%'
                 }
             )
+
+            # 'id_categoria': floppyforms.widgets.Input( datalist=ConceptoCategoria.objects.filter(id_tipo_concepto = 2) )
+
+
+        }
+    def save(self, commit=True):
+        data={}
+        form=super()
+
+        try:
+            if form.is_valid():
+                form.save()
+            else:
+                data['error']=form.errors
+        except Exception as e:
+            data['error']=str( e )
+        return data
+
+
+class MantenimientoForm(forms.ModelForm):
+    id_categoria=forms.ModelChoiceField( queryset=ConceptoCategoria.objects.filter(id_tipo_concepto = TCONCEPTO_MANTENIMIENTO))
+    def clean_name(self):
+        if not self['id_tipo_concepto'].html_name in self.data:
+            return self.fields['id_tipo_concepto'].initial
+        return self.cleaned_data['id_tipo_concepto']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['cve_concepto'].widget.attrs['autofocus'] = True
+        self.fields['id_tipo_concepto'].widget.attrs['value']=TCONCEPTO_MANOBRA
+        self.fields['b_numero_serie'].widget.attrs['value']=0
+        self.fields['b_nserie_obligatorio'].widget.attrs['value']=0
+        self.fields['precio_compra'].widget.attrs['value']=0
+        self.fields['id_periodo_km'].widget.attrs['value']=0
+        self.fields['stock'].widget.attrs['value']=0
+        self.fields['id_tipo_servicio'].widget.attrs['value']=2
+        self.fields['id_tipo_concepto'].widget=forms.HiddenInput()
+        self.fields['b_numero_serie'].widget=forms.HiddenInput()
+        self.fields['id_periodo_km'].widget=forms.HiddenInput()
+        self.fields['precio_compra'].widget=forms.HiddenInput()
+        self.fields['id_tipo_servicio'].widget=forms.HiddenInput()
+        self.fields['b_nserie_obligatorio'].widget=forms.HiddenInput()
+        self.fields['id_categoria'].widget=forms.HiddenInput()
+        self.fields['id_periodo_km'].widget=forms.HiddenInput()
+        self.fields['stock'].widget=forms.HiddenInput()
+        self.fields['hora_hombre'].required = True
+
+        # self.fields['id_tipo_servicio'].label="Tipo de servicio"
+        # self.fields['id_periodo_km'].label="Kilometraje sugerido"
+
+
+    class Meta:
+        model = Concepto
+        fields = ['cve_concepto',
+                  'desc_concepto',
+                  'id_categoria',
+                  'precio_venta',
+                  'hora_hombre',
+                  'stock',
+                  'id_tipo_servicio',
+                  'id_periodo_km',
+                  'id_tipo_concepto',
+                  'b_numero_serie',
+                  'precio_compra',
+                  'b_nserie_obligatorio'
+                  ]
+        widgets = {
+            # 'id_categoria': TextInput( attrs={'style': 'width:20px'} ),
+            # 'id_tipo_servicio': Select(
+            #     attrs={
+            #         'class': 'select2',
+            #         'style': 'width: 100%'
+            #     }
+            # ),
+            # 'id_periodo_km': Select(
+            #     attrs={
+            #         'class': 'select2',
+            #         'style': 'width: 100%'
+            #     }
+            # ),
+            # 'desc_concepto': TextInput(
+            #     attrs={
+            #         'style': 'width: 50%'
+            #     }
+            # )
 
             # 'id_categoria': floppyforms.widgets.Input( datalist=ConceptoCategoria.objects.filter(id_tipo_concepto = 2) )
 
@@ -198,6 +292,9 @@ class InventarioForm(forms.ModelForm):
         self.fields['precio_compra'].required=True
         self.fields['vida_util_km'].required=True
         self.fields['vida_util_hr'].required=True
+        self.fields['b_numero_serie'].required = False
+        self.fields['b_nserie_obligatorio'].required = False
+
 
 
     class Meta:

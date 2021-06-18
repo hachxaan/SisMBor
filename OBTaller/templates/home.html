@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -10,14 +11,25 @@
     {% block stylesheet %}
     {% endblock %}
 
-     <!-- CSS -->
+    <!-- CSS -->
     {% include 'MainSections/CSS.html' %}
     <!-- Sidebar -->
     {% include 'MainSections/JS.html' %}
+    <script>
+        $(function () {
+          {#blockUI_();#}
+            $('.loading-click').on('click', function (e) {
+                            blockUI_();
+            })
+        });
+
+
+    </script>
 
     {% block head %}
 
     {% endblock %}
+
 </head>
 {% block body %}
 
@@ -25,9 +37,9 @@
 
 
 
-        {% block scripts %}
+    {% block scripts %}
 
-        {% endblock %}
+    {% endblock %}
 {% endblock %}
 
 </html>

@@ -15,10 +15,17 @@ def StpInsOrden(request):
     cursor=connection.cursor()
     try:
         try:
+            kilometraje_int = int(peKILOMETRAJE)
+            if (kilometraje_int < 25000):
+                peKILOMETRAJE_PQ = 25000
+            else:
+                RetVecesVal = round(kilometraje_int / 25000)
+                peKILOMETRAJE_PQ = RetVecesVal * 25000
+
+
             DataSet = Unidad.objects.filter(placa=placa).values( 'id_unidad')
             peID_UNIDAD = DataSet[0]['id_unidad']
-            cursor.callproc('StpInsertaOrden', [peID_UNIDAD, peKILOMETRAJE, peCVE_USU_ALTA, peNOMBRE_ENTREGA, peTX_REFERENCIA, psSTR_RESP])
-
+            cursor.callproc('StpInsertaOrden', [peID_UNIDAD, peKILOMETRAJE, peKILOMETRAJE_PQ, peCVE_USU_ALTA, peNOMBRE_ENTREGA, peTX_REFERENCIA, psSTR_RESP])
             # cursor.execute('SELECT @StpInsertaOrden')
             results = cursor.fetchall()
             # results =  psSTR_RESP.getValue()

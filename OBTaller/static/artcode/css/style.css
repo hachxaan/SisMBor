@@ -1,9 +1,8 @@
-.grd-conciliaciones {
-    height: 100% !important; 
-    /* max-height: 90vh !important;*/
-    border-radius: 5px;
-    /* overflow:auto !important;   */
-}
+/*.content-wrapper {*/
+/*    margin-left: 190px !important;*/
+/*}*/
+
+
 
 
 .head-conciliaciones {
@@ -70,6 +69,10 @@
     background-color: rgba(31, 29, 23, 0.1);
 }
 
+table.dataTable tbody tr td a {
+    margin-top: 3px;
+}
+
 .row {
     /* display: flex;
     flex-wrap: wrap; */
@@ -77,13 +80,13 @@
     margin-left: 0px !important;
 }
 .bg-login {
-    background-image: url(/static/sismbor/img/back.jpeg);
+    background-image: url(/static/sismbor/img/back.jpg);
     background-size: cover;
     background-position: center;
 }
 
 .contenedor-main {
-    background-image: url(/static/sismbor/img/back.jpeg);
+    background-image: url(/static/sismbor/img/back.jpg);
     background-size:  cover;
     background-position: center;
     height: 100vh;
@@ -113,6 +116,7 @@
     background-color: rgba(255, 255, 255, .4);  
     backdrop-filter: blur(5px);
     border-radius: 10px;
+    color: #1d455b;
    }
 
 .btn-login {
