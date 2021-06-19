@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 import datetime as dt
-
+from appMainSite.const import *
 from django.db.models import Max
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -9,7 +9,7 @@ from django.views.generic import ListView
 
 from OBTaller import forms
 from OBTaller.models import WCuentaAbierta, Orden, WConceptosMain, OrdenDetalle, Concepto, WOrdenDetalle, Personal, \
-    Parametros
+    Parametros, WListaMantenimiento
 
 
 def UpdSitOrden(request):
@@ -24,7 +24,6 @@ def UpdSitOrden(request):
             context['error']=str( e )
         return JsonResponse( context, safe=False )
 
-
 def OrdenNuevaView(request):
     # request['manobra']='active'
     context={}
@@ -34,13 +33,28 @@ def OrdenNuevaView(request):
             context['placa']=request.GET.get( 'placa' )
         else:
             context['placa']=''
+        if request.GET.get( 'kilometraje' ):
+            context['kilometraje']=request.GET.get( 'kilometraje' )
+        else:
+            context['kilometraje']=''
+
+        if request.GET.get( 'nombre_entrega' ):
+            context['nombre_entrega']=request.GET.get( 'nombre_entrega' )
+        else:
+            context['nombre_entrega']=''
+
+
+
+
+
+
     return render( request, 'orden/orden-nueva.html', context )
 
 
 class OrdenListaEditar( ListView ):
     model=WConceptosMain
     template_name='orden/orden-editar.html'
-    # personal=Personal.objects.all();
+
     @method_decorator( login_required )
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch( request, *args, **kwargs )
@@ -143,7 +157,6 @@ class OrdenListaEditar( ListView ):
         data={"psSTR_RESP": 'OK'}
         return data
 
-
     def pDelOrdenDetalle(self, request):
         data={}
         id_orden_detalle=request.POST['id_orden_detalle']
@@ -157,16 +170,19 @@ class OrdenListaEditar( ListView ):
         data={}
 
         stock=request.POST['stock']
+        id_tipo_concepto=request.POST['id_tipo_concepto']
         # try:
         data=[]
-        if (stock == 0):
 
+        if ((stock == 0) & (id_tipo_concepto == TCONCEPTO_REPUESTOS )):
             data['error']='Sin Stock. Agregue stock en Inventario.'
         else:
+
             folio=request.POST['folio']
             id_concepto=request.POST['id_concepto']
             id_personal=request.POST['id_personal']
             no_serie=request.POST['no_serie']
+            b_agrega_conceptos=request.POST['b_agrega_conceptos']
 
             consecutivo=OrdenDetalle.objects.filter( folio=folio ).count()
             if (consecutivo > 0):
@@ -174,7 +190,7 @@ class OrdenListaEditar( ListView ):
                 consecutivo=MaxCons['consecutivo__max']
 
             dataSet=Concepto.objects.filter( id_concepto=id_concepto ).values( 'stock', 'precio_compra',
-                                                                               'precio_venta' );
+                                                                               'precio_venta' )
             precio_compra=dataSet[0]['precio_compra']
             precio_venta=dataSet[0]['precio_venta']
             stock=dataSet[0]['stock']
@@ -192,23 +208,76 @@ class OrdenListaEditar( ListView ):
                 fh_registro=dt.datetime.today(),
                 sit_code='PE')
             InsOrdenDetalle.save()
+
+
+            if (b_agrega_conceptos):
+                dataSet = Orden.objects.filter(folio=folio).values('kilometraje_pq')
+                kilometraje_pq = dataSet[0]['kilometraje_pq']
+                if (int(kilometraje_pq) <= 1250000 ):
+                    vFieldFilter = {
+                        '{0}'.format('m'+str(kilometraje_pq)): '1'
+                    }
+                    dataNoStock = []
+                    for dataset in WListaMantenimiento.objects.filter(**vFieldFilter):
+                        if (dataset.stock > 0):
+                            InsOrdenDetalle = OrdenDetalle(
+                                folio=folio,
+                                consecutivo=consecutivo + 1,
+                                cantidad=1,
+                                id_concepto=dataset.id_concepto,
+                                id_personal=id_personal,
+                                no_serie=no_serie,
+                                precio_compra=dataset.precio_compra,
+                                precio_venta=dataset.precio_venta,
+                                cve_usu_alta=request.user.username,
+                                fh_registro=dt.datetime.today(),
+                                sit_code='PE')
+                            InsOrdenDetalle.save()
+                    # else:
+                    #     dataNoStock.append()
+
             data={"psSTR_RESP": 'OK', "consecutivo": consecutivo, "stock": stock}
 
         return data
 
-
+    # Orden Editar
     def get_context_data(self, **kwargs):
         context=super().get_context_data( **kwargs )
         context['title']='Agregar conceptos a orden'
         context['escritorio']='active'
-        context['personal']= Personal.objects.all();
+        context['personal']= Personal.objects.all()
+
+        prev=self.request.GET['prev']
+        folio=self.request.GET['folio']
+        row_num=self.request.GET['row_num']
+        placa=self.request.GET['placa']
+        modelo=self.request.GET['modelo']
+        kilometraje=self.request.GET['kilometraje']
+        nombre_entrega=self.request.GET['nombre_entrega']
+        nombre_empresa=self.request.GET['nombre_empresa']
+        prev_old=self.request.GET['prev_old']
+
+        if prev_old:
+            prev = prev_old
+        else:
+            prev = self.request.GET['prev']
+
+
+        context['placa'] = placa
+        context['modelo']= modelo
+        context['kilometraje']= kilometraje
+        context['nombre_entrega']= nombre_entrega
+        context['nombre_empresa']= nombre_empresa
+#        context['url_prev']=prev + '?row_num=' + row_num
+        print({"prev":prev_old})
+        context['url_prev'] = self.request.GET['prev'] + '?row_num=' +row_num +'&prev=' +prev+'&modelo=' +modelo+ '&placa=' + placa + '&kilometraje=' + kilometraje +'&nombre_entrega='+nombre_entrega +'&folio='+folio+'&nombre_empresa='+nombre_empresa
+
         return context
 
 
 class OrdenListaDetalle( ListView ):
     model=WConceptosMain
     template_name='orden/orden-detalle.html'
-    # personal=Personal.objects.all();
     @method_decorator( login_required )
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch( request, *args, **kwargs )
@@ -290,7 +359,6 @@ class OrdenListaDetalle( ListView ):
         data={"psSTR_RESP": 'OK'}
         return data
 
-
     def pDelOrdenDetalle(self, request):
         data={}
         id_orden_detalle=request.POST['id_orden_detalle']
@@ -321,7 +389,7 @@ class OrdenListaDetalle( ListView ):
                 consecutivo=MaxCons['consecutivo__max']
 
             dataSet=Concepto.objects.filter( id_concepto=id_concepto ).values( 'stock', 'precio_compra',
-                                                                               'precio_venta' );
+                                                                               'precio_venta' )
             precio_compra=dataSet[0]['precio_compra']
             precio_venta=dataSet[0]['precio_venta']
             stock=dataSet[0]['stock']
@@ -342,13 +410,12 @@ class OrdenListaDetalle( ListView ):
             data={"psSTR_RESP": 'OK', "consecutivo": consecutivo, "stock": stock}
 
         return data
-
-
+    # Orden Detalle
     def get_context_data(self, **kwargs):
         context=super().get_context_data( **kwargs )
         context['title']='Agregar conceptos a orden'
         context['escritorio']='active'
-        context['personal']= Personal.objects.all();
+        context['personal']= Personal.objects.all()
         folio= self.request.GET['folio']
         dataSet = WCuentaAbierta.objects.filter(folio=folio).values('status',
                                                                     'placa',
@@ -358,9 +425,9 @@ class OrdenListaDetalle( ListView ):
                                                                     'usu_alta',
                                                                     'fh_inicio',
                                                                     'fh_salida',
-
+                                                                    'modelo'
                                                                     )
-        status = dataSet[0]['status'];
+        status = dataSet[0]['status']
         if (status == 0):
             context['status_tipo'] = 'warning'
             context['status_desc']='PENDIENTE'
@@ -384,9 +451,28 @@ class OrdenListaDetalle( ListView ):
         context['fh_inicio']=dataSet[0]['fh_inicio']
         context['fh_salida']=dataSet[0]['fh_salida']
 
+        modelo = dataSet[0]['modelo']
 
+        prev = self.request.GET['prev']
+        context['prev_old'] = prev
+
+
+        placa=self.request.GET['placa']
+        kilometraje=self.request.GET['kilometraje']
+        nombre_entrega=self.request.GET['nombre_entrega']
+        context['modelo']=dataSet[0]['modelo']
+
+        context['url_prev']=prev\
+                            +'?placa='+placa\
+                            +'&kilometraje='+kilometraje\
+                            +'&nombre_entrega='+nombre_entrega \
+                            +'&prev=ordeneditar' \
+                            +'&folio=' + folio\
+                            +'&modelo=' + modelo
         return context
 
+# +'&prev=/operacion/'
+# +'&prev=' + prev \
 
 class WCuentaAbiertaListView( ListView ):
     model=WCuentaAbierta

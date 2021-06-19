@@ -3,8 +3,6 @@ $(function () {
     const urlParams = new URLSearchParams(window.location.search);
     const cfolio = urlParams.get('folio');
     const cNameDT_OrdenDetalle  = '#dtOrdenDetalle';
-
-
     /******************************************************************************************************************/
     /* TX REFERENCIA */
     /******************************************************************************************************************/
@@ -25,7 +23,7 @@ $(function () {
             'tx_referencia': v_tx_referencia,
             'id_orden_detalle': v_id_orden_detalle
         }
-        console.log(_parameters)
+        // console.log(_parameters)
         if (v_tx_referencia.length > 0) {
             _ajax(window.location.pathname, _parameters, function (data) {
                 ajax_reload(cNameDT_OrdenDetalle);
@@ -45,14 +43,13 @@ $(function () {
     $("#NoSerieModal").on('shown.bs.modal', function (event) {
         var button = $(event.relatedTarget);
         var id_orden_detalle = button.data('id_orden_detalle');
-        console.log('DSADSADASDSDASDASDASDAS', id_orden_detalle)
+
         var dato = button.data('dato');
         $(this).find('#id_orden_detalle').val(id_orden_detalle)
         $(this).find('#edtNoSerie').val(dato)
         $(this).find('#edtNoSerie').focus();
     });
     $('#btnGuardarNoSerie').on('click', function (event) {
-        var v_NoSerie = $("#edtNoSerie").val()
         var v_id_orden_detalle = $("#NoSerieModal").find('#id_orden_detalle').val()
         var _parameters = {
             'action': 'addNoSerie',
@@ -60,7 +57,7 @@ $(function () {
             'no_serie': v_NoSerie,
             'id_orden_detalle': v_id_orden_detalle
         }
-        console.log(_parameters)
+        // console.log(_parameters)
         if (v_NoSerie.length > 0) {
             _ajax(window.location.pathname, _parameters, function (data) {
                 ajax_reload(cNameDT_OrdenDetalle);
@@ -81,7 +78,6 @@ $(function () {
     $("#PersonalModal").on('shown.bs.modal', function (event) {
         var button = $(event.relatedTarget);
         var id_orden_detalle = button.data('id_orden_detalle');
-        console.log('DSADSADASDSDASDASDASDAS', id_orden_detalle)
         var dato = button.data('dato');
         $(this).find('#id_orden_detalle').val(id_orden_detalle)
         $(this).find('#cbPersonal').val(dato)
@@ -125,8 +121,8 @@ $(function () {
         });
     }
 
-    $(document).ready(function ($) {
-
+    // $(document).ready(function ($) {
+        console.log('carga cNameDT_OrdenDetalle');
         $(cNameDT_OrdenDetalle).DataTable({
             language: {
                 url: '../../static/libs/datatables-es.json'
@@ -167,43 +163,49 @@ $(function () {
                 {
                     targets: [6],
                     render: function (data, type, row) {
-                        if (!data) {
-                            var dato = ''
-                        } else {
-                            var dato = data
-                        }
                         var b_numero_serie = row['b_numero_serie']
+                        if (b_numero_serie === 1) {
 
-                        if (b_numero_serie == 1) {
-                            return `<a 
+                            if (!data) {
+                                var dato = ''
+                            } else {
+                                var dato = data
+                            }
+                            if (( [0,1].indexOf(row['status']) !== -1) ) {
+                                var dato = `<a 
                                         data-toggle="modal" data-target="#NoSerieModal" 
                                         data-dato="${dato}"
                                         class="btn btn-info btn-xs btn-flat" 
                                         data-id_orden_detalle="${row['id_orden_detalle']}" > 
                                         <i class="fas fa-edit"></i></a>  ${dato}`
-                        } else
-                            return ''
+                            }
+
+                            return dato
+                        } else return ''
                     }
                 },
                 {
                     targets: [7],
                     render: function (data, type, row) {
-
-                        if (row['b_personal'] == 'V') {
-                            if (!data) {
-                                var dato = ''
-                                var info = ''
-
-                            } else {
-                                var dato = row['id_personal']
-                                var info = data
+                        var dato = ''
+                        var info = ''
+                        if (row['b_personal'] === 'V') {
+                            if (data) {
+                                dato = row['id_personal']
+                                info = data
                             }
-                            return `<a 
+
+                            if (( [0,1].indexOf(row['status']) !== -1) ) {
+                                dato = `<a 
                                         data-toggle="modal" data-target="#PersonalModal" 
                                         data-dato="${dato}"
                                         class="btn btn-info btn-xs btn-flat" 
                                         data-id_orden_detalle="${row['id_orden_detalle']}" > 
                                         <i class="fas fa-edit"></i></a>  ${info}`
+                            }
+
+                            return dato
+
                         } else {
                             return ''
                         }
@@ -213,17 +215,21 @@ $(function () {
                 {
                     targets: [8],
                     render: function (data, type, row) {
-                        if (!data) {
+
+                        if (!data ) {
                             var dato = ''
                         } else {
                             var dato = data
                         }
-                        return `<a 
+                        if (( [0,1].indexOf(row['status']) !== -1) ) {
+                            var dato = `<a 
                                         data-toggle="modal" data-target="#TxReferenciaModal" 
                                         data-dato="${dato}" 
                                         class="btn btn-info btn-xs btn-flat" 
                                         data-id_orden_detalle="${row['id_orden_detalle']}" > 
                                         <i class="fas fa-edit"></i></a>  ${dato}`
+                        }
+                        return dato;
 
                     }
                 },
@@ -257,7 +263,7 @@ $(function () {
             }
         });
 
-    });
+    // });
 
 
 });

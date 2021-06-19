@@ -33,6 +33,7 @@ $(function () {
 
     });
     $( "#BuscarUnidadModal" ).on('show.bs.modal', function(){
+        b_todas = $(this).data("b_todas");
         $('#dtBuscador').DataTable({
             language: {
                 url: '../../static/libs/datatables-es.json'
@@ -40,22 +41,11 @@ $(function () {
             responsive: true,
             autoWidth: false,
             destroy: true,
-        //      buttons: [
-        //     {
-        //         text: 'Get selected data',
-        //         action: function () {
-        //             var count = table.rows( { selected: true } ).count();
-        //
-        //             events.prepend( '<div>'+count+' row(s) selected</div>' );
-        //         }
-        //     }
-        // ]
             select: {
                 style: 'single'
             },
             stripeClasses: [],
             deferRender: true,
-
             ajax: {
                 url: '/unidad/list/',
                 type: 'POST',
@@ -63,7 +53,8 @@ $(function () {
                      request.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
                  },
                 data: {
-                    action: "searchdata_buscador"
+                    "action": "searchdata_buscador",
+                    "b_todas": b_todas
                 },
                  dataSrc: ""
             },
@@ -77,20 +68,7 @@ $(function () {
                 {"data": "chasis"}
                 // {"data": null}
             ],
-            // columnDefs: [
-            //     {
-            //         targets: [-1],
-            //         class: 'text-center',
-            //         orderable: false,
-            //         render: function (data, type, row) {
-            //             var buttons = '<a href="/unidad/update/' + row.id_unidad + '/" class="btn btn-warning btn-xs btn-flat"><i class="fas fa-select"></i></a> ';
-            //             // buttons += '<a href="/unidad/delete/' + row.id_unidad + '/" type="button" class="btn btn-danger btn-xs btn-flat"><i class="fas fa-trash-alt"></i></a>';
-            //             return buttons;
-            //         }
-            //     },
-            // ],
             initComplete: function (settings, json) {
-
             }
         });
         $('#dtBuscador tbody').on('click', 'td', function () {

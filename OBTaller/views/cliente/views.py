@@ -11,7 +11,7 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-
+import datetime as dt
 from OBTaller.forms import ClienteForm
 from OBTaller.mixins import ValidatePermissionRequiredMixin
 from OBTaller.models import Cliente
@@ -81,9 +81,12 @@ class ClienteCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Cre
         context['title'] = 'Creación un Cliente'
         context['entity'] = 'Clientes'
         context['list_url'] = self.success_url
+        context['cve_usu_alta'] = self.request.user
+        context['fh_registro'] = dt.datetime.today()
         context['action'] = 'add'
         context['catalogos']='menu-is-opening menu-open'
         context['clientes']='active'
+
         return context
 # **********************************************************************************************************************
 # **********************************************************************************************************************

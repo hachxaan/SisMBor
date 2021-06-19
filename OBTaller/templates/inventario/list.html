@@ -12,15 +12,15 @@
         <th scope="col" style="width: 2%;">U/Medida</th>
         <th scope="col" style="width: 20%;">Descripción</th>
         <th scope="col" style="width: 7%;">Categoria</th>
-        <th scope="col" style="width: 5%;">P / Compra</th>
+        <th scope="col" style="width: 3%;">P / Compra</th>
         <th scope="col" style="width: 5%;">P / Venta</th>
         <th scope="col" style="width: 8%;">Solicita Numero de Serie:</th>
         <th scope="col" style="width: 8%;">Numero de Serie obligatorio:</th>
         <th scope="col" style="width: 8%;">Hora hombre:</th>
         <th scope="col" style="width: 15%;">Vida Util KM:</th>
         <th scope="col" style="width: 15%;">Vida Util HR:</th>
-        <th scope="col" style="width: 8%;">Periodo KM</th>
-        <th scope="col" style="width: 3%;">Stock</th>
+        <th scope="col" style="width: 4%;">Periodo KM</th>
+        <th scope="col" style="width: 2%;">Stock</th>
         <th scope="col" style="width: 8%;">Entrada / Salida</th>
     </tr>
 {% endblock %}
@@ -30,7 +30,7 @@
 {% block modals %}
     <div class="modal fade modal-lg" id="EntradaInventarioModal" tabindex="-1" role="dialog"
          aria-labelledby="EntradaInventarioLabel" aria-hidden="true"
-         data-id_concepto="0" data-cve_operacion="" >
+         data-id_concepto="0" data-cve_operacion="NCOMPRA" >
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-info">
@@ -56,7 +56,7 @@
                                 <label for="ingreso_compra" class="custom-control-label">INGRESO POR COMPRA</label>
                             </div>
                             <div class="mt-2 custom-control custom-radio">
-                                <input data-cve_operacion="NCOMPRA" class="custom-control-input" type="radio" id="ingreso_sin_compra" name="ingreso_compra">
+                                <input data-cve_operacion="NCOMPRA" class="custom-control-input" type="radio" id="ingreso_sin_compra" name="ingreso_compra" checked>
                                 <label for="ingreso_sin_compra" class="custom-control-label">INGRSO SIN COMPRA</label>
                             </div>
                         </div>
@@ -78,6 +78,55 @@
             </div>
         </div>
     </div>
+
+
+    <div class="modal fade modal-lg" id="SalidaInventarioModal" tabindex="-1" role="dialog"
+         aria-labelledby="SalidaInventarioLabel" aria-hidden="true"
+         data-id_concepto="0" data-cve_operacion="" >
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title" id="SalidaInventarioLabel">Salida de inventario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Concepto</label>
+                            <input id="edtDescripcionS" type="text" class="form-control" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="edtCantidadS" class="col-form-label">Cantidad</label>
+                            <input id="edtCantidadS" step="1" min="1" value="1" type="number" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            {% for record in tipos_salida %}
+                                <div class="custom-control custom-radio">
+                                    <input data-cve_operacion="{{ record.cve_operacion }}" class="custom-control-input" type="radio" id="{{ record.cve_operacion }}" name="salida_inventario">
+                                    <label for="{{ record.cve_operacion }}" class="custom-control-label">{{ record.descripcion }}</label>
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+                        <div class="form-group">
+                            <label for="edtTxReferenciaS" class="col-form-label">Referencia</label>
+                            <textarea id="edtTxReferenciaS" value="" type="textarea" class="form-control"></textarea>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button id="btnGuardarSalidaInventario" type="button" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block scripts_lista %}

@@ -71,8 +71,9 @@ class Cliente(models.Model):
     direccion = models.CharField(db_column='DIRECCION', max_length=128, blank=True, null=True)  
     nombre = models.CharField(db_column='NOMBRE', unique=True, max_length=40, blank=True, null=True)  
     apellido = models.CharField(db_column='APELLIDO', max_length=40, blank=True, null=True)  
-    cve_usu_alta = models.CharField(db_column='CVE_USU_ALTA', max_length=8, blank=True, null=True)  
-    fh_registro = models.DateTimeField(db_column='FH_REGISTRO')  
+    cve_usu_alta = models.CharField(db_column='CVE_USU_ALTA', max_length=16, blank=True, null=True)
+    fh_registro = models.DateTimeField(db_column='FH_REGISTRO')
+
 
     def toJSON(self):
         item = model_to_dict(self)
@@ -187,12 +188,12 @@ class Concepto(models.Model):
     descuento = models.DecimalField(db_column='DESCUENTO', max_digits=18, decimal_places=2, blank=True, null=True)  
     id_marca = models.ForeignKey(ConceptoTipoMarca, models.DO_NOTHING, db_column='ID_MARCA', blank=True, null=True)
     hora_hombre = models.DecimalField(db_column='HORA_HOMBRE', max_digits=9, decimal_places=2, blank=True, null=True)  
-    cve_usu_alta = models.CharField(db_column='CVE_USU_ALTA', max_length=8, blank=True, null=True)  
+    cve_usu_alta = models.CharField(db_column='CVE_USU_ALTA', max_length=16, blank=True, null=True)
     no_serie = models.CharField(db_column='NO_SERIE', max_length=128, blank=True, null=True)  
     b_numero_serie = models.BooleanField(db_column='B_NUMERO_SERIE')
     precio_compra = models.DecimalField(db_column='PRECIO_COMPRA', max_digits=18, decimal_places=2)  
-    id_tipo_servicio = models.ForeignKey( TipoServicio, models.DO_NOTHING, db_column='ID_TIPO_SERVICIO')  
-    b_agrega_conceptos = models.CharField(db_column='B_AGREGA_CONCEPTOS', max_length=1, blank=True, null=True)
+    id_tipo_servicio = models.ForeignKey( TipoServicio, models.DO_NOTHING, db_column='ID_TIPO_SERVICIO', blank=True, null=True)
+    b_agrega_conceptos = models.BooleanField(db_column='B_AGREGA_CONCEPTOS')
     stock=models.IntegerField( db_column='STOCK' )
     b_nserie_obligatorio=models.BooleanField( db_column='B_NSERIE_OBLIGATORIO' )
 
@@ -283,7 +284,8 @@ class Orden(models.Model):
     folio = models.AutoField(db_column='FOLIO', primary_key=True)  
     id_unidad = models.IntegerField(db_column='ID_UNIDAD', blank=True, null=True)  
     kilometraje = models.IntegerField(db_column='KILOMETRAJE', blank=True, null=True)  
-    cve_usu_alta = models.CharField(db_column='CVE_USU_ALTA', max_length=16, blank=True, null=True)  
+    kilometraje_pq = models.IntegerField(db_column='KILOMETRAJE_PQ', blank=True, null=True)
+    cve_usu_alta = models.CharField(db_column='CVE_USU_ALTA', max_length=16, blank=True, null=True)
     fh_alta = models.DateTimeField(db_column='FH_ALTA')  
     fh_inicio = models.DateTimeField(db_column='FH_INICIO', blank=True, null=True)  
     fh_salida = models.DateTimeField(db_column='FH_SALIDA', blank=True, null=True)  
@@ -345,7 +347,7 @@ class Personal(models.Model):
     nombre = models.CharField(db_column='NOMBRE', unique=True, max_length=40, blank=True, null=True)  
     apellido = models.CharField(db_column='APELLIDO', max_length=40, blank=True, null=True)  
     # cve_usu_alta = models.ForeignKey(User, null=True, blank=True)
-    cve_usu_alta = models.CharField(User, db_column='CVE_USU_ALTA', max_length=8, blank=True, null=True)
+    cve_usu_alta = models.CharField(User, db_column='CVE_USU_ALTA', max_length=16, blank=True, null=True)
     fh_registro = models.DateTimeField(db_column='FH_REGISTRO',  default=timezone.now, blank=True, null=True)
     # , auto_now_add=True
 
@@ -401,24 +403,37 @@ class Usuario(models.Model):
 #         vistas
 # **********************************************************************************************************************
 class WcUnidad(models.Model):
-    id_unidad = models.IntegerField(db_column='ID_UNIDAD', primary_key=True)  
-    id_cliente = models.IntegerField(db_column='ID_CLIENTE')  
-    placa = models.CharField(db_column='PLACA', max_length=16, db_collation='utf8_general_ci')  
-    marca = models.CharField(db_column='MARCA', max_length=32, db_collation='utf8_general_ci', blank=True, null=True)  
-    modelo = models.CharField(db_column='MODELO', max_length=32, db_collation='utf8_general_ci', blank=True, null=True)  
-    motor = models.CharField(db_column='MOTOR', max_length=64, db_collation='utf8_general_ci', blank=True, null=True)  
-    chasis = models.CharField(db_column='CHASIS', max_length=64, db_collation='utf8_general_ci', blank=True, null=True)  
-    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', blank=True, null=True)  
-    rup = models.CharField(db_column='RUP', max_length=11, db_collation='utf8_general_ci', blank=True, null=True)  
-    nombre_empresa = models.CharField(db_column='NOMBRE_EMPRESA', max_length=64, db_collation='utf8_general_ci', blank=True, null=True)  
-    telefono_contacto = models.CharField(db_column='TELEFONO_CONTACTO', max_length=32, db_collation='utf8_general_ci', blank=True, null=True)  
-    celular_contacto = models.CharField(db_column='CELULAR_CONTACTO', max_length=32, db_collation='utf8_general_ci', blank=True, null=True)  
-    correo_electronico = models.CharField(db_column='CORREO_ELECTRONICO', max_length=32, db_collation='utf8_general_ci', blank=True, null=True)  
-    direccion = models.CharField(db_column='DIRECCION', max_length=128, db_collation='utf8_general_ci', blank=True, null=True)  
-    nombre = models.CharField(db_column='NOMBRE', max_length=40, db_collation='utf8_general_ci', blank=True, null=True)  
-    apellido = models.CharField(db_column='APELLIDO', max_length=40, db_collation='utf8_general_ci', blank=True, null=True)  
-    cve_usu_alta = models.CharField(db_column='CVE_USU_ALTA', max_length=8, db_collation='utf8_general_ci', blank=True, null=True)  
-    fh_registro_cliente = models.DateTimeField(db_column='FH_REGISTRO_CLIENTE', blank=True, null=True)  
+    id_unidad=models.IntegerField( db_column='ID_UNIDAD', primary_key=True )
+    id_cliente=models.IntegerField( db_column='ID_CLIENTE' )
+    placa=models.CharField( db_column='PLACA', max_length=16, db_collation='utf8_general_ci' )
+    marca=models.CharField( db_column='MARCA', max_length=32, db_collation='utf8_general_ci', blank=True, null=True )
+    modelo=models.CharField( db_column='MODELO', max_length=32, db_collation='utf8_general_ci', blank=True, null=True )
+    motor=models.CharField( db_column='MOTOR', max_length=64, db_collation='utf8_general_ci', blank=True, null=True )
+    chasis=models.CharField( db_column='CHASIS', max_length=64, db_collation='utf8_general_ci', blank=True, null=True )
+    fh_registro=models.DateTimeField( db_column='FH_REGISTRO', blank=True, null=True )
+    rup=models.CharField( db_column='RUP', max_length=11, db_collation='utf8_general_ci', blank=True, null=True )
+    nombre_empresa=models.CharField( db_column='NOMBRE_EMPRESA', max_length=64, db_collation='utf8_general_ci',blank=True, null=True )
+    telefono_contacto=models.CharField( db_column='TELEFONO_CONTACTO', max_length=32, db_collation='utf8_general_ci',blank=True, null=True )
+    celular_contacto=models.CharField( db_column='CELULAR_CONTACTO', max_length=32, db_collation='utf8_general_ci',blank=True, null=True )
+    correo_electronico=models.CharField( db_column='CORREO_ELECTRONICO', max_length=32, db_collation='utf8_general_ci',blank=True, null=True )
+    direccion=models.CharField( db_column='DIRECCION', max_length=128, db_collation='utf8_general_ci', blank=True, null=True )
+    nombre=models.CharField( db_column='NOMBRE', max_length=40, db_collation='utf8_general_ci', blank=True, null=True )
+    apellido=models.CharField( db_column='APELLIDO', max_length=40, db_collation='utf8_general_ci', blank=True, null=True )
+    cve_usu_alta=models.CharField( db_column='CVE_USU_ALTA', max_length=16, db_collation='utf8_general_ci', blank=True, null=True )
+    fh_registro_cliente=models.DateTimeField( db_column='FH_REGISTRO_CLIENTE', blank=True, null=True )
+    folio_current=models.IntegerField( db_column='FOLIO_CURRENT', blank=True, null=True )
+    folio=models.IntegerField( db_column='FOLIO', blank=True, null=True )
+    cve_usu_alta_cliente=models.CharField( db_column='CVE_USU_ALTA_CLIENTE', max_length=16, db_collation='utf8_general_ci', blank=True, null=True )
+    kilometraje=models.IntegerField( db_column='KILOMETRAJE', blank=True, null=True )
+    fh_alta=models.DateTimeField( db_column='FH_ALTA', blank=True, null=True )
+    fh_inicio=models.DateTimeField( db_column='FH_INICIO', blank=True, null=True )
+    fh_salida=models.DateTimeField( db_column='FH_SALIDA', blank=True, null=True )
+    nombre_entrega=models.CharField( db_column='NOMBRE_ENTREGA', max_length=128, db_collation='utf8_general_ci', blank=True, null=True )
+    status=models.IntegerField( db_column='STATUS', blank=True, null=True )
+    fh_cancela=models.DateTimeField( db_column='FH_CANCELA', blank=True, null=True )
+    km_anterior=models.IntegerField( db_column='KM_ANTERIOR', blank=True, null=True )
+    fh_ultimo_servicio=models.DateTimeField( db_column='FH_ULTIMO_SERVICIO', blank=True, null=True )
+    folio_ultima_orden=models.IntegerField( db_column='FOLIO_ULTIMA_ORDEN', blank=True, null=True )
 
     def toJSON(self):
         item = model_to_dict(self)
@@ -491,7 +506,7 @@ class WConceptosMain(models.Model):
     vida_util_hr = models.IntegerField(db_column='VIDA_UTIL_HR', blank=True, null=True)  
     descuento = models.DecimalField(db_column='DESCUENTO', max_digits=18, decimal_places=2, blank=True, null=True)  
     hora_hombre = models.DecimalField(db_column='HORA_HOMBRE', max_digits=9, decimal_places=2, blank=True, null=True)  
-    cve_usu_alta = models.CharField(db_column='CVE_USU_ALTA', max_length=8, db_collation='utf8_general_ci', blank=True, null=True)  
+    cve_usu_alta = models.CharField(db_column='CVE_USU_ALTA', max_length=16, db_collation='utf8_general_ci', blank=True, null=True)
     no_serie = models.CharField(db_column='NO_SERIE', max_length=128, db_collation='utf8_general_ci', blank=True, null=True)  
     stock = models.IntegerField(db_column='STOCK', blank=True, null=True)  
     clave_sel = models.CharField(db_column='CLAVE_SEL', max_length=32, db_collation='utf8_general_ci')  
@@ -568,7 +583,7 @@ class WOrdenDetalle(models.Model):
     descuento = models.DecimalField(db_column='DESCUENTO', max_digits=18, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
     id_marca = models.IntegerField(db_column='ID_MARCA', blank=True, null=True)  # Field name made lowercase.
     hora_hombre = models.DecimalField(db_column='HORA_HOMBRE', max_digits=9, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
-    cve_usu_alta = models.CharField(db_column='CVE_USU_ALTA', max_length=8, db_collation='utf8_general_ci', blank=True, null=True)  # Field name made lowercase.
+    cve_usu_alta = models.CharField(db_column='CVE_USU_ALTA', max_length=16, db_collation='utf8_general_ci', blank=True, null=True)  # Field name made lowercase.
     no_serie = models.CharField(db_column='NO_SERIE', max_length=128, db_collation='utf8_general_ci', blank=True, null=True)  # Field name made lowercase.
     b_numero_serie = models.IntegerField(db_column='B_NUMERO_SERIE', blank=True, null=True)  # Field name made lowercase.
     precio_compra = models.DecimalField(db_column='PRECIO_COMPRA', max_digits=18, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
@@ -598,3 +613,158 @@ class Parametros(models.Model):
     class Meta:
         managed = False
         db_table = 'parametros'
+
+
+
+class WsTipoSalida(models.Model):
+    id=models.IntegerField( db_column='id', primary_key=True )
+    cve_operacion = models.CharField(db_column='CVE_OPERACION', max_length=8, db_collation='utf8_general_ci')
+    descripcion = models.CharField(db_column='DESCRIPCION', max_length=139, db_collation='utf8_general_ci', blank=True, null=True)
+    desc_operacion = models.CharField(db_column='DESC_OPERACION', max_length=128, db_collation='utf8_general_ci', blank=True, null=True)
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'ws_tipo_salida'
+
+
+    def toJSON(self):
+        item=model_to_dict( self )
+        return item
+
+
+class WListaMantenimiento(models.Model):
+    id_concepto = models.IntegerField(db_column='ID_CONCEPTO', primary_key=True)
+    cve_concepto = models.CharField(db_column='CVE_CONCEPTO', max_length=32, db_collation='utf8_general_ci')  # Field name made lowercase.
+    desc_concepto = models.CharField(db_column='DESC_CONCEPTO', max_length=128, db_collation='utf8_general_ci')  # Field name made lowercase.
+    id_periodo_km = models.IntegerField(db_column='ID_PERIODO_KM', blank=True, null=True)  # Field name made lowercase.
+    stock = models.IntegerField(db_column='STOCK', blank=True, null=True)  # Field name made lowercase.
+    precio_compra = models.DecimalField(db_column='PRECIO_COMPRA', max_digits=18, decimal_places=2)
+    precio_venta = models.DecimalField(db_column='PRECIO_VENTA', max_digits=18, decimal_places=2)
+    m25000 = models.BigIntegerField(db_column='M25000')  # Field name made lowercase.
+    m50000 = models.BigIntegerField(db_column='M50000')  # Field name made lowercase.
+    m75000 = models.BigIntegerField(db_column='M75000')  # Field name made lowercase.
+    m100000 = models.BigIntegerField(db_column='M100000')  # Field name made lowercase.
+    m125000 = models.BigIntegerField(db_column='M125000')  # Field name made lowercase.
+    m150000 = models.BigIntegerField(db_column='M150000')  # Field name made lowercase.
+    m175000 = models.BigIntegerField(db_column='M175000')  # Field name made lowercase.
+    m200000 = models.BigIntegerField(db_column='M200000')  # Field name made lowercase.
+    m225000 = models.BigIntegerField(db_column='M225000')  # Field name made lowercase.
+    m275000 = models.BigIntegerField(db_column='M275000')  # Field name made lowercase.
+    m300000 = models.BigIntegerField(db_column='M300000')  # Field name made lowercase.
+    m325000 = models.BigIntegerField(db_column='M325000')  # Field name made lowercase.
+    m350000 = models.BigIntegerField(db_column='M350000')  # Field name made lowercase.
+    m375000 = models.BigIntegerField(db_column='M375000')  # Field name made lowercase.
+    m400000 = models.BigIntegerField(db_column='M400000')  # Field name made lowercase.
+    m425000 = models.BigIntegerField(db_column='M425000')  # Field name made lowercase.
+    m450000 = models.BigIntegerField(db_column='M450000')  # Field name made lowercase.
+    m475000 = models.BigIntegerField(db_column='M475000')  # Field name made lowercase.
+    m500000 = models.BigIntegerField(db_column='M500000')  # Field name made lowercase.
+    m525000 = models.BigIntegerField(db_column='M525000')  # Field name made lowercase.
+    m550000 = models.BigIntegerField(db_column='M550000')  # Field name made lowercase.
+    m575000 = models.BigIntegerField(db_column='M575000')  # Field name made lowercase.
+    m600000 = models.BigIntegerField(db_column='M600000')  # Field name made lowercase.
+    m625000 = models.BigIntegerField(db_column='M625000')  # Field name made lowercase.
+    m650000 = models.BigIntegerField(db_column='M650000')  # Field name made lowercase.
+    m675000 = models.BigIntegerField(db_column='M675000')  # Field name made lowercase.
+    m700000 = models.BigIntegerField(db_column='M700000')  # Field name made lowercase.
+    m725000 = models.BigIntegerField(db_column='M725000')  # Field name made lowercase.
+    m750000 = models.BigIntegerField(db_column='M750000')  # Field name made lowercase.
+    m775000 = models.BigIntegerField(db_column='M775000')  # Field name made lowercase.
+    m800000 = models.BigIntegerField(db_column='M800000')  # Field name made lowercase.
+    m825000 = models.BigIntegerField(db_column='M825000')  # Field name made lowercase.
+    m850000 = models.BigIntegerField(db_column='M850000')  # Field name made lowercase.
+    m875000 = models.BigIntegerField(db_column='M875000')  # Field name made lowercase.
+    m900000 = models.BigIntegerField(db_column='M900000')  # Field name made lowercase.
+    m925000 = models.BigIntegerField(db_column='M925000')  # Field name made lowercase.
+    m950000 = models.BigIntegerField(db_column='M950000')  # Field name made lowercase.
+    m975000 = models.BigIntegerField(db_column='M975000')  # Field name made lowercase.
+    m1000000 = models.BigIntegerField(db_column='M1000000')  # Field name made lowercase.
+    m1025000 = models.BigIntegerField(db_column='M1025000')  # Field name made lowercase.
+    m1050000 = models.BigIntegerField(db_column='M1050000')  # Field name made lowercase.
+    m1075000 = models.BigIntegerField(db_column='M1075000')  # Field name made lowercase.
+    m1100000 = models.BigIntegerField(db_column='M1100000')  # Field name made lowercase.
+    m1125000 = models.BigIntegerField(db_column='M1125000')  # Field name made lowercase.
+    m1150000 = models.BigIntegerField(db_column='M1150000')  # Field name made lowercase.
+    m1175000 = models.BigIntegerField(db_column='M1175000')  # Field name made lowercase.
+    m1200000 = models.BigIntegerField(db_column='M1200000')  # Field name made lowercase.
+    m1225000 = models.BigIntegerField(db_column='M1225000')  # Field name made lowercase.
+    m1250000 = models.BigIntegerField(db_column='M1250000')  # Field name made lowercase.
+
+
+    def toJSON(self):
+        item=model_to_dict( self )
+        return item
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'w_lista_mantenimiento'
+
+
+class WbUnidadNeu(models.Model):
+    id_unidad = models.IntegerField(db_column='ID_UNIDAD', primary_key=True)  # Field name made lowercase.
+    id_cliente = models.IntegerField(db_column='ID_CLIENTE')  # Field name made lowercase.
+    placa = models.CharField(db_column='PLACA', max_length=16, db_collation='utf8_general_ci')  # Field name made lowercase.
+    marca = models.CharField(db_column='MARCA', max_length=32, db_collation='utf8_general_ci', blank=True, null=True)  # Field name made lowercase.
+    modelo = models.CharField(db_column='MODELO', max_length=32, db_collation='utf8_general_ci', blank=True, null=True)  # Field name made lowercase.
+    motor = models.CharField(db_column='MOTOR', max_length=64, db_collation='utf8_general_ci', blank=True, null=True)  # Field name made lowercase.
+    chasis = models.CharField(db_column='CHASIS', max_length=64, db_collation='utf8_general_ci', blank=True, null=True)  # Field name made lowercase.
+    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', blank=True, null=True)  # Field name made lowercase.
+
+    def toJSON(self):
+        item=model_to_dict( self )
+        return item
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'wb_unidad_neu'
+
+
+class WcUnidadNeu(models.Model):
+    id_unidad = models.IntegerField(primary_key=True)
+    id_cliente = models.IntegerField()
+    placa = models.CharField(max_length=16, db_collation='utf8_general_ci')
+    marca = models.CharField(max_length=32, db_collation='utf8_general_ci', blank=True, null=True)
+    modelo = models.CharField(max_length=32, db_collation='utf8_general_ci', blank=True, null=True)
+    motor = models.CharField(max_length=64, db_collation='utf8_general_ci', blank=True, null=True)
+    chasis = models.CharField(max_length=64, db_collation='utf8_general_ci', blank=True, null=True)
+    fh_registro = models.DateTimeField(blank=True, null=True)
+    rup = models.CharField(max_length=11, db_collation='utf8_general_ci', blank=True, null=True)
+    nombre_empresa = models.CharField(max_length=64, db_collation='utf8_general_ci', blank=True, null=True)
+    telefono_contacto = models.CharField(max_length=32, db_collation='utf8_general_ci', blank=True, null=True)
+    celular_contacto = models.CharField(max_length=32, db_collation='utf8_general_ci', blank=True, null=True)
+    correo_electronico = models.CharField(max_length=32, db_collation='utf8_general_ci', blank=True, null=True)
+    direccion = models.CharField(max_length=128, db_collation='utf8_general_ci', blank=True, null=True)
+    nombre = models.CharField(max_length=40, db_collation='utf8_general_ci', blank=True, null=True)
+    apellido = models.CharField(max_length=40, db_collation='utf8_general_ci', blank=True, null=True)
+    cve_usu_alta_cliente = models.CharField(max_length=16, db_collation='utf8_general_ci', blank=True, null=True)
+    fh_registro_cliente = models.DateTimeField(blank=True, null=True)
+    folio_current = models.IntegerField(blank=True, null=True)
+    fh_alta_current = models.DateTimeField(blank=True, null=True)
+    kilometraje_current = models.IntegerField(blank=True, null=True)
+    nombre_entrega_current = models.CharField(max_length=128, db_collation='utf8_general_ci', blank=True, null=True)
+    folio_ult = models.IntegerField(blank=True, null=True)
+    id_unidad_ult = models.IntegerField(blank=True, null=True)
+    kilometraje_ult = models.IntegerField(blank=True, null=True)
+    cve_usu_alta_ult = models.CharField(max_length=16, db_collation='utf8_general_ci', blank=True, null=True)
+    fh_alta_ult = models.DateTimeField(blank=True, null=True)
+    fh_inicio_ult = models.DateTimeField(blank=True, null=True)
+    fh_salida_ult = models.DateTimeField(blank=True, null=True)
+    nombre_entrega_ult = models.CharField(max_length=128, db_collation='utf8_general_ci', blank=True, null=True)
+    status_ult = models.IntegerField(blank=True, null=True)
+    fh_cancela_ult = models.DateTimeField(blank=True, null=True)
+    km_anterior_ult = models.IntegerField(blank=True, null=True)
+    fh_ultimo_servicio_ult = models.DateTimeField(blank=True, null=True)
+    folio_ultima_orden_ult = models.IntegerField(blank=True, null=True)
+    folio_oa = models.IntegerField(blank=True, null=True)
+    fh_salida_oa = models.DateTimeField(blank=True, null=True)
+    nombre_entrega_oa = models.CharField(max_length=128, db_collation='utf8_general_ci', blank=True, null=True)
+    kilometraje_oa = models.IntegerField(blank=True, null=True)
+
+    def toJSON(self):
+        item=model_to_dict( self )
+        return item
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'wc_unidad_neu'
+

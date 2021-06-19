@@ -1,7 +1,7 @@
 
 # **********************************************************************************************************************
 # **********************************************************************************************************************
-# C A T A L O G O   -    MANO DE OBRA
+# C A T A L O G O   -    INVENTARIO
 # **********************************************************************************************************************
 # **********************************************************************************************************************
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -13,15 +13,13 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from appMainSite import const
-from OBTaller.forms import ManobraForm, InventarioForm, InventarioFormEdit
+from OBTaller.forms import InventarioForm, InventarioFormEdit
 from OBTaller.mixins import ValidatePermissionRequiredMixin
-from OBTaller.models import WConceptosMain, Concepto
-
+from OBTaller.models import WConceptosMain, Concepto, WsTipoSalida
 
 # **********************************************************************************************************************
 # **********************************************************************************************************************
-from appMainSite import settings
-from appMainSite.const import TCONCEPTO_REPUESTOS
+
 
 
 class InventarioView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListView):
@@ -40,6 +38,7 @@ class InventarioView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListVi
     def post(self, request, *args, **kwargs):
         data = {}
         try:
+
             action = request.POST['action']
             if action == 'searchdata':
                 data = []
@@ -53,13 +52,19 @@ class InventarioView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListVi
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # Generales
         context['title'] = 'Inventario'
         context['create_url'] = reverse_lazy('OBTaller:inventario_create')
-        context['list_url'] = reverse_lazy('OBTaller:inventario')
+        context['list_url'] = reverse_lazy('OBTaller:inventario_list')
         context['entity'] = 'Inventario'
-        # context['catalogos']='menu-is-opening menu-open'
         context['inventario'] ='active'
+        # Invenrtario
         context['label_nuevo'] = 'Agregar nuevo repuesto'
+        context['id_tipo_concepto'] = const.TCONCEPTO_MANTENIMIENTO
+        data=[]
+        for i in WsTipoSalida.objects.all():
+            data.append( i.toJSON() )
+        context['tipos_salida'] = data
         return context
 # **********************************************************************************************************************
 # **********************************************************************************************************************
@@ -67,7 +72,7 @@ class InventarioCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, 
     model = Concepto
     form_class = InventarioForm
     template_name ='inventario/create.html'
-    success_url = reverse_lazy('OBTaller:inventario')
+    success_url = reverse_lazy('OBTaller:inventario_list')
     # permission_required = 'OB. add_unidad'
     url_redirect = success_url
 
@@ -98,7 +103,7 @@ class InventarioCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, 
         context['list_url'] = self.success_url
         context['action'] = 'add'
         context['inventario']='active'
-        context['id_tipo_concepto'] = TCONCEPTO_REPUESTOS
+        context['id_tipo_concepto'] = const.TCONCEPTO_REPUESTOS
         return context
 # **********************************************************************************************************************
 # **********************************************************************************************************************
@@ -107,7 +112,7 @@ class InventarioUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, 
     model = Concepto
     form_class = InventarioFormEdit
     template_name = 'inventario/create.html'
-    success_url = reverse_lazy('OBTaller:inventario')
+    success_url = reverse_lazy('OBTaller:inventario_list')
     # permission_required = 'erp.change_category'
     url_redirect = success_url
 
@@ -140,17 +145,17 @@ class InventarioUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, 
         context['action'] = 'edit'
         context['catalogos']='menu-is-opening menu-open'
         context['inventario']='active'
-        context['id_tipo_concepto']=TCONCEPTO_REPUESTOS
+        context['id_tipo_concepto']= const.TCONCEPTO_REPUESTOS
         context['edit_stock']='ready'
         return context
 
 # **********************************************************************************************************************
 # **********************************************************************************************************************
 
-class ManobraDeleteView(LoginRequiredMixin, ValidatePermissionRequiredMixin, DeleteView):
+class InventarioDeleteView(LoginRequiredMixin, ValidatePermissionRequiredMixin, DeleteView):
     model = Concepto
-    template_name = 'catalogos/Manobra/delete.html'
-    success_url = reverse_lazy('OBTaller:id_concepto_list')
+    template_name = 'inventario/delete.html'
+    success_url = reverse_lazy('OBTaller:inventario_list')
     # permission_required = 'erp.delete_category'
     url_redirect = success_url
 
@@ -172,9 +177,9 @@ class ManobraDeleteView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Del
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Eliminar Mano de Obra del catálogo'
-        context['entity'] = 'Unidades'
+        context['title'] = 'Eliminar Repuesto'
+        context['entity'] = 'Repuestos'
         context['list_url'] = self.success_url
         context['catalogos']='menu-is-opening menu-open'
-        context['manobra']='active'
+        context['inventario']='active'
         return context

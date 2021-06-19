@@ -5,8 +5,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView
 from OBTaller.forms import UnidadForm
-from OBTaller.models import WCuentaAbierta, Unidad, WcUnidad, ConceptoCategoria, TipoServicio, Cliente, Parametros, \
-    ConceptoTipoMarca, UnidadMedida
+from OBTaller.models import WcUnidad, ConceptoCategoria, TipoServicio, Parametros, \
+    ConceptoTipoMarca, UnidadMedida, WcUnidadNeu
 
 
 def addConceptoCategoria(request):
@@ -74,11 +74,6 @@ def addTipoServicio(request):
             data['info_datos']=desc_tipo_servicio
         return JsonResponse( data )
 
-
-
-
-
-
 def SetParametros(request):
     if request.method == 'POST':
         data={}
@@ -98,7 +93,6 @@ def SetParametros(request):
 
 def getInfoUnidad(request):
 
-
     if request.method == 'POST':
         data={}
         try:
@@ -106,14 +100,17 @@ def getInfoUnidad(request):
             placa=request.POST['placa']
             if action == 'searchdata':
                 data=[]
-                for i in WcUnidad.objects.filter( placa=placa ):
-                    data.append( i.toJSON() )
-
+                owner = request.POST['owner']
+                if (owner=='order-nueva'):
+                    for i in WcUnidad.objects.filter(placa=placa):
+                        data.append(i.toJSON())
+                if (owner == 'neumaticos-admin'):
+                    for i in WcUnidadNeu.objects.filter( placa=placa ):
+                        data.append( i.toJSON() )
 
         except Exception as e:
             data['error']=str( e )
         return JsonResponse( data, safe=False )
-
 
 
 def login(request):
@@ -127,6 +124,13 @@ def index(request):
 def panel(request):
     return render(request, 'panel.html')
 
+
+def EsDemo(request):
+    if request.method == 'POST':
+        session=request.user.groups.all().values( 'name' )
+        nombre=session[0]['name']
+        data={"esDemo": (nombre == 'Demo') }
+    return JsonResponse( data, safe=False )
 
 
 def operacion(request):

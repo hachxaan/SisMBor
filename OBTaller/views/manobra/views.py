@@ -140,6 +140,7 @@ class ManobraUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Upd
         context['list_url'] = self.success_url
         context['action'] = 'edit'
         context['catalogos']='menu-is-opening menu-open'
+        context['id_tipo_concepto']=TCONCEPTO_MANOBRA
         context['manobra']='active'
         return context
 
@@ -158,6 +159,7 @@ class ManobraDeleteView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Del
         return get_object_or_404( Concepto, id_concepto=id_concepto )
 
     def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):

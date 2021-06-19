@@ -4,6 +4,7 @@
 <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
+
          <img src="{% static 'sismbor/img/Logo_W.png' %}" alt="SismBor"
                  class="" style="width: 100%; padding-left: 10px; padding-right: 10px; padding-top:20px">
 {#        <a class="brand-link">#}
@@ -45,7 +46,7 @@
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
 
-                    <li class="nav-item">
+                    <li class="nav-item loading-click">
                         <a href="{% url 'OBTaller:panel-operacion' %}" class="nav-link {{ escritorio }}">
                             <i class="nav-icon fas fa-desktop"></i>
 
@@ -58,7 +59,7 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item loading-click">
                         <a href="{% url 'OBTaller:orden_nueva' %}"  class="nav-link {{ nueva_orden }}">
                             <i class="nav-icon fas fa-plus-circle"></i>
                             <p>
@@ -76,26 +77,32 @@
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
+                        <ul class="nav nav-treeview loading-click">
                             <li class="">
                                 <a href="{% url 'OBTaller:cliente_list' %}" class="nav-link  {{ clientes }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Clientes</p>
                                 </a>
                             </li>
-                            <li class="">
+                            <li class=" loading-click">
                                 <a href="{% url 'OBTaller:unidad_list' %}" class="nav-link {{ unidades }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Unidades</p>
                                 </a>
                             </li>
-                            <li class="">
+                            <li class=" loading-click">
                                 <a href="{% url 'OBTaller:manobra_list' %}" class="nav-link {{ manobra }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Mano de obra</p>
                                 </a>
                             </li>
-                            <li class="">
+                            <li class=" loading-click">
+                                <a href="{% url 'OBTaller:mantenimiento_list' %}" class="nav-link {{ mantenimiento }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Mantenimiento</p>
+                                </a>
+                            </li>
+                            <li class=" loading-click">
                                 <a href="{% url 'OBTaller:personal_list' %}" class="nav-link {{ personal }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Personal</p>
@@ -105,11 +112,19 @@
 
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a href="{% url 'OBTaller:inventario' %}" class="nav-link {{ inventario }}">
+                    <li class="nav-item loading-click">
+                        <a href="{% url 'OBTaller:inventario_list' %}" class="nav-link {{ inventario }}">
                             <i class="nav-icon fas fa-boxes"></i>
                             <p>
                                 Inventario
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item loading-click">
+                        <a href="{% url 'OBTaller:neumaticos_admin' %}" class="nav-link {{ neumaticos }}">
+                            <i class="nav-icon fas fa-bullseye"></i>
+                            <p>
+                                Neumáticos
                             </p>
                         </a>
                     </li>

@@ -1,54 +1,74 @@
 $(function () {
     'use strict';
     $('form').on('submit', function (e) {
-        console.log('ready...302');
+
             e.preventDefault();
-            console.log('ready...303');
-            // var parameters = new FormData(this);
             var placa = $('#edtPlaca').val();
             var kilometraje = $('#kilometraje').val();
             var nombre_entrega = $('#nombre_entrega').val();
             var parameters = {"placa": placa, "kilometraje" : kilometraje, "nombre_entrega": nombre_entrega}
-            console.log('parameters: ', parameters)
+
 
             _ajax('../stp/insorden/', parameters, function(response){
                  location.href =  '../operacion/';
             });
-            // submit_('../stp/insorden/', 'Notificación', '¿Crear nueva orde? Placa: '+placa, parameters, function (response) {
-            //     location.href =  '../operacion/';
-            // });
+
         });
     $("#edtPlaca").change(function (e) {
         pValidaPlaca($(this).val());
     });
     $('#btnNuevaUnidadOrden').on('click', function (e) {
-        console.log('ready...301');
             location.href =  '../unidad/add/?orden=true';
         });
     $(document).ready(function () {
-        console.log('ready...');
-        console.log($("#edtPlaca").val());
-        console.log('ready...2');
         if ($("#edtPlaca").val() !== '') {
-            console.log('pValidaPlaca...');
+
             pValidaPlaca($("#edtPlaca").val());
         }
-        console.log('ready...3');
     });
+    $('#btnVerOrden').on('click', function (event) {
+        var folio = $("#edtFolio").val();
+        if (folio) {
+            var prev = '/ordennueva/';
+            var placa = $("#edtPlaca").val();
+            var kilometraje = $("#kilometraje").val();
+            var nombre_entrega = $("#nombre_entrega").val()
+            // location.href =  `/ordendetalle/?prev=${prev}&folio=${folio}&placa=${placa}&kilometraje=${kilometraje}&nombre_entrega=${nombre_entrega}`;
+            location.href =  `/ordendetalle/?prev=/ordennueva/&folio=${folio}&placa=${placa}&kilometraje=${kilometraje}&nombre_entrega=${nombre_entrega}`;
+        }
+
+    });
+
 });
 
 function pValidaPlaca( placa ){
 
-        var _parameters = {'placa' : placa, 'action': 'searchdata'}
+        var _parameters = {'placa' : placa, 'action': 'searchdata', 'owner': 'order-nueva'}
         if ( placa.length > 0 ){
-            _ajax('getInfoUnidad/', _parameters, function (data) {
+            _ajax('/getInfoUnidad/', _parameters, function (data) {
                  if (data.length > 0) {
 
-                    $("#edtPlaca").addClass('bg-olive');
+                    $("#edtPlaca").addClass('bg-success');
                     $("#edtMotor").val(data[0].motor);
                     $("#edtMarca").val(data[0].marca);
                     $("#edtModelo").val(data[0].modelo);
                     $("#edtChasis").val(data[0].chasis);
+
+                    if (data[0].folio) {
+                        $("#edtFolio").val(data[0].folio);
+                        $("#edtFhUltSer").val(data[0].fh_salida);
+                        $("#edtKmUltSer").val(data[0].kilometraje);
+                        $("#edtRespUltSer").val(data[0].nombre_entrega);
+
+
+                    } else {
+                        $("#edtFolio").val('');
+                        $("#edtFhUltSer").val('');
+                        $("#edtKmUltSer").val('');
+                        $("#edtRespUltSer").val('');
+                    }
+
+
 
                     $("#edtUnidad").val(data[0].id_unidad);
                     $("#edtEmpresa").val(data[0].nombre_empresa);
@@ -61,7 +81,7 @@ function pValidaPlaca( placa ){
                     $("#edtKilometraje").focus();
 
                  } else {
-                    $("#edtPlaca").removeClass('bg-olive');
+                    $("#edtPlaca").removeClass('bg-success');
                     $("#edtMotor").val('');
                     $("#edtMarca").val('');
                     $("#edtModelo").val('');

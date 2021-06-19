@@ -1,0 +1,126 @@
+{% extends 'form.html' %}
+
+{% block fieldscontrol %}
+    <input type="hidden" name="id_tipo_concepto" value="{{ id_tipo_concepto }}">
+    <input type="hidden" name="stock" value="0">
+    <input type="hidden" name="b_numero_serie" value="0">
+    <input type="hidden" name="b_nserie_obligatorio" value="0">
+    <input type="hidden" name="precio_compra" value="0">
+    <input type="hidden" name="id_tipo_servicio" value="2">
+
+
+{% endblock %}
+
+{% block acciones %}
+
+{% comment %}
+    <button id="btnNuevoConceptoCategoria" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#NuevoConceptoCategoria" data-id_tipo_concepto="2" data-whatever="@fat"> Agregar categoria de mantenimiento </button>
+    <button  type="button" class="btn btn-secondary" data-toggle="modal" data-target="#NuevoTipoServicio" data-id_tipo_concepto="2" data-whatever="@fat"> Agregar tipo de servicio </button>
+{% endcomment %}
+
+{% endblock %}
+
+{% block modals %}
+{% comment %}    <div class="modal fade" id="NuevoConceptoCategoria" tabindex="-1" role="dialog" aria-labelledby="NuevoConceptoCategoriaLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="NuevoConceptoCategoriaLabel">Nueva categoría de mano de obra</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Descripcion de la Categoría:</label>
+                <input id="edtDescConceptoCategoria" type="text" class="form-control" id="edtDescConceptoCategoria">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button id="btnGuardarConceptoCategoria" type="button" class="btn btn-primary">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal fade" id="NuevoTipoServicio" tabindex="-1" role="dialog" aria-labelledby="NuevoTipoServicioLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="NuevoTipoServicioLabel">Nuevo tipo de servicio</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Descripcion del tipo de servicio:</label>
+                <input id="edtNuevoTipoServicio" type="text" class="form-control" id="edtDescTipoServicio">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <button id="btnGuardarTipoServicio" type="button" class="btn btn-primary">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>{% endcomment %}
+
+{% endblock %}
+
+{% block scripts %}
+    {% comment %}<script>
+
+            $("#NuevoConceptoCategoria").on('shown.bs.modal', function(){
+                $(this).find('#edtDescConceptoCategoria').focus();
+            });
+           $('#btnGuardarConceptoCategoria').on('click', function (event) {
+                var v_desc_categoria = $("#edtDescConceptoCategoria").val()
+                var _parameters = {'id_tipo_concepto' : 2,'desc_categoria' : v_desc_categoria}
+                if ( v_desc_categoria.length > 0 ){
+                    $('#edtDescConceptoCategoria').val('');
+                    _ajax('../../catalogo/conceptocategoria/add/', _parameters, function (data) {
+                        $('#id_id_categoria').append(`<option value="${data['id_categoria']}">${ data['desc_categoria'] }</option>'`)
+                        $('#id_id_categoria').val(data['id_categoria'])
+                        $("#edtDescConceptoCategoria").empty()
+                        $("#NuevoConceptoCategoria").modal('hide');
+                    });
+                } else
+                {
+                    message_error('Ingresa una descripción');
+                }
+            });
+
+
+           $("#NuevoTipoServicio").on('shown.bs.modal', function(){
+                $(this).find('#edtNuevoTipoServicio').focus();
+            });
+            $('#btnGuardarTipoServicio').on('click', function (event) {
+                var v_desc_tipo_servicio = $("#edtNuevoTipoServicio").val()
+                var _parameters = {'desc_tipo_servicio' : v_desc_tipo_servicio}
+                if ( v_desc_tipo_servicio.length > 0 ){
+                    _ajax('../../catalogo/tiposervicio/add/', _parameters, function (data) {
+                        $('#id_id_tipo_servicio').append(`<option value="${data['id_tipo_servicio']}">${ data['desc_tipo_servicio'] }</option>'`)
+                        $('#id_id_tipo_servicio').val(data['id_tipo_servicio'])
+                        $("#edtDescTipoServicio").empty()
+                        $("#NuevoTipoServicio").modal('hide');
+                    });
+                } else
+                {
+                    message_error_callback('Ingresa una descripción', function(result){
+                        $('#edtNuevoTipoServicio').focus();
+                    });
+
+                }
+
+
+
+            })
+    </script>{% endcomment %}
+{% endblock %}
