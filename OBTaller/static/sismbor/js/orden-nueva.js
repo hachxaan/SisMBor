@@ -43,7 +43,7 @@ $(function () {
 
 function pValidaPlaca( placa ){
 
-        var _parameters = {'placa' : placa, 'action': 'searchdata'}
+        var _parameters = {'placa' : placa, 'action': 'searchdata', 'owner': 'order-nueva'}
         if ( placa.length > 0 ){
             _ajax('/getInfoUnidad/', _parameters, function (data) {
                  if (data.length > 0) {

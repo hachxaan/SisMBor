@@ -159,6 +159,7 @@ class MantenimientoDeleteView(LoginRequiredMixin, ValidatePermissionRequiredMixi
         return get_object_or_404( Concepto, id_concepto=id_concepto )
 
     def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):

@@ -54,7 +54,7 @@ def OrdenNuevaView(request):
 class OrdenListaEditar( ListView ):
     model=WConceptosMain
     template_name='orden/orden-editar.html'
-    # personal=Personal.objects.all();
+
     @method_decorator( login_required )
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch( request, *args, **kwargs )
@@ -190,7 +190,7 @@ class OrdenListaEditar( ListView ):
                 consecutivo=MaxCons['consecutivo__max']
 
             dataSet=Concepto.objects.filter( id_concepto=id_concepto ).values( 'stock', 'precio_compra',
-                                                                               'precio_venta' );
+                                                                               'precio_venta' )
             precio_compra=dataSet[0]['precio_compra']
             precio_venta=dataSet[0]['precio_venta']
             stock=dataSet[0]['stock']
@@ -210,35 +210,31 @@ class OrdenListaEditar( ListView ):
             InsOrdenDetalle.save()
 
 
-            if (b_agrega_conceptos == 'V'):
-                dataSet = Orden.objects.filter(folio=folio).values('kilometraje_pq');
+            if (b_agrega_conceptos):
+                dataSet = Orden.objects.filter(folio=folio).values('kilometraje_pq')
                 kilometraje_pq = dataSet[0]['kilometraje_pq']
-                vFieldFilter = {
-                    '{0}'.format('m'+str(kilometraje_pq)): '1'
-                }
-                dataNoStock = []
-                for dataset in WListaMantenimiento.objects.filter(**vFieldFilter):
-                    if (dataset.stock > 0):
-                        InsOrdenDetalle = OrdenDetalle(
-                            folio=folio,
-                            consecutivo=consecutivo + 1,
-                            cantidad=1,
-                            id_concepto=dataset.id_concepto,
-                            id_personal=id_personal,
-                            no_serie=no_serie,
-                            precio_compra=dataset.precio_compra,
-                            precio_venta=dataset.precio_venta,
-                            cve_usu_alta=request.user.username,
-                            fh_registro=dt.datetime.today(),
-                            sit_code='PE')
-                        InsOrdenDetalle.save()
+                if (int(kilometraje_pq) <= 1250000 ):
+                    vFieldFilter = {
+                        '{0}'.format('m'+str(kilometraje_pq)): '1'
+                    }
+                    dataNoStock = []
+                    for dataset in WListaMantenimiento.objects.filter(**vFieldFilter):
+                        if (dataset.stock > 0):
+                            InsOrdenDetalle = OrdenDetalle(
+                                folio=folio,
+                                consecutivo=consecutivo + 1,
+                                cantidad=1,
+                                id_concepto=dataset.id_concepto,
+                                id_personal=id_personal,
+                                no_serie=no_serie,
+                                precio_compra=dataset.precio_compra,
+                                precio_venta=dataset.precio_venta,
+                                cve_usu_alta=request.user.username,
+                                fh_registro=dt.datetime.today(),
+                                sit_code='PE')
+                            InsOrdenDetalle.save()
                     # else:
                     #     dataNoStock.append()
-
-
-
-
-
 
             data={"psSTR_RESP": 'OK', "consecutivo": consecutivo, "stock": stock}
 
@@ -249,7 +245,7 @@ class OrdenListaEditar( ListView ):
         context=super().get_context_data( **kwargs )
         context['title']='Agregar conceptos a orden'
         context['escritorio']='active'
-        context['personal']= Personal.objects.all();
+        context['personal']= Personal.objects.all()
 
         prev=self.request.GET['prev']
         folio=self.request.GET['folio']
@@ -282,7 +278,6 @@ class OrdenListaEditar( ListView ):
 class OrdenListaDetalle( ListView ):
     model=WConceptosMain
     template_name='orden/orden-detalle.html'
-    # personal=Personal.objects.all();
     @method_decorator( login_required )
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch( request, *args, **kwargs )
@@ -394,7 +389,7 @@ class OrdenListaDetalle( ListView ):
                 consecutivo=MaxCons['consecutivo__max']
 
             dataSet=Concepto.objects.filter( id_concepto=id_concepto ).values( 'stock', 'precio_compra',
-                                                                               'precio_venta' );
+                                                                               'precio_venta' )
             precio_compra=dataSet[0]['precio_compra']
             precio_venta=dataSet[0]['precio_venta']
             stock=dataSet[0]['stock']
@@ -432,7 +427,7 @@ class OrdenListaDetalle( ListView ):
                                                                     'fh_salida',
                                                                     'modelo'
                                                                     )
-        status = dataSet[0]['status'];
+        status = dataSet[0]['status']
         if (status == 0):
             context['status_tipo'] = 'warning'
             context['status_desc']='PENDIENTE'

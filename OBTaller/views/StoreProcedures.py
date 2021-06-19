@@ -7,7 +7,7 @@ from OBTaller.models import Unidad
 def StpInsOrden(request):
     placa = request.POST.get('placa')
     peKILOMETRAJE = request.POST.get('kilometraje')
-    peCVE_USU_ALTA = request.user.username;
+    peCVE_USU_ALTA = request.user.username
     peNOMBRE_ENTREGA =  request.POST.get('nombre_entrega')
     peTX_REFERENCIA = ''
     psCOD_RESP = 0
@@ -45,7 +45,7 @@ def StpInsBitInventario(request):
 
     peID_CONCEPTO = request.POST.get('id_concepto')
     peCVE_OPERACION = request.POST.get('cve_operacion')
-    peCVE_USUARIO = request.user.username;
+    peCVE_USUARIO = request.user.username
     peCANTIDAD = request.POST.get('cantidad')
     pePRECIO_COMPRA = request.POST.get('precio')
     peTX_REFERENCIA = request.POST.get('tx_referencia')

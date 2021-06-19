@@ -19,7 +19,36 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e0074843-61a2-4bac-b21d-d2a6f08bf969" name="Default Changelist" comment="" />
+    <list default="true" id="e0074843-61a2-4bac-b21d-d2a6f08bf969" name="Default Changelist" comment="Init-LX">
+      <change afterPath="$PROJECT_DIR$/appMainSite/current_user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/buscador-unidad.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/buscador-unidad.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/list-cat-cliente.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/list-cat-cliente.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/list-cat-matenimiento.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/list-cat-matenimiento.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-nueva.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-nueva.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/reumaticos-admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/reumaticos-admin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/Classes/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/Classes/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/MainSections/CSS-DataTables.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/MainSections/CSS-DataTables.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/catalogos/Cliente/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/catalogos/Cliente/create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/catalogos/Mantenimiento/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/catalogos/Mantenimiento/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/inventario/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/inventario/create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/inventario/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/inventario/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/neumaticos/neumaticos-admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/neumaticos/neumaticos-admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/orden/orden-editar.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/orden/orden-editar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/orden/orden-nueva.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/orden/orden-nueva.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/orden/orden-operacion-main.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/orden/orden-operacion-main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/views/StoreProcedures.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/StoreProcedures.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/views/cliente/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/cliente/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/views/inventario_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/inventario_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/views/manobra/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/manobra/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/views/mantenimiento/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/mantenimiento/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/views/orden_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/orden_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/views/unidad/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/unidad/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/views/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appMainSite/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/appMainSite/settings.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,11 +61,25 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="JsFlowSettings">
     <service-enabled>true</service-enabled>
@@ -57,9 +100,14 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/manage.py" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
-  <component name="RunManager" selected="Python.AppSiteRun">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/appMainSite" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.appMainSite">
     <configuration name="AppSiteRun" type="PythonConfigurationType" factoryName="Python">
       <module name="appMainSite" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -103,6 +151,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="appMainSite" type="PythonConfigurationType" factoryName="Python">
+      <module name="appMainSite" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$PROJECT_DIR$/../env-lx/bin/python3.9" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/manage.py" />
+      <option name="PARAMETERS" value="runserver" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="appMainSite" type="Python.DjangoServer" factoryName="Django server">
       <module name="appMainSite" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -130,6 +199,7 @@
     <list>
       <item itemvalue="Python.Tester" />
       <item itemvalue="Python.AppSiteRun" />
+      <item itemvalue="Python.appMainSite" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -150,6 +220,14 @@
       <workItem from="1623803757378" duration="22320000" />
       <workItem from="1623941968903" duration="10664000" />
     </task>
+    <task id="LOCAL-00001" summary="Init-LX">
+      <created>1624044222778</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1624044222778</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -160,20 +238,36 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main-lx" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Init-LX" />
+    <option name="LAST_COMMIT_MESSAGE" value="Init-LX" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/OBTaller/views/StoreProcedures.py</url>
-          <line>7</line>
-          <option name="timeStamp" value="4" />
+          <url>file://$PROJECT_DIR$/OBTaller/views/inventario_view.py</url>
+          <line>86</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

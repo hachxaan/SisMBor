@@ -15,7 +15,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from OBTaller.forms import UnidadForm
 from OBTaller.mixins import ValidatePermissionRequiredMixin
-from OBTaller.models import Unidad, WbUnidad
+from OBTaller.models import Unidad, WbUnidad, WbUnidadNeu
 
 
 # **********************************************************************************************************************
@@ -46,8 +46,13 @@ class UnidadListView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListVi
             else:
                 if action == 'searchdata_buscador':
                     data=[]
-                    for i in WbUnidad.objects.all():
-                        data.append( i.toJSON() )
+                    b_todas = request.POST['b_todas']
+                    if (b_todas == 'b_todas'):
+                        for i in WbUnidadNeu.objects.all():
+                            data.append(i.toJSON())
+                    else:
+                        for i in WbUnidad.objects.all():
+                            data.append(i.toJSON())
                 else:
                     data['error'] = 'Ha ocurrido un error'
         except Exception as e:

@@ -30,7 +30,7 @@
 {% block modals %}
     <div class="modal fade modal-lg" id="EntradaInventarioModal" tabindex="-1" role="dialog"
          aria-labelledby="EntradaInventarioLabel" aria-hidden="true"
-         data-id_concepto="0" data-cve_operacion="" >
+         data-id_concepto="0" data-cve_operacion="NCOMPRA" >
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-info">
@@ -56,7 +56,7 @@
                                 <label for="ingreso_compra" class="custom-control-label">INGRESO POR COMPRA</label>
                             </div>
                             <div class="mt-2 custom-control custom-radio">
-                                <input data-cve_operacion="NCOMPRA" class="custom-control-input" type="radio" id="ingreso_sin_compra" name="ingreso_compra">
+                                <input data-cve_operacion="NCOMPRA" class="custom-control-input" type="radio" id="ingreso_sin_compra" name="ingreso_compra" checked>
                                 <label for="ingreso_sin_compra" class="custom-control-label">INGRSO SIN COMPRA</label>
                             </div>
                         </div>

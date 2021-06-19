@@ -18,6 +18,7 @@
 
                     {% csrf_token %}
                     <input type="hidden" name="id_unidad" id="id_unidad" value="0">
+
                     <div class="card-body">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -31,14 +32,14 @@
                             </span>
                         </div>
 
-                        <div class="input-group mb-3">
+                        <!--<div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Ult. Km</span>
                             </div>
                             <input readonly name="kilometraje" id="kilometraje" type="number"
                                    class="form-control bg-white"
                                    required placeholder="">
-                        </div>
+                        </div>-->
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -70,22 +71,56 @@
                             </div>
                             <input id="edtChasis" type="text" class="form-control" placeholder="">
                         </div>
-
-
-                        <h4 class="mt-4 mb-2">Utlimo servicio</h4>
-
-
+                        <!-- *************************************************************************************** -->
+                        <h4 class="mt-4 mb-2">Servicio Actual</h4>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">Fecha</span>
+                                <span class="input-group-text">Entrada</span>
                             </div>
-                            <input type="text" class="form-control" placeholder="Sin historial de servicio">
+                            <input id="fh_alta_current" type="text" class="form-control" placeholder="No está en servicio">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Kilometraje</span>
+                            </div>
+                            <input id="kilometraje_current" type="text" class="form-control" placeholder="No está en servicio">
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Folio</span>
                             </div>
-                            <input type="text" class="form-control" placeholder="Sin historial de servicio">
+                            <input id="folio_current" type="text" class="form-control" placeholder="No está en servicio">
+                            <span class="input-group-append">
+                        <!--            <button href="" id="btnVerOrdenCurrent" type="button" class="btn btn-outline-info btn" data-toggle="modal"
+                                            data-target="#BuscarUnidadModal">Ver</button>-->
+                            </span>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Responsable</span>
+                            </div>
+                            <input id="nombre_entrega_current   " type="text" class="form-control" placeholder="No está en servicio">
+                        </div>
+
+                        <!-- *************************************************************************************** -->
+                        <h4 class="mt-4 mb-2">Utlimo servicio</h4>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Fecha</span>
+                            </div>
+                            <input id="fh_salida_ult" type="text" class="form-control" placeholder="Sin historial de servicio">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Kilometraje</span>
+                            </div>
+                            <input id="kilometraje_ult" type="text" class="form-control" placeholder="Sin historial de servicio">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Folio</span>
+                            </div>
+                            <input id="folio_ult" type="text" class="form-control" placeholder="Sin historial de servicio">
                             <span class="input-group-append">
                                     <button href="" id="btnVerOrden" type="button" class="btn btn-outline-info btn" data-toggle="modal"
                                             data-target="#BuscarUnidadModal">Ver</button>
@@ -95,7 +130,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Responsable</span>
                             </div>
-                            <input type="text" class="form-control" placeholder="Sin historial de servicio">
+                            <input id="nombre_entrega_ult" type="text" class="form-control" placeholder="Sin historial de servicio">
                         </div>
                         <!-- /input-group -->
                     </div>
@@ -188,7 +223,7 @@
     {# ************************************************************************************************ #}
     {# BUSCADOR MAIN#}
     {# ************************************************************************************************ #}
-    <div class="modal fade" id="BuscarUnidadModal" tabindex="-1" role="dialog" aria-labelledby="BuscarUnidadModalLabel"
+    <div class="modal fade" id="BuscarUnidadModal" data-b_todas="b_todas" tabindex="-1" role="dialog" aria-labelledby="BuscarUnidadModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

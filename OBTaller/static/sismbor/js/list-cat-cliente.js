@@ -23,10 +23,10 @@ $(function () {
             {"data": "nombre"},
             {"data": "telefono_contacto"},
             {"data": "celular_contacto"},
-            {"data": "correo_electronico"},
-            {"data": "direccion"},
-            {"data": "cve_usu_alta"},
-            {"data": "fh_registro"},
+            {"data": "correo_electronico", class: 'none'},
+            {"data": "direccion", class: 'none'},
+            {"data": "cve_usu_alta", class: 'none'},
+            {"data": "fh_registro", class: 'none'},
             {"data": null},
 
 

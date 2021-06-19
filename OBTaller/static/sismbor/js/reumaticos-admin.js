@@ -1,6 +1,6 @@
 function pValidaPlaca(placa) {
 
-    var _parameters = {'placa': placa, 'action': 'searchdata'}
+    var _parameters = {'placa': placa, 'action': 'searchdata', 'owner': 'neumaticos-admin'}
     if (placa.length > 0) {
         _ajax('/getInfoUnidad/', _parameters, function (data) {
             if (data.length > 0) {
@@ -13,6 +13,17 @@ function pValidaPlaca(placa) {
                 $("#edtChasis").val(data[0].chasis);
 
 
+                $("#fh_alta_current").val(data[0].fh_alta_current);
+                $("#kilometraje_current").val(data[0].kilometraje_current);
+                $("#folio_current").val(data[0].folio_current);
+                $("#nombre_entrega_current").val(data[0].nombre_entrega_current);
+
+                $("#fh_salida_ult").val(data[0].fh_salida_ult);
+                $("#kilometraje_ult").val(data[0].kilometraje_ult);
+                $("#folio_ult").val(data[0].folio_ult);
+                $("#nombre_entrega_ult").val(data[0].nombre_entrega_ult);
+
+/*
                 $("#edtUnidad").val(data[0].id_unidad);
                 $("#edtEmpresa").val(data[0].nombre_empresa);
                 $("#edtRup").val(data[0].rup);
@@ -21,7 +32,7 @@ function pValidaPlaca(placa) {
                 $("#edtDireccion").val(data[0].direccion);
                 $("#edtRepresentante").val(data[0].nombre + ' ' + data[0].apellido);
                 $("#edtEmail").val(data[0].correo_electronico);
-                $("#edtKilometraje").focus();
+                */
 
             } else {
                 // $("#edtPlaca").removeClass('bg-olive');

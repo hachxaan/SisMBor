@@ -33,6 +33,7 @@ $(function () {
 
     });
     $( "#BuscarUnidadModal" ).on('show.bs.modal', function(){
+        b_todas = $(this).data("b_todas");
         $('#dtBuscador').DataTable({
             language: {
                 url: '../../static/libs/datatables-es.json'
@@ -52,7 +53,8 @@ $(function () {
                      request.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
                  },
                 data: {
-                    action: "searchdata_buscador"
+                    "action": "searchdata_buscador",
+                    "b_todas": b_todas
                 },
                  dataSrc: ""
             },

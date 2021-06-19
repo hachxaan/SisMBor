@@ -23,7 +23,7 @@
                 {"data": "id_concepto"},
                 {"data": "cve_concepto"},
                 {"data": "desc_concepto"},
-                {"data": "desc_categoria"},
+//                {"data": "desc_categoria"},
                 {"data": "precio_venta",
                 class: 'all text-right',
                 render: $.fn.dataTable.render.number(',', '.', 2, 'S/.')},

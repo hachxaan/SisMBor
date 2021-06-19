@@ -19,8 +19,7 @@ from OBTaller.models import WConceptosMain, Concepto, WsTipoSalida
 
 # **********************************************************************************************************************
 # **********************************************************************************************************************
-from appMainSite import settings
-from appMainSite.const import TCONCEPTO_REPUESTOS
+
 
 
 class InventarioView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListView):
@@ -61,6 +60,7 @@ class InventarioView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListVi
         context['inventario'] ='active'
         # Invenrtario
         context['label_nuevo'] = 'Agregar nuevo repuesto'
+        context['id_tipo_concepto'] = const.TCONCEPTO_MANTENIMIENTO
         data=[]
         for i in WsTipoSalida.objects.all():
             data.append( i.toJSON() )
@@ -103,7 +103,7 @@ class InventarioCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, 
         context['list_url'] = self.success_url
         context['action'] = 'add'
         context['inventario']='active'
-        context['id_tipo_concepto'] = TCONCEPTO_REPUESTOS
+        context['id_tipo_concepto'] = const.TCONCEPTO_REPUESTOS
         return context
 # **********************************************************************************************************************
 # **********************************************************************************************************************
@@ -145,7 +145,7 @@ class InventarioUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, 
         context['action'] = 'edit'
         context['catalogos']='menu-is-opening menu-open'
         context['inventario']='active'
-        context['id_tipo_concepto']=TCONCEPTO_REPUESTOS
+        context['id_tipo_concepto']= const.TCONCEPTO_REPUESTOS
         context['edit_stock']='ready'
         return context
 
