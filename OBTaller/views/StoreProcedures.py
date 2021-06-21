@@ -6,72 +6,70 @@ from OBTaller.models import Unidad
 
 def StpInsOrden(request):
     placa = request.POST.get('placa')
-    kilometraje = request.POST.get('kilometraje')
-    username = request.user.username
-    nombre_entrega = request.POST.get('nombre_entrega')
-    tx_referencia = ''
-    pscod_resp = 0
-    ps_strresp = ''
-    cursor = connection.cursor()
+    peKILOMETRAJE = request.POST.get('kilometraje')
+    peCVE_USU_ALTA = request.user.username
+    peNOMBRE_ENTREGA =  request.POST.get('nombre_entrega')
+    peTX_REFERENCIA = ''
+    psCOD_RESP = 0
+    psSTR_RESP = ''
+    cursor=connection.cursor()
     try:
         try:
-            kilometraje_int = int(kilometraje)
-            if kilometraje_int < 25000:
-                kilometraje_pq = 25000
+            kilometraje_int = int(peKILOMETRAJE)
+            if (kilometraje_int < 25000):
+                peKILOMETRAJE_PQ = 25000
             else:
-                retvecesval = round(kilometraje_int / 25000)
-                kilometraje_pq = retvecesval * 25000
+                RetVecesVal = round(kilometraje_int / 25000)
+                peKILOMETRAJE_PQ = RetVecesVal * 25000
 
-            dataset = Unidad.objects.filter(placa=placa).values('id_unidad')
-            id_unidad = dataset[0]['id_unidad']
-            cursor.callproc('StpInsertaOrden', [id_unidad, kilometraje, kilometraje_pq, username, nombre_entrega,
-                            tx_referencia, ps_strresp])
 
+            DataSet = Unidad.objects.filter(placa=placa).values( 'id_unidad')
+            peID_UNIDAD = DataSet[0]['id_unidad']
+            cursor.callproc('StpInsertaOrden', [peID_UNIDAD, peKILOMETRAJE, peKILOMETRAJE_PQ, peCVE_USU_ALTA, peNOMBRE_ENTREGA, peTX_REFERENCIA, psSTR_RESP])
             # cursor.execute('SELECT @StpInsertaOrden')
             results = cursor.fetchall()
             # results =  psSTR_RESP.getValue()
 
             for row in results:
-                ps_strresp = row[0]
+                psCOD_RESP = row[0]
                 # psSTR_RESP = row[1]
 
-            data = {'psCOD_RESP': pscod_resp, 'psSTR_RESP': ps_strresp}
+            data = {'psCOD_RESP': psCOD_RESP, 'psSTR_RESP': psSTR_RESP}
         except Exception as e:
             data['error'] = str(e)
     finally:
         cursor.close()
     return JsonResponse(data,  safe=False)
 
-
 def StpInsBitInventario(request):
 
-    id_concepto = request.POST.get('id_concepto')
-    cve_operacion = request.POST.get('cve_operacion')
-    username = request.user.username
-    cantidad = request.POST.get('cantidad')
-    precio = request.POST.get('precio')
-    tx_referencia = request.POST.get('tx_referencia')
-    folio = '0'
-    id_orden_detalle = 0
-    id_trans_inventario = 0
-    cod_resp = 0
-    str_resp = ''
-    cursor = connection.cursor()
+    peID_CONCEPTO = request.POST.get('id_concepto')
+    peCVE_OPERACION = request.POST.get('cve_operacion')
+    peCVE_USUARIO = request.user.username
+    peCANTIDAD = request.POST.get('cantidad')
+    pePRECIO_COMPRA = request.POST.get('precio')
+    peTX_REFERENCIA = request.POST.get('tx_referencia')
+    peFOLIO='0'
+    peID_ORDEN_DETALLE=0
+    psID_TRANS_INVENTARIO = 0
+    psCOD_RESP = 0
+    psSTR_RESP = ''
+    cursor=connection.cursor()
     try:
         try:
 
             cursor.callproc('StpInsBitInventario',
-                            [id_concepto,
-                             cve_operacion,
-                             username,
-                             cantidad,
-                             precio,
-                             tx_referencia,
-                             folio,
-                             id_orden_detalle,
-                             id_trans_inventario,
-                             cod_resp,
-                             str_resp
+                            [peID_CONCEPTO,
+                             peCVE_OPERACION,
+                             peCVE_USUARIO,
+                             peCANTIDAD,
+                             pePRECIO_COMPRA,
+                             peTX_REFERENCIA,
+                             peFOLIO,
+                             peID_ORDEN_DETALLE,
+                             psID_TRANS_INVENTARIO,
+                             psCOD_RESP,
+                             psSTR_RESP
                              ])
 
             # cursor.execute('SELECT @StpInsertaOrden')
@@ -79,10 +77,10 @@ def StpInsBitInventario(request):
             # results =  psSTR_RESP.getValue()
 
             for row in results:
-                cod_resp = row[0]
+                psCOD_RESP = row[0]
                 # psSTR_RESP = row[1]
 
-            data = {'psCOD_RESP': cod_resp, 'psSTR_RESP': str_resp}
+            data = {'psCOD_RESP': psCOD_RESP, 'psSTR_RESP': psSTR_RESP}
         except Exception as e:
             data['error'] = str(e)
     finally:

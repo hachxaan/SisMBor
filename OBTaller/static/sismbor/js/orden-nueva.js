@@ -33,6 +33,7 @@ $(function () {
             var placa = $("#edtPlaca").val();
             var kilometraje = $("#kilometraje").val();
             var nombre_entrega = $("#nombre_entrega").val()
+            // location.href =  `/ordendetalle/?prev=${prev}&folio=${folio}&placa=${placa}&kilometraje=${kilometraje}&nombre_entrega=${nombre_entrega}`;
             location.href =  `/ordendetalle/?prev=/ordennueva/&folio=${folio}&placa=${placa}&kilometraje=${kilometraje}&nombre_entrega=${nombre_entrega}`;
         }
 

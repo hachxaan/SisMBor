@@ -210,7 +210,7 @@ class OrdenListaEditar( ListView ):
             InsOrdenDetalle.save()
 
 
-            if b_agrega_conceptos == '1':
+            if (b_agrega_conceptos):
                 dataSet = Orden.objects.filter(folio=folio).values('kilometraje_pq')
                 kilometraje_pq = dataSet[0]['kilometraje_pq']
                 if (int(kilometraje_pq) <= 1250000 ):
