@@ -19,20 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e0074843-61a2-4bac-b21d-d2a6f08bf969" name="Default Changelist" comment="REALISE 1.2">
+    <list default="true" id="e0074843-61a2-4bac-b21d-d2a6f08bf969" name="Default Changelist" comment="del rel=&quot;stylesheet&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/Classes/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/Classes/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/MainSections/CSS-DataTables.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/MainSections/CSS-DataTables.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/MainSections/CSS.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/MainSections/CSS.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/catalogos/unidad-create.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/catalogos/unidad-create.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/inventario/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/inventario/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/neumaticos/neumaticos-admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/neumaticos/neumaticos-admin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/orden/orden-detalle.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/orden/orden-detalle.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/orden/orden-editar.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/orden/orden-editar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/orden/orden-operacion-main.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/orden/orden-operacion-main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/orden/orden-operacion.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/orden/orden-operacion.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/panel_old.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/panel_old.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/registration/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appMainSite/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/appMainSite/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appMainSite/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/appMainSite/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -226,7 +216,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624299891428</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="del rel=&quot;stylesheet&quot;">
+      <created>1624306961965</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1624306961965</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -260,7 +257,8 @@
     <MESSAGE value="Init-LX" />
     <MESSAGE value="COMIT-1-LX&#10;REALISE 1&#10;DESARROLLO NEUMATICOS" />
     <MESSAGE value="REALISE 1.2" />
-    <option name="LAST_COMMIT_MESSAGE" value="REALISE 1.2" />
+    <MESSAGE value="del rel=&quot;stylesheet&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="del rel=&quot;stylesheet&quot;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
