@@ -81,8 +81,8 @@ class InventarioCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, 
 
     def get_object(self):
         id_concepto=self.kwargs.get( 'id_concepto' )
-        return get_object_or_404( Concepto , id_concepto=id_concepto )
 
+        return get_object_or_404( Concepto , id_concepto=id_concepto )
     def post(self, request, *args, **kwargs):
         data = {}
         try:

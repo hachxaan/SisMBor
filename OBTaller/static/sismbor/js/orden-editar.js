@@ -84,7 +84,7 @@ $(function () {
 
             }
 
-
+            console.log(parameters)
             submit_with_ajax_action(parameters, function (response) {
                 ajaxReaod()
             });

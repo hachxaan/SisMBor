@@ -5,7 +5,6 @@ function pValidaPlaca(placa) {
         _ajax('/getInfoUnidad/', _parameters, function (data) {
             if (data.length > 0) {
 
-                // $("#edtPlaca").addClass('bg-olive');
                 $("#edtMotor").val(data[0].motor);
                 $("#edtMarca").val(data[0].marca);
                 $("#edtModelo").val(data[0].modelo);
@@ -62,5 +61,15 @@ function pValidaPlaca(placa) {
 
 $(function () {
 
+    $('#btnVerOrden').on('click', function (event) {
+        var folio = $("#edtFolio").val();
+        if (folio) {
+            var prev = '/neumaticosadmin/';
+            var placa = $("#edtPlaca").val();
+            var kilometraje = $("#kilometraje").val();
+            var nombre_entrega = $("#nombre_entrega").val()
+            location.href =  `/ordendetalle/?prev=${prev}&folio=${folio}&placa=${placa}&kilometraje=${kilometraje}&nombre_entrega=${nombre_entrega}`;
+        }
 
+    });
 });
