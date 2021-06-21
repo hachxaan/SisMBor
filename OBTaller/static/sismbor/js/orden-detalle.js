@@ -50,6 +50,7 @@ $(function () {
         $(this).find('#edtNoSerie').focus();
     });
     $('#btnGuardarNoSerie').on('click', function (event) {
+        var v_NoSerie = $("#edtNoSerie").val()
         var v_id_orden_detalle = $("#NoSerieModal").find('#id_orden_detalle').val()
         var _parameters = {
             'action': 'addNoSerie',

@@ -19,35 +19,18 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e0074843-61a2-4bac-b21d-d2a6f08bf969" name="Default Changelist" comment="Init-LX">
-      <change afterPath="$PROJECT_DIR$/appMainSite/current_user.py" afterDir="false" />
+    <list default="true" id="e0074843-61a2-4bac-b21d-d2a6f08bf969" name="Default Changelist" comment="COMIT-1-LX&#10;REALISE 1&#10;DESARROLLO NEUMATICOS">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/buscador-unidad.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/buscador-unidad.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/list-cat-cliente.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/list-cat-cliente.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/list-cat-matenimiento.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/list-cat-matenimiento.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-detalle.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-detalle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-editar.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-editar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-nueva.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-nueva.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/reumaticos-admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/reumaticos-admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/Classes/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/Classes/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/MainSections/CSS-DataTables.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/MainSections/CSS-DataTables.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/catalogos/Cliente/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/catalogos/Cliente/create.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/catalogos/Mantenimiento/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/catalogos/Mantenimiento/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/inventario/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/inventario/create.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/inventario/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/inventario/list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/templates/neumaticos/neumaticos-admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/neumaticos/neumaticos-admin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/orden/orden-editar.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/orden/orden-editar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/orden/orden-nueva.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/orden/orden-nueva.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/templates/orden/orden-operacion-main.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/orden/orden-operacion-main.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/views/StoreProcedures.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/StoreProcedures.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/views/cliente/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/cliente/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/views/inventario_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/inventario_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/views/manobra/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/manobra/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/views/mantenimiento/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/mantenimiento/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/views/neumaticos_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/neumaticos_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/views/orden_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/orden_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/views/unidad/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/unidad/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/views/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appMainSite/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/appMainSite/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -197,8 +180,8 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.Tester" />
       <item itemvalue="Python.AppSiteRun" />
+      <item itemvalue="Python.Tester" />
       <item itemvalue="Python.appMainSite" />
     </list>
   </component>
@@ -227,7 +210,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624044222778</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="COMIT-1-LX&#10;REALISE 1&#10;DESARROLLO NEUMATICOS">
+      <created>1624128932928</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1624128932928</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -259,14 +249,15 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Init-LX" />
-    <option name="LAST_COMMIT_MESSAGE" value="Init-LX" />
+    <MESSAGE value="COMIT-1-LX&#10;REALISE 1&#10;DESARROLLO NEUMATICOS" />
+    <option name="LAST_COMMIT_MESSAGE" value="COMIT-1-LX&#10;REALISE 1&#10;DESARROLLO NEUMATICOS" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/OBTaller/views/inventario_view.py</url>
-          <line>86</line>
+          <url>file://$PROJECT_DIR$/OBTaller/views/StoreProcedures.py</url>
+          <line>14</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
