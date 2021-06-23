@@ -1,7 +1,7 @@
 
 # **********************************************************************************************************************
 # **********************************************************************************************************************
-# C A T A L O G O   -    INVENTARIO
+# C A T A L O G O   -    INVENTARIO MEUMATICOS
 # **********************************************************************************************************************
 # **********************************************************************************************************************
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -12,8 +12,8 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
+from OBTaller.forms import InventarioNeumaticosForm, InventarioNeumaticosFormEdit
 from appMainSite import const
-from OBTaller.forms import InventarioForm, InventarioFormEdit
 from OBTaller.mixins import ValidatePermissionRequiredMixin
 from OBTaller.models import WConceptosMain, Concepto, WsTipoSalida
 
@@ -22,9 +22,9 @@ from OBTaller.models import WConceptosMain, Concepto, WsTipoSalida
 
 
 
-class InventarioView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListView):
+class InventarioNeumaticosView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListView):
     model = WConceptosMain
-    template_name ='inventario/list.html'
+    template_name ='inventario_neumaticos/list.html'
     # permission_required = 'OBTaller.view_unidad'
 
     @method_decorator(csrf_exempt)
@@ -42,7 +42,7 @@ class InventarioView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListVi
             action = request.POST['action']
             if action == 'searchdata':
                 data = []
-                for i in WConceptosMain.objects.filter(id_tipo_concepto= const.TCONCEPTO_REPUESTOS):
+                for i in WConceptosMain.objects.filter(id_tipo_concepto= const.TCONCEPTO_NEUMATICOS):
                     data.append(i.toJSON())
             else:
                 data['error'] = 'Ha ocurrido un error'
@@ -53,16 +53,16 @@ class InventarioView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListVi
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # Generales
-        context['title'] = 'Inventario'
-        context['create_url'] = reverse_lazy('OBTaller:inventario_create')
-        context['list_url'] = reverse_lazy('OBTaller:inventario_list')
-        context['entity'] = 'Inventario'
+        context['title'] = 'inventario_neumaticos/Neumaticos'
+        context['create_url'] = reverse_lazy('OBTaller:inventario_neumaticos_create')
+        context['list_url'] = reverse_lazy('OBTaller:inventario_neumaticos_list')
+        context['entity'] = 'Neumaticos'
 
         context['inventarios']='menu-is-opening menu-open'
-        context['repuestos']='active'
+        context['neumaticos']='active'
         # Invenrtario
-        context['label_nuevo'] = 'Agregar nuevo repuesto'
-        context['id_tipo_concepto'] = const.TCONCEPTO_REPUESTOS
+        context['label_nuevo'] = 'Agregar nuevo neumático'
+        context['id_tipo_concepto'] = const.TCONCEPTO_NEUMATICOS
         data=[]
         for i in WsTipoSalida.objects.all():
             data.append( i.toJSON() )
@@ -70,11 +70,11 @@ class InventarioView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListVi
         return context
 # **********************************************************************************************************************
 # **********************************************************************************************************************
-class InventarioCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, CreateView):
+class InventarioNeumaticosCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, CreateView):
     model = Concepto
-    form_class = InventarioForm
-    template_name ='inventario/create.html'
-    success_url = reverse_lazy('OBTaller:inventario_list')
+    form_class = InventarioNeumaticosForm
+    template_name ='inventario_neumaticos/create.html'
+    success_url = reverse_lazy('OBTaller:inventario_neumaticos_list')
     # permission_required = 'OB. add_unidad'
     url_redirect = success_url
 
@@ -100,22 +100,22 @@ class InventarioCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, 
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Crear nuevo Repuesto'
-        context['entity'] = 'Repuestos'
+        context['title'] = 'Inventario / Neumáticos'
+        context['entity'] = 'Neumáticos'
         context['list_url'] = self.success_url
         context['action'] = 'add'
         context['inventarios'] = 'menu-is-opening menu-open'
-        context['repuestos']='active'
-        context['id_tipo_concepto'] = const.TCONCEPTO_REPUESTOS
+        context['neumaticos']='active'
+        context['id_tipo_concepto'] = const.TCONCEPTO_NEUMATICOS
         return context
 # **********************************************************************************************************************
 # **********************************************************************************************************************
     
-class InventarioUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, UpdateView):
+class InventarioNeumaticosUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, UpdateView):
     model = Concepto
-    form_class = InventarioFormEdit
-    template_name = 'inventario/create.html'
-    success_url = reverse_lazy('OBTaller:inventario_list')
+    form_class = InventarioNeumaticosFormEdit
+    template_name = 'inventario_neumaticos/create.html'
+    success_url = reverse_lazy('OBTaller:inventario_neumaticos_list')
     # permission_required = 'erp.change_category'
     url_redirect = success_url
 
@@ -146,19 +146,20 @@ class InventarioUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, 
         context['entity'] = 'Repuesto   '
         context['list_url'] = self.success_url
         context['action'] = 'edit'
-        context['inventarios']='menu-is-opening menu-open'
-        context['repuestos']='active'
-        context['id_tipo_concepto']= const.TCONCEPTO_REPUESTOS
+        context['catalogos']='menu-is-opening menu-open'
+        context['inventarios'] = 'menu-is-opening menu-open'
+        context['neumaticos']='active'
+        context['id_tipo_concepto']= const.TCONCEPTO_NEUMATICOS
         context['edit_stock']='ready'
         return context
 
 # **********************************************************************************************************************
 # **********************************************************************************************************************
 
-class InventarioDeleteView(LoginRequiredMixin, ValidatePermissionRequiredMixin, DeleteView):
+class InventarioNeumaticosDeleteView(LoginRequiredMixin, ValidatePermissionRequiredMixin, DeleteView):
     model = Concepto
-    template_name = 'inventario/delete.html'
-    success_url = reverse_lazy('OBTaller:inventario_list')
+    template_name = 'inventario_neumaticos/delete.html'
+    success_url = reverse_lazy('OBTaller:inventario_neumaticos_list')
     # permission_required = 'erp.delete_category'
     url_redirect = success_url
 
@@ -180,9 +181,9 @@ class InventarioDeleteView(LoginRequiredMixin, ValidatePermissionRequiredMixin, 
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Eliminar Repuesto'
-        context['entity'] = 'Repuestos'
+        context['title'] = 'Eliminar Neumatico'
+        context['entity'] = 'Neumaticos'
         context['list_url'] = self.success_url
         context['inventarios']='menu-is-opening menu-open'
-        context['repuestos']='active'
+        context['neumaticos']='active'
         return context

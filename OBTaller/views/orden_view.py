@@ -24,32 +24,32 @@ def UpdSitOrden(request):
             context['error']=str( e )
         return JsonResponse( context, safe=False )
 
-def OrdenNuevaView(request):
-    # request['manobra']='active'
-    context={}
-    context['nueva_orden']='active'
-    if request.method == 'GET':
-        if request.GET.get( 'placa' ):
-            context['placa']=request.GET.get( 'placa' )
+class OrdenNuevaView( ListView ):
+    template_name = 'orden/orden-nueva.html'
+    model = Orden
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data( **kwargs )
+        if self.request.GET.get('placa'):
+            context['placa'] = self.request.GET.get('placa')
         else:
-            context['placa']=''
-        if request.GET.get( 'kilometraje' ):
-            context['kilometraje']=request.GET.get( 'kilometraje' )
+            context['placa'] = ''
+
+        if self.request.GET.get('kilometraje'):
+            context['kilometraje'] = self.request.GET.get('kilometraje')
         else:
-            context['kilometraje']=''
+            context['kilometraje'] = ''
 
-        if request.GET.get( 'nombre_entrega' ):
-            context['nombre_entrega']=request.GET.get( 'nombre_entrega' )
+        if self.request.GET.get('nombre_entrega'):
+            context['nombre_entrega'] = self.request.GET.get('nombre_entrega')
         else:
-            context['nombre_entrega']=''
+            context['nombre_entrega'] = ''
 
-
-
-
-
-
-    return render( request, 'orden/orden-nueva.html', context )
-
+        context['nueva_orden'] = 'active'
+        return context
 
 class OrdenListaEditar( ListView ):
     model=WConceptosMain
@@ -71,7 +71,7 @@ class OrdenListaEditar( ListView ):
 
                     id_tipo_concepto = request.POST['id_tipo_concepto']
                     data=[]
-                    print({"id_tipo_concepto": id_tipo_concepto})
+
                     for i in WConceptosMain.objects.filter(id_tipo_concepto=id_tipo_concepto):
                         item=i.toJSON()
                         data.append( item )

@@ -1,4 +1,6 @@
-
+.NeuAsignado{
+    background : #fff;
+}
 .contener-admin {
     background-image: url(/static/sismbor/img/NeumaticosAdmin.png);
     background-size:  cover;

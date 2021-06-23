@@ -80,6 +80,9 @@ $(function () {
             let placa = $(table.cells(rowIdx, 2).nodes()).text();
             $("#edtPlaca").val(placa);
             pValidaPlaca(placa);
+            if (window.location.pathname.indexOf('neumaticosadmin') > -1 ) {
+                pLoadPosicionesDT(placa);
+            }
             $("#BuscarUnidadModal").modal('hide');
 
         }

@@ -19,18 +19,38 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e0074843-61a2-4bac-b21d-d2a6f08bf969" name="Default Changelist" comment="COMIT-1-LX&#10;REALISE 1&#10;DESARROLLO NEUMATICOS">
+    <list default="true" id="e0074843-61a2-4bac-b21d-d2a6f08bf969" name="Default Changelist" comment="Ok reloader">
+      <change afterPath="$PROJECT_DIR$/OBTaller/middleware.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/css/inventario_neumaticos.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/inventario_neumaticos.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/templates/inventario_neumaticos/create.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/templates/inventario_neumaticos/delete.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/templates/inventario_neumaticos/list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/views/inventario_neomaticos_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-detalle.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-detalle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-editar.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-editar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-nueva.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-nueva.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/artcode/js/events.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/artcode/js/events.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/artcode/js/utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/artcode/js/utils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/css/neumaticos-admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/css/neumaticos-admin.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/buscador-unidad.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/buscador-unidad.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/dtview_cuenta_abierta.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/dtview_cuenta_abierta.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/reumaticos-admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/reumaticos-admin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/MainSections/MENU.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/MainSections/MENU.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/MainSections/Navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/MainSections/Navbar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/body.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/body.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/inventario/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/inventario/list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/templates/neumaticos/neumaticos-admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/neumaticos/neumaticos-admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/orden/orden-detalle.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/orden/orden-detalle.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/orden/orden-editar.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/orden/orden-editar.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/templates/orden/orden-operacion-main.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/orden/orden-operacion-main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/views/StoreProcedures.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/StoreProcedures.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/orden/orden-operacion.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/orden/orden-operacion.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/views/inventario_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/inventario_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/views/neumaticos_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/neumaticos_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/views/orden_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/orden_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appMainSite/const.py" beforeDir="false" afterPath="$PROJECT_DIR$/appMainSite/const.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appMainSite/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/appMainSite/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,10 +102,16 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/manage.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/OBTaller/static/sismbor/js" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/OBTaller/static/sismbor/js" />
+      <recent name="$PROJECT_DIR$/OBTaller/static/sismbor/css" />
+      <recent name="$PROJECT_DIR$/OBTaller/templates" />
+      <recent name="$PROJECT_DIR$/OBTaller/views" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/appMainSite" />
     </key>
@@ -217,7 +243,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624128932928</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Ok reloader">
+      <created>1624315297645</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1624315297645</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -250,7 +283,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Init-LX" />
     <MESSAGE value="COMIT-1-LX&#10;REALISE 1&#10;DESARROLLO NEUMATICOS" />
-    <option name="LAST_COMMIT_MESSAGE" value="COMIT-1-LX&#10;REALISE 1&#10;DESARROLLO NEUMATICOS" />
+    <MESSAGE value="Ok reloader" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ok reloader" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

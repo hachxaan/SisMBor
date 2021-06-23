@@ -2,228 +2,254 @@
 {% load static %}
 
 {% block stylesheet %}
-        {% include '../MainSections/CSS-DataTables.html' %}
-    <link rel="stylesheet" href="{% static 'sismbor/css/neumaticos-admin.css' %}">
+{% include '../MainSections/CSS-DataTables.html' %}
+<link rel="stylesheet" href="{% static 'sismbor/css/neumaticos-admin.css' %}">
 {% endblock %}
 
 {% block contento %}
-    <div class="row">
-        <div class="col-lg-3 col-md-12">
-                <!-- Nueva Orden -->
-                <div class="card card-info">
-                    <div class="card-header">
-                        <h3 class="card-title">Unidad</h3>
-                    </div>
-
-
-                    {% csrf_token %}
-                    <input type="hidden" name="id_unidad" id="id_unidad" value="0">
-
-                    <div class="card-body">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text bg-primary">Placa</span>
-                            </div>
-                            <input id="edtPlaca" name="placa" type="text" class="form-control uppercase" required
-                                   placeholder="ABC-123" value="{{ placa }}">
-                            <span class="input-group-append">
-                                    <button type="button" class="btn btn-outline-info btn" data-toggle="modal"
-                                            data-target="#BuscarUnidadModal">Buscar</button>
-                            </span>
-                        </div>
-
-                        <!--<div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Ult. Km</span>
-                            </div>
-                            <input readonly name="kilometraje" id="kilometraje" type="number"
-                                   class="form-control bg-white"
-                                   required placeholder="">
-                        </div>-->
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Marca</span>
-                            </div>
-                            <input id="edtMarca" type="text" class="form-control" placeholder="">
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Modelo</span>
-                            </div>
-                            <input id="edtModelo" type="text" class="form-control" placeholder="">
-                        </div>
-
-
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Motor</span>
-                            </div>
-                            <input id="edtMotor" type="text" class="form-control" placeholder="">
-
-                        </div>
-
-                        <div class="input-group mb-3">
-
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Chasis</span>
-                            </div>
-                            <input id="edtChasis" type="text" class="form-control" placeholder="">
-                        </div>
-                        <!-- *************************************************************************************** -->
-                        <h4 class="mt-4 mb-2">Servicio Actual</h4>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Entrada</span>
-                            </div>
-                            <input id="fh_alta_current" type="text" class="form-control" placeholder="No está en servicio">
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Kilometraje</span>
-                            </div>
-                            <input id="kilometraje_current" type="text" class="form-control" placeholder="No está en servicio">
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Folio</span>
-                            </div>
-                            <input id="folio_current" type="text" class="form-control" placeholder="No está en servicio">
-                            <span class="input-group-append">
-                        <!--            <button href="" id="btnVerOrdenCurrent" type="button" class="btn btn-outline-info btn" data-toggle="modal"
-                                            data-target="#BuscarUnidadModal">Ver</button>-->
-                            </span>
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Responsable</span>
-                            </div>
-                            <input id="nombre_entrega_current   " type="text" class="form-control" placeholder="No está en servicio">
-                        </div>
-
-                        <!-- *************************************************************************************** -->
-                        <h4 class="mt-4 mb-2">Utlimo servicio</h4>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Fecha</span>
-                            </div>
-                            <input id="fh_salida_ult" type="text" class="form-control" placeholder="Sin historial de servicio">
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Kilometraje</span>
-                            </div>
-                            <input id="kilometraje_ult" type="text" class="form-control" placeholder="Sin historial de servicio">
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Folio</span>
-                            </div>
-                            <input id="folio_ult" type="text" class="form-control" placeholder="Sin historial de servicio">
-                            <span class="input-group-append">
-                                    <button href="" id="btnVerOrden" type="button" class="btn btn-outline-info btn" data-toggle="modal"
-                                            data-target="#BuscarUnidadModal">Ver</button>
-                            </span>
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Responsable</span>
-                            </div>
-                            <input id="nombre_entrega_ult" type="text" class="form-control" placeholder="Sin historial de servicio">
-                        </div>
-                        <!-- /input-group -->
-                    </div>
-
-                    <!-- /.card-body -->
-                </div>
-                <!-- /.card -->
-        </div>
-        <div class="contener-admin col-lg-4 col-md-5 col-sm-12">
-            <div class="btn-group btn-group-toggle btns-group" data-toggle="buttons">
-                <label id="llanta-1" class="btn-neumatico btn btn-info active">
-                    <input type="radio" name="options" id="option1" autocomplete="off" checked>1
-                </label>
-                <label id="llanta-2" class="btn-neumatico btn btn-info">
-                    <input type="radio" name="options" id="option2" autocomplete="off">2
-                </label>
-                <label id="llanta-3" class="btn-neumatico btn btn-info">
-                    <input type="radio" name="options" id="option3" autocomplete="off">3
-                </label>
-                <label id="llanta-4" class="btn-neumatico btn btn-info">
-                    <input type="radio" name="options" id="option3" autocomplete="off">4
-                </label>
-                <label id="llanta-5" class="btn-neumatico btn btn-info">
-                    <input type="radio" name="options" id="option3" autocomplete="off">5
-                </label>
-                <label id="llanta-6" class="btn-neumatico btn btn-info">
-                    <input type="radio" name="options" id="option3" autocomplete="off">6
-                </label>
-                <label id="llanta-7" class="btn-neumatico btn btn-info">
-                    <input type="radio" name="options" id="option3" autocomplete="off">7
-                </label>
-                <label id="llanta-8" class="btn-neumatico btn btn-info">
-                    <input type="radio" name="options" id="option3" autocomplete="off">8
-                </label>
-                <label id="llanta-9" class="btn-neumatico btn btn-info">
-                    <input type="radio" name="options" id="option3" autocomplete="off">9
-                </label>
-                <label id="llanta-10" class="btn-neumatico btn btn-info">
-                    <input type="radio" name="options" id="option3" autocomplete="off">10
-                </label>
-                <label id="llanta-11" class="btn-neumatico btn btn-info">
-                    <input type="radio" name="options" id="option3" autocomplete="off">11
-                </label>
-                <label id="llanta-12" class="btn-neumatico btn btn-info">
-                    <input type="radio" name="options" id="option3" autocomplete="off">12
-                </label>
-                <label id="llanta-13" class="btn-neumatico btn btn-info">
-                    <input type="radio" name="options" id="option3" autocomplete="off">13
-                </label>
-                <label id="llanta-14" class="btn-neumatico btn btn-info">
-                    <input type="radio" name="options" id="option3" autocomplete="off">14
-                </label>
-                <label id="llanta-15" class="btn-neumatico btn btn-info">
-                    <input type="radio" name="options" id="option3" autocomplete="off">15
-                </label>
-                <label id="llanta-16" class="btn-neumatico btn btn-info">
-                    <input type="radio" name="options" id="option3" autocomplete="off">16
-                </label>
-                <label id="llanta-17" class="btn-neumatico btn btn-info">
-                    <input type="radio" name="options" id="option3" autocomplete="off">17
-                </label>
-                <label id="llanta-18" class="btn-neumatico btn btn-info">
-                    <input type="radio" name="options" id="option3" autocomplete="off">18
-                </label>
-                <label id="llanta-19" class="btn-neumatico btn btn-info">
-                    <input type="radio" name="options" id="option3" autocomplete="off">19
-                </label>
-                <label id="llanta-20" class="btn-neumatico btn btn-info">
-                    <input type="radio" name="options" id="option3" autocomplete="off">20
-                </label>
-                <label id="llanta-21" class="btn-neumatico btn btn-info">
-                    <input type="radio" name="options" id="option3" autocomplete="off">21
-                </label>
-                <label id="llanta-22" class="btn-neumatico btn btn-info">
-                    <input type="radio" name="options" id="option3" autocomplete="off">22
-                </label>
+<div class="row">
+    <div class="col-lg-3 col-md-12">
+        <!-- Nueva Orden -->
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">Unidad</h3>
             </div>
 
 
-            {% comment %} <input id="llanta-1" type="radio" class="btn-neumatico btn btn-primary btn-xs">1</input>
-            <input id="llanta-2" type="radio" class="btn-neumatico btn btn-primary btn-xs">2</input>
-{% endcomment %}
-        </div>
-        <div class="col-lg-5 col-md-7 col-sm-12 bg-secondary">
+            {% csrf_token %}
+            <input type="hidden" name="id_unidad" id="id_unidad" value="0">
 
+            <div class="card-body">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-primary">Placa</span>
+                    </div>
+                    <input id="edtPlaca" name="placa" type="text" class="form-control uppercase" required
+                           placeholder="ABC-123" value="{{ placa }}">
+                    <span class="input-group-append">
+                                        <button type="button" class="btn btn-outline-info btn" data-toggle="modal"
+                                                data-target="#BuscarUnidadModal">Buscar</button>
+                                </span>
+                </div>
+
+                <!--<div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Ult. Km</span>
+                    </div>
+                    <input readonly name="kilometraje" id="kilometraje" type="number"
+                           class="form-control bg-white"
+                           required placeholder="">
+                </div>-->
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Marca</span>
+                    </div>
+                    <input id="edtMarca" type="text" class="form-control" placeholder="">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Modelo</span>
+                    </div>
+                    <input id="edtModelo" type="text" class="form-control" placeholder="">
+                </div>
+
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Motor</span>
+                    </div>
+                    <input id="edtMotor" type="text" class="form-control" placeholder="">
+
+                </div>
+
+                <div class="input-group mb-3">
+
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Chasis</span>
+                    </div>
+                    <input id="edtChasis" type="text" class="form-control" placeholder="">
+                </div>
+                <!-- *************************************************************************************** -->
+                <h4 class="mt-4 mb-2">Servicio Actual</h4>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Entrada</span>
+                    </div>
+                    <input id="fh_alta_current" type="text" class="form-control" placeholder="No está en servicio">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Kilometraje</span>
+                    </div>
+                    <input id="kilometraje_current" type="text" class="form-control" placeholder="No está en servicio">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Folio</span>
+                    </div>
+                    <input id="folio_current" type="text" class="form-control" placeholder="No está en servicio">
+                    <span class="input-group-append">
+                            <!--            <button href="" id="btnVerOrdenCurrent" type="button" class="btn btn-outline-info btn" data-toggle="modal"
+                                                data-target="#BuscarUnidadModal">Ver</button>-->
+                                </span>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Responsable</span>
+                    </div>
+                    <input id="nombre_entrega_current   " type="text" class="form-control"
+                           placeholder="No está en servicio">
+                </div>
+
+                <!-- *************************************************************************************** -->
+                <h4 class="mt-4 mb-2">Utlimo servicio</h4>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Fecha</span>
+                    </div>
+                    <input id="fh_salida_ult" type="text" class="form-control" placeholder="Sin historial de servicio">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Kilometraje</span>
+                    </div>
+                    <input id="kilometraje_ult" type="text" class="form-control"
+                           placeholder="Sin historial de servicio">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Folio</span>
+                    </div>
+                    <input id="folio_ult" type="text" class="form-control" placeholder="Sin historial de servicio">
+                    <span class="input-group-append">
+                        <button href="" id="btnVerOrden_ult" type="button" class="btn btn-outline-info btn"
+                        >Ver</button>
+                    </span>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Responsable</span>
+                    </div>
+                    <input id="nombre_entrega_ult" type="text" class="form-control"
+                           placeholder="Sin historial de servicio">
+                </div>
+                <!-- /input-group -->
+            </div>
+
+
+            <!-- /.card-body -->
         </div>
+        <!-- /.card -->
     </div>
+    <div class="contener-admin col-lg-4 col-md-5 col-sm-12">
+        <div id="diagrama" class="btn-group btn-group-toggle btns-group" data-toggle="buttons">
+            <label id="llanta-1" class="btn-neumatico btn btn-secondary active">
+                <input type="radio" name="options" id="option1" autocomplete="off" checked>1
+            </label>
+            <label id="llanta-2" class="btn-neumatico btn btn-secondary" >
+                <input type="radio" name="options" id="option2" autocomplete="off">2
+            </label>
+            <label id="llanta-3" class="btn-neumatico btn btn-secondary">
+                <input type="radio" name="options" id="option3" autocomplete="off">3
+            </label>
+            <label id="llanta-4" class="btn-neumatico btn btn-secondary">
+                <input type="radio" name="options" id="option4" autocomplete="off">4
+            </label>
+            <label id="llanta-5" class="btn-neumatico btn btn-secondary">
+                <input type="radio" name="options" id="option5" autocomplete="off">5
+            </label>
+            <label id="llanta-6" class="btn-neumatico btn btn-secondary">
+                <input type="radio" name="options" id="option6" autocomplete="off">6
+            </label>
+            <label id="llanta-7" class="btn-neumatico btn btn-secondary">
+                <input type="radio" name="options" id="option7" autocomplete="off">7
+            </label>
+            <label id="llanta-8" class="btn-neumatico btn btn-secondary">
+                <input type="radio" name="options" id="option8" autocomplete="off">8
+            </label>
+            <label id="llanta-9" class="btn-neumatico btn btn-secondary">
+                <input type="radio" name="options" id="option9" autocomplete="off">9
+            </label>
+            <label id="llanta-10" class="btn-neumatico btn btn-secondary">
+                <input type="radio" name="options" id="option10" autocomplete="off">10
+            </label>
+            <label id="llanta-11" class="btn-neumatico btn btn-secondary">
+                <input type="radio" name="options" id="option11" autocomplete="off">11
+            </label>
+            <label id="llanta-12" class="btn-neumatico btn btn-secondary">
+                <input type="radio" name="options" id="option12" autocomplete="off">12
+            </label>
+            <label id="llanta-13" class="btn-neumatico btn btn-secondary">
+                <input type="radio" name="options" id="option13" autocomplete="off">13
+            </label>
+            <label id="llanta-14" class="btn-neumatico btn btn-secondary">
+                <input type="radio" name="options" id="option14" autocomplete="off">14
+            </label>
+            <label id="llanta-15" class="btn-neumatico btn btn-secondary">
+                <input type="radio" name="options" id="option15" autocomplete="off">15
+            </label>
+            <label id="llanta-16" class="btn-neumatico btn btn-secondary">
+                <input type="radio" name="options" id="option16" autocomplete="off">16
+            </label>
+            <label id="llanta-17" class="btn-neumatico btn btn-secondary">
+                <input type="radio" name="options" id="option17" autocomplete="off">17
+            </label>
+            <label id="llanta-18" class="btn-neumatico btn btn-secondary">
+                <input type="radio" name="options" id="option18" autocomplete="off">18
+            </label>
+            <label id="llanta-19" class="btn-neumatico btn btn-secondary">
+                <input type="radio" name="options" id="option19" autocomplete="off">19
+            </label>
+            <label id="llanta-20" class="btn-neumatico btn btn-secondary">
+                <input type="radio" name="options" id="option20" autocomplete="off">20
+            </label>
+            <label id="llanta-21" class="btn-neumatico btn btn-secondary">
+                <input type="radio" name="options" id="option21" autocomplete="off">21
+            </label>
+            <label id="llanta-22" class="btn-neumatico btn btn-secondary">
+                <input type="radio" name="options" id="option22" autocomplete="off">22
+            </label>
+        </div>
 
 
-    {# ************************************************************************************************ #}
-    {# BUSCADOR MAIN#}
-    {# ************************************************************************************************ #}
-    <div class="modal fade" id="BuscarUnidadModal" data-b_todas="b_todas" tabindex="-1" role="dialog" aria-labelledby="BuscarUnidadModalLabel"
+        <!--<input id="llanta-1" type="radio" class="btn-neumatico btn btn-primary btn-xs">1</input>
+        <input id="llanta-2" type="radio" class="btn-neumatico btn btn-primary btn-xs">2</input>
+        -->
+    </div>
+    <div class="col-lg-5 col-md-5">
+        <!--dtNeumaticosAdmin-->
+<!--        {# ************************************************************************************************ #}-->
+<!--        {# BUSCADOR NEUMATICOS ADMIN #}-->
+<!--        {# ************************************************************************************************ #}-->
+        <table class="table table-bordered" id="dtNeumaticosAdmin">
+            <thead>
+            <tr>
+                <th scope="col" style="width: 5%;">Posición</th>
+                <th scope="col" style="width: 7%;">fh_alta</th>
+                <th scope="col" style="width: 15%;">KM Inical</th>
+                <th scope="col" style="width: 15%;">No. Serie</th>
+                <th scope="col" style="width: 8%;">Descrip.</th>
+                <th scope="col" style="width: 8%;">Marca</th>
+                <th scope="col" style="width: 8%;">Referencia</th>
+                <th scope="col" style="width: 8%;"></th>
+
+            </tr>
+            </thead>
+        </table>
+<!--        {# ************************************************************************************************ #}-->
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block modals %}
+<!--    {# ************************************************************************************************ #}-->
+<!--    {# BUSCADOR MAIN#}-->
+<!--    {# ************************************************************************************************ #}-->
+    <div class="modal fade" id="BuscarUnidadModal" data-b_todas="b_todas" tabindex="-1" role="dialog"
+         aria-labelledby="BuscarUnidadModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -234,24 +260,24 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    {# ************************************************************************************************ #}
-                    {# BUSCADOR TABLA #}
-                    {# ************************************************************************************************ #}
+<!--                    {# ************************************************************************************************ #}-->
+<!--                    {# BUSCADOR TABLA #}-->
+<!--                    {# ************************************************************************************************ #}-->
                     <table class="table table-bordered" id="dtBuscador">
                         <thead>
-                            <tr>
-                                <th scope="col" style="width: 5%;">ID Unidad</th>
-                                <th scope="col" style="width: 7%;">Cliente</th>
-                                <th scope="col" style="width: 15%;">Placa</th>
-                                <th scope="col" style="width: 15%;">Marca</th>
-                                <th scope="col" style="width: 8%;">Modelo</th>
-                                <th scope="col" style="width: 8%;">Motor</th>
-                                <th scope="col" style="width: 8%;">Chasis</th>
+                        <tr>
+                            <th scope="col" style="width: 5%;">ID Unidad</th>
+                            <th scope="col" style="width: 7%;">Cliente</th>
+                            <th scope="col" style="width: 15%;">Placa</th>
+                            <th scope="col" style="width: 15%;">Marca</th>
+                            <th scope="col" style="width: 8%;">Modelo</th>
+                            <th scope="col" style="width: 8%;">Motor</th>
+                            <th scope="col" style="width: 8%;">Chasis</th>
 
-                            </tr>
+                        </tr>
                         </thead>
                     </table>
-                    {# ************************************************************************************************ #}
+<!--                    {# ************************************************************************************************ #}-->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -260,14 +286,77 @@
             </div>
         </div>
     </div>
-    {# ************************************************************************************************ #}
+<!--    {# ************************************************************************************************ #}-->
 
+<!--    {# ************************************************************************************************ #}-->
+<!--    ********  ASIGNAR NUEVO NEUMATICO   ***********-->
+<!--    {# ************************************************************************************************ #}-->
+    <div class="modal fade modal-lg" id="AsignaNeumaticoModal" tabindex="-1" role="dialog"
+         aria-labelledby="AsignaNeumaticoLabel" aria-hidden="true">
+<!--         data-id_concepto="0" data-cve_operacion="NCOMPRA" -->
+
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title" id="AsignaNeumaticoLabel">Asignar Neumatico</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+
+                        <div class="form-group">
+                            <label class="col-form-label">Posición:</label>
+                            <select class="select2 w-100" name='posicion' id='cbPosicion'>
+<!--                                {% for persona in personal %}-->
+<!--                                    <option value="{{ persona.id_personal }}">{{ persona.nombre }} {{ persona.nombre }}</option>-->
+<!--                                {% endfor %}-->
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="edtDescripcion" class="col-form-label">Concepto</label>
+                            <input id="edtDescripcion" type="text" class="form-control" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="edtCantidad" class="col-form-label">Cantidad</label>
+                            <input id="edtCantidad" step="1" min="1" value="1" type="number" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-radio">
+                                <input data-cve_operacion="COMPRA" class="custom-control-input" type="radio" id="ingreso_compra" name="ingreso_compra">
+                                <label for="ingreso_compra" class="custom-control-label">INGRESO POR COMPRA</label>
+                            </div>
+                            <div class="mt-2 custom-control custom-radio">
+                                <input data-cve_operacion="NCOMPRA" class="custom-control-input" type="radio" id="ingreso_sin_compra" name="ingreso_compra" checked>
+                                <label for="ingreso_sin_compra" class="custom-control-label">INGRSO SIN COMPRA</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="edtTxReferencia" class="col-form-label">Referencia</label>
+                            <textarea id="edtTxReferencia" value="" type="textarea" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group grupo-compra" hidden>
+                            <label for="edtPrecio" class="col-form-label">Precio de compra</label>
+                            <input id="edtPrecio" value="0.00" type="number" class="form-control" required>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button id="btnGuardarAsignaNeumatico" type="button" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
 
-
 {% block scripts %}
-    {% include '../MainSections/JS-DataTables.html' %}
-    <script src="{% static 'sismbor/js/reumaticos-admin.js' %}" type="text/javascript"></script>
-    <script src="{% static 'sismbor/js/buscador-unidad.js' %}" type="text/javascript"></script>
+{% include '../MainSections/JS-DataTables.html' %}
+<script src="{% static 'sismbor/js/reumaticos-admin.js' %}" type="text/javascript"></script>
+<script src="{% static 'sismbor/js/buscador-unidad.js' %}" type="text/javascript"></script>
+<script src="{% static 'artcode/js/utils.js' %}" type="text/javascript"></script>
 {% endblock %}

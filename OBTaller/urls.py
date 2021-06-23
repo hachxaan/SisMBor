@@ -7,6 +7,8 @@ from django.conf.urls.static import static
 
 from OBTaller.views.StoreProcedures import StpInsOrden, StpInsBitInventario
 from OBTaller.views.cliente.views import ClienteListView, ClienteCreateView, ClienteUpdateView, ClienteDeleteView
+from OBTaller.views.inventario_neomaticos_view import InventarioNeumaticosView, InventarioNeumaticosUpdateView, \
+    InventarioNeumaticosCreateView
 from OBTaller.views.inventario_view import InventarioView, InventarioCreateView, InventarioUpdateView
 from OBTaller.views.manobra.views import ManobraListView, ManobraCreateView, ManobraUpdateView, ManobraDeleteView
 from OBTaller.views.mantenimiento.views import MantenimientoListView, MantenimientoCreateView, MantenimientoUpdateView, \
@@ -31,7 +33,7 @@ urlpatterns=[
     path( 'parametros/', SetParametros, name='parametros' ),
     path( 'esdemo/', EsDemo, name='es_demo' ),
     path( 'operacion/', WCuentaAbiertaListView.as_view(), name='panel-operacion' ),
-    path( 'ordennueva/', OrdenNuevaView, name='orden_nueva' ),
+    path( 'ordennueva/', OrdenNuevaView.as_view(), name='orden_nueva' ),
     path( 'getInfoUnidad/', getInfoUnidad, name='get_info_unidad' ),
     path( 'ordennueva/getInfoUnidad/', getInfoUnidad, name='get_info_unidad' ),
 
@@ -39,13 +41,18 @@ urlpatterns=[
     path( 'operacion/ordendetalle/', OrdenListaDetalle.as_view(), name='detalle_order' ),
     path( 'ordendetalle/', OrdenListaDetalle.as_view(), name='detalle_order' ),
 
-    path( 'neumaticosadmin/', NeumaticosAdmin, name='neumaticos_admin' ),
+    path( 'neumaticosadmin/', NeumaticosAdmin.as_view(), name='neumaticos_admin' ),
 
 
 
     path( 'inventario/', InventarioView.as_view(), name='inventario_list' ),
     path( 'inventario/add/', InventarioCreateView.as_view(), name='inventario_create' ),
     path( 'inventario/update/<int:id_concepto>/', InventarioUpdateView.as_view(), name='inventario_update' ),
+
+    path('inventario_neumaticos/', InventarioNeumaticosView.as_view(), name='inventario_neumaticos_list'),
+    path('inventario_neumaticos/add/', InventarioNeumaticosCreateView.as_view(), name='inventario_neumaticos_create'),
+    path('inventario_neumaticos/update/<int:id_concepto>/', InventarioNeumaticosUpdateView.as_view(), name='inventario_neumaticos_update'),
+
     # *******************************************************************************************************************
     # STORED PROCEDURE
     # *******************************************************************************************************************

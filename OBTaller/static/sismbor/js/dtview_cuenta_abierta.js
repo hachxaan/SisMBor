@@ -13,7 +13,7 @@ $(function () {
         // fixedHeader: true,
         // stripeClasses: [],
         responsive: true,
-        // autoWidth: true,
+        autoWidth: true,
         destroy: true,
         hover: true,
         select: true,
@@ -180,12 +180,12 @@ $(function () {
                     var $elDiv = $('<div></div>');
                     var $Main = $(`<div class="infoMain"></div>`);
                     var $RowD = $('<div class="row elRow"></div>');
-                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Conceptos: </span><a >${row['no_conceptos']}</a></div>`);
-                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Entregó: </span><a> ${row['nombre_entrega']}  </a></div>`);
-                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Cuenta: </span><a >${row['cuenta_formato']}</a></div>`);
-                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Km Actual: </span><a>${row['kilometraje']}  </a></div>`);
-                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Km Anterior: </span><a> ${row['km_anterior']}   </a></div>`);
-                    $RowD.append(`<div class="col-lg-4 col-md-4 col-sm-12"><span> Ult. Serv: </span><a> ${row['fh_ultimo_servicio']}    </a></div>`);
+                    $RowD.append(`<div class="col-xl-3 col-lg-6 col-md-6 col-sm-12"><span> Conceptos: </span><a >${row['no_conceptos']}</a></div>`);
+                    $RowD.append(`<div class="col-xl-3 col-lg-6 col-md-6 col-sm-12"><span> Cuenta: </span><a >${row['cuenta_formato']}</a></div>`);
+                    $RowD.append(`<div class="col-xl-3 col-lg-6 col-md-6 col-sm-12"><span> Entregó: </span><a> ${row['nombre_entrega']}  </a></div>`);
+                    $RowD.append(`<div class="col-xl-3 col-lg-6 col-md-6 col-sm-12"><span> Km Actual: </span><a>${row['kilometraje']}  </a></div>`);
+                    $RowD.append(`<div class="col-xl-3 col-lg-6 col-md-6 col-sm-12"><span> Km Anterior: </span><a> ${row['km_anterior']}   </a></div>`);
+                    $RowD.append(`<div class="col-xl-3 col-lg-6 col-md-6 col-sm-12"><span> Ult. Serv: </span><a> ${row['fh_ultimo_servicio']}    </a></div>`);
 
 
                     $Main.append($RowD);
@@ -242,7 +242,7 @@ $(function () {
     $('.filtros').on('change', function (event) {
         ajax_reload('#dataTables4');
         if ($(this).is(":checked")) var valor = '1'; else var valor = '0';
-        setParametro('../parametros/', $(this).data('cve_parametro'), valor);
+        setParametro($(this).data('cve_parametro'), valor);
     });
 
     $.fn.dataTable.ext.search.push(

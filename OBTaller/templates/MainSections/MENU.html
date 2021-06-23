@@ -45,7 +45,6 @@
                     data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
-
                     <li class="nav-item loading-click">
                         <a href="{% url 'OBTaller:panel-operacion' %}" class="nav-link {{ escritorio }}">
                             <i class="nav-icon fas fa-desktop"></i>
@@ -64,11 +63,10 @@
                             <i class="nav-icon fas fa-plus-circle"></i>
                             <p>
                                 Nueva Orden
-{#                                <span class="right badge badge-danger">Nueva</span>#}
                             </p>
                         </a>
                     </li>
-{# menu-open#}
+
                     <li class="nav-item {{ catalogos }}">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -77,7 +75,7 @@
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview loading-click">
+                        <ul class="pl-4 nav nav-treeview loading-click">
                             <li class="">
                                 <a href="{% url 'OBTaller:cliente_list' %}" class="nav-link  {{ clientes }}">
                                     <i class="far fa-circle nav-icon"></i>
@@ -112,16 +110,37 @@
 
                         </ul>
                     </li>
-                    <li class="nav-item loading-click">
-                        <a href="{% url 'OBTaller:inventario_list' %}" class="nav-link {{ inventario }}">
+
+
+                    <li class="nav-item {{ inventarios }}">
+                        <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-boxes"></i>
                             <p>
-                                Inventario
+                                Inventarios
+                                <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
+                        <ul class="pl-4 nav nav-treeview loading-click">
+                                                <li class=" loading-click">
+                                <a href="{% url 'OBTaller:inventario_list' %}" class="nav-link {{ repuestos }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Repuestos</p>
+                                </a>
+                            </li>
+                            <li class=" loading-click">
+                                <a href="{% url 'OBTaller:inventario_neumaticos_list' %}" class="pl-3 nav-link {{ neumaticos }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Neumáticos</p>
+                                </a>
+                            </li>
+
+
+                        </ul>
                     </li>
+
+
                     <li class="nav-item loading-click">
-                        <a href="{% url 'OBTaller:neumaticos_admin' %}" class="nav-link {{ neumaticos }}">
+                        <a href="{% url 'OBTaller:neumaticos_admin' %}" class="nav-link {{ neumaticos_admin }}">
                             <i class="nav-icon fas fa-bullseye"></i>
                             <p>
                                 Neumáticos

@@ -23,13 +23,13 @@
 {% endblock %}{% endcomment %}
 {% block columns %}
     <div class="row ml-2">
-        <label class="col-sm-2 checkbox-inline">
+        <label class="col-sm-2 checkbox">
             <input data-cve_parametro="status_filtro_enproceso" class="filtros" id="chkEnProceso" type="checkbox" {{ status_filtro_enproceso }} data-toggle="toggle" data-onstyle="info" data-on="En proceso" data-off="En proceso">
         </label>
-        <label  class="col-sm-2 checkbox-inline">
+        <label  class="col-sm-2 checkbox">
             <input data-cve_parametro="status_filtro_terminado" class="filtros" id="chkTerminados" type="checkbox" {{ status_filtro_terminado }} data-toggle="toggle" data-onstyle="success" data-on="Terminados" data-off="Terminados">
         </label>
-        <label class="col-sm-2 checkbox-inline">
+        <label class="col-sm-2 checkbox">
             <input data-cve_parametro="status_filtro_cancelado" class="filtros"  id="chkCancelados" type="checkbox" {{ status_filtro_cancelado }} data-toggle="toggle" data-onstyle="danger" data-on="Cancelados" data-off="Cancelados">
         </label>
     </div>

@@ -2,6 +2,7 @@
 // # ***************************************************************************************************************** #
 // # ***************************************************************************************************************** #
 function getCookie(name) {
+    'use strict';
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
         const cookies = document.cookie.split(';');
@@ -19,18 +20,20 @@ function getCookie(name) {
 
 // # ***************************************************************************************************************** #
 // # ***************************************************************************************************************** #
-function setParametro(url, cve_parametro, valor) {
-
+function setParametro(cve_parametro, valor) {
+    'use strict';
     const parameters = {"action": "SetParametro", "cve_parametro": cve_parametro, "valor": valor}
-    _ajax(url, parameters, function () {
+    _ajax('/parametros/', parameters, function () {
     })
 }
 
 function UnblockUI_(){
+    'use strict';
     $('.wrapper').unblock();
 }
 
 function blockUI_(){
+    'use strict';
       $('.wrapper').block({
                 message: '<img width="90" height="79" src="/static/sismbor/img/loading.gif" />',
                 overlayCSS: { backgroundColor: '#fff',opacity: 1 },
@@ -45,7 +48,7 @@ function blockUI_(){
 // # ***************************************************************************************************************** #
 // # ***************************************************************************************************************** #
 function _ajax(url, parameters, callback) {
-
+    'use strict';
     // if (bEsDemo) {
     //     message_error('Cuenta demo. Solo lectura');
     // } else {
@@ -100,7 +103,7 @@ function _ajax(url, parameters, callback) {
 // # ***************************************************************************************************************** #
 // # ***************************************************************************************************************** #
 function submit_(url, title, content, parameters, callback) {
-
+    'use strict';
     $.confirm({
         theme: 'material',
         title: title,
@@ -168,7 +171,7 @@ function submit_(url, title, content, parameters, callback) {
 // # ***************************************************************************************************************** #
 // # ***************************************************************************************************************** #
 function ajax_confirm(url, title, content, parameters, callback) {
-
+    'use strict';
     $.confirm({
         theme: 'material',
         title: title,
@@ -221,6 +224,7 @@ function ajax_confirm(url, title, content, parameters, callback) {
 // # ***************************************************************************************************************** #
 // # ***************************************************************************************************************** #
 function message_info(obj, callback, data) {
+    'use strict';
     var html = '';
     if (typeof (obj) === 'object') {
         html = '<ul style="text-align: left;">';
@@ -246,6 +250,7 @@ function message_info(obj, callback, data) {
 // # ***************************************************************************************************************** #
 // # ***************************************************************************************************************** #
 function message_error(obj) {
+    'use strict';
     var html = '';
     if (typeof (obj) === 'object') {
         html = '<ul style="text-align: left;">';
@@ -267,6 +272,7 @@ function message_error(obj) {
 // # ***************************************************************************************************************** #
 // # ***************************************************************************************************************** #
 function message_error_callback(obj, callback) {
+    'use strict';
     var html = '';
     if (typeof (obj) === 'object') {
         html = '<ul style="text-align: left;">';
@@ -290,6 +296,7 @@ function message_error_callback(obj, callback) {
 // # ***************************************************************************************************************** #
 // # ***************************************************************************************************************** #
 function confirmar_accion(title, content, callback) {
+    'use strict';
     $.confirm({
         theme: 'material',
         title: title,
@@ -320,6 +327,7 @@ function confirmar_accion(title, content, callback) {
 }
 
 function ajax_reload(TableName) {
+    'use strict';
     $(TableName).DataTable().ajax.reload(null, false);
 }
 
@@ -328,7 +336,7 @@ function ajax_reload(TableName) {
 
 
 function submit_with_ajax_catalogos(url, title, content, parameters, callback) {
-
+    'use strict';
     $.confirm({
         theme: 'material',
         title: title,
@@ -383,7 +391,7 @@ function submit_with_ajax_catalogos(url, title, content, parameters, callback) {
 // # ***************************************************************************************************************** #
 
 function submit_with_ajax(url, title, content, parameters, callback) {
-
+    'use strict';
     $.confirm({
         theme: 'material',
         title: title,
@@ -437,6 +445,7 @@ function submit_with_ajax(url, title, content, parameters, callback) {
 // # ***************************************************************************************************************** #
 // # ***************************************************************************************************************** #
 function submit_with_ajax_action(parameters, callback) {
+    'use strict';
     $.ajax({
         url: window.location.pathname,
         type: 'POST',
@@ -467,7 +476,7 @@ function submit_with_ajax_action(parameters, callback) {
 // # ***************************************************************************************************************** #
 
 function submit_with_ajax_json(url, title, content, parameters, callback) {
-
+    'use strict';
     $.confirm({
         theme: 'material',
         title: title,

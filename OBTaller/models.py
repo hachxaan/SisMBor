@@ -768,3 +768,32 @@ class WcUnidadNeu(models.Model):
         managed = False  # Created from a view. Don't remove.
         db_table = 'wc_unidad_neu'
 
+
+class VwNeumaticosPosicion(models.Model):
+    cons = models.BigIntegerField(db_column='CONS', primary_key=True)  # Field name made lowercase.
+    id_posicion = models.IntegerField(db_column='ID_POSICION')  # Field name made lowercase.
+    id_tipo_eje = models.BigIntegerField(db_column='ID_TIPO_EJE')  # Field name made lowercase.
+    id_unidad = models.IntegerField(db_column='ID_UNIDAD', blank=True, null=True)  # Field name made lowercase.
+    posicion = models.IntegerField(db_column='POSICION', blank=True, null=True)  # Field name made lowercase.
+    fh_alta = models.DateTimeField(db_column='FH_ALTA', blank=True, null=True)  # Field name made lowercase.
+    cve_usu_alta = models.CharField(db_column='CVE_USU_ALTA', max_length=32, db_collation='utf8mb4_0900_ai_ci',
+                                    blank=True, null=True)  # Field name made lowercase.
+    kilometraje = models.IntegerField(db_column='KILOMETRAJE', blank=True, null=True)  # Field name made lowercase.
+    folio = models.IntegerField(db_column='FOLIO', blank=True, null=True)  # Field name made lowercase.
+    tx_referencia = models.TextField(db_column='TX_REFERENCIA', db_collation='utf8mb4_0900_ai_ci', blank=True,
+                                     null=True)  # Field name made lowercase.
+    id_concepto = models.IntegerField(db_column='ID_CONCEPTO', blank=True, null=True)  # Field name made lowercase.
+    no_serie = models.CharField(db_column='NO_SERIE', max_length=64, db_collation='utf8mb4_0900_ai_ci', blank=True,
+                                null=True)  # Field name made lowercase.
+    sit_code = models.IntegerField(db_column='SIT_CODE', blank=True, null=True)  # Field name made lowercase.
+    placa = models.CharField(db_column='PLACA', unique=True, max_length=16)
+    desc_concepto = models.CharField(db_column='DESC_CONCEPTO', unique=True, max_length=128)
+    desc_marca = models.CharField(db_column='DESC_MARCA', max_length=64, db_collation='utf8_general_ci', blank=True,
+                                      null=True)
+    vida_util_km = models.IntegerField(db_column='VIDA_UTIL_KM', blank=True, null=True)
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'vw_neumaticos_posicion'

@@ -5,41 +5,44 @@
 {% block stylesheet %}
 {% endblock %}
 {% block body %}
-    <body class="hold-transition sidebar-mini layout-fixed">
-    <div class="wrapper">
-        <!-- Header -->
-        {% include 'MainSections/Navbar.html' %}
-        <!-- Sidebar -->
-        {% include 'MainSections/MENU.html' %}
-        <!-- Content -->
-        <div class="content-wrapper">
-            <div class="content">
-                <div class="container-fluid">
-                    {% block contento %}
+<body class="hold-transition sidebar-mini {{ status_menu }} layout-fixed">
+<div class="wrapper">
+    <!-- Header -->
+    {% include 'MainSections/Navbar.html' %}
+    <!-- Sidebar -->
+    {% include 'MainSections/MENU.html' %}
+    <!-- Content -->
+    <div class="content-wrapper">
+        <div class="content">
+            <div class="container-fluid">
+                {% block contento %}
 
-                    {% endblock %}
-                </div>
+                {% endblock %}
             </div>
         </div>
-        <!-- Footer -->
-        {% include 'MainSections/Footer.html' %}
     </div>
+    <!-- Footer -->
+    {% include 'MainSections/Footer.html' %}
 
-
-
-    {% block scripts %}
-
-        {#        {% block scripts_body %}#}
-        {##}
-        {##}
-        {#        {% endblock %}#}
+    {% block modals %}
     {% endblock %}
-    <!-- Block javascript -->
+</div>
+
+
+{% block scripts %}
+
+{# {% block scripts_body %}#}
+{##}
+{##}
+{# {% endblock %}#}
+{% endblock %}
+<!-- Block javascript -->
+
+
+<script>
 
 
 
-
-    <script>
         {% if messages %}
             var html = '<p>';
             {% for message in messages %}
@@ -52,6 +55,7 @@
                 icon: 'error'
             });
         {% endif %}
-    </script>
-    </body>
+
+</script>
+</body>
 {% endblock %}

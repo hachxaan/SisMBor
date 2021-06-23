@@ -1,7 +1,12 @@
+
+
 (function ($) {
     "use strict"
     const csrftoken = getCookie('csrftoken');
     const urlParams = new URLSearchParams(window.location.search);
+
+    /******************************************************************************************************************/
+    /******************************************************************************************************************/
     $("#btnResetColumns").on('click', function (e) {
         confirmar_accion('Confirmación', '¿Reiniciar el orden de las columnas?',
             function () {
@@ -9,13 +14,16 @@
                 table.colReorder.reset();
             });
     });
-
-
     /******************************************************************************************************************/
     /******************************************************************************************************************/
-
-
-
+    window.onload = function() {
+         $('#btnMenu').click(function(){
+            var status_menu = 'sidebar-collapse';
+            if ($('body').hasClass('sidebar-collapse')) status_menu = '_';
+            setParametro('status_menu', status_menu);
+//            localStorage.setItem('status_menu', status_menu);
+         });
+    };
     /******************************************************************************************************************/
     /******************************************************************************************************************/
 
