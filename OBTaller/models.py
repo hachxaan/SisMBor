@@ -797,3 +797,25 @@ class VwNeumaticosPosicion(models.Model):
     class Meta:
         managed = False  # Created from a view. Don't remove.
         db_table = 'vw_neumaticos_posicion'
+
+
+class UnidadNeumatico(models.Model):
+    id_posicion = models.IntegerField(db_column='ID_POSICION', primary_key=True)  # Field name made lowercase.
+    id_unidad = models.IntegerField(db_column='ID_UNIDAD')  # Field name made lowercase.
+    posicion = models.IntegerField(db_column='POSICION')  # Field name made lowercase.
+    fh_alta = models.DateTimeField(db_column='FH_ALTA')  # Field name made lowercase.
+    cve_usu_alta = models.CharField(db_column='CVE_USU_ALTA', max_length=32)  # Field name made lowercase.
+    kilometraje = models.IntegerField(db_column='KILOMETRAJE')  # Field name made lowercase.
+    folio = models.IntegerField(db_column='FOLIO')  # Field name made lowercase.
+    tx_referencia = models.TextField(db_column='TX_REFERENCIA')  # Field name made lowercase.
+    id_concepto = models.IntegerField(db_column='ID_CONCEPTO')  # Field name made lowercase.
+    no_serie = models.CharField(db_column='NO_SERIE', max_length=64)  # Field name made lowercase.
+    sit_code = models.IntegerField(db_column='SIT_CODE')  # Field name made lowercase.
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        managed = False
+        db_table = 'unidad_neumatico'

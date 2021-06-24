@@ -10,7 +10,10 @@ $(function () {
 
 
             _ajax('../stp/insorden/', parameters, function(response){
-                 location.href =  '../operacion/';
+                 var prev = sessionStorage.getItem('prev_ordennueva');
+                 sessionStorage.setItem('prev_ordennueva', '');
+                 prev = (prev) ? prev : '/operacion/';
+                 location.href =  prev;
             });
 
         });

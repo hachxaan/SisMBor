@@ -19,38 +19,18 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e0074843-61a2-4bac-b21d-d2a6f08bf969" name="Default Changelist" comment="Ok reloader">
-      <change afterPath="$PROJECT_DIR$/OBTaller/middleware.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/css/inventario_neumaticos.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/inventario_neumaticos.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/templates/inventario_neumaticos/create.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/templates/inventario_neumaticos/delete.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/templates/inventario_neumaticos/list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/views/inventario_neomaticos_view.py" afterDir="false" />
+    <list default="true" id="e0074843-61a2-4bac-b21d-d2a6f08bf969" name="Default Changelist" comment="Inventario de Neumáticos&#10;Avances en Neumaticos admin">
+      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/static/artcode/js/events.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/artcode/js/events.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/static/artcode/js/utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/artcode/js/utils.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/css/neumaticos-admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/css/neumaticos-admin.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/buscador-unidad.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/buscador-unidad.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/dtview_cuenta_abierta.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/dtview_cuenta_abierta.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/inventario.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/inventario.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-nueva.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-nueva.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/reumaticos-admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/reumaticos-admin.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/templates/MainSections/MENU.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/MainSections/MENU.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/MainSections/Navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/MainSections/Navbar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/body.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/body.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/inventario/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/inventario/list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/templates/neumaticos/neumaticos-admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/neumaticos/neumaticos-admin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/orden/orden-detalle.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/orden/orden-detalle.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/orden/orden-editar.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/orden/orden-editar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/orden/orden-operacion-main.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/orden/orden-operacion-main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/orden/orden-operacion.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/orden/orden-operacion.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/views/inventario_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/inventario_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/views/neumaticos_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/neumaticos_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/views/orden_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/orden_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/appMainSite/const.py" beforeDir="false" afterPath="$PROJECT_DIR$/appMainSite/const.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appMainSite/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/appMainSite/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,6 +69,13 @@
     <exe-path />
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
   </component>
   <component name="ProjectId" id="1trxsE5Rui7eCkVOqX1E4pngip6" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -250,7 +237,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624315297645</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Inventario de Neumáticos&#10;Avances en Neumaticos admin">
+      <created>1624468327027</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1624468327027</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -284,15 +278,16 @@
     <MESSAGE value="Init-LX" />
     <MESSAGE value="COMIT-1-LX&#10;REALISE 1&#10;DESARROLLO NEUMATICOS" />
     <MESSAGE value="Ok reloader" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ok reloader" />
+    <MESSAGE value="Inventario de Neumáticos&#10;Avances en Neumaticos admin" />
+    <option name="LAST_COMMIT_MESSAGE" value="Inventario de Neumáticos&#10;Avances en Neumaticos admin" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/OBTaller/views/StoreProcedures.py</url>
-          <line>14</line>
-          <option name="timeStamp" value="2" />
+          <url>file://$PROJECT_DIR$/OBTaller/views/orden_view.py</url>
+          <line>373</line>
+          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

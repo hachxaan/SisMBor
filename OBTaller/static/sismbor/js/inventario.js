@@ -112,7 +112,7 @@ $(function () {
 
                     $("#EntradaInventarioModal").modal('hide');
 
-            });
+                });
 
             } else {
                 message_error_callback('Ingresa los datos', function (result) {

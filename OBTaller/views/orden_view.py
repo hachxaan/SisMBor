@@ -113,17 +113,17 @@ class OrdenListaEditar( ListView ):
         hay_b_nserie_obligatorio = False
 
         sol_serie=[]
-        for addsOrdem in OrdenDetalle.objects.filter( folio=folio, sit_code='PE'):
-            dataSet=Concepto.objects.filter( id_concepto=addsOrdem.id_concepto ).values( 'b_nserie_obligatorio' )
+        for addsOrden in OrdenDetalle.objects.filter( folio=folio, sit_code='PE'):
+            dataSet=Concepto.objects.filter( id_concepto=addsOrden.id_concepto ).values( 'b_nserie_obligatorio' )
             b_nserie_obligatorio=dataSet[0]['b_nserie_obligatorio']
-            no_serie= addsOrdem.no_serie
+            no_serie= addsOrden.no_serie
 
             if (b_nserie_obligatorio & (no_serie==None or no_serie=='')):
                 hay_b_nserie_obligatorio = True
-                sol_serie.append(addsOrdem.toJSON())
+                sol_serie.append(addsOrden.toJSON())
             else:
-                addsOrdem.sit_code='AC'
-                addsOrdem.save()
+                addsOrden.sit_code='AC'
+                addsOrden.save()
 
         data={"psSTR_RESP": 'OK',
               "hay_b_nserie_obligatorio":hay_b_nserie_obligatorio,
@@ -210,7 +210,7 @@ class OrdenListaEditar( ListView ):
             InsOrdenDetalle.save()
 
 
-            if (b_agrega_conceptos):
+            if (b_agrega_conceptos == '1'):
                 dataSet = Orden.objects.filter(folio=folio).values('kilometraje_pq')
                 kilometraje_pq = dataSet[0]['kilometraje_pq']
                 if (int(kilometraje_pq) <= 1250000 ):

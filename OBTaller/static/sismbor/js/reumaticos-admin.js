@@ -1,8 +1,150 @@
 
+"use strict"
+var cNameDT_NeumaticosAdmin = '#dtNeumaticosAdmin';
+$(function () {
+
+    $('#cbNeumaticos').on('change', function(e) {
+
+        if ( $(this).find(':selected').data('b_numero_serie') == 1) {
+            $('.grupo-b_nserie_obligatorio').show();
+        } else {$('.grupo-b_nserie_obligatorio').hide();}
+
+    });
+
+    $('#btnNuevaOrden').on('click', function(e) {
+
+        var placa = $('#edtPlaca').val();
+        sessionStorage.setItem('prev_ordennueva', `/neumaticosadmin/?placa=${placa}`);
+        location.href = `/ordennueva/?placa=${placa}`;
+
+    });
+
+
+    $("#AsignaNeumaticoModal").on('shown.bs.modal', function (event) {
+        folio_current = $('#folio_current').val();
+        $(this).find('#folio_asignar').val(folio_current);
+
+        if ( folio_current == '') {
+            $('#btnNuevaOrden').show();
+        } else {$('#btnNuevaOrden').hide();}
+//        $(this).data('id_concepto', button.data('id_concepto'))
+//        $(this).find('#edtDescripcion').val(desc_concepto)
+    });
+
+
+    $('#btnGuardarAsignaNeumatico').on('click', function (event) {
+
+        var v_folio_asignar = $("#folio_asignar").val();
+        var v_tx_referencia = $("#edtTxReferencia").val();
+
+        if (folio_asignar.length == 0) {
+            message_error_callback('Se requiere de una order de taller activa.', function (result) {
+                $('#btnNuevaOrden').focus();
+            });
+        } else {
+            var v_id_concepto = $("#cbNeumaticos").val();
+
+            if (v_id_concepto == '0'){
+
+                message_error_callback('Se requiere seleccionar un neumático..', function (result) {
+                    $('#cbNeumaticos').focus();
+                });
+
+            } else {
+
+                var v_posicion = $("#cbPosicion").val();
+                if (v_posicion == '0'){
+
+                    message_error_callback('Se requiere seleccionar una posición..', function (result) {
+                        $('#cbPosicion').focus();
+                    });
+
+                } else {
+                    var v_no_serie = '';
+                    if ($('#cbNeumaticos').find(':selected').data('b_numero_serie') == 1){
+                        v_no_serie = $('#edtNoSerie').val();
+                        if ($('#cbNeumaticos').find(':selected').data('b_nserie_obligatorio') == 1){
+                            if (v_no_serie.length == 0) {
+                                message_error_callback('El numero de serie es obligatorio.', function (result) {
+                                    $('#edtNoSerie').focus();
+                                });
+                            }
+                        }
+                    }
+                }
+                var _parameters =  {'action': 'setNeumaticoAsignacion',
+                                    'folio': v_folio_asignar,
+                                    'posicion': v_posicion,
+                                    'id_concepto': v_id_concepto,
+                                    'no_serie': v_no_serie,
+                                    'tx_referencia' : v_tx_referencia}
+                console.log(_parameters);
+                _ajax(window.location.pathname, _parameters, function(response){
+                    ajax_reload(cNameDT_NeumaticosAdmin);
+
+                    $("#edtTxReferencia").val('');
+                    $("#folio_asignar").val('');
+                    $("#cbNeumaticos").val('0')
+                    $('#cbNeumaticos').val('0')
+                    $('#edtNoSerie').val('');
+                    $("#AsignaNeumaticoModal").modal('hide');
+
+                });
+
+            }
+
+
+        }
+
+
+
+
+    });
+
+
+})
+
+function pAsignaNeumatico(data){
+    var unidad_neumatico = JSON.parse(sessionStorage.getItem("unidad_neumatico"));
+    if (unidad_neumatico !== []) {
+        var CountEjes = 22;
+        $('#cbPosicion').empty();
+        $('.grupo-b_nserie_obligatorio').hide();
+
+        var options = '<option class="select2" value="0">Seleccionar una posición...</option>';
+        for( var num_llanta = 1; num_llanta <= CountEjes;num_llanta++ ){
+            options += `<option id="op${num_llanta}" value="${num_llanta}">Posición ${num_llanta} </option>`;
+        }
+        $('#cbPosicion').append(options);
+        $.each(unidad_neumatico, function (key, dataset) {
+            $('#cbPosicion').find('option').eq(dataset.cons).attr('disabled',"disabled");
+            $('#cbPosicion').find('option').eq(dataset.cons).text('Posición '+ dataset.cons + ' (Asiganda)');
+            //console.log(dataset.cons);
+        });
+        var _parameters = {'action': 'getNeumaticosStock'}
+        _ajax(window.location.pathname, _parameters, function (data) {
+            var options = '<option value="0">Seleccionar un neumático...</option>';
+            $('#cbNeumaticos').empty();
+            $.each(data, function (key, dataset) {
+                var disable = (dataset.stock <= 0 ) ? 'disabled' : '';
+                options += `<option ${disable}
+                            data-b_numero_serie=${dataset.b_numero_serie}
+                            data-b_nserie_obligatorio=${dataset.b_nserie_obligatorio}
+                            data-b_personal=${dataset.b_personal}
+                            id="opn${dataset.id_concepto}"
+                            value="${dataset.id_concepto}">${dataset.desc_marca} / ${dataset.desc_concepto} (Stock: ${dataset.stock}) </option>`;
+            });
+            $('#cbNeumaticos').append(options);
+        });
+        $('#AsignaNeumaticoModal').modal('show');
+    }
+
+}
+
 function pLoadPosicionesDT(placa){
-    'use strict';
+
     console.log('pLoadPosicionesDT...', window.location.pathname);
-    var cNameDT_NeumaticosAdmin = '#dtNeumaticosAdmin';
+    console.log('cNameDT_NeumaticosAdmin...', cNameDT_NeumaticosAdmin);
     var _parameters = {'placa': placa, 'action': 'searchdata', 'owner': 'neumaticos-admin'}
     $(cNameDT_NeumaticosAdmin).DataTable({
         language: {
@@ -27,11 +169,10 @@ function pLoadPosicionesDT(placa){
             dataSrc: "",
             statusCode: {
             200: function(data) {
-                console.log(',,,,,,,,,,,,,,,,,,,,,,,');
-                console.log(data);
+
                 sessionStorage.setItem('unidad_neumatico', JSON.stringify(data));
                 pLoadDiagrama(data);
-            }
+            },
           }
         },
         columns: [
@@ -92,9 +233,10 @@ function pLoadPosicionesDT(placa){
             },
         ],
         initComplete: function (settings, json) {
+            console.log('initComplete...');
 //            $(`${aNameDataTable}  div:last`).addClass('footerSlim');
             // $(document).on("click", "a[id^=btnAgegarConcepto]", function (event) {
-            $(cNameDT_NeumaticosAdmin).on("click", "a[id^=btnAsignarNeumatico]", function (event) {
+//            $(cNameDT_NeumaticosAdmin).on("click", "a[id^=btnAsignarNeumatico]", function (event) {
 //                var id_concepto = $(this).data('id_concepto');
 //                var id_tipo_concepto = $(this).data('id_tipo_concepto');
 //                var stock = $(this).data('stock');
@@ -104,56 +246,30 @@ function pLoadPosicionesDT(placa){
 //
 //                pAgregaConceptoMain(id_concepto, id_tipo_concepto, stock, b_numero_serie, b_personal, b_agrega_conceptos);
 
-            });
+//            });
         }
     });
 }
 
 
 function pLoadDiagrama(data){
-    data.forEach(function(rowJSON, r_index) {
-        console.log(rowJSON.cons);
-        console.log('#option'+rowJSON.cons);
-        $('#llanta-'+rowJSON.cons).addClass('btn-secondary');
-        $('#llanta-'+rowJSON.cons).addClass('btn-warning');
-//        $('#llanta-'+rowJSON.cons).attr
 
-//        var r_id_orden_detalle = rowJSON['id_orden_detalle']
-//        table.rows().data().each(function (value, index) {
-//        var t_id_orden_detalle= value.id_orden_detalle;
-//        if (r_id_orden_detalle == t_id_orden_detalle){
-//            var rows = $(cNameDT_OrdenDetalle+' tr');
-//            rows.eq(index+1).find('td').eq(6).addClass('bg-danger');
-//        }
-//        });
-    });
-}
+    if (data.length > 0){
+        data.forEach(function(rowJSON, r_index) {
+            $('#llanta-'+rowJSON.cons).removeClass('btn-secondary');
+            $('#llanta-'+rowJSON.cons).addClass('btn-warning');
 
-function pAsignaNeumatico(data){
+       });
+    } else {
+        console.log('sin registros');
+        $('.btn-neumatico').removeClass('btn-warning');
+        $('.btn-neumatico').addClass('btn-secondary');
 
-    var unidad_neumatico = JSON.parse(sessionStorage.getItem("unidad_neumatico"));
-    var CountEjes = 22;
-    $('#cbPosicion').empty();
-    var options = '';
-    for( var num_llanta = 1; num_llanta <= CountEjes;num_llanta++ ){
-        options += `<option id="op${num_llanta}" value="${num_llanta}">Posición ${num_llanta} </option>`;
     }
-    $('#cbPosicion').append(options);
-    $.each(unidad_neumatico, function (key, dataset) {
-        $('#cbPosicion').find('option').eq(dataset.cons).attr('disabled',"disabled");
-        $('#cbPosicion').find('option').eq(dataset.cons).text('Posición '+ dataset.cons + ' (Asiganda)');
-        //console.log(dataset.cons);
-    });
-//    for( var num_llanta = 1, num_llanta<22;num_llanta++ ){
-//
-//    }
-//
-//    unidad_neumatico.foreach( function (rowJSON, r_index) {
-//
-//        console.log(rowJSON);
-//    })
-    $('#AsignaNeumaticoModal').modal('show');
+
+
 }
+
 
 function pValidaPlaca(placa) {
 
@@ -229,5 +345,22 @@ $(function () {
     });
 
 
+    $('#btnVerOrden_current').on('click', function (event) {
+        var folio = $("#folio_current").val();
+        if (folio) {
+            var prev = '/neumaticosadmin/';
+            var placa = $("#edtPlaca").val();
+            var kilometraje = $("#kilometraje_current").val();
+            var nombre_entrega = $("#nombre_entrega_current").val()
+            // location.href =  `/ordendetalle/?prev=${prev}&folio=${folio}&placa=${placa}&kilometraje=${kilometraje}&nombre_entrega=${nombre_entrega}`;
+            location.href =  `/ordendetalle/?prev=${prev}&folio=${folio}&placa=${placa}&kilometraje=${kilometraje}&nombre_entrega=${nombre_entrega}`;
+        }
+
+    });
+
+
 
 });
+
+
+
