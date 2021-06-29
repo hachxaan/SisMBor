@@ -37,14 +37,17 @@ class NeumaticosAdmin( ListView ):
             if action == 'setNeumaticoAsignacion':
                 data = []
                 data = self.pInsUnidadNeumatico(request)
+            if action == 'pDesinstalaNeumatico':
+                data = []
+                data = self.pDesinstalaNeumatico(request)
 
             # else:
             #     data['error']='Esta orden ya no se puede editar'
         except Exception as e:
-            data['error']=str( e )
+                data['error']=str( e )
         return JsonResponse( data, safe=False )
 
-    def pInsOrdenDetalle(self, folio, id_concepto, no_serie, username):
+    def pInsOrdenDetalle(self, folio, id_concepto, no_serie, username, id_posicion):
         data={}
         id_personal=0
         consecutivo=OrdenDetalle.objects.filter( folio=folio ).count()
@@ -73,60 +76,86 @@ class NeumaticosAdmin( ListView ):
         InsOrdenDetalle.save()
 
         lasterOrdenDetalle = OrdenDetalle.objects.latest('id_orden_detalle')
-        print(lasterOrdenDetalle.id_orden_detalle)
+        id_orden_detalle = lasterOrdenDetalle.id_orden_detalle
 
-        updOrdenDetalle = OrdenDetalle.objects.get(id_orden_detalle=lasterOrdenDetalle.id_orden_detalle)
+        updOrdenDetalle = OrdenDetalle.objects.get(id_orden_detalle=id_orden_detalle)
         updOrdenDetalle.sit_code = 'AC'
         updOrdenDetalle.save()
+
+        updUnidadNeumatico = UnidadNeumatico.objects.get(id_posicion=id_posicion)
+        updUnidadNeumatico.id_orden_detalle = id_orden_detalle
+        updUnidadNeumatico.save()
+
         data={"psSTR_RESP": 'OK', "consecutivo": consecutivo, "stock": stock}
 
         return data
 
+
+
+    def pDesinstalaNeumatico(self, request):
+        data={}
+        id_posicion = request.POST['id_posicion']
+        updUnidadNeumatico = UnidadNeumatico.objects.get(id_posicion=id_posicion)
+        updUnidadNeumatico.sit_code = 2
+        updUnidadNeumatico.save()
+        return data
     def pInsUnidadNeumatico(self, request):
         data={}
-        folio=request.POST['folio']
-        dataSet = Orden.objects.filter(folio=folio).values('status',
-                                                           'id_unidad',
-                                                           'kilometraje' )
-        id_unidad = dataSet[0]['id_unidad']
-        posicion = request.POST['posicion']
-        if UnidadNeumatico.objects.filter(id_unidad=id_unidad, posicion=posicion).exists():
-            data['error'] = 'Ya existe neumático en esta posición, seleccione actualizar neumático.'
-        else:
-            status = dataSet[0]['status']
-            if (status in [0, 1]):
-                id_concepto = request.POST['id_concepto']
-                neumatocoStock = Concepto.objects.get(id_concepto=id_concepto)
-                if (neumatocoStock.stock > 0):
-
-                    kilometraje = dataSet[0]['kilometraje']
-
-                    no_serie=request.POST['no_serie']
-                    tx_referencia=request.POST['tx_referencia']
-                    cve_usu_alta = request.user.username
-                    fh_alta = dt.datetime.today()
-                    sit_code = 0
-
-                    InsUnidadNeumatico = UnidadNeumatico(
-                        id_unidad=id_unidad,
-                        posicion=posicion,
-                        fh_alta=fh_alta,
-                        cve_usu_alta=cve_usu_alta,
-                        kilometraje=kilometraje,
-                        folio=folio,
-                        tx_referencia=tx_referencia,
-                        id_concepto=id_concepto,
-                        no_serie=no_serie,
-                        sit_code=sit_code)
-
-                    InsUnidadNeumatico.save()
-                    self.pInsOrdenDetalle(folio, id_concepto, no_serie, cve_usu_alta)
-                    data = {"psSTR_RESP": 'OK'}
-
-                else:
-                    data['error'] = 'Sin Stock. Agregue stock en Inventario de Neumáticos.'
+        if self.request.POST.get('folio'):
+            folio = request.POST['folio']
+            dataSet = Orden.objects.filter(folio=folio).values('status',
+                                                               'id_unidad',
+                                                               'kilometraje')
+            id_unidad = dataSet[0]['id_unidad']
+            posicion = request.POST['posicion']
+            if UnidadNeumatico.objects.filter(id_unidad=id_unidad, posicion=posicion).exists():
+                data['error'] = 'Ya existe neumático en esta posición, seleccione actualizar neumático.'
             else:
-                data['error'] = 'Se requiere que la orden esté en proceso.'
+                status = dataSet[0]['status']
+                if (status in [0, 1]):
+                    id_concepto = request.POST['id_concepto']
+                    neumatocoStock = Concepto.objects.get(id_concepto=id_concepto)
+                    if (neumatocoStock.stock > 0):
+
+                        kilometraje = dataSet[0]['kilometraje']
+
+                        no_serie = request.POST['no_serie']
+                        tx_referencia = request.POST['tx_referencia']
+                        cve_usu_alta = request.user.username
+                        fh_alta = dt.datetime.today()
+                        sit_code = 1
+
+                        InsUnidadNeumatico = UnidadNeumatico(
+                            id_unidad=id_unidad,
+                            posicion=posicion,
+                            fh_alta=fh_alta,
+                            cve_usu_alta=cve_usu_alta,
+                            kilometraje=kilometraje,
+                            folio=folio,
+                            tx_referencia=tx_referencia,
+                            id_concepto=id_concepto,
+                            no_serie=no_serie,
+                            sit_code=sit_code,
+                            id_orden_detalle = 0)
+
+                        InsUnidadNeumatico.save()
+
+
+                        lastUnidadNeumatico = UnidadNeumatico.objects.latest('id_posicion')
+
+
+                        data = self.pInsOrdenDetalle(folio, id_concepto, no_serie, cve_usu_alta, lastUnidadNeumatico.id_posicion)
+
+
+                    else:
+                        data['error'] = 'Sin Stock. Agregue stock en Inventario de Neumáticos.'
+                else:
+                    data['error'] = 'Se requiere que la orden esté en proceso.'
+        else:
+            data['error'] = 'Se requiere que una orden que esté en proceso.'
+
+
+
 
         return data
 

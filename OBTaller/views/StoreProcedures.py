@@ -12,8 +12,9 @@ def StpInsOrden(request):
     peTX_REFERENCIA = ''
     psCOD_RESP = 0
     psSTR_RESP = ''
-    cursor=connection.cursor()
+
     try:
+        cursor = connection.cursor()
         try:
             kilometraje_int = int(peKILOMETRAJE)
             if (kilometraje_int < 25000):
@@ -25,14 +26,14 @@ def StpInsOrden(request):
 
             DataSet = Unidad.objects.filter(placa=placa).values( 'id_unidad')
             peID_UNIDAD = DataSet[0]['id_unidad']
-            cursor.callproc('StpInsertaOrden', [peID_UNIDAD, peKILOMETRAJE, peKILOMETRAJE_PQ, peCVE_USU_ALTA, peNOMBRE_ENTREGA, peTX_REFERENCIA, psSTR_RESP])
-            # cursor.execute('SELECT @StpInsertaOrden')
-            results = cursor.fetchall()
-            # results =  psSTR_RESP.getValue()
 
-            for row in results:
-                psCOD_RESP = row[0]
-                # psSTR_RESP = row[1]
+            parameters = [peID_UNIDAD, peKILOMETRAJE, peKILOMETRAJE_PQ, peCVE_USU_ALTA, peNOMBRE_ENTREGA,
+                          peTX_REFERENCIA, psCOD_RESP, psSTR_RESP]
+            cursor.callproc('StpInsertaOrden', parameters)
+            cursor.execute('SELECT @_StpInsertaOrden_6, @_StpInsertaOrden_7')
+            resp = cursor.fetchall()
+            psCOD_RESP = resp[0][0]
+            psSTR_RESP = resp[0][1]
 
             data = {'psCOD_RESP': psCOD_RESP, 'psSTR_RESP': psSTR_RESP}
         except Exception as e:

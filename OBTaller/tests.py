@@ -6,6 +6,7 @@ from distutils import debug
 
 
 from django.contrib.gis.db.backends import mysql
+from django.db import connections, connection
 from django.db.models.functions import datetime
 from django.utils.datetime_safe import date
 
@@ -13,36 +14,97 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'appMainSite.settings')
 
 from appMainSite.wsgi import *
 
-from django.db import connection
+
 from django.http import JsonResponse
 from django.test import TestCase
 from OBTaller.models import *
 # Create your tests here.
 
 
-# dataSet = Concepto.objects.filter( id_concepto=1 ).values('precio_compra', 'precio_venta');
-# print(dataSet)
-# print(dataSet[0]['precio_compra'])
+
+placa = 'ABCD-1234'
+peKILOMETRAJE = 100
+peCVE_USU_ALTA = 'DEBUG'
+peNOMBRE_ENTREGA =  'pruebas...'
+peTX_REFERENCIA = ''
+psCOD_RESP = 0
+psSTR_RESP = 'old'
+# cursor=connection.cursor()
+
+try:
+    # cursor = connections["default"].cursor()
+    cursor =  connection.cursor()
+    try:
+        data = {}
+        kilometraje_int = int(peKILOMETRAJE)
+        if (kilometraje_int < 25000):
+            peKILOMETRAJE_PQ = 25000
+        else:
+            RetVecesVal = round(kilometraje_int / 25000)
+            peKILOMETRAJE_PQ = RetVecesVal * 25000
 
 
-kilometraje = 74900
-if (kilometraje < 25000):
-    kilometraje = 25000
-else:
-    RetVecesVal = round(kilometraje/25000)
-    kilometraje = RetVecesVal * 25000
+        DataSet = Unidad.objects.filter(placa=placa).values( 'id_unidad')
+        peID_UNIDAD = DataSet[0]['id_unidad']
+
+        parameters = [peID_UNIDAD, peKILOMETRAJE, peKILOMETRAJE_PQ, peCVE_USU_ALTA, peNOMBRE_ENTREGA, peTX_REFERENCIA, psCOD_RESP, psSTR_RESP]
+        results = cursor.callproc('StpInsertaOrden', parameters)
+        cursor.execute('SELECT @_StpInsertaOrden_6, @_StpInsertaOrden_7')
+        resp = cursor.fetchall()
+        psCOD_RESP = resp[0][0]
+        psSTR_RESP = resp[0][1]
+
+        data = {'psCOD_RESP': psCOD_RESP, 'psSTR_RESP': psSTR_RESP}
+        # print(data)
+    except Exception as e:
+        data['error'] = str(e)
+finally:
+    cursor.close()
 
 
-print({"kilometraje":kilometraje})
 
 
-vFieldFilter = {
-    '{0}'.format('m'+str(kilometraje)): '1'
-}
 
-dataSet = WListaMantenimiento.objects.filter(**vFieldFilter).values('id_concepto')
-for i in WListaMantenimiento.objects.filter(**vFieldFilter):
-    print(i.id_concepto)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#
+#
+# kilometraje = 74900
+# if (kilometraje < 25000):
+#     kilometraje = 25000
+# else:
+#     RetVecesVal = round(kilometraje/25000)
+#     kilometraje = RetVecesVal * 25000
+#
+#
+# print({"kilometraje":kilometraje})
+#
+#
+# vFieldFilter = {
+#     '{0}'.format('m'+str(kilometraje)): '1'
+# }
+#
+# dataSet = WListaMantenimiento.objects.filter(**vFieldFilter).values('id_concepto')
+# for i in WListaMantenimiento.objects.filter(**vFieldFilter):
+#     print(i.id_concepto)
 
 
 

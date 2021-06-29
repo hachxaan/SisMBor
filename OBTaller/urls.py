@@ -14,6 +14,8 @@ from OBTaller.views.manobra.views import ManobraListView, ManobraCreateView, Man
 from OBTaller.views.mantenimiento.views import MantenimientoListView, MantenimientoCreateView, MantenimientoUpdateView, \
     MantenimientoDeleteView
 from OBTaller.views.personal.views import PersonalListView, PersonalCreateView, PersonalUpdateView, PersonalDeleteView
+from OBTaller.views.reportes_view import ReportesView
+
 from OBTaller.views.unidad.views import UnidadListView, UnidadCreateView, UnidadUpdateView, UnidadDeleteView
 from OBTaller.views.views import login, addConceptoCategoria, addTipoServicio, \
     getInfoUnidad, SetParametros, addConceptoMarca, addUnidadMedida, EsDemo
@@ -42,8 +44,10 @@ urlpatterns=[
     path( 'ordendetalle/', OrdenListaDetalle.as_view(), name='detalle_order' ),
 
     path( 'neumaticosadmin/', NeumaticosAdmin.as_view(), name='neumaticos_admin' ),
+    path( 'reportes/<int:id_reporte>/', ReportesView.as_view(), name='reportes_view' ),
+    # path( 'reportes/', ReportesView.as_view(), name='reportes_view' ),
 
-
+# <int:id_reporte>/
 
     path( 'inventario/', InventarioView.as_view(), name='inventario_list' ),
     path( 'inventario/add/', InventarioCreateView.as_view(), name='inventario_create' ),

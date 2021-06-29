@@ -91,6 +91,9 @@ $(function () {
                                     data-nombre_entrega=${row['nombre_entrega']}
                                     data-row_num=${row['row_num']}
                                     class="${EditarTrabajoEnabled} dropdown-item btn-block btn" id="btnEditaTrabajo"><i class="fas fa-plus"></i>Agregar Conceptos</a>
+                                <!-- N E U M A T I C O S -->
+                                <a data-placa=${row['placa']}
+                                    class="${EditarTrabajoEnabled} dropdown-item btn-block btn" id="btnNeumaticosAdmin"><i class="fas fa-plus"></i>Neumáticos</a>
                                 <div class="dropdown-divider"></div>
                                 <!-- I N I C I A R -->
                                 <a data-folio=${row['folio']} class="${IniciaTrabajoEnabled} dropdown-item btn-block btn" id="btnIniciaTrabajo"><i class="fas fa-play-circle"></i>Inicia trabajo</a>
@@ -111,7 +114,11 @@ $(function () {
                             <div class="dropdown-menu" role="menu" style="">
                                 <!-- DETALLE -->
                                 <a data-folio=${row['folio']} class="bg-gradient-info dropdown-item btn-block btn" id="btnDetalle"><i class="fas fa-edit"></i>  Detalle</a>
+                                <!-- N E U M A T I C O S -->
+                                <a data-placa=${row['placa']}
+                                    class="bg-gradient-info dropdown-item btn-block btn" id="btnNeumaticosAdmin"><i class="fas fa-plus"></i>Neumáticos</a>
                             </div>
+
                           </div>`;
                 }
                 return buttons;
@@ -214,6 +221,14 @@ $(function () {
 
             });
 
+            $(document).on("click", "a[id^=btnNeumaticosAdmin]", function (event) {
+                var placa = $(this).data('placa');
+                sessionStorage.setItem('placa', placa);
+                location.href = `/neumaticosadmin/`
+
+
+            });
+
             $(document).on("click", "a[id^=btnIniciaTrabajo]", function (event) {
                 let folio = $(this).data('folio');
                 UpdSitStatus(folio, 1)
@@ -264,8 +279,6 @@ $(function () {
 
 function UpdSitStatus(folio, status) {
     let parameters = {"folio": folio, "status": status}
-    console.log(parameters);
-    //?folios=${folio}&statuses=${status}
     submit_with_ajax_json(`../stp/updsitorden/`, 'Notificación', '¿Inician los trabajos de la orden?', parameters, function (response) {
         var table = $('#dataTables4').DataTable();
         table.ajax.reload();

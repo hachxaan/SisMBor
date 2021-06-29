@@ -1,0 +1,21 @@
+{% extends 'Classes/reportes.html' %}
+{% load static %}
+{% block head_list %}
+
+{% endblock %}
+
+{% block columns %}
+    <tr>
+        {% for field in titleFields %}
+            <th scope="col" style="width: {{ field.width }};">{{ field.field_title }}</th>
+        {% endfor %}
+    </tr>
+{% endblock %}
+
+{% block rows %}
+
+{% endblock %}
+{% block scripts_lista %}
+<!--    <script src="{% static 'sismbor/js/list-cat-manobra.js' %}"></script>-->
+{% endblock %}
+

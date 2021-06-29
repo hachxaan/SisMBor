@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'OBTaller.middleware.StatusMenu',
+    'OBTaller.middleware.MenuReportes',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -93,17 +94,17 @@ DATABASES = {
         'PORT': '3306',
     }
 }
-#
+
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'sismbor',
-#         'USER': 'admin',
-#         'PASSWORD': 'CveDb.123456',
-#         'HOST': 'database-hotelweb.cjg26m5mzcaw.us-east-2.rds.amazonaws.com',   # Or an IP Address that your DB is hosted on
-#         'PORT': '3306',
-#     }
-# }
+#      'default': {
+#          'ENGINE': 'django.db.backends.mysql',
+#          'NAME': 'sismbor',
+#          'USER': 'admin',
+#          'PASSWORD': 'CveDb.123456',
+#          'HOST': 'database-hotelweb.cjg26m5mzcaw.us-east-2.rds.amazonaws.com',   # Or an IP Address that your DB is hosted on
+#          'PORT': '3306',
+#      }
+#  }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

@@ -80,6 +80,17 @@ function _ajax(url, parameters, callback) {
                 }, data);
                 return false;
             }
+
+            if (data.hasOwnProperty('psCOD_RESP')) {
+                if (parseInt(data.psCOD_RESP) == 0 ) {
+                    callback(data);
+                    return false;
+                } else {
+                    message_error(data.psSTR_RESP);
+                    return false;
+                }
+            }
+
             callback(data);
             return false;
         }
@@ -170,8 +181,16 @@ function submit_(url, title, content, parameters, callback) {
 
 // # ***************************************************************************************************************** #
 // # ***************************************************************************************************************** #
-function ajax_confirm(url, title, content, parameters, callback) {
+function ajax_confirm(url, title, content, parameters, callback, Infotext) {
     'use strict';
+    if (Infotext !== undefined ){
+        var vInfotext = Infotext
+
+    }else{
+        var vInfotext
+    }
+
+
     $.confirm({
         theme: 'material',
         title: title,
@@ -184,7 +203,7 @@ function ajax_confirm(url, title, content, parameters, callback) {
         dragWindowBorder: false,
         buttons: {
             info: {
-                text: "Si",
+                text: vInfotext,
                 btnClass: 'btn-primary',
                 action: function () {
                     $.ajax({
@@ -457,7 +476,7 @@ function submit_with_ajax_action(parameters, callback) {
         dataSrc: "",
         // processData: false
     }).done(function (response) {
-        console.log({"dataRespons": response});
+
         if (!response.hasOwnProperty('error')) {
             callback(response);
             return false;
@@ -526,3 +545,9 @@ function submit_with_ajax_json(url, title, content, parameters, callback) {
     })
 }
 
+
+function log(message){ console.log(message)}
+
+function esEntero(numero){
+    return (numero % 1 == 0);
+}

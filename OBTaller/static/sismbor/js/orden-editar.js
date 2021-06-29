@@ -60,7 +60,6 @@ $(function () {
         var no_serie = '';
 
         function pBuscaPersonal() {
-            console.log('ajax pBuscaPersonal...');
             pAgregaConcepto();
         }
 
@@ -131,7 +130,6 @@ $(function () {
             'tx_referencia': v_tx_referencia,
             'id_orden_detalle': v_id_orden_detalle
         }
-        console.log(_parameters)
         if (v_tx_referencia.length > 0) {
             _ajax(window.location.pathname, _parameters, function (data) {
 
@@ -152,7 +150,6 @@ $(function () {
     $("#NoSerieModal").on('shown.bs.modal', function (event) {
         var button = $(event.relatedTarget);
         var id_orden_detalle = button.data('id_orden_detalle');
-        console.log('DSADSADASDSDASDASDASDAS', id_orden_detalle)
         var dato = button.data('dato');
         $(this).find('#id_orden_detalle').val(id_orden_detalle)
         $(this).find('#edtNoSerie').val(dato)
@@ -167,7 +164,6 @@ $(function () {
             'no_serie': v_NoSerie,
             'id_orden_detalle': v_id_orden_detalle
         }
-        console.log(_parameters)
         if (v_NoSerie.length > 0) {
             _ajax(window.location.pathname, _parameters, function (data) {
                 ajax_reload(cNameDT_OrdenDetalle);
@@ -202,7 +198,6 @@ $(function () {
             'id_personal': v_Personal,
             'id_orden_detalle': v_id_orden_detalle
         }
-        console.log(_parameters)
         if (v_Personal.length > 0) {
             _ajax(window.location.pathname, _parameters, function (data) {
                 ajax_reload(cNameDT_OrdenDetalle);

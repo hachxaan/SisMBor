@@ -51,14 +51,15 @@ $(function () {
     });
     $('#btnGuardarNoSerie').on('click', function (event) {
         var v_id_orden_detalle = $("#NoSerieModal").find('#id_orden_detalle').val()
-        var _parameters = {
-            'action': 'addNoSerie',
-            'folio': cfolio,
-            'no_serie': v_NoSerie,
-            'id_orden_detalle': v_id_orden_detalle
-        }
-        // console.log(_parameters)
+
+        var v_NoSerie = $('#edtNoSerie').val();
         if (v_NoSerie.length > 0) {
+            var _parameters = {
+                'action': 'addNoSerie',
+                'folio': cfolio,
+                'no_serie': v_NoSerie,
+                'id_orden_detalle': v_id_orden_detalle
+            }
             _ajax(window.location.pathname, _parameters, function (data) {
                 ajax_reload(cNameDT_OrdenDetalle);
                 $("#edtNoSerie").empty()
@@ -92,7 +93,6 @@ $(function () {
             'id_personal': v_Personal,
             'id_orden_detalle': v_id_orden_detalle
         }
-        console.log(_parameters)
         if (v_Personal.length > 0) {
             _ajax(window.location.pathname, _parameters, function (data) {
                 ajax_reload(cNameDT_OrdenDetalle);
@@ -122,7 +122,6 @@ $(function () {
     }
 
     // $(document).ready(function ($) {
-        console.log('carga cNameDT_OrdenDetalle');
         $(cNameDT_OrdenDetalle).DataTable({
             language: {
                 url: '../../static/libs/datatables-es.json'

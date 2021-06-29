@@ -811,6 +811,7 @@ class UnidadNeumatico(models.Model):
     id_concepto = models.IntegerField(db_column='ID_CONCEPTO')  # Field name made lowercase.
     no_serie = models.CharField(db_column='NO_SERIE', max_length=64)  # Field name made lowercase.
     sit_code = models.IntegerField(db_column='SIT_CODE')  # Field name made lowercase.
+    id_orden_detalle = models.IntegerField(db_column='ID_ORDEN_DETALLE', blank=True, null=True)
 
     def toJSON(self):
         item = model_to_dict(self)
@@ -819,3 +820,15 @@ class UnidadNeumatico(models.Model):
     class Meta:
         managed = False
         db_table = 'unidad_neumatico'
+
+
+class Reportes(models.Model):
+    id_reporte = models.AutoField(db_column='ID_REPORTE', primary_key=True)  # Field name made lowercase.
+    titulo_reporte = models.CharField(db_column='TITULO_REPORTE', max_length=45)  # Field name made lowercase.
+    desc_reporte = models.CharField(db_column='DESC_REPORTE', max_length=128)  # Field name made lowercase.
+    vista = models.CharField(db_column='VISTA', max_length=45)  # Field name made lowercase.
+    activo = models.CharField(db_column='ACTIVO', max_length=45)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'reportes'

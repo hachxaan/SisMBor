@@ -9,7 +9,7 @@ from django.views.generic import ListView
 
 from OBTaller import forms
 from OBTaller.models import WCuentaAbierta, Orden, WConceptosMain, OrdenDetalle, Concepto, WOrdenDetalle, Personal, \
-    Parametros, WListaMantenimiento
+    Parametros, WListaMantenimiento, UnidadNeumatico
 
 
 def UpdSitOrden(request):
@@ -161,6 +161,10 @@ class OrdenListaEditar( ListView ):
         data={}
         id_orden_detalle=request.POST['id_orden_detalle']
         delOrdenDetalle = OrdenDetalle.objects.get(id_orden_detalle=id_orden_detalle)
+
+        # if delOrdenDetalle.
+
+
         delOrdenDetalle.sit_code = 'CA'
         delOrdenDetalle.save()
         data={"psSTR_RESP": 'OK'}
@@ -299,7 +303,7 @@ class OrdenListaDetalle( ListView ):
                 result=self.pInsOrdenDetalle( request )
 
             if action == 'delItem':
-                result=self.pDelOrdenDetalle( request )
+                data=self.pDelOrdenDetalle( request )
 
             if action == 'addTxReferencia':
                 result=self.pUpdTxReferencia( request )
@@ -363,9 +367,15 @@ class OrdenListaDetalle( ListView ):
         data={}
         id_orden_detalle=request.POST['id_orden_detalle']
         delOrdenDetalle = OrdenDetalle.objects.get(id_orden_detalle=id_orden_detalle)
-        delOrdenDetalle.sit_code = 'CA'
-        delOrdenDetalle.save()
-        data={"psSTR_RESP": 'OK'}
+
+        elConcepto = Concepto.objects.get(id_concepto=delOrdenDetalle.id_concepto)
+        if (elConcepto.id_tipo_concepto == TCONCEPTO_NEUMATICOS):
+            if UnidadNeumatico.objects.filter(id_orden_detalle=id_orden_detalle):
+                data['error'] = 'El neumático está asignado a una unidad.'
+            else:
+                delOrdenDetalle.sit_code = 'CA'
+                delOrdenDetalle.save()
+                data={"psSTR_RESP": 'OK'}
         return data
 
     def pInsOrdenDetalle(self, request):

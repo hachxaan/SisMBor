@@ -31,6 +31,17 @@ $(function () {
 //        $(this).find('#edtDescripcion').val(desc_concepto)
     });
 
+    $('#btnCalculaVidaUtil').on('click', function (event) {
+        var km = $('#edtKilometrajeSet').val();
+        if (km !== ''){
+            if (esEntero(km)) {
+                pLoadPosicionesDT($('#edtPlaca').val());
+            }
+        }
+
+
+
+    });
 
     $('#btnGuardarAsignaNeumatico').on('click', function (event) {
 
@@ -78,34 +89,33 @@ $(function () {
                                     'id_concepto': v_id_concepto,
                                     'no_serie': v_no_serie,
                                     'tx_referencia' : v_tx_referencia}
-                console.log(_parameters);
                 _ajax(window.location.pathname, _parameters, function(response){
                     ajax_reload(cNameDT_NeumaticosAdmin);
-
+                    $('#cbPosicion').prop("disabled", false);
                     $("#edtTxReferencia").val('');
                     $("#folio_asignar").val('');
-                    $("#cbNeumaticos").val('0')
-                    $('#cbNeumaticos').val('0')
+                    $("#cbNeumaticos").val('0');
+                    $("#cbPosicion").val('0');
                     $('#edtNoSerie').val('');
                     $("#AsignaNeumaticoModal").modal('hide');
-
                 });
-
             }
-
-
         }
-
-
-
-
     });
 
 
 })
 
-function pAsignaNeumatico(data){
+function pDesinstalaNeumatico(id_posicion){
+    var _parameters = {'action': 'pDesinstalaNeumatico', 'id_posicion': id_posicion}
+    ajax_confirm(window.location.pathname, 'Confirmar', '¿Desinstalar el neumático de la unidad?', _parameters, function(e){
+        ajax_reload(cNameDT_NeumaticosAdmin);
+    }, 'Si, desisntalar.');
+}
+
+function pAsignaNeumatico(){
     var unidad_neumatico = JSON.parse(sessionStorage.getItem("unidad_neumatico"));
+    var posision = sessionStorage.getItem("neumaticos_admin-posision");
     if (unidad_neumatico !== []) {
         var CountEjes = 22;
         $('#cbPosicion').empty();
@@ -121,6 +131,17 @@ function pAsignaNeumatico(data){
             $('#cbPosicion').find('option').eq(dataset.cons).text('Posición '+ dataset.cons + ' (Asiganda)');
             //console.log(dataset.cons);
         });
+        $('#cbPosicion').removeAttr("disabled")
+        $('#cbPosicion').val('0');
+
+        if(posision !== '0') {
+
+            $('#cbPosicion').prop("disabled", true);
+            $('#cbPosicion').val(posision);
+            posision = 0;
+            sessionStorage.setItem("neumaticos_admin-posision", posision);
+        }
+
         var _parameters = {'action': 'getNeumaticosStock'}
         _ajax(window.location.pathname, _parameters, function (data) {
             var options = '<option value="0">Seleccionar un neumático...</option>';
@@ -143,8 +164,6 @@ function pAsignaNeumatico(data){
 
 function pLoadPosicionesDT(placa){
 
-    console.log('pLoadPosicionesDT...', window.location.pathname);
-    console.log('cNameDT_NeumaticosAdmin...', cNameDT_NeumaticosAdmin);
     var _parameters = {'placa': placa, 'action': 'searchdata', 'owner': 'neumaticos-admin'}
     $(cNameDT_NeumaticosAdmin).DataTable({
         language: {
@@ -177,8 +196,11 @@ function pLoadPosicionesDT(placa){
         },
         columns: [
 
+
                 {"data": "cons"},
                 {"data": "fh_alta"},
+                {"data": "kilometraje"},
+                {"data": "vida_util_km"},
                 {"data": "kilometraje"},
                 {"data": "no_serie", class: 'all text-center'},
                 {"data": "desc_concepto", class: 'none'},
@@ -190,7 +212,7 @@ function pLoadPosicionesDT(placa){
         dom: 'Bfrtip',
         buttons: [
                     {
-                        text: 'Asignar neumático',
+                        text: '<i class="fa fa-arrow-up" aria-hidden="true"></i> Instalar neumático',
                         className: 'btn-secundary',
                         action: function (e, dt, node, config) {
 
@@ -201,10 +223,51 @@ function pLoadPosicionesDT(placa){
                 ],
         columnDefs: [
             {
-                "targets": '0',
-                "createdCell": function (td, cellData, rowData, row, col) {
-                    $(td).css('padding-left', '10px')
+                targets: [1],
+                render: function (data, type, row) {
+                    var fecha = new Date(data)
+                    return  fecha.toLocaleDateString()
                 }
+
+            },
+            {
+                targets: [2],
+                render: function (data) {
+                    return parseFloat(data).toLocaleString('en')
+                }
+
+            },
+            {
+                targets: [3],
+                render: function (data, type, row) {
+                    var km_current = $('#edtKilometrajeSet').val();
+                    var result = 'Falta info.'
+                    var km_result = 0
+                    if (km_current !== '') {
+                       km_result = parseInt(km_current) - parseInt(row['kilometraje'])
+                       result = km_result;
+                    }
+                    return parseFloat(result).toLocaleString('en') +' / '+ parseFloat(data).toLocaleString('en')
+                }
+            },
+            {
+                targets: [4],
+                render: function (data, type, row) {
+                    var km_current = $('#edtKilometrajeSet').val();
+                    var result = 'Falta info.'
+                    var km_result = 0
+                    if (km_current !== '') {
+                       km_result = parseInt(km_current) - parseInt(row['kilometraje'])
+                       result = km_result;
+                    }
+                    var vida_util_km = row['vida_util_km']
+                    var pct = 100 - ((parseFloat(result) * 100) / parseFloat(vida_util_km));
+                    return pct.toLocaleString('en') + '%'
+                }
+            },
+            {
+                targets: [1,2,3,4],
+                class: 'text-center'
             },
             {
                 targets: [-1],
@@ -233,7 +296,7 @@ function pLoadPosicionesDT(placa){
             },
         ],
         initComplete: function (settings, json) {
-            console.log('initComplete...');
+
 //            $(`${aNameDataTable}  div:last`).addClass('footerSlim');
             // $(document).on("click", "a[id^=btnAgegarConcepto]", function (event) {
 //            $(cNameDT_NeumaticosAdmin).on("click", "a[id^=btnAsignarNeumatico]", function (event) {
@@ -253,17 +316,19 @@ function pLoadPosicionesDT(placa){
 
 
 function pLoadDiagrama(data){
-
+    $('.btn-neumatico').removeClass('btn-warning');
+    $('.btn-neumatico').addClass('btn-secondary');
     if (data.length > 0){
         data.forEach(function(rowJSON, r_index) {
             $('#llanta-'+rowJSON.cons).removeClass('btn-secondary');
             $('#llanta-'+rowJSON.cons).addClass('btn-warning');
+            $('#llanta-'+rowJSON.cons).data('id_posicion', rowJSON.id_posicion);
+            $('#llanta-'+rowJSON.cons).data('sit_code', rowJSON.sit_code);
 
        });
     } else {
-        console.log('sin registros');
-        $('.btn-neumatico').removeClass('btn-warning');
-        $('.btn-neumatico').addClass('btn-secondary');
+
+
 
     }
 
@@ -272,14 +337,27 @@ function pLoadDiagrama(data){
 
 
 function pValidaPlaca(placa) {
-
-
     if (placa.length > 0) {
         var _parameters = {'placa': placa, 'action': 'searchdata', 'owner': 'neumaticos-admin'}
         _ajax('/getInfoUnidad/', _parameters, function (data) {
             if (data.length > 0) {
+                sessionStorage.setItem('placa', data[0].placa);
+                if ((data[0].kilometraje_current !== '') && (data[0].kilometraje_current !== null)) {
+                    log('(data[0].kilometraje_current !== ) ');
+                    log(data[0].kilometraje_current );
+                    $('#edtKilometrajeSet').val(data[0].kilometraje_current);
+                } else {
+                    if ((data[0].kilometraje_ult !== '') && (data[0].kilometraje_ult !== null)){
+                        log('(data[0].kilometraje_ult !== )');
+                        $('#edtKilometrajeSet').val(data[0].kilometraje_ult);
+                    } else {
+                        log('0');
+                        $('#edtKilometrajeSet').val('0');
+                    }
+                }
 
-                // $("#edtPlaca").addClass('bg-olive');
+
+
                 $("#edtMotor").val(data[0].motor);
                 $("#edtMarca").val(data[0].marca);
                 $("#edtModelo").val(data[0].modelo);
@@ -296,6 +374,8 @@ function pValidaPlaca(placa) {
                 $("#kilometraje_ult").val(data[0].kilometraje_ult);
                 $("#folio_ult").val(data[0].folio_ult);
                 $("#nombre_entrega_ult").val(data[0].nombre_entrega_ult);
+
+                pLoadPosicionesDT(data[0].placa);
 
             } else {
                 $("#edtMotor").val('');
@@ -318,15 +398,18 @@ function pValidaPlaca(placa) {
     }
 }
 
+
 $(function () {
     'use strict';
     const urlParams = new URLSearchParams(window.location.search);
-    const cPlaca = urlParams.get('placa');
-    console.log({'cPlaca':cPlaca})
+//    const cPlaca = urlParams.get('placa');
+    const cPlaca = sessionStorage.getItem('placa');
+//    console.log({'cPlaca':cPlaca})
     if (cPlaca !== null){
         if (cPlaca !== '' ){
-        pValidaPlaca(cPlaca);
-        pLoadPosicionesDT(cPlaca);
+            $('#edtPlaca').val(cPlaca);
+            pValidaPlaca(cPlaca);
+
     }
     }
 
@@ -358,9 +441,82 @@ $(function () {
 
     });
 
+    $.contextMenu({
+        selector: '.btn-neumatico',
+        build : function ($trigger, e) {
+                var posicion = $(e['target']).data('posicion');
+                var id_posicion = $(e['target']).data('id_posicion');
+                var sit_code = $(e['target']).data('sit_code');
+                var btnInstall = {}
+                var btnUninstall = {}
+                switch (parseInt(sit_code)) {
+                        case 0: {
+                                btnInstall =  { name: "Instalar neumático", icon: "fas fa-arrow-up" }
+                            break;
+                        }
+                        case 1: {
+                                btnUninstall =  { name: "Desainstalar Neumático", icon: "fas fa-arrow-down" }
+                            break;
+                        }
+                        default:
+                            btnInstall = {}
+                            btnUninstall = {}
+						break;
+                }
+                return {
+                    callback: function (key, options) {
+                        if (key=='install'){
+                            sessionStorage.setItem("neumaticos_admin-posision", posicion);
+                            pAsignaNeumatico();
 
+                        }
+                        if (key=='uninstall'){
+                            pDesinstalaNeumatico(id_posicion);
+                        }
+                    },
+                    items: {
+                        "install": btnInstall,
+                        "uninstall": btnUninstall,
+                        "status": {
+                            name: "Notas",
+                            icon: "fas fa-file-alt",
+                            items: {
+                                "add_nota": { name: "Agregar Nota", icon: "fas fa-folder-plus"},
+                                "view_nota": { name: "Ver Notas", icon: "fas fa-folder-open"},
+                            }
+                        }
+                    }
+                };
+            },
+
+        trigger: 'left',
+        callback: function(key, options) {
+            var m = "clicked: " + key;
+            window.console && console.log(m) || alert(m);
+        },
+//        items: {
+//            "edit": {name: "Edit", icon: "fa-arrow-up"},
+//            "cut": {name: "Cut", icon: "cut"},
+//            "copy": {name: "Copy", icon: "copy"},
+//            "paste": {name: "Paste", icon: "paste"},
+//            "delete": {name: "Delete", icon: "delete"},
+//            "sep1": "---------",
+//            "quit": {name: "Quit", icon: function($element, key, item){ return 'context-menu-icon context-menu-icon-quit'; }}
+//        }
+    });
 
 });
 
 
+//                            var _parameters = {
+//                                'action': 'addNoSerie',
+//                                'folio': cfolio,
+//                                'no_serie': v_NoSerie,
+//                                'id_orden_detalle': v_id_orden_detalle
+//                            }
+//                            _ajax(window.location.pathname, _parameters, function (data) {
+//                                ajax_reload(cNameDT_OrdenDetalle);
+//                                $("#edtNoSerie").empty()
+//                                $("#NoSerieModal").modal('hide');
+//                            });
 

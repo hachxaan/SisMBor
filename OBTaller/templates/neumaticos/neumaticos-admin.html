@@ -29,7 +29,17 @@
                     <span class="input-group-append">
                                         <button type="button" class="btn btn-outline-info btn" data-toggle="modal"
                                                 data-target="#BuscarUnidadModal">Buscar</button>
-                                </span>
+                    </span>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-primary">Km actual</span>
+                    </div>
+                    <input id="edtKilometrajeSet" name="Kilometraje" type="number" class="form-control uppercase" required
+                           placeholder="" value="{{ km_actual }}">
+                    <span class="input-group-append">
+                        <button id="btnCalculaVidaUtil" type="button" class="btn btn-outline-info btn">Calcular vida util</button>
+                    </span>
                 </div>
 
                 <!--<div class="input-group mb-3">
@@ -101,7 +111,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Responsable</span>
                     </div>
-                    <input id="nombre_entrega_current   " type="text" class="form-control"
+                    <input id="nombre_entrega_current" type="text" class="form-control"
                            placeholder="No está en servicio" readonly>
                 </div>
 
@@ -149,70 +159,70 @@
     </div>
     <div class="contener-admin col-lg-4 col-md-5 col-sm-12">
         <div id="diagrama" class="btn-group btn-group-toggle btns-group" data-toggle="buttons">
-            <label id="llanta-1" class="btn-neumatico btn btn-secondary active">
+            <label data-posicion="1" data-id_posicion="" data-sit_code="0" id="llanta-1" class="btn-neumatico btn btn-secondary active">
                 <input type="radio" name="options" id="option1" autocomplete="off" checked>1
             </label>
-            <label id="llanta-2" class="btn-neumatico btn btn-secondary">
+            <label data-posicion="2" data-id_posicion="" data-sit_code="0" id="llanta-2" class="btn-neumatico btn btn-secondary">
                 <input type="radio" name="options" id="option2" autocomplete="off">2
             </label>
-            <label id="llanta-3" class="btn-neumatico btn btn-secondary">
+            <label data-posicion="3" data-id_posicion="" data-sit_code="0" id="llanta-3" class="btn-neumatico btn btn-secondary">
                 <input type="radio" name="options" id="option3" autocomplete="off">3
             </label>
-            <label id="llanta-4" class="btn-neumatico btn btn-secondary">
+            <label data-posicion="4" data-id_posicion="" data-sit_code="0" id="llanta-4" class="btn-neumatico btn btn-secondary">
                 <input type="radio" name="options" id="option4" autocomplete="off">4
             </label>
-            <label id="llanta-5" class="btn-neumatico btn btn-secondary">
+            <label data-posicion="5" data-id_posicion="" data-sit_code="0" id="llanta-5" class="btn-neumatico btn btn-secondary">
                 <input type="radio" name="options" id="option5" autocomplete="off">5
             </label>
-            <label id="llanta-6" class="btn-neumatico btn btn-secondary">
+            <label data-posicion="6" data-id_posicion="" data-sit_code="0" id="llanta-6" class="btn-neumatico btn btn-secondary">
                 <input type="radio" name="options" id="option6" autocomplete="off">6
             </label>
-            <label id="llanta-7" class="btn-neumatico btn btn-secondary">
+            <label data-posicion="7" data-id_posicion="" data-sit_code="0" id="llanta-7" class="btn-neumatico btn btn-secondary">
                 <input type="radio" name="options" id="option7" autocomplete="off">7
             </label>
-            <label id="llanta-8" class="btn-neumatico btn btn-secondary">
+            <label data-posicion="8" data-id_posicion="" data-sit_code="0" id="llanta-8" class="btn-neumatico btn btn-secondary">
                 <input type="radio" name="options" id="option8" autocomplete="off">8
             </label>
-            <label id="llanta-9" class="btn-neumatico btn btn-secondary">
+            <label data-posicion="9" data-id_posicion="" data-sit_code="0" id="llanta-9" class="btn-neumatico btn btn-secondary">
                 <input type="radio" name="options" id="option9" autocomplete="off">9
             </label>
-            <label id="llanta-10" class="btn-neumatico btn btn-secondary">
+            <label data-posicion="10" data-id_posicion="" data-sit_code="0" id="llanta-10" class="btn-neumatico btn btn-secondary">
                 <input type="radio" name="options" id="option10" autocomplete="off">10
             </label>
-            <label id="llanta-11" class="btn-neumatico btn btn-secondary">
+            <label data-posicion="11" data-id_posicion="" data-sit_code="0" id="llanta-11" class="btn-neumatico btn btn-secondary">
                 <input type="radio" name="options" id="option11" autocomplete="off">11
             </label>
-            <label id="llanta-12" class="btn-neumatico btn btn-secondary">
+            <label data-posicion="12" data-id_posicion="" data-sit_code="0" id="llanta-12" class="btn-neumatico btn btn-secondary">
                 <input type="radio" name="options" id="option12" autocomplete="off">12
             </label>
-            <label id="llanta-13" class="btn-neumatico btn btn-secondary">
+            <label data-posicion="13" data-id_posicion="" data-sit_code="0" id="llanta-13" class="btn-neumatico btn btn-secondary">
                 <input type="radio" name="options" id="option13" autocomplete="off">13
             </label>
-            <label id="llanta-14" class="btn-neumatico btn btn-secondary">
+            <label data-posicion="14" data-id_posicion="" data-sit_code="0" id="llanta-14" class="btn-neumatico btn btn-secondary">
                 <input type="radio" name="options" id="option14" autocomplete="off">14
             </label>
-            <label id="llanta-15" class="btn-neumatico btn btn-secondary">
+            <label data-posicion="15" data-id_posicion="" data-sit_code="0" id="llanta-15" class="btn-neumatico btn btn-secondary">
                 <input type="radio" name="options" id="option15" autocomplete="off">15
             </label>
-            <label id="llanta-16" class="btn-neumatico btn btn-secondary">
+            <label data-posicion="16" data-id_posicion="" data-sit_code="0" id="llanta-16" class="btn-neumatico btn btn-secondary">
                 <input type="radio" name="options" id="option16" autocomplete="off">16
             </label>
-            <label id="llanta-17" class="btn-neumatico btn btn-secondary">
+            <label data-posicion="17" data-id_posicion="" data-sit_code="0" id="llanta-17" class="btn-neumatico btn btn-secondary">
                 <input type="radio" name="options" id="option17" autocomplete="off">17
             </label>
-            <label id="llanta-18" class="btn-neumatico btn btn-secondary">
+            <label data-posicion="18" data-id_posicion="" data-sit_code="0" id="llanta-18" class="btn-neumatico btn btn-secondary">
                 <input type="radio" name="options" id="option18" autocomplete="off">18
             </label>
-            <label id="llanta-19" class="btn-neumatico btn btn-secondary">
+            <label data-posicion="19" data-id_posicion="" data-sit_code="0" id="llanta-19" class="btn-neumatico btn btn-secondary">
                 <input type="radio" name="options" id="option19" autocomplete="off">19
             </label>
-            <label id="llanta-20" class="btn-neumatico btn btn-secondary">
+            <label data-posicion="20" data-id_posicion="" data-sit_code="0" id="llanta-20" class="btn-neumatico btn btn-secondary">
                 <input type="radio" name="options" id="option20" autocomplete="off">20
             </label>
-            <label id="llanta-21" class="btn-neumatico btn btn-secondary">
+            <label data-posicion="21" data-id_posicion="" data-sit_code="0" id="llanta-21" class="btn-neumatico btn btn-secondary">
                 <input type="radio" name="options" id="option21" autocomplete="off">21
             </label>
-            <label id="llanta-22" class="btn-neumatico btn btn-secondary">
+            <label data-posicion="22" data-id_posicion="" data-sit_code="0" id="llanta-22" class="btn-neumatico btn btn-secondary">
                 <input type="radio" name="options" id="option22" autocomplete="off">22
             </label>
         </div>
@@ -231,8 +241,12 @@
             <thead>
             <tr>
                 <th scope="col" style="width: 5%;">Posición</th>
-                <th scope="col" style="width: 7%;">fh_alta</th>
-                <th scope="col" style="width: 15%;">KM Inical</th>
+                <th scope="col" style="width: 7%;">Fecha Instalación</th>
+                <th scope="col" style="width: 15%;">KM Instalación</th>
+
+                <th scope="col" style="width: 15%;">KM Recorridos / Vida Util </th>
+                <th scope="col" style="width: 15%;">PCT Vida Util </th>
+
                 <th scope="col" style="width: 15%;">No. Serie</th>
                 <th scope="col" style="width: 8%;">Descrip.</th>
                 <th scope="col" style="width: 8%;">Marca</th>

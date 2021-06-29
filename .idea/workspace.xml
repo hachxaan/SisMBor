@@ -19,18 +19,44 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e0074843-61a2-4bac-b21d-d2a6f08bf969" name="Default Changelist" comment="Inventario de Neumáticos&#10;Avances en Neumaticos admin">
+    <list default="true" id="e0074843-61a2-4bac-b21d-d2a6f08bf969" name="Default Changelist" comment="Version 2 -&gt; Neumaticos admin OK&#10;Inicia Reportes">
+      <change afterPath="$PROJECT_DIR$/OBTaller/static/libs/Query-contextMenu/dist/font/context-menu-icons.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/static/libs/Query-contextMenu/dist/font/context-menu-icons.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/static/libs/Query-contextMenu/dist/font/context-menu-icons.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/static/libs/Query-contextMenu/dist/font/context-menu-icons.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/static/libs/Query-contextMenu/dist/jquery.contextMenu.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/static/libs/Query-contextMenu/dist/jquery.contextMenu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/static/libs/Query-contextMenu/dist/jquery.contextMenu.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/static/libs/Query-contextMenu/dist/jquery.contextMenu.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/static/libs/Query-contextMenu/dist/jquery.contextMenu.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/static/libs/Query-contextMenu/dist/jquery.contextMenu.min.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/static/libs/Query-contextMenu/dist/jquery.ui.position.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/static/libs/Query-contextMenu/dist/jquery.ui.position.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/templates/Classes/reportes.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/templates/reportes_list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/views/reportes_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/middleware.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/middleware.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/artcode/js/utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/artcode/js/utils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/css/neumaticos-admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/css/neumaticos-admin.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/dtview_cuenta_abierta.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/dtview_cuenta_abierta.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/inventario.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/inventario.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-nueva.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-nueva.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-detalle.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-detalle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-editar.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-editar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/reumaticos-admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/reumaticos-admin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/MainSections/CSS.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/MainSections/CSS.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/MainSections/JS.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/MainSections/JS.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/templates/MainSections/MENU.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/MainSections/MENU.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/templates/neumaticos/neumaticos-admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/neumaticos/neumaticos-admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/views/StoreProcedures.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/StoreProcedures.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/views/inventario_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/inventario_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/views/neumaticos_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/neumaticos_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/views/orden_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/orden_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appMainSite/const.py" beforeDir="false" afterPath="$PROJECT_DIR$/appMainSite/const.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appMainSite/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/appMainSite/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +71,7 @@
       <list>
         <option value="JavaScript File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -85,11 +112,13 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/OBTaller/static/sismbor/js" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/OBTaller/tests.py" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
@@ -132,9 +161,9 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="R:\DESARROLLOS\Workana\Oscar Bordon Espinoza\V02\env\Scripts\python.exe" />
+      <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/OBTaller" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
@@ -160,7 +189,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/manage.py" />
-      <option name="PARAMETERS" value="runserver" />
+      <option name="PARAMETERS" value="runserver 9000" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -244,7 +273,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624468327027</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Version 1 -&gt; Neumaticos admin">
+      <created>1624499233245</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1624499233245</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -279,15 +315,22 @@
     <MESSAGE value="COMIT-1-LX&#10;REALISE 1&#10;DESARROLLO NEUMATICOS" />
     <MESSAGE value="Ok reloader" />
     <MESSAGE value="Inventario de Neumáticos&#10;Avances en Neumaticos admin" />
-    <option name="LAST_COMMIT_MESSAGE" value="Inventario de Neumáticos&#10;Avances en Neumaticos admin" />
+    <MESSAGE value="Version 1 -&gt; Neumaticos admin" />
+    <MESSAGE value="Version 2 -&gt; Neumaticos admin OK&#10;Inicia Reportes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Version 2 -&gt; Neumaticos admin OK&#10;Inicia Reportes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OBTaller/views/orden_view.py</url>
-          <line>373</line>
+          <line>383</line>
           <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/OBTaller/tests.py</url>
+          <line>34</line>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
