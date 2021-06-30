@@ -1,4 +1,4 @@
-
+import json
 import os
 import datetime as dt
 from datetime import timedelta
@@ -6,7 +6,8 @@ from distutils import debug
 
 
 from django.contrib.gis.db.backends import mysql
-from django.db import connections, connection
+
+from django.db import connection
 from django.db.models.functions import datetime
 from django.utils.datetime_safe import date
 
@@ -21,45 +22,70 @@ from OBTaller.models import *
 # Create your tests here.
 
 
+cursor = connection.cursor()
+cursor.execute('''SELECT * FROM vwr_servicio_unidad''')
+resp = cursor.fetchall()
+fieldsColums = []
+titleFields = []
+DESC = cursor.description
+for field in DESC:
+    fieldsColums.append({"data": field[0].lower()})
+    titleFields.append({"field_title": field[0]})
 
-placa = 'ABCD-1234'
-peKILOMETRAJE = 100
-peCVE_USU_ALTA = 'DEBUG'
-peNOMBRE_ENTREGA =  'pruebas...'
-peTX_REFERENCIA = ''
-psCOD_RESP = 0
-psSTR_RESP = 'old'
-# cursor=connection.cursor()
+print(fieldsColums)
+print(titleFields)
 
-try:
-    # cursor = connections["default"].cursor()
-    cursor =  connection.cursor()
-    try:
-        data = {}
-        kilometraje_int = int(peKILOMETRAJE)
-        if (kilometraje_int < 25000):
-            peKILOMETRAJE_PQ = 25000
-        else:
-            RetVecesVal = round(kilometraje_int / 25000)
-            peKILOMETRAJE_PQ = RetVecesVal * 25000
+# for row in resp:
+#     print(row)
+#     jsonObj = json.dumps(row)
+#     print(jsonObj)
+#
+# print(resp)
 
 
-        DataSet = Unidad.objects.filter(placa=placa).values( 'id_unidad')
-        peID_UNIDAD = DataSet[0]['id_unidad']
 
-        parameters = [peID_UNIDAD, peKILOMETRAJE, peKILOMETRAJE_PQ, peCVE_USU_ALTA, peNOMBRE_ENTREGA, peTX_REFERENCIA, psCOD_RESP, psSTR_RESP]
-        results = cursor.callproc('StpInsertaOrden', parameters)
-        cursor.execute('SELECT @_StpInsertaOrden_6, @_StpInsertaOrden_7')
-        resp = cursor.fetchall()
-        psCOD_RESP = resp[0][0]
-        psSTR_RESP = resp[0][1]
-
-        data = {'psCOD_RESP': psCOD_RESP, 'psSTR_RESP': psSTR_RESP}
-        # print(data)
-    except Exception as e:
-        data['error'] = str(e)
-finally:
-    cursor.close()
+################################################################################
+################################################################################
+# STORE PROCEDURE RESPUESTA
+#
+# placa = 'ABCD-1234'
+# peKILOMETRAJE = 100
+# peCVE_USU_ALTA = 'DEBUG'
+# peNOMBRE_ENTREGA =  'pruebas...'
+# peTX_REFERENCIA = ''
+# psCOD_RESP = 0
+# psSTR_RESP = 'old'
+# # cursor=connection.cursor()
+#
+# try:
+#     # cursor = connections["default"].cursor()
+#     cursor =  connection.cursor()
+#     try:
+#         data = {}
+#         kilometraje_int = int(peKILOMETRAJE)
+#         if (kilometraje_int < 25000):
+#             peKILOMETRAJE_PQ = 25000
+#         else:
+#             RetVecesVal = round(kilometraje_int / 25000)
+#             peKILOMETRAJE_PQ = RetVecesVal * 25000
+#
+#
+#         DataSet = Unidad.objects.filter(placa=placa).values( 'id_unidad')
+#         peID_UNIDAD = DataSet[0]['id_unidad']
+#
+#         parameters = [peID_UNIDAD, peKILOMETRAJE, peKILOMETRAJE_PQ, peCVE_USU_ALTA, peNOMBRE_ENTREGA, peTX_REFERENCIA, psCOD_RESP, psSTR_RESP]
+#         results = cursor.callproc('StpInsertaOrden', parameters)
+#         cursor.execute('SELECT @_StpInsertaOrden_6, @_StpInsertaOrden_7')
+#         resp = cursor.fetchall()
+#         psCOD_RESP = resp[0][0]
+#         psSTR_RESP = resp[0][1]
+#
+#         data = {'psCOD_RESP': psCOD_RESP, 'psSTR_RESP': psSTR_RESP}
+#         # print(data)
+#     except Exception as e:
+#         data['error'] = str(e)
+# finally:
+#     cursor.close()
 
 
 

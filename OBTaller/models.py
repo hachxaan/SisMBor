@@ -828,7 +828,27 @@ class Reportes(models.Model):
     desc_reporte = models.CharField(db_column='DESC_REPORTE', max_length=128)  # Field name made lowercase.
     vista = models.CharField(db_column='VISTA', max_length=45)  # Field name made lowercase.
     activo = models.CharField(db_column='ACTIVO', max_length=45)  # Field name made lowercase.
+    nom_file = models.CharField(db_column='NOM_FILE', max_length=128)  # Field name made lowercase.
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
 
     class Meta:
         managed = False
         db_table = 'reportes'
+
+
+class VwrServicioUnidad(models.Model):
+    id = models.PositiveBigIntegerField(db_column='ID', primary_key=True)
+    placa = models.CharField(db_column='Placa', max_length=16, db_collation='utf8_general_ci', blank=True, null=True)
+    servicios = models.BigIntegerField(db_column='Servicios')  # Field name made lowercase.
+    fecha = models.CharField(db_column='Fecha', max_length=16, blank=True, null=True)
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'vwr_servicio_unidad'

@@ -20,43 +20,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0074843-61a2-4bac-b21d-d2a6f08bf969" name="Default Changelist" comment="Version 2 -&gt; Neumaticos admin OK&#10;Inicia Reportes">
-      <change afterPath="$PROJECT_DIR$/OBTaller/static/libs/Query-contextMenu/dist/font/context-menu-icons.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/static/libs/Query-contextMenu/dist/font/context-menu-icons.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/static/libs/Query-contextMenu/dist/font/context-menu-icons.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/static/libs/Query-contextMenu/dist/font/context-menu-icons.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/static/libs/Query-contextMenu/dist/jquery.contextMenu.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/static/libs/Query-contextMenu/dist/jquery.contextMenu.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/static/libs/Query-contextMenu/dist/jquery.contextMenu.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/static/libs/Query-contextMenu/dist/jquery.contextMenu.min.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/static/libs/Query-contextMenu/dist/jquery.contextMenu.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/static/libs/Query-contextMenu/dist/jquery.contextMenu.min.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/static/libs/Query-contextMenu/dist/jquery.ui.position.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/static/libs/Query-contextMenu/dist/jquery.ui.position.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/templates/Classes/reportes.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/templates/reportes_list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/views/reportes_view.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/reportes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_21_06_21_17_11_[Default_Changelist]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_21_06_21_17_11__Default_Changelist_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_21_06_21_17_23_[Default_Changelist]1/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_21_06_21_17_23__Default_Changelist_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_06_21_17_17_[Default_Changelist]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_06_21_17_17__Default_Changelist_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_06_21_17_20_[Default_Changelist]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_06_21_17_20__Default_Changelist_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/middleware.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/middleware.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/static/artcode/js/utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/artcode/js/utils.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/css/neumaticos-admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/css/neumaticos-admin.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/dtview_cuenta_abierta.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/dtview_cuenta_abierta.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/inventario.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/inventario.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-detalle.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-detalle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-editar.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-editar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/libs/Query-contextMenu/dist/jquery.contextMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/libs/Query-contextMenu/dist/jquery.contextMenu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/buscador-unidad.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/buscador-unidad.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/list-cat-unidad.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/list-cat-unidad.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/reumaticos-admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/reumaticos-admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/MainSections/CSS.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/MainSections/CSS.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/MainSections/JS.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/MainSections/JS.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/Classes/reportes.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/Classes/reportes.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/templates/MainSections/MENU.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/MainSections/MENU.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/neumaticos/neumaticos-admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/neumaticos/neumaticos-admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/reportes_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/reportes_list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/views/StoreProcedures.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/StoreProcedures.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/views/inventario_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/inventario_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/views/neumaticos_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/neumaticos_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/views/orden_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/orden_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appMainSite/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/appMainSite/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/views/reportes_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/reportes_view.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -280,7 +265,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624499233245</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Version 2 -&gt; Neumaticos admin OK&#10;Inicia Reportes">
+      <created>1624926902747</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1624926902747</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -323,14 +315,19 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/OBTaller/views/orden_view.py</url>
-          <line>383</line>
-          <option name="timeStamp" value="12" />
+          <url>file://$PROJECT_DIR$/OBTaller/tests.py</url>
+          <line>60</line>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OBTaller/tests.py</url>
-          <line>34</line>
-          <option name="timeStamp" value="22" />
+          <line>24</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/OBTaller/tests.py</url>
+          <line>42</line>
+          <option name="timeStamp" value="41" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -341,5 +338,10 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="data" language="Python" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

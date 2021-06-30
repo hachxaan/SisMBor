@@ -1,5 +1,6 @@
 $(function () {
     // console.log(window.location.pathname)
+//
     $('#data').DataTable({
         language: {
                 url: '../../static/libs/datatables-es.json'

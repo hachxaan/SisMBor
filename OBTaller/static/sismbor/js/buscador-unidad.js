@@ -71,22 +71,23 @@ $(function () {
             initComplete: function (settings, json) {
             }
         });
+//        $('#dtBuscador tbody').on('click', function () {
         $('#dtBuscador tbody').on('click', 'td', function () {
-        var table = $('#dtBuscador').DataTable();
-        var colIdx = table.cell(this).index().column;
-        var rowIdx = table.cell(this).index().row;
+            var table = $('#dtBuscador').DataTable();
+            var colIdx = table.cell(this).index().column;
+            var rowIdx = table.cell(this).index().row;
 
-        if ($($(this).parent()).hasClass('selected')) {
-            let placa = $(table.cells(rowIdx, 2).nodes()).text();
-            $("#edtPlaca").val(placa);
-            pValidaPlaca(placa);
-            if (window.location.pathname.indexOf('neumaticosadmin') > -1 ) {
-                pLoadPosicionesDT(placa);
+            if ($($(this).parent()).hasClass('selected')) {
+                let placa = $(table.cells(rowIdx, 2).nodes()).text();
+                $("#edtPlaca").val(placa);
+                pValidaPlaca(placa);
+                if (window.location.pathname.indexOf('neumaticosadmin') > -1 ) {
+                    pLoadPosicionesDT(placa);
+                }
+                $("#BuscarUnidadModal").modal('hide');
+
             }
-            $("#BuscarUnidadModal").modal('hide');
-
-        }
-    });
+        });
     });
 
 });

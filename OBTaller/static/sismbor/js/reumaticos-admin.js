@@ -1,7 +1,62 @@
 
 "use strict"
 var cNameDT_NeumaticosAdmin = '#dtNeumaticosAdmin';
+
+function contextMenuCreate(){
+    $.contextMenu({
+        selector: '.btn-neumatico',
+        build : function ($trigger, e) {
+                console.log({"e":e})
+                var posicion = $(e['target']).data('posicion');
+                var id_posicion = $(e['target']).data('id_posicion');
+                var sit_code = $(e['target']).data('sit_code');
+                var btnInstall = {}
+                var btnUninstall = {}
+                switch (parseInt(sit_code)) {
+                        case 0: {
+                                btnInstall =  { name: "Instalar neumático", icon: "fas fa-arrow-up" }
+                            break;
+                        }
+                        case 1: {
+                                btnUninstall =  { name: "Desainstalar Neumático", icon: "fas fa-arrow-down" }
+                            break;
+                        }
+                        default:
+                            btnInstall = {}
+                            btnUninstall = {}
+						break;
+                }
+                return {
+                    callback: function (key, options) {
+                        if (key=='install'){
+                            sessionStorage.setItem("neumaticos_admin-posision", posicion);
+                            pAsignaNeumatico();
+
+                        }
+                        if (key=='uninstall'){
+                            pDesinstalaNeumatico(id_posicion);
+                        }
+                    },
+                    items: {
+                        "install": btnInstall,
+                        "uninstall": btnUninstall,
+                        "status": {
+                            name: "Notas",
+                            icon: "fas fa-file-alt",
+                            items: {
+                                "add_nota": { name: "Agregar Nota", icon: "fas fa-folder-plus"},
+                                "view_nota": { name: "Ver Notas", icon: "fas fa-folder-open"},
+                            }
+                        }
+                    }
+                };
+            },
+        trigger: 'left',
+    });
+}
+
 $(function () {
+//    location.reload(true);
 
     $('#cbNeumaticos').on('change', function(e) {
 
@@ -35,6 +90,7 @@ $(function () {
         var km = $('#edtKilometrajeSet').val();
         if (km !== ''){
             if (esEntero(km)) {
+
                 pLoadPosicionesDT($('#edtPlaca').val());
             }
         }
@@ -186,10 +242,19 @@ function pLoadPosicionesDT(placa){
             },
             data: _parameters,
             dataSrc: "",
+
+            success:function(response){
+//                $('#diagrama').replaceWith($("#diagrama",response))
+
+                console.log('response');
+                console.log(response);
+            },
             statusCode: {
             200: function(data) {
 
                 sessionStorage.setItem('unidad_neumatico', JSON.stringify(data));
+                console.log('data 200');
+                console.log(data);
                 pLoadDiagrama(data);
             },
           }
@@ -316,16 +381,31 @@ function pLoadPosicionesDT(placa){
 
 
 function pLoadDiagrama(data){
+
     $('.btn-neumatico').removeClass('btn-warning');
     $('.btn-neumatico').addClass('btn-secondary');
+
+
     if (data.length > 0){
+        for( var num_llanta = 1; num_llanta <= 22;num_llanta++ ){
+
+            $('#llanta-'+num_llanta.toString()).removeClass('btn-warning');
+            $('#llanta-'+num_llanta.toString()).addClass('btn-secondary');
+            $('#llanta-'+num_llanta.toString()).data('id_posicion', num_llanta);
+            $('#llanta-'+num_llanta.toString()).data('sit_code', '0');
+
+        }
         data.forEach(function(rowJSON, r_index) {
+            console.log(rowJSON);
+//            console.log({'sit_code', rowJSON.sit_code})
+//            console.log({'id_posicion', rowJSON.id_posicion})
             $('#llanta-'+rowJSON.cons).removeClass('btn-secondary');
             $('#llanta-'+rowJSON.cons).addClass('btn-warning');
             $('#llanta-'+rowJSON.cons).data('id_posicion', rowJSON.id_posicion);
             $('#llanta-'+rowJSON.cons).data('sit_code', rowJSON.sit_code);
 
        });
+       contextMenuCreate();
     } else {
 
 
@@ -339,7 +419,7 @@ function pLoadDiagrama(data){
 function pValidaPlaca(placa) {
     if (placa.length > 0) {
         var _parameters = {'placa': placa, 'action': 'searchdata', 'owner': 'neumaticos-admin'}
-        _ajax('/getInfoUnidad/', _parameters, function (data) {
+        _ajax('/getInfoUnidad/?_=' + new Date().getTime(), _parameters, function (data) {
             if (data.length > 0) {
                 sessionStorage.setItem('placa', data[0].placa);
                 if ((data[0].kilometraje_current !== '') && (data[0].kilometraje_current !== null)) {
@@ -374,7 +454,7 @@ function pValidaPlaca(placa) {
                 $("#kilometraje_ult").val(data[0].kilometraje_ult);
                 $("#folio_ult").val(data[0].folio_ult);
                 $("#nombre_entrega_ult").val(data[0].nombre_entrega_ult);
-
+                console.log('response: getInfoUnidad/ pLoadPosicionesDT');
                 pLoadPosicionesDT(data[0].placa);
 
             } else {
@@ -441,69 +521,7 @@ $(function () {
 
     });
 
-    $.contextMenu({
-        selector: '.btn-neumatico',
-        build : function ($trigger, e) {
-                var posicion = $(e['target']).data('posicion');
-                var id_posicion = $(e['target']).data('id_posicion');
-                var sit_code = $(e['target']).data('sit_code');
-                var btnInstall = {}
-                var btnUninstall = {}
-                switch (parseInt(sit_code)) {
-                        case 0: {
-                                btnInstall =  { name: "Instalar neumático", icon: "fas fa-arrow-up" }
-                            break;
-                        }
-                        case 1: {
-                                btnUninstall =  { name: "Desainstalar Neumático", icon: "fas fa-arrow-down" }
-                            break;
-                        }
-                        default:
-                            btnInstall = {}
-                            btnUninstall = {}
-						break;
-                }
-                return {
-                    callback: function (key, options) {
-                        if (key=='install'){
-                            sessionStorage.setItem("neumaticos_admin-posision", posicion);
-                            pAsignaNeumatico();
 
-                        }
-                        if (key=='uninstall'){
-                            pDesinstalaNeumatico(id_posicion);
-                        }
-                    },
-                    items: {
-                        "install": btnInstall,
-                        "uninstall": btnUninstall,
-                        "status": {
-                            name: "Notas",
-                            icon: "fas fa-file-alt",
-                            items: {
-                                "add_nota": { name: "Agregar Nota", icon: "fas fa-folder-plus"},
-                                "view_nota": { name: "Ver Notas", icon: "fas fa-folder-open"},
-                            }
-                        }
-                    }
-                };
-            },
-
-        trigger: 'left',
-        callback: function(key, options) {
-            var m = "clicked: " + key;
-            window.console && console.log(m) || alert(m);
-        },
-//        items: {
-//            "edit": {name: "Edit", icon: "fa-arrow-up"},
-//            "cut": {name: "Cut", icon: "cut"},
-//            "copy": {name: "Copy", icon: "copy"},
-//            "paste": {name: "Paste", icon: "paste"},
-//            "delete": {name: "Delete", icon: "delete"},
-//            "sep1": "---------",
-//            "quit": {name: "Quit", icon: function($element, key, item){ return 'context-menu-icon context-menu-icon-quit'; }}
-//        }
-    });
 
 });
 

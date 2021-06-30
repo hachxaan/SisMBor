@@ -81,44 +81,23 @@
     <script src="{% static 'libs/datatables-1.10.24/plugins/Scroller-2.0.3/js/scroller.bootstrap4.js' %}" type="text/javascript"></script>
     <script src="{% static 'libs/datatables-1.10.24/plugins/Scroller-2.0.3/js/dataTables.scroller.min.js' %}"  type="text/javascript"></script>
 
+
+
     {% block scripts_lista %}
     {% endblock %}
 
     <script type="application/javascript">
-        $(function () {
-            'use strict';
-            console.log('dsadasdsadasdasd asdsgdsgdfsgsdf gfsdgs sgfdg dfgds fgfdgdfgfd gsgsd');
-            const cNameDT_Reportes = '#data';
-            $(document).ready(function ($) {
-
-                $(cNameDT_Reportes).DataTable({
-                    language: {
-                        url: '../../static/libs/datatables-es_orde-editar.json'
-                    },
-                    responsive: true,
-                    autoWidth: false,
-                    destroy: true,
-                    select: true,
-                    deferRender: true,
-                    ajax: {
-                        url: window.location.pathname,
-                        type: 'POST',
-                        beforeSend: function (request) {
-                            request.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-                        },
-                        data: {
-                            'action': 'searchdata',
-                            'id_reporte' : {{ id_reporte }}
-                        },
-                        dataSrc: ""
-                    },
-                    columns: {{ fieldsColums|safe }},
-                    initComplete: function (settings, json) {
-
-                    }
-                 });
-            });
-        });
+            sessionStorage.setItem('id_reporte', {{ id_reporte }});
+            sessionStorage.setItem('fieldsColums', JSON.stringify({{ fieldsColums|safe }}));
+            sessionStorage.setItem('titulo_reporte', "{{ titulo_reporte }}");
+            sessionStorage.setItem('filename', "{{ filename }}");
     </script>
 
+    <script src="{% static 'sismbor/js/reportes.js' %}"  type="text/javascript"></script>
 {% endblock %}
+<!--{{ titulo_reporte }}-->
+<!--        pSetSessionsReportes({{ id_reporte }}, {{ fieldsColums|safe }}, {{ titulo_reporte }})-->
+<!--        function pSetSessionsReportes(id_reporte, fieldsColums, atitulo_reporte){-->
+<!--            consolo.log('rrrrrrrrrrrrr');-->
+<!--            consolo.log(atitulo_reporte);-->
+<!--            consolo.log('ssssssssssssssssss');-->

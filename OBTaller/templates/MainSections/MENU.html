@@ -138,7 +138,9 @@
                     <ul class="pl-4 nav nav-treeview loading-click">
                         {% for reporte in datasetReportes %}
                             <li class=" loading-click">
-                                <a data-id_reporte="{{ reporte.id_reporte }}" href="{% url 'OBTaller:reportes_view' reporte.id_reporte %}" class="nav-link {{ reporte.vista }}">
+                                <a data-id_reporte="{{ reporte.id_reporte }}"
+                                   href="{% url 'OBTaller:reportes_view' reporte.id_reporte %}"
+                                   class="nav-link {{ reporte.vista }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>{{ reporte.titulo_reporte }} </p>
                                 </a>
