@@ -32,8 +32,7 @@ for field in DESC:
     fieldsColums.append({"data": field[0].lower()})
     titleFields.append({"field_title": field[0]})
 
-print(fieldsColums)
-print(titleFields)
+
 
 # for row in resp:
 #     print(row)

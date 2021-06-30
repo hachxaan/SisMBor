@@ -112,7 +112,7 @@ class NeumaticosAdmin( ListView ):
             if UnidadNeumatico.objects.filter(no_serie=no_serie).exists():
                 data['error'] = 'Ya existe neumático asignado a una unidad con el número de serie ['+no_serie+'].'
             else:
-                if UnidadNeumatico.objects.filter(id_unidad=id_unidad, posicion=posicion).exists():
+                if UnidadNeumatico.objects.filter(id_unidad=id_unidad, posicion=posicion, sit_code=1).exists():
                     data['error'] = 'Ya existe neumático en esta posición, seleccione actualizar neumático.'
                 else:
                     status = dataSet[0]['status']

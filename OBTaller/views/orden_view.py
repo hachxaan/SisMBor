@@ -273,7 +273,7 @@ class OrdenListaEditar( ListView ):
         context['nombre_entrega']= nombre_entrega
         context['nombre_empresa']= nombre_empresa
 #        context['url_prev']=prev + '?row_num=' + row_num
-        print({"prev":prev_old})
+#         print({"prev":prev_old})
         context['url_prev'] = self.request.GET['prev'] + '?row_num=' +row_num +'&prev=' +prev+'&modelo=' +modelo+ '&placa=' + placa + '&kilometraje=' + kilometraje +'&nombre_entrega='+nombre_entrega +'&folio='+folio+'&nombre_empresa='+nombre_empresa
 
         return context
@@ -295,7 +295,7 @@ class OrdenListaDetalle( ListView ):
 
                 id_tipo_concepto = request.POST['id_tipo_concepto']
                 data=[]
-                print({"id_tipo_concepto": id_tipo_concepto})
+                # print({"id_tipo_concepto": id_tipo_concepto})
                 for i in WConceptosMain.objects.filter(id_tipo_concepto=id_tipo_concepto):
                     item=i.toJSON()
                     data.append( item )

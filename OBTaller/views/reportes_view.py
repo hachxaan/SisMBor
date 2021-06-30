@@ -84,10 +84,6 @@ class ReportesView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListView
                 titleFields.append({"field_title": field[0]})
 
 
-        print(fieldsColums)
-        print(titleFields)
-        print(titulo_reporte)
-
         context['titulo_reporte'] = titulo_reporte
         context['filename'] = filename
         context['width'] = width
