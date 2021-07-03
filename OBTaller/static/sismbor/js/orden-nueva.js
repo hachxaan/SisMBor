@@ -75,7 +75,7 @@ function pValidaPlaca( placa ){
 
                     $("#edtUnidad").val(data[0].id_unidad);
                     $("#edtEmpresa").val(data[0].nombre_empresa);
-                    $("#edtRup").val(data[0].rup);
+                    $("#edtRuc").val(data[0].ruc);
                     $("#edtTelefono").val(data[0].telefono_contacto);
                     $("#edtCelular").val(data[0].celular_contacto);
                     $("#edtDireccion").val(data[0].direccion);
@@ -93,7 +93,7 @@ function pValidaPlaca( placa ){
 
                     $("#edtUnidad").val('');
                     $("#edtEmpresa").val('');
-                    $("#edtRup").val('');
+                    $("#edtRuc").val('');
                     $("#edtTelefono").val('');
                     $("#edtCelular").val('');
                     $("#edtDireccion").val('');

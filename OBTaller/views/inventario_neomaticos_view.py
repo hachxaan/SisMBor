@@ -45,8 +45,10 @@ class InventarioNeumaticosView(LoginRequiredMixin, ValidatePermissionRequiredMix
                 for i in WConceptosMain.objects.filter(id_tipo_concepto= const.TCONCEPTO_NEUMATICOS):
                     data.append(i.toJSON())
             else:
+                data = {}
                 data['error'] = 'Ha ocurrido un error'
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
 
@@ -93,8 +95,10 @@ class InventarioNeumaticosCreateView(LoginRequiredMixin, ValidatePermissionRequi
                 form = self.get_form()
                 data = form.save()
             else:
+                data = {}
                 data['error'] = 'No ha ingresado a ninguna opción'
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return JsonResponse(data)
 
@@ -135,8 +139,10 @@ class InventarioNeumaticosUpdateView(LoginRequiredMixin, ValidatePermissionRequi
                 form = self.get_form()
                 data = form.save()
             else:
+                data = {}
                 data['error'] = 'No ha ingresado a ninguna opción'
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return JsonResponse(data)
 
@@ -176,6 +182,7 @@ class InventarioNeumaticosDeleteView(LoginRequiredMixin, ValidatePermissionRequi
         try:
             self.object.delete()
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return JsonResponse(data)
 

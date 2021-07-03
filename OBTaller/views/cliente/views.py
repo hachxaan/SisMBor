@@ -38,6 +38,7 @@ class ClienteListView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListV
             else:
                 data['error'] = 'Ha ocurrido un error'
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
 
@@ -71,8 +72,10 @@ class ClienteCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Cre
                 form = self.get_form()
                 data = form.save()
             else:
+                data = {}
                 data['error'] = 'No ha ingresado a ninguna opción'
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return JsonResponse(data)
 
@@ -115,8 +118,10 @@ class ClienteUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Upd
                 form = self.get_form()
                 data = form.save()
             else:
+                data = {}
                 data['error'] = 'No ha ingresado a ninguna opción'
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return JsonResponse(data)
 
@@ -153,6 +158,7 @@ class ClienteDeleteView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Del
         try:
             self.object.delete()
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return JsonResponse(data)
 

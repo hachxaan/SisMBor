@@ -54,8 +54,10 @@ class UnidadListView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListVi
                         for i in WbUnidad.objects.all():
                             data.append(i.toJSON())
                 else:
+                    data = {}
                     data['error'] = 'Ha ocurrido un error'
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
 
@@ -104,8 +106,10 @@ class UnidadCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Crea
                 data = form.save()
                 data['placa'] = form.data['placa']
             else:
+                data = {}
                 data['error'] = 'No ha ingresado a ninguna opción'
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return JsonResponse(data)
 
@@ -138,8 +142,10 @@ class UnidadUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Upda
                 form = self.get_form()
                 data = form.save()
             else:
+                data = {}
                 data['error'] = 'No ha ingresado a ninguna opción'
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return JsonResponse(data)
 
@@ -177,6 +183,7 @@ class UnidadDeleteView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Dele
         try:
             self.object.delete()
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return JsonResponse(data)
 

@@ -54,8 +54,10 @@ class ReportesView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListView
                     data.append(item)
 
             else:
+                data = {}
                 data['error'] = 'Ha ocurrido un error'
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
 

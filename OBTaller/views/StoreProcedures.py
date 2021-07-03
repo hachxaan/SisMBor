@@ -37,6 +37,7 @@ def StpInsOrden(request):
 
             data = {'psCOD_RESP': psCOD_RESP, 'psSTR_RESP': psSTR_RESP}
         except Exception as e:
+            data = {}
             data['error'] = str(e)
     finally:
         cursor.close()
@@ -83,6 +84,7 @@ def StpInsBitInventario(request):
 
             data = {'psCOD_RESP': psCOD_RESP, 'psSTR_RESP': psSTR_RESP}
         except Exception as e:
+            data = {}
             data['error'] = str(e)
     finally:
         cursor.close()

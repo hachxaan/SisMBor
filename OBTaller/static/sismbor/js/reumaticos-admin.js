@@ -3,6 +3,7 @@
 var cNameDT_NeumaticosAdmin = '#dtNeumaticosAdmin';
 
 function contextMenuCreate(){
+"use strict"
     $.contextMenu({
         selector: '.btn-neumatico',
         build : function ($trigger, e) {
@@ -56,6 +57,7 @@ function contextMenuCreate(){
 }
 
 $(function () {
+"use strict"
 //    location.reload(true);
 
     $('#cbNeumaticos').on('change', function(e) {
@@ -76,7 +78,7 @@ $(function () {
 
 
     $("#AsignaNeumaticoModal").on('shown.bs.modal', function (event) {
-        folio_current = $('#folio_current').val();
+        var folio_current = $('#folio_current').val();
         $(this).find('#folio_asignar').val(folio_current);
 
         if ( folio_current == '') {
@@ -163,6 +165,7 @@ $(function () {
 })
 
 function pDesinstalaNeumatico(id_posicion){
+"use strict"
     var _parameters = {'action': 'pDesinstalaNeumatico', 'id_posicion': id_posicion}
     ajax_confirm(window.location.pathname, 'Confirmar', '¿Desinstalar el neumático de la unidad?', _parameters, function(e){
         ajax_reload(cNameDT_NeumaticosAdmin);
@@ -170,6 +173,7 @@ function pDesinstalaNeumatico(id_posicion){
 }
 
 function pAsignaNeumatico(){
+"use strict"
     var unidad_neumatico = JSON.parse(sessionStorage.getItem("unidad_neumatico"));
     var posision = sessionStorage.getItem("neumaticos_admin-posision");
     if (unidad_neumatico !== []) {
@@ -219,7 +223,7 @@ function pAsignaNeumatico(){
 }
 
 function pLoadPosicionesDT(placa){
-
+"use strict"
     var _parameters = {'placa': placa, 'action': 'searchdata', 'owner': 'neumaticos-admin'}
     $(cNameDT_NeumaticosAdmin).DataTable({
         language: {
@@ -243,12 +247,6 @@ function pLoadPosicionesDT(placa){
             data: _parameters,
             dataSrc: "",
 
-            success:function(response){
-//                $('#diagrama').replaceWith($("#diagrama",response))
-
-                console.log('response');
-                console.log(response);
-            },
             statusCode: {
             200: function(data) {
 
@@ -381,7 +379,7 @@ function pLoadPosicionesDT(placa){
 
 
 function pLoadDiagrama(data){
-
+"use strict"
     $('.btn-neumatico').removeClass('btn-warning');
     $('.btn-neumatico').addClass('btn-secondary');
 
@@ -417,8 +415,10 @@ function pLoadDiagrama(data){
 
 
 function pValidaPlaca(placa) {
+"use strict"
     if (placa.length > 0) {
         var _parameters = {'placa': placa, 'action': 'searchdata', 'owner': 'neumaticos-admin'}
+        console.log({"pValidaPlaca-placa":placa});
         _ajax('/getInfoUnidad/?_=' + new Date().getTime(), _parameters, function (data) {
             if (data.length > 0) {
                 sessionStorage.setItem('placa', data[0].placa);
@@ -465,7 +465,7 @@ function pValidaPlaca(placa) {
 
                 $("#edtUnidad").val('');
                 $("#edtEmpresa").val('');
-                $("#edtRup").val('');
+                $("#edtRuc").val('');
                 $("#edtTelefono").val('');
                 $("#edtCelular").val('');
                 $("#edtDireccion").val('');

@@ -63,6 +63,7 @@ function _ajax(url, parameters, callback) {
         // processData: false,
         // contentType: false,
     }).done(function (data) {
+        console.log({"_ajax:data":data});
         if (!data.hasOwnProperty('error')) {
             if (data.hasOwnProperty('msgInfo')) {
                 message_info(data.msgInfo, callback, data);
@@ -94,7 +95,7 @@ function _ajax(url, parameters, callback) {
             callback(data);
             return false;
         }
-
+        console.log({"data['error']":data.error});
         if (data['error'].indexOf('1062') == 1) {
             message_error('Registro duplicado ' + data['info_datos']);
         } else {

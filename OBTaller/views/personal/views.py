@@ -37,8 +37,10 @@ class PersonalListView(LoginRequiredMixin, ValidatePermissionRequiredMixin, List
                 for i in Personal.objects.all():
                     data.append(i.toJSON())
             else:
+                data = {}
                 data['error'] = 'Ha ocurrido un error'
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
 
@@ -73,8 +75,10 @@ class PersonalCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Cr
                 form.instance.cve_usu_alta = request.user.username
                 data = form.save()
             else:
+                data = {}
                 data['error'] = 'No ha ingresado a ninguna opción'
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return JsonResponse(data)
 
@@ -114,8 +118,10 @@ class PersonalUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Up
                 form = self.get_form()
                 data = form.save()
             else:
+                data = {}
                 data['error'] = 'No ha ingresado a ninguna opción'
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return JsonResponse(data)
 
@@ -152,6 +158,7 @@ class PersonalDeleteView(LoginRequiredMixin, ValidatePermissionRequiredMixin, De
         try:
             self.object.delete()
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return JsonResponse(data)
 

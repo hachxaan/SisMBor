@@ -105,6 +105,7 @@ class OrdenListaEditar( ListView ):
                 data['error']='Esta orden ya no se puede editar'
 
         except Exception as e:
+            data = {}
             data['error']=str( e )
         return JsonResponse( data, safe=False )
 
@@ -179,6 +180,7 @@ class OrdenListaEditar( ListView ):
         data=[]
 
         if ((stock == 0) & (id_tipo_concepto == TCONCEPTO_REPUESTOS )):
+            data = {}
             data['error']='Sin Stock. Agregue stock en Inventario.'
         else:
 
@@ -324,6 +326,7 @@ class OrdenListaDetalle( ListView ):
                     data.append( item )
 
         except Exception as e:
+            data = {}
             data['error']=str( e )
         return JsonResponse( data, safe=False )
 
@@ -385,7 +388,7 @@ class OrdenListaDetalle( ListView ):
         # try:
         data=[]
         if (stock == 0):
-
+            data = {}
             data['error']='Sin Stock. Agregue stock en Inventario.'
         else:
             folio=request.POST['folio']
@@ -512,6 +515,7 @@ class WCuentaAbiertaListView( ListView ):
             # else:
             #     data['error']='Ha ocurrido un error'
         except Exception as e:
+            data = {}
             data['error']=str( e )
         return JsonResponse( data, safe=False )
 

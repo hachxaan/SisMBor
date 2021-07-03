@@ -18,7 +18,7 @@ $(function () {
         },
         columns: [
             {"data": "id_cliente"},
-            {"data": "rup"},
+            {"data": "ruc"},
             {"data": "nombre_empresa"},
             {"data": "nombre"},
             {"data": "telefono_contacto"},

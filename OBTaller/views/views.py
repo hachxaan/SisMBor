@@ -87,6 +87,7 @@ def SetParametros(request):
                 parametro.valor=valor
                 parametro.save()
         except Exception as e:
+            data = {}
             data['error']=str( e )
         return JsonResponse( data, safe=False )
 
@@ -109,7 +110,9 @@ def getInfoUnidad(request):
                         data.append( i.toJSON() )
 
         except Exception as e:
+            data = {}
             data['error']=str( e )
+
         return JsonResponse( data, safe=False )
 
 

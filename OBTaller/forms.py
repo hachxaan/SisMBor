@@ -15,7 +15,7 @@ class ClienteForm(ModelForm):
         #     form.field.widget.attrs['autocomplete'] = 'off'
         self.fields['cve_usu_alta'].widget = forms.HiddenInput()
         self.fields['fh_registro'].widget = forms.HiddenInput()
-        self.fields['rup'].widget.attrs['autofocus'] = True
+        self.fields['ruc'].widget.attrs['autofocus'] = True
         self.fields['telefono_contacto'].required = True
         self.fields['nombre_empresa'].required = True
         self.fields['celular_contacto'].required = True
@@ -26,10 +26,10 @@ class ClienteForm(ModelForm):
 
     class Meta:
         model = Cliente
-        fields = ['cve_usu_alta', 'fh_registro', 'id_cliente', 'rup', 'nombre_empresa', 'telefono_contacto',
+        fields = ['cve_usu_alta', 'fh_registro', 'id_cliente', 'ruc', 'nombre_empresa', 'telefono_contacto',
                   'celular_contacto', 'correo_electronico', 'direccion', 'nombre', 'apellido']
         widgets = {
-            'rup': TextInput(
+            'ruc': TextInput(
                 attrs={
                     'placeholder': 'Ingrese el Registro Unico de Proponentes',
                 }
@@ -49,8 +49,10 @@ class ClienteForm(ModelForm):
             if form.is_valid():
                 form.save()
             else:
+                data = {}
                 data['error'] = form.errors
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return data
 
@@ -84,8 +86,10 @@ class UnidadForm(forms.ModelForm):
             if form.is_valid():
                 form.save()
             else:
+                data = {}
                 data['error'] = form.errors
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return data
 
@@ -184,8 +188,10 @@ class ManobraForm(forms.ModelForm):
             if form.is_valid():
                 form.save()
             else:
+                data = {}
                 data['error'] = form.errors
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return data
 
@@ -286,8 +292,10 @@ class MantenimientoForm(forms.ModelForm):
             if form.is_valid():
                 form.save()
             else:
+                data = {}
                 data['error'] = form.errors
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return data
 
@@ -455,8 +463,10 @@ class InventarioForm(forms.ModelForm):
             if form.is_valid():
                 form.save()
             else:
+                data = {}
                 data['error'] = form.errors
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return data
 
@@ -606,8 +616,10 @@ class InventarioFormEdit(forms.ModelForm):
             if form.is_valid():
                 form.save()
             else:
+                data = {}
                 data['error'] = form.errors
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return data
 
@@ -643,8 +655,10 @@ class PersonalForm(ModelForm):
             if form.is_valid():
                 form.save()
             else:
+                data = {}
                 data['error'] = form.errors
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return data
 
@@ -800,8 +814,10 @@ class InventarioNeumaticosForm(forms.ModelForm):
             if form.is_valid():
                 form.save()
             else:
+                data = {}
                 data['error'] = form.errors
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return data
 
@@ -951,6 +967,7 @@ class InventarioNeumaticosFormEdit(forms.ModelForm):
             if form.is_valid():
                 form.save()
             else:
+                data = {}
                 data['error'] = form.errors
         except Exception as e:
             data['error'] = str(e)

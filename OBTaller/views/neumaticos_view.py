@@ -44,7 +44,8 @@ class NeumaticosAdmin( ListView ):
             # else:
             #     data['error']='Esta orden ya no se puede editar'
         except Exception as e:
-                data['error']=str( e )
+            data = {}
+            data['error']=str( e )
         return JsonResponse( data, safe=False )
 
     def pInsOrdenDetalle(self, folio, id_concepto, no_serie, username, id_posicion):

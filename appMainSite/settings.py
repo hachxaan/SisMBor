@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-132+-6o**fxw)7h!)o#0i(wvs%cm_9tivdj3+=q$&rdyg@8yn5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['18.223.162.255', '192.168.5.2', '127.0.0.1', 'yonk-e', '18.223.167.9', 'localhost']
+ALLOWED_HOSTS = ['192.168.1.71', '18.223.162.255', '192.168.5.2', '127.0.0.1', 'yonk-e', '18.223.167.9', 'localhost']
 
 
 # Application definition
@@ -84,27 +84,27 @@ WSGI_APPLICATION = 'appMainSite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'sismbor',
-#         'USER': 'admin',
-#         'PASSWORD': '123456',
-#         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-#         'PORT': '3306',
-#     }
-# }
-
 DATABASES = {
-     'default': {
-         'ENGINE': 'django.db.backends.mysql',
-         'NAME': 'sismbor',
-         'USER': 'admin',
-         'PASSWORD': 'CveDb.123456',
-         'HOST': 'database-hotelweb.cjg26m5mzcaw.us-east-2.rds.amazonaws.com',   # Or an IP Address that your DB is hosted on
-         'PORT': '3306',
-     }
- }
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'sismbor',
+        'USER': 'admin',
+        'PASSWORD': '123456',
+        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
+    }
+}
+
+# DATABASES = {
+#      'default': {
+#          'ENGINE': 'django.db.backends.mysql',
+#          'NAME': 'sismbor',
+#          'USER': 'admin',
+#          'PASSWORD': 'CveDb.123456',
+#          'HOST': 'database-hotelweb.cjg26m5mzcaw.us-east-2.rds.amazonaws.com',   # Or an IP Address that your DB is hosted on
+#          'PORT': '3306',
+#      }
+#  }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

@@ -189,10 +189,10 @@ $(function () {
                     var $RowD = $('<div class="row elRow"></div>');
                     $RowD.append(`<div class="col-xl-3 col-lg-6 col-md-6 col-sm-12"><span> Conceptos: </span><a >${row['no_conceptos']}</a></div>`);
                     $RowD.append(`<div class="col-xl-3 col-lg-6 col-md-6 col-sm-12"><span> Cuenta: </span><a >${row['cuenta_formato']}</a></div>`);
-                    $RowD.append(`<div class="col-xl-3 col-lg-6 col-md-6 col-sm-12"><span> Entregó: </span><a> ${row['nombre_entrega']}  </a></div>`);
-                    $RowD.append(`<div class="col-xl-3 col-lg-6 col-md-6 col-sm-12"><span> Km Actual: </span><a>${row['kilometraje']}  </a></div>`);
                     $RowD.append(`<div class="col-xl-3 col-lg-6 col-md-6 col-sm-12"><span> Km Anterior: </span><a> ${row['km_anterior']}   </a></div>`);
-                    $RowD.append(`<div class="col-xl-3 col-lg-6 col-md-6 col-sm-12"><span> Ult. Serv: </span><a> ${row['fh_ultimo_servicio']}    </a></div>`);
+                    $RowD.append(`<div class="col-xl-3 col-lg-6 col-md-6 col-sm-12"><span> Km Actual: </span><a>${row['kilometraje']}  </a></div>`);
+                    $RowD.append(`<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12"><span> Entregó: </span><a> ${row['nombre_entrega']}  </a></div>`);
+                    $RowD.append(`<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12"><span> Ult. Serv: </span><a> ${row['fh_ultimo_servicio']}    </a></div>`);
 
 
                     $Main.append($RowD);

@@ -45,8 +45,10 @@ class InventarioView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListVi
                 for i in WConceptosMain.objects.filter(id_tipo_concepto= const.TCONCEPTO_REPUESTOS):
                     data.append(i.toJSON())
             else:
+                data = {}
                 data['error'] = 'Ha ocurrido un error'
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
 
@@ -93,8 +95,10 @@ class InventarioCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, 
                 form = self.get_form()
                 data = form.save()
             else:
+                data = {}
                 data['error'] = 'No ha ingresado a ninguna opción'
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return JsonResponse(data)
 
@@ -135,8 +139,10 @@ class InventarioUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, 
                 form = self.get_form()
                 data = form.save()
             else:
+                data = {}
                 data['error'] = 'No ha ingresado a ninguna opción'
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return JsonResponse(data)
 
@@ -175,6 +181,7 @@ class InventarioDeleteView(LoginRequiredMixin, ValidatePermissionRequiredMixin, 
         try:
             self.object.delete()
         except Exception as e:
+            data = {}
             data['error'] = str(e)
         return JsonResponse(data)
 
