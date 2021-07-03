@@ -1,5 +1,5 @@
 $(function () {
-    // console.log(window.location.pathname)
+
 
     $(document).ready(function() {
 
@@ -7,7 +7,6 @@ $(function () {
     });
 
     $('#btnSeleccionarUnidad').on('click', function (event) {
-        // console.log('Aqui seleccionar');
 
         // saber registro seleccionado //
         var table = $('#dtBuscador').DataTable();

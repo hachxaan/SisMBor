@@ -7,7 +7,6 @@ function contextMenuCreate(){
     $.contextMenu({
         selector: '.btn-neumatico',
         build : function ($trigger, e) {
-                console.log({"e":e})
                 var posicion = $(e['target']).data('posicion');
                 var id_posicion = $(e['target']).data('id_posicion');
                 var sit_code = $(e['target']).data('sit_code');
@@ -189,7 +188,6 @@ function pAsignaNeumatico(){
         $.each(unidad_neumatico, function (key, dataset) {
             $('#cbPosicion').find('option').eq(dataset.cons).attr('disabled',"disabled");
             $('#cbPosicion').find('option').eq(dataset.cons).text('Posición '+ dataset.cons + ' (Asiganda)');
-            //console.log(dataset.cons);
         });
         $('#cbPosicion').removeAttr("disabled")
         $('#cbPosicion').val('0');
@@ -251,8 +249,6 @@ function pLoadPosicionesDT(placa){
             200: function(data) {
 
                 sessionStorage.setItem('unidad_neumatico', JSON.stringify(data));
-                console.log('data 200');
-                console.log(data);
                 pLoadDiagrama(data);
             },
           }
@@ -394,9 +390,6 @@ function pLoadDiagrama(data){
 
         }
         data.forEach(function(rowJSON, r_index) {
-            console.log(rowJSON);
-//            console.log({'sit_code', rowJSON.sit_code})
-//            console.log({'id_posicion', rowJSON.id_posicion})
             $('#llanta-'+rowJSON.cons).removeClass('btn-secondary');
             $('#llanta-'+rowJSON.cons).addClass('btn-warning');
             $('#llanta-'+rowJSON.cons).data('id_posicion', rowJSON.id_posicion);
@@ -418,7 +411,6 @@ function pValidaPlaca(placa) {
 "use strict"
     if (placa.length > 0) {
         var _parameters = {'placa': placa, 'action': 'searchdata', 'owner': 'neumaticos-admin'}
-        console.log({"pValidaPlaca-placa":placa});
         _ajax('/getInfoUnidad/?_=' + new Date().getTime(), _parameters, function (data) {
             if (data.length > 0) {
                 sessionStorage.setItem('placa', data[0].placa);
@@ -454,7 +446,6 @@ function pValidaPlaca(placa) {
                 $("#kilometraje_ult").val(data[0].kilometraje_ult);
                 $("#folio_ult").val(data[0].folio_ult);
                 $("#nombre_entrega_ult").val(data[0].nombre_entrega_ult);
-                console.log('response: getInfoUnidad/ pLoadPosicionesDT');
                 pLoadPosicionesDT(data[0].placa);
 
             } else {
@@ -484,7 +475,6 @@ $(function () {
     const urlParams = new URLSearchParams(window.location.search);
 //    const cPlaca = urlParams.get('placa');
     const cPlaca = sessionStorage.getItem('placa');
-//    console.log({'cPlaca':cPlaca})
     if (cPlaca !== null){
         if (cPlaca !== '' ){
             $('#edtPlaca').val(cPlaca);

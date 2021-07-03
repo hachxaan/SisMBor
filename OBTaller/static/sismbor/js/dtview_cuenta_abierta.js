@@ -266,9 +266,6 @@ $(function () {
             EnProceso = $('#chkEnProceso').is(":checked") && (parseInt(rowData['status']) < 2);
             Terminados = $('#chkTerminados').is(":checked") && (parseInt(rowData['status']) == 2);
             Cancelados = $('#chkCancelados').is(":checked") && (parseInt(rowData['status']) == 3);
-            // console.log({"EnProceso": EnProceso})
-            // console.log({"Terminados": Terminados})
-            // console.log({"Cancelados": Cancelados})
 
             return EnProceso || Terminados || Cancelados;
 

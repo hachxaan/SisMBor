@@ -23,7 +23,6 @@ $(function () {
             'tx_referencia': v_tx_referencia,
             'id_orden_detalle': v_id_orden_detalle
         }
-        // console.log(_parameters)
         if (v_tx_referencia.length > 0) {
             _ajax(window.location.pathname, _parameters, function (data) {
                 ajax_reload(cNameDT_OrdenDetalle);

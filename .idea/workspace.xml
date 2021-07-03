@@ -19,40 +19,18 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e0074843-61a2-4bac-b21d-d2a6f08bf969" name="Default Changelist" comment="- PRINT">
+    <list default="true" id="e0074843-61a2-4bac-b21d-d2a6f08bf969" name="Default Changelist" comment="AJUSTE EN ETIQUETAS&#10;{folio_current}">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/static/artcode/js/utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/artcode/js/utils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/buscador-unidad.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/buscador-unidad.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/dtview_cuenta_abierta.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/dtview_cuenta_abierta.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/list-cat-cliente.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/list-cat-cliente.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-nueva.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-nueva.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/list-cat-manobra.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/list-cat-manobra.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/list-cat-matenimiento.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/list-cat-matenimiento.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/list-cat-unidad.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/list-cat-unidad.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-detalle.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-detalle.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/reumaticos-admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/reumaticos-admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/MainSections/MENU.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/MainSections/MENU.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/catalogos/Cliente/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/catalogos/Cliente/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/catalogos/Manobra/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/catalogos/Manobra/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/catalogos/Mantenimiento/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/catalogos/Mantenimiento/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/catalogos/Personal/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/catalogos/Personal/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/catalogos/Unidad/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/catalogos/Unidad/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/inventario/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/inventario/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/inventario_neumaticos/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/inventario_neumaticos/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/neumaticos/neumaticos-admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/neumaticos/neumaticos-admin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/orden/orden-detalle.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/orden/orden-detalle.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/orden/orden-editar.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/orden/orden-editar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/orden/orden-nueva.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/orden/orden-nueva.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/views/StoreProcedures.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/StoreProcedures.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/views/cliente/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/cliente/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/views/inventario_neomaticos_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/inventario_neomaticos_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/views/inventario_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/inventario_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/views/manobra/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/manobra/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/views/mantenimiento/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/mantenimiento/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/views/neumaticos_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/neumaticos_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/views/orden_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/orden_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/views/personal/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/personal/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/views/reportes_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/reportes_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/views/unidad/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/unidad/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/views/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appMainSite/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/appMainSite/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requeriments.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -311,7 +289,14 @@
       <option name="project" value="LOCAL" />
       <updated>1625097111972</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="AJUSTE EN ETIQUETAS&#10;{folio_current}">
+      <created>1625336902502</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1625336902503</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -351,7 +336,8 @@
     <MESSAGE value="Version 2 -&gt; REPORTES PARTE 1" />
     <MESSAGE value=".gitignore" />
     <MESSAGE value="- PRINT" />
-    <option name="LAST_COMMIT_MESSAGE" value="- PRINT" />
+    <MESSAGE value="AJUSTE EN ETIQUETAS&#10;{folio_current}" />
+    <option name="LAST_COMMIT_MESSAGE" value="AJUSTE EN ETIQUETAS&#10;{folio_current}" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
