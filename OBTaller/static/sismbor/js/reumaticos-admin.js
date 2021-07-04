@@ -1,4 +1,5 @@
 
+
 "use strict"
 var cNameDT_NeumaticosAdmin = '#dtNeumaticosAdmin';
 
@@ -415,15 +416,14 @@ function pValidaPlaca(placa) {
             if (data.length > 0) {
                 sessionStorage.setItem('placa', data[0].placa);
                 if ((data[0].kilometraje_current !== '') && (data[0].kilometraje_current !== null)) {
-                    log('(data[0].kilometraje_current !== ) ');
-                    log(data[0].kilometraje_current );
+
                     $('#edtKilometrajeSet').val(data[0].kilometraje_current);
                 } else {
                     if ((data[0].kilometraje_ult !== '') && (data[0].kilometraje_ult !== null)){
-                        log('(data[0].kilometraje_ult !== )');
+
                         $('#edtKilometrajeSet').val(data[0].kilometraje_ult);
                     } else {
-                        log('0');
+
                         $('#edtKilometrajeSet').val('0');
                     }
                 }
