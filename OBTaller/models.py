@@ -8,10 +8,17 @@
 # import datetime as dt
 
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 from django.db import models
 from django.forms import model_to_dict
 from django.utils import timezone
+
+
+class User(AbstractUser):
+    is_admin_web = models.BooleanField(default=False)
+    is_user_web = models.BooleanField(default=False)
+    is_operador = models.BooleanField(default=False)
+
 
 
 class BitInventario(models.Model):
