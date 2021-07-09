@@ -200,10 +200,10 @@ class OrdenListaEditar( ListView ):
             precio_compra=dataSet[0]['precio_compra']
             precio_venta=dataSet[0]['precio_venta']
             stock=dataSet[0]['stock']
-
+            consecutivo += 1
             InsOrdenDetalle=OrdenDetalle(
                 folio=folio,
-                consecutivo=consecutivo + 1,
+                consecutivo=consecutivo,
                 cantidad=1,
                 id_concepto=id_concepto,
                 id_personal=id_personal,
@@ -226,9 +226,10 @@ class OrdenListaEditar( ListView ):
                     dataNoStock = []
                     for dataset in WListaMantenimiento.objects.filter(**vFieldFilter):
                         if (dataset.stock > 0):
+                            consecutivo += 1
                             InsOrdenDetalle = OrdenDetalle(
                                 folio=folio,
-                                consecutivo=consecutivo + 1,
+                                consecutivo=consecutivo,
                                 cantidad=1,
                                 id_concepto=dataset.id_concepto,
                                 id_personal=id_personal,

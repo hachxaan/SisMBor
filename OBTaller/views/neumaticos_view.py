@@ -72,7 +72,7 @@ class NeumaticosAdmin( ListView ):
             precio_compra=precio_compra,
             precio_venta=precio_venta,
             cve_usu_alta=username,
-            fh_registro=dt.datetime.today(),
+            # fh_registro=dt.datetime.today(),
             sit_code='PE')
         InsOrdenDetalle.save()
 
@@ -110,7 +110,7 @@ class NeumaticosAdmin( ListView ):
             id_unidad = dataSet[0]['id_unidad']
             posicion = request.POST['posicion']
             no_serie = request.POST['no_serie']
-            if UnidadNeumatico.objects.filter(no_serie=no_serie).exists():
+            if UnidadNeumatico.objects.filter(no_serie=no_serie ).exists() and no_serie != '':
                 data['error'] = 'Ya existe neumático asignado a una unidad con el número de serie ['+no_serie+'].'
             else:
                 if UnidadNeumatico.objects.filter(id_unidad=id_unidad, posicion=posicion, sit_code=1).exists():
@@ -144,23 +144,14 @@ class NeumaticosAdmin( ListView ):
                                 id_orden_detalle = 0)
 
                             InsUnidadNeumatico.save()
-
-
                             lastUnidadNeumatico = UnidadNeumatico.objects.latest('id_posicion')
-
-
                             data = self.pInsOrdenDetalle(folio, id_concepto, no_serie, cve_usu_alta, lastUnidadNeumatico.id_posicion)
-
-
                         else:
                             data['error'] = 'Sin Stock. Agregue stock en Inventario de Neumáticos.'
                     else:
                         data['error'] = 'Se requiere que la orden esté en proceso.'
         else:
             data['error'] = 'Se requiere que una orden que esté en proceso.'
-
-
-
 
         return data
 

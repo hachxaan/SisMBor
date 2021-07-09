@@ -80,6 +80,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'appMainSite.wsgi.application'
 
+#
+# AUTH_USER_MODEL = 'OBTaller.User'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -87,7 +89,7 @@ WSGI_APPLICATION = 'appMainSite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sismbor',
+        'NAME': 'sismbordb',
         'USER': 'admin',
         'PASSWORD': '123456',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on

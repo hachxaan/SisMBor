@@ -19,20 +19,21 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e0074843-61a2-4bac-b21d-d2a6f08bf969" name="Default Changelist" comment="rewirements.txt">
-      <change afterPath="$PROJECT_DIR$/Oper/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Oper/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Oper/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Oper/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Oper/templates/registration/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Oper/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Oper/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Oper/views.py" afterDir="false" />
+    <list default="true" id="e0074843-61a2-4bac-b21d-d2a6f08bf969" name="Default Changelist" comment="Iinicia Operador">
+      <change afterPath="$PROJECT_DIR$/OBTaller/models_old.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templatetags/templates_codeart.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/catalogos/Manobra/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/catalogos/Manobra/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/catalogos/Mantenimiento/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/catalogos/Mantenimiento/create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/form.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/registration/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/views/mantenimiento/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/mantenimiento/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/views/neumaticos_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/neumaticos_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/views/orden_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/orden_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appMainSite/const.py" beforeDir="false" afterPath="$PROJECT_DIR$/appMainSite/const.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/appMainSite/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/appMainSite/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appMainSite/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/appMainSite/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,17 +94,17 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../oper" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/OBTaller" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/OBTaller" />
       <recent name="$PROJECT_DIR$/Oper/templates" />
       <recent name="$PROJECT_DIR$/OBTaller/static/sismbor/js" />
       <recent name="$PROJECT_DIR$/OBTaller/static/sismbor/css" />
       <recent name="$PROJECT_DIR$/OBTaller/templates" />
-      <recent name="$PROJECT_DIR$/OBTaller/views" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/appMainSite" />
@@ -306,7 +307,14 @@
       <option name="project" value="LOCAL" />
       <updated>1625431123784</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Iinicia Operador">
+      <created>1625763847084</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1625763847084</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -328,7 +336,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="main-lx" />
+                        <option value="des_operador" />
                       </list>
                     </value>
                   </entry>
@@ -353,7 +361,8 @@
     <MESSAGE value="- PRINT" />
     <MESSAGE value="AJUSTE EN ETIQUETAS&#10;{folio_current}" />
     <MESSAGE value="rewirements.txt" />
-    <option name="LAST_COMMIT_MESSAGE" value="rewirements.txt" />
+    <MESSAGE value="Iinicia Operador" />
+    <option name="LAST_COMMIT_MESSAGE" value="Iinicia Operador" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -374,9 +383,9 @@
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/OBTaller/views/views.py</url>
-          <line>99</line>
-          <option name="timeStamp" value="47" />
+          <url>file://$PROJECT_DIR$/OBTaller/views/orden_view.py</url>
+          <line>219</line>
+          <option name="timeStamp" value="50" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
