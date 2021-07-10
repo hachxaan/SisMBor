@@ -82,15 +82,14 @@ WSGI_APPLICATION = 'appMainSite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
+# 'PASSWORD': '123456',
+# 'HOST': 'localhost',
 DATABASES = {
     'default': {
     'ENGINE': 'django.db.backends.mysql',
     'NAME': 'sismbordb',
     'USER': 'admin',
-    # 'PASSWORD': '123456',
-	'PASSWORD': 'CveDb.123456',
-    # 'HOST': 'localhost',
+    'PASSWORD': 'CveDb.123456',
 	'HOST': 'database-hotelweb.cjg26m5mzcaw.us-east-2.rds.amazonaws.com',
     'PORT': '3306',
     }

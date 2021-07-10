@@ -9,7 +9,10 @@ db.sqlite3-journal
 media
 .idea/*
 .idea
+**/.idea
 **/migrations/*
+appMainSite/static
+appMainSite/.idea
 workspace.xml
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
