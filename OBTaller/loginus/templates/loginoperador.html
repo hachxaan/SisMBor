@@ -27,16 +27,13 @@
                                         <img src="{% static '/sismbor/img/Logo_W.png' %}" style="width:70%" alt=""
                                              class="">
                                         <h5 class="mt-3"><b>Sistema de Mantenimiento Bordon</b></h5>
-                                        <span>Entrar</span>
                                     </div>
-                                    <form method="POST" id="loginForm" class="form mt-5 col-md"
+                                    <form action="." method="POST" id="loginForm"
                                           style="text-align: center;">
                                         {% csrf_token %}
-                                        {#                                        {{ form.as_p }}#}
-
-                                        <div class="form-group">
-                                            <label class="col-form-label">Nombre de usuario</label>
-                                            <input type="text" class="form-control" placeholder="Nombre de usuario"
+                                        <!--<div class="form-group">
+                                            <label for="username">Nombre de usuario</label>
+                                            <input id="username" type="text" class="form-control" placeholder="Nombre de usuario"
                                                    name="username">
                                         </div>
                                         <div class="form-group">
@@ -44,8 +41,12 @@
 
                                             <input id="id_password" type="password" class="form-control"
                                                    placeholder="Contraseña" name="password" autocomplete="off">
-
-
+                                        </div>
+-->
+                                        <div class="form-group">
+                                            <label for="codeacces">Código de Acceso</label>
+                                            <input id="codeacces" type="text" class="form-control" placeholder="6 digitos"
+                                                   name="codeacces">
                                         </div>
 
                                         <div class="form-group">
@@ -53,11 +54,6 @@
                                                 <button id="btnEntrar" class="btn btn-primary btn-block btn-login"
                                                         type="submit">Entrar
                                                 </button>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="col-sm-12 mt-4 text-center">
                                             </div>
                                         </div>
 
@@ -73,12 +69,7 @@
 
 </section>
 
-{#    <script>#}
-{#        $('#showpass').on('click',function(e){#}
-{#            if ($)#}
-{#        })#}
-{##}
-{#    </script>#}
+    <script src="{% static 'sismbor/js/loginus.js' %}" type="text/javascript"></script>
 
 </body>
-</html> 
+</html>

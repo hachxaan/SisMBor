@@ -5,44 +5,45 @@
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
+# import datetime as dt
 
-from django.contrib.auth.models import User
+
+from django.contrib.auth.models import User, AbstractUser
 from django.db import models
 from django.forms import model_to_dict
 from django.utils import timezone
 
 
+
+
 class BitInventario(models.Model):
-    id_trans_inventario = models.AutoField(db_column='ID_TRANS_INVENTARIO', primary_key=True)
-    id_concepto = models.IntegerField(db_column='ID_CONCEPTO', blank=True, null=True)
-    cve_concepto = models.CharField(db_column='CVE_CONCEPTO', max_length=32, default='')
+    id_trans_inventario = models.AutoField(db_column='ID_TRANS_INVENTARIO', primary_key=True)  
+    cve_concepto = models.CharField(db_column='CVE_CONCEPTO', max_length=32)  
     cve_operacion = models.CharField(db_column='CVE_OPERACION', max_length=8)  
-    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now)
-    cve_usuario = models.CharField(db_column='CVE_USUARIO', max_length=32, blank=True, null=True)
-    cantidad = models.IntegerField(db_column='CANTIDAD', blank=True, null=True, default=0)
-    existencia = models.IntegerField(db_column='EXISTENCIA', blank=True, null=True, default=0)
-    precio_compra = models.DecimalField(db_column='PRECIO_COMPRA', max_digits=18, decimal_places=2, default=0.00)
-    precio_venta = models.DecimalField(db_column='PRECIO_VENTA', max_digits=18, decimal_places=2, default=0.00)
+    fh_registro = models.DateTimeField(db_column='FH_REGISTRO')  
+    cve_usuario = models.CharField(db_column='CVE_USUARIO', max_length=8, blank=True, null=True)  
+    cantidad = models.IntegerField(db_column='CANTIDAD', blank=True, null=True)  
+    existencia = models.IntegerField(db_column='EXISTENCIA', blank=True, null=True)  
+    precio_compra = models.DecimalField(db_column='PRECIO_COMPRA', max_digits=18, decimal_places=2)  
+    precio_venta = models.DecimalField(db_column='PRECIO_VENTA', max_digits=18, decimal_places=2)  
     tx_referencia = models.CharField(db_column='TX_REFERENCIA', max_length=1024, blank=True, null=True)  
-    folio = models.IntegerField(db_column='FOLIO', blank=True, null=True, default=0)
-    id_orden_detalle = models.IntegerField(db_column='ID_ORDEN_DETALLE', blank=True, null=True, default=0)
+    folio = models.IntegerField(db_column='FOLIO', blank=True, null=True)  
 
     def toJSON(self):
         item = model_to_dict(self)
         return item
 
     class Meta:
+        managed = False
         db_table = 'bit_inventario'
 
 
 class BitVenta(models.Model):
-    id_trans_venta = models.AutoField(db_column='ID_TRANS_VENTA', primary_key=True)
-    id_orden_detalle = models.IntegerField(db_column='ID_ORDEN_DETALLE', blank=True, null=True)
-    id_concepto = models.IntegerField(db_column='ID_CONCEPTO', blank=True, null=True)
-    cve_concepto = models.CharField(db_column='CVE_CONCEPTO', max_length=32, default='')
-    imp_trans = models.DecimalField(db_column='IMP_TRANS', max_digits=18, decimal_places=2, default=0)
-    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now)
-    cve_usuario = models.CharField(db_column='CVE_USUARIO', max_length=32, blank=True, null=True)
+    id_trans_venta = models.AutoField(db_column='ID_TRANS_VENTA', primary_key=True)  
+    cve_concepto = models.CharField(db_column='CVE_CONCEPTO', max_length=32)  
+    imp_trans = models.DecimalField(db_column='IMP_TRANS', max_digits=18, decimal_places=2)  
+    fh_registro = models.DateTimeField(db_column='FH_REGISTRO')  
+    cve_usuario = models.CharField(db_column='CVE_USUARIO', max_length=8, blank=True, null=True)  
     id_personal = models.IntegerField(db_column='ID_PERSONAL', blank=True, null=True)  
     folio = models.IntegerField(db_column='FOLIO', blank=True, null=True)  
     tx_referencia = models.CharField(db_column='TX_REFERENCIA', max_length=128, blank=True, null=True)  
@@ -50,7 +51,7 @@ class BitVenta(models.Model):
     cve_operacion = models.CharField(db_column='CVE_OPERACION', max_length=8, blank=True, null=True)  
     cantidad = models.IntegerField(db_column='CANTIDAD', blank=True, null=True)  
     fuerzasalida = models.CharField(db_column='FUERZASALIDA', max_length=1, blank=True, null=True)  
-    status = models.IntegerField(db_column='STATUS', default=1)
+    status = models.IntegerField(db_column='STATUS')  
     tipo_venta = models.CharField(db_column='TIPO_VENTA', max_length=16, blank=True, null=True)  
 
     def toJSON(self):
@@ -58,6 +59,7 @@ class BitVenta(models.Model):
         return item
 
     class Meta:
+        managed = False
         db_table = 'bit_venta'
 
 
@@ -69,10 +71,10 @@ class Cliente(models.Model):
     celular_contacto = models.CharField(db_column='CELULAR_CONTACTO', max_length=32, blank=True, null=True)  
     correo_electronico = models.CharField(db_column='CORREO_ELECTRONICO', max_length=32, blank=True, null=True)  
     direccion = models.CharField(db_column='DIRECCION', max_length=128, blank=True, null=True)  
-    nombre = models.CharField(db_column='NOMBRE', max_length=40, blank=True, null=True)
+    nombre = models.CharField(db_column='NOMBRE', unique=True, max_length=40, blank=True, null=True)  
     apellido = models.CharField(db_column='APELLIDO', max_length=40, blank=True, null=True)  
     cve_usu_alta = models.CharField(db_column='CVE_USU_ALTA', max_length=16, blank=True, null=True)
-    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now)
+    fh_registro = models.DateTimeField(db_column='FH_REGISTRO')
 
 
     def toJSON(self):
@@ -85,51 +87,32 @@ class Cliente(models.Model):
     class Meta:
         verbose_name = 'Cliente'
         verbose_name_plural = 'Clientes'
-        
+        managed = False
         db_table = 'cliente'
 
 
 
-class ConceptoTipo(models.Model):
-    id_tipo_concepto = models.AutoField(db_column='ID_TIPO_CONCEPTO', primary_key=True)
-    desc_tipo_concepto = models.CharField(db_column='DESC_TIPO_CONCEPTO', max_length=32)
-    cve_operacion = models.CharField(db_column='CVE_OPERACION', max_length=16)
-    b_aplica_comision = models.CharField(db_column='B_APLICA_COMISION', max_length=1)
-    categoria = models.IntegerField(db_column='CATEGORIA', blank=True, null=True)
-    activo = models.IntegerField(db_column='ACTIVO')
-    b_personal = models.CharField(db_column='B_PERSONAL', max_length=1)
-    posicion = models.IntegerField(db_column='POSICION')
-    # fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now)
-
-    def toJSON(self):
-        item = model_to_dict(self)
-        return item
-
-    def __str__(self):
-        return self.desc_tipo_concepto
-
-    class Meta:
-        db_table = 'concepto_tipo'
 
 class ConceptoCategoria(models.Model):
-    id_categoria = models.AutoField(db_column='ID_CATEGORIA', primary_key=True)
-    desc_categoria = models.CharField(db_column='DESC_CATEGORIA', max_length=32)
-    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now)
-    id_tipo_concepto = models.ForeignKey(ConceptoTipo, models.DO_NOTHING, db_column='ID_TIPO_CONCEPTO')
+    id_categoria = models.AutoField(db_column='ID_CATEGORIA', primary_key=True)  
+    id_tipo_concepto = models.IntegerField(db_column='ID_TIPO_CONCEPTO')  
+    desc_categoria = models.CharField(db_column='DESC_CATEGORIA', max_length=32)  
 
     def toJSON(self):
         item = model_to_dict(self)
         return item
     def __str__(self):
         return self.desc_categoria
-
     class Meta:
+        managed = False
         db_table = 'concepto_categoria'
+
+
+
 
 class TipoServicio(models.Model):
     id_tipo_servicio = models.AutoField(db_column='ID_TIPO_SERVICIO', primary_key=True)  
-    desc_tipo_servicio = models.CharField(db_column='DESC_TIPO_SERVICIO', max_length=45, blank=True, null=True)
-    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now)
+    desc_tipo_servicio = models.CharField(db_column='DESC_TIPO_SERVICIO', max_length=45, blank=True, null=True)  
 
     def toJSON(self):
         item = model_to_dict(self)
@@ -139,14 +122,13 @@ class TipoServicio(models.Model):
         return self.desc_tipo_servicio
 
     class Meta:
-        
+        managed = False
         db_table = 'tipo_servicio'
 
-class ConceptoMarca(models.Model):
+class ConceptoTipoMarca(models.Model):
     id_marca = models.AutoField(db_column='ID_MARCA', primary_key=True)
     desc_marca = models.CharField(db_column='DESC_MARCA', unique=True, max_length=64)
     id_tipo_concepto = models.IntegerField(db_column='ID_TIPO_CONCEPTO', blank=True, null=True)
-    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now)
 
     def __str__(self):
         return self.desc_marca
@@ -156,14 +138,14 @@ class ConceptoMarca(models.Model):
         return item
 
     class Meta:
-        db_table = 'concepto_marca'
+        managed = False
+        db_table = 'concepto_tipo_marca'
 
 
 class PeriodoKm(models.Model):
     id_periodo_km = models.IntegerField(db_column='ID_PERIODO_KM', primary_key=True)
     kilometraje = models.IntegerField(db_column='KILOMETRAJE')
     desc_periodo_km = models.CharField(db_column='DESC_PERIODO_KM', max_length=16, blank=True, null=True)
-
 
     def toJSON(self):
         item = model_to_dict(self)
@@ -173,7 +155,7 @@ class PeriodoKm(models.Model):
         return self.desc_periodo_km
 
     class Meta:
-        
+        managed = False
         db_table = 'periodo_km'
 
 
@@ -182,40 +164,40 @@ class UnidadMedida(models.Model):
     id_unidad_medida = models.AutoField(db_column='ID_UNIDAD_MEDIDA', primary_key=True)
     desc_unidad_medida = models.CharField(db_column='DESC_UNIDAD_MEDIDA', max_length=45, blank=True, null=True)
     abreb_unidad_medida = models.CharField(db_column='ABREB_UNIDAD_MEDIDA', max_length=45, blank=True, null=True)
-    # fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now, blank=True, null=True)
 
     def toJSON(self):
         item = model_to_dict(self)
         return item
     def __str__(self):
         return self.desc_unidad_medida + ' (' + self.abreb_unidad_medida +')'
-
     class Meta:
+        managed = False
         db_table = 'unidad_medida'
 
+
+
 class Concepto(models.Model):
-    id_concepto=models.AutoField( db_column='ID_CONCEPTO', primary_key=True)
-    cve_concepto = models.CharField(db_column='CVE_CONCEPTO', unique=True,max_length=32)
+    id_concepto=models.IntegerField( db_column='ID_CONCEPTO', primary_key=True)
+    cve_concepto = models.CharField(db_column='CVE_CONCEPTO', unique=True,max_length=32)  
     desc_concepto = models.CharField(db_column='DESC_CONCEPTO', unique=True, max_length=128)  
     id_tipo_concepto = models.IntegerField(db_column='ID_TIPO_CONCEPTO')  
-    id_categoria = models.ForeignKey( ConceptoCategoria, models.DO_NOTHING, db_column='ID_CATEGORIA')
-    precio_venta = models.DecimalField(db_column='PRECIO_VENTA', max_digits=18, decimal_places=2, default=0)
+    id_categoria = models.ForeignKey( ConceptoCategoria, models.DO_NOTHING, db_column='ID_CATEGORIA')  
+    precio_venta = models.DecimalField(db_column='PRECIO_VENTA', max_digits=18, decimal_places=2)  
     id_unidad_medida = models.ForeignKey(UnidadMedida, models.DO_NOTHING,db_column='ID_UNIDAD_MEDIDA', blank=True, null=True)
     id_periodo_km = models.ForeignKey( PeriodoKm, models.DO_NOTHING, db_column='ID_PERIODO_KM', blank=True, null=True)  
     vida_util_km = models.IntegerField(db_column='VIDA_UTIL_KM', blank=True, null=True)  
     vida_util_hr = models.IntegerField(db_column='VIDA_UTIL_HR', blank=True, null=True)  
-    descuento = models.DecimalField(db_column='DESCUENTO', max_digits=18, decimal_places=2, blank=True, null=True, default=0)
-    id_marca = models.ForeignKey(ConceptoMarca, models.DO_NOTHING, db_column='ID_MARCA', blank=True, null=True)
+    descuento = models.DecimalField(db_column='DESCUENTO', max_digits=18, decimal_places=2, blank=True, null=True)  
+    id_marca = models.ForeignKey(ConceptoTipoMarca, models.DO_NOTHING, db_column='ID_MARCA', blank=True, null=True)
     hora_hombre = models.DecimalField(db_column='HORA_HOMBRE', max_digits=9, decimal_places=2, blank=True, null=True)  
     cve_usu_alta = models.CharField(db_column='CVE_USU_ALTA', max_length=16, blank=True, null=True)
     no_serie = models.CharField(db_column='NO_SERIE', max_length=128, blank=True, null=True)  
     b_numero_serie = models.BooleanField(db_column='B_NUMERO_SERIE')
-    precio_compra = models.DecimalField(db_column='PRECIO_COMPRA', max_digits=18, decimal_places=2, default=0)
-    id_tipo_servicio = models.ForeignKey( TipoServicio, models.DO_NOTHING, default=1, db_column='ID_TIPO_SERVICIO', blank=True, null=True)
-    b_agrega_conceptos = models.BooleanField(db_column='B_AGREGA_CONCEPTOS', default=0)
+    precio_compra = models.DecimalField(db_column='PRECIO_COMPRA', max_digits=18, decimal_places=2)  
+    id_tipo_servicio = models.ForeignKey( TipoServicio, models.DO_NOTHING, db_column='ID_TIPO_SERVICIO', blank=True, null=True)
+    b_agrega_conceptos = models.BooleanField(db_column='B_AGREGA_CONCEPTOS')
     stock=models.IntegerField( db_column='STOCK' )
     b_nserie_obligatorio=models.BooleanField( db_column='B_NSERIE_OBLIGATORIO' )
-    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now)
 
     def toJSON(self):
         item = model_to_dict(self)
@@ -223,7 +205,7 @@ class Concepto(models.Model):
     def __str__(self):
         return self.desc_concepto
     class Meta:
-        
+        managed = False
         db_table = 'concepto'
 
 
@@ -237,23 +219,48 @@ class ConceptoKilometraje(models.Model):
         return item
 
     class Meta:
+        managed = False
         db_table = 'concepto_kilometraje'
+
+
+class ConceptoTipo(models.Model):
+    id_tipo_concepto = models.AutoField(db_column='ID_TIPO_CONCEPTO', primary_key=True)  
+    desc_tipo_concepto = models.CharField(db_column='DESC_TIPO_CONCEPTO', max_length=32)  
+    cve_operacion = models.CharField(db_column='CVE_OPERACION', max_length=16)  
+    b_aplica_comision = models.CharField(db_column='B_APLICA_COMISION', max_length=1)  
+    categoria = models.IntegerField(db_column='CATEGORIA', blank=True, null=True)  
+    activo = models.IntegerField(db_column='ACTIVO')  
+    b_personal = models.CharField(db_column='B_PERSONAL', max_length=1)  
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+    def __str__(self):
+        return self.desc_tipo_concepto
+    class Meta:
+        managed = False
+        db_table = 'concepto_tipo'
+
+
+
 
 
 class Cuenta(models.Model):
     id_cuenta = models.AutoField(db_column='ID_CUENTA', primary_key=True)  
     folio = models.ForeignKey('Orden', models.DO_NOTHING, db_column='FOLIO')  
-    descuento_cuenta = models.DecimalField(db_column='DESCUENTO_CUENTA', max_digits=18, decimal_places=4, default=0)
-    imp_total = models.DecimalField(db_column='IMP_TOTAL', max_digits=18, decimal_places=2, default=0)
-    tipo_pago = models.CharField(db_column='TIPO_PAGO', max_length=16, blank=True, null=True)
-    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now)
+    descuento_cuenta = models.DecimalField(db_column='DESCUENTO_CUENTA', max_digits=18, decimal_places=4)  
+    imp_total = models.DecimalField(db_column='IMP_TOTAL', max_digits=18, decimal_places=2)  
+    tipo_pago = models.CharField(db_column='TIPO_PAGO', max_length=16, blank=True, null=True)  
 
     def toJSON(self):
         item = model_to_dict(self)
         return item
 
     class Meta:
+        managed = False
         db_table = 'cuenta'
+
+
 
 
 class Operacion(models.Model):
@@ -264,79 +271,59 @@ class Operacion(models.Model):
     gpo_operacion = models.CharField(db_column='GPO_OPERACION', max_length=16, blank=True, null=True)  
     af_caja = models.CharField(db_column='AF_CAJA', max_length=1, blank=True, null=True)  
     b_efectivo = models.CharField(db_column='B_EFECTIVO', max_length=1)  
-    activo = models.IntegerField(db_column='ACTIVO')
-
+    activo = models.IntegerField(db_column='ACTIVO')  
 
     def toJSON(self):
         item = model_to_dict(self)
         return item
 
     class Meta:
-        
+        managed = False
         db_table = 'operacion'
 
 
-class Unidad(models.Model):
-    id_unidad = models.AutoField(db_column='ID_UNIDAD', primary_key=True)
-    id_cliente = models.ForeignKey(Cliente, models.DO_NOTHING, db_column='ID_CLIENTE', related_name='unidades')
-    placa = models.CharField(db_column='PLACA', unique=True, max_length=16)
-    marca = models.CharField(db_column='MARCA', max_length=32, blank=True, null=True)
-    modelo = models.CharField(db_column='MODELO', max_length=32, blank=True, null=True)
-    motor = models.CharField(db_column='MOTOR', max_length=64, blank=True, null=True)
-    chasis = models.CharField(db_column='CHASIS', max_length=64, blank=True, null=True)
-    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now)
-
-    def toJSON(self):
-        item = model_to_dict(self)
-        return item
-
-    class Meta:
-        db_table = 'unidad'
-
 class Orden(models.Model):
-    folio = models.AutoField(db_column='FOLIO', primary_key=True)
-    id_unidad = models.ForeignKey(Unidad, models.DO_NOTHING, db_column='ID_UNIDAD', related_name='ordenes')
+    folio = models.AutoField(db_column='FOLIO', primary_key=True)  
+    id_unidad = models.IntegerField(db_column='ID_UNIDAD', blank=True, null=True)  
     kilometraje = models.IntegerField(db_column='KILOMETRAJE', blank=True, null=True)  
     kilometraje_pq = models.IntegerField(db_column='KILOMETRAJE_PQ', blank=True, null=True)
     cve_usu_alta = models.CharField(db_column='CVE_USU_ALTA', max_length=16, blank=True, null=True)
-    fh_alta = models.DateTimeField(db_column='FH_ALTA', default=timezone.now)
+    fh_alta = models.DateTimeField(db_column='FH_ALTA')  
     fh_inicio = models.DateTimeField(db_column='FH_INICIO', blank=True, null=True)  
-    fh_salida = models.DateTimeField(db_column='FH_SALIDA', blank=True, null=True)
-    fh_cancela = models.DateTimeField(db_column='FH_CANCELA', blank=True, null=True)
+    fh_salida = models.DateTimeField(db_column='FH_SALIDA', blank=True, null=True)  
     nombre_entrega = models.CharField(db_column='NOMBRE_ENTREGA', max_length=128, blank=True, null=True)  
-    status = models.IntegerField(db_column='STATUS', default=0)
-    km_anterior = models.IntegerField(db_column='KM_ANTERIOR', blank=True, null=True, default=0)
-    fh_ultimo_servicio = models.DateTimeField(db_column='FH_ULTIMO_SERVICIO', blank=True, null=True)
-    folio_ultima_orden = models.IntegerField(db_column='FOLIO_ULTIMA_ORDEN', blank=True, null=True, default=0)
+    status = models.IntegerField(db_column='STATUS')  
 
     def toJSON(self):
         item = model_to_dict(self)
         return item
 
     class Meta:
-        
+        managed = False
         db_table = 'orden'
 
 class OrdenDetalle(models.Model):
-    id_orden_detalle=models.AutoField( db_column='ID_ORDEN_DETALLE', primary_key=True )
+    id_orden_detalle=models.IntegerField( db_column='ID_ORDEN_DETALLE', primary_key=True )
     folio = models.IntegerField(db_column='FOLIO')  
     consecutivo = models.IntegerField(db_column='CONSECUTIVO')  
-    cantidad = models.IntegerField(db_column='CANTIDAD', default=1)
+    cantidad = models.IntegerField(db_column='CANTIDAD')  
     id_concepto = models.IntegerField(db_column='ID_CONCEPTO')  
-    id_personal=models.IntegerField( db_column='ID_PERSONAL', default=0 )
+    id_personal=models.IntegerField( db_column='ID_PERSONAL' )  
     no_serie = models.CharField(db_column='NO_SERIE', max_length=512, blank=True, null=True)  
-    precio_compra = models.DecimalField(db_column='PRECIO_COMPRA', max_digits=10, decimal_places=2, default=0)
-    precio_venta = models.DecimalField(db_column='PRECIO_VENTA', max_digits=10, decimal_places=2, default=0)
+    precio_compra = models.DecimalField(db_column='PRECIO_COMPRA', max_digits=10, decimal_places=2)  
+    precio_venta = models.DecimalField(db_column='PRECIO_VENTA', max_digits=10, decimal_places=2)  
     tx_referencia = models.CharField(db_column='TX_REFERENCIA', max_length=1024, blank=True, null=True)  
     cve_usu_alta = models.CharField(db_column='CVE_USU_ALTA', max_length=45, blank=True, null=True)  
-    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now)
-    sit_code = models.CharField(db_column='SIT_CODE', max_length=45, default='PE')
+    fh_registro = models.DateTimeField(db_column='FH_REGISTRO')  
+    sit_code = models.CharField(db_column='SIT_CODE', max_length=45)  
+
 
     def toJSON(self):
         item = model_to_dict(self)
         return item
 
     class Meta:
+        managed = False
         db_table = 'orden_detalle'
         unique_together = (('folio', 'consecutivo'),)
 
@@ -344,15 +331,17 @@ class OrdenReferencias(models.Model):
     id_orden_referencia = models.AutoField(db_column='ID_ORDEN_REFERENCIA', primary_key=True)  
     folio = models.IntegerField(db_column='FOLIO')  
     tx_referencia = models.CharField(db_column='TX_REFERENCIA', max_length=512, blank=True, null=True)  
-    cve_usuario_alta = models.CharField(db_column='CVE_USUARIO_ALTA', max_length=32, blank=True, null=True)
-    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now, blank=True, null=True)
+    cve_usuario_alta = models.CharField(db_column='CVE_USUARIO_ALTA', max_length=45, blank=True, null=True)  
+    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', blank=True, null=True)  
 
     def toJSON(self):
         item = model_to_dict(self)
         return item
 
     class Meta:
+        managed = False
         db_table = 'orden_referencias'
+
 
 
 class Personal(models.Model):
@@ -361,7 +350,7 @@ class Personal(models.Model):
     apellido = models.CharField(db_column='APELLIDO', max_length=40, blank=True, null=True)  
     # cve_usu_alta = models.ForeignKey(User, null=True, blank=True)
     cve_usu_alta = models.CharField(User, db_column='CVE_USU_ALTA', max_length=16, blank=True, null=True)
-    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now, blank=True, null=True)
+    fh_registro = models.DateTimeField(db_column='FH_REGISTRO',  default=timezone.now, blank=True, null=True)
     # , auto_now_add=True
 
     def toJSON(self):
@@ -369,16 +358,38 @@ class Personal(models.Model):
         return item
 
     class Meta:
+        managed = False
         db_table = 'personal'
+
+class Unidad(models.Model):
+    id_unidad = models.AutoField(db_column='ID_UNIDAD', primary_key=True)  
+    id_cliente = models.ForeignKey(Cliente, models.DO_NOTHING, db_column='ID_CLIENTE')  
+    placa = models.CharField(db_column='PLACA', unique=True, max_length=16)  
+    marca = models.CharField(db_column='MARCA', max_length=32, blank=True, null=True)  
+    modelo = models.CharField(db_column='MODELO', max_length=32, blank=True, null=True)  
+    motor = models.CharField(db_column='MOTOR', max_length=64, blank=True, null=True)  
+    chasis = models.CharField(db_column='CHASIS', max_length=64, blank=True, null=True)  
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+
+
+    class Meta:
+        managed = False
+        db_table = 'unidad'
+
+
 
 
 class Usuario(models.Model):
-    cve_usuario = models.CharField(db_column='CVE_USUARIO', primary_key=True, max_length=32)
+    cve_usuario = models.CharField(db_column='CVE_USUARIO', primary_key=True, max_length=8)  
     nombre = models.CharField(db_column='NOMBRE', max_length=64, blank=True, null=True)  
     passw = models.CharField(db_column='PASSW', max_length=64, blank=True, null=True)  
     mail = models.CharField(db_column='MAIL', max_length=64, blank=True, null=True)  
     sit_usuario = models.CharField(db_column='SIT_USUARIO', max_length=5)  
-    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now)
+    fh_registro = models.DateTimeField(db_column='FH_REGISTRO')  
     b_system = models.CharField(db_column='B_SYSTEM', max_length=5)  
 
     def toJSON(self):
@@ -386,100 +397,9 @@ class Usuario(models.Model):
         return item
 
     class Meta:
+        managed = False
         db_table = 'usuario'
 
-class UnidadAsignacion(models.Model):
-    id_unidad_asigna = models.AutoField(db_column='ID_UNIDAD_ASIGNA', unique=True, primary_key=True)
-    id_unidad = models.ForeignKey(Unidad, models.DO_NOTHING, db_column='ID_UNIDAD', related_name='gasto_combustible')
-    id_personal = models.ForeignKey(Personal, models.DO_NOTHING, db_column='ID_PERSONAL', related_name='asignacion')
-    cod_acceso = models.IntegerField(db_column='COD_ACCESO', default=0)
-    sit_code = models.IntegerField(db_column='SIT_CODE', default=0)
-    fh_asignacion = models.DateTimeField(db_column='FH_ASIGNACION', blank=True, null=True)
-    fh_entrega = models.DateTimeField(db_column='FH_ENTREGA', blank=True, null=True)
-    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now)
-
-    def toJSON(self):
-        item = model_to_dict(self)
-        return item
-
-    class Meta:
-        db_table = 'unidad_asignacion'
-
-class UnidadCombustible(models.Model):
-    id_unidad_combustible = models.AutoField(db_column='ID_UNIDAD_COMBUSTIBLE', primary_key=True)
-    id_unidad_asigna = models.ForeignKey(UnidadAsignacion, models.DO_NOTHING, db_column='ID_UNIDAD_ASIGNA')
-    fh_ticket = models.DateTimeField(db_column='FH_TICKET', blank=True, null=True)
-    imp_ticket = models.DecimalField(db_column='IMP_TICKET', max_digits=18, decimal_places=2, default=0)
-    cantidad = models.IntegerField(db_column='CANTIDAD', default=0)
-    img_ticket = models.ImageField(db_column='IMG_TICKET', upload_to='uploads/tickets/combustible/%Y/%m/%d', blank=True, null=True)
-    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now)
-
-    def toJSON(self):
-        item = model_to_dict(self)
-        return item
-
-    class Meta:
-        db_table = 'unidad_combustible'
-
-class UnidadNeumatico(models.Model):
-    id_posicion = models.AutoField(db_column='ID_POSICION', primary_key=True)
-    id_unidad = models.IntegerField(db_column='ID_UNIDAD')
-    posicion = models.IntegerField(db_column='POSICION')
-    fh_alta = models.DateTimeField(db_column='FH_ALTA')
-    cve_usu_alta = models.CharField(db_column='CVE_USU_ALTA', max_length=32)
-    kilometraje = models.IntegerField(db_column='KILOMETRAJE')
-    folio = models.IntegerField(db_column='FOLIO')
-    tx_referencia = models.TextField(db_column='TX_REFERENCIA')
-    id_concepto = models.IntegerField(db_column='ID_CONCEPTO')
-    no_serie = models.CharField(db_column='NO_SERIE', max_length=64)
-    sit_code = models.IntegerField(db_column='SIT_CODE')
-    id_orden_detalle = models.IntegerField(db_column='ID_ORDEN_DETALLE', blank=True, null=True)
-
-    def toJSON(self):
-        item = model_to_dict(self)
-        return item
-
-    class Meta:
-        db_table = 'unidad_neumatico'
-
-class BitUnidadNeumatico(models.Model):
-    id_bit_uni_neu = models.AutoField(db_column='ID_BIT_UNI_NEU', primary_key=True)
-    fh_alta_bit = models.DateTimeField(db_column='FH_ALTA_BIT', default=timezone.now)
-    id_posicion = models.IntegerField(db_column='ID_POSICION')
-    id_unidad = models.IntegerField(db_column='ID_UNIDAD')
-    posicion = models.IntegerField(db_column='POSICION')
-    fh_alta = models.DateTimeField(db_column='FH_ALTA', default=timezone.now)
-    cve_usu_alta = models.CharField(db_column='CVE_USU_ALTA', max_length=32, default='')
-    kilometraje = models.IntegerField(db_column='KILOMETRAJE', default=0)
-    folio = models.IntegerField(db_column='FOLIO', default=0)
-    tx_referencia = models.TextField(db_column='TX_REFERENCIA')
-    id_concepto = models.IntegerField(db_column='ID_CONCEPTO', default=0)
-    no_serie = models.CharField(db_column='NO_SERIE', max_length=64, default=0)
-    sit_code = models.IntegerField(db_column='SIT_CODE', default=0)
-    id_orden_detalle = models.IntegerField(db_column='ID_ORDEN_DETALLE', blank=True, null=True, default=0)
-    bit_tipo = models.CharField(db_column='BIT_TIPO', max_length=45)
-
-    def toJSON(self):
-        item = model_to_dict(self)
-        return item
-
-    class Meta:
-        db_table = 'bit_unidad_neumatico'
-
-class Reportes(models.Model):
-    id_reporte = models.AutoField(db_column='ID_REPORTE', primary_key=True)
-    titulo_reporte = models.CharField(db_column='TITULO_REPORTE', max_length=45)
-    desc_reporte = models.CharField(db_column='DESC_REPORTE', max_length=128)
-    vista = models.CharField(db_column='VISTA', max_length=45)
-    activo = models.CharField(db_column='ACTIVO', max_length=45)
-    nom_file = models.CharField(db_column='NOM_FILE', max_length=128)
-
-    def toJSON(self):
-        item = model_to_dict(self)
-        return item
-
-    class Meta:
-        db_table = 'reportes'
 
 # **********************************************************************************************************************
 #         vistas
@@ -492,7 +412,7 @@ class WcUnidad(models.Model):
     modelo = models.CharField(db_column='MODELO', max_length=32, blank=True, null=True)
     motor = models.CharField(db_column='MOTOR', max_length=64, blank=True, null=True)
     chasis = models.CharField(db_column='CHASIS', max_length=64, blank=True, null=True)
-    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', blank=True, null=True)
+    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', blank=True, null=True)  
     ruc = models.CharField(db_column='RUC', max_length=11, blank=True, null=True)
     nombre_empresa = models.CharField(db_column='NOMBRE_EMPRESA', max_length=64, blank=True, null=True)
     telefono_contacto = models.CharField(db_column='TELEFONO_CONTACTO', max_length=32, blank=True, null=True)
@@ -606,7 +526,7 @@ class WConceptosMain(models.Model):
         return item
 
     class Meta:
-        managed = False
+        managed = False  # Created from a view. Don't remove.
         db_table = 'w_conceptos_main'
 
 
@@ -625,7 +545,7 @@ class WbUnidad(models.Model):
         return item
 
     class Meta:
-        managed = False
+        managed = False  # Created from a view. Don't remove.
         db_table = 'wb_unidad'
 
 
@@ -683,7 +603,7 @@ class WOrdenDetalle(models.Model):
         return item
 
     class Meta:
-        managed = False
+        managed = False  # Created from a view. Don't remove.
         db_table = 'w_orden_detalle'
 
 class Parametros(models.Model):
@@ -691,6 +611,7 @@ class Parametros(models.Model):
     valor = models.CharField(max_length=512, blank=True, null=True)
 
     class Meta:
+        managed = False
         db_table = 'parametros'
 
 
@@ -702,8 +623,9 @@ class WsTipoSalida(models.Model):
     desc_operacion = models.CharField(db_column='DESC_OPERACION', max_length=128, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = False  # Created from a view. Don't remove.
         db_table = 'ws_tipo_salida'
+
 
     def toJSON(self):
         item=model_to_dict( self )
@@ -774,7 +696,7 @@ class WListaMantenimiento(models.Model):
         return item
 
     class Meta:
-        managed = False
+        managed = False  # Created from a view. Don't remove.
         db_table = 'w_lista_mantenimiento'
 
 
@@ -793,7 +715,7 @@ class WbUnidadNeu(models.Model):
         return item
 
     class Meta:
-        managed = False
+        managed = False  # Created from a view. Don't remove.
         db_table = 'wb_unidad_neu'
 
 
@@ -843,7 +765,7 @@ class WcUnidadNeu(models.Model):
         return item
 
     class Meta:
-        managed = False
+        managed = False  # Created from a view. Don't remove.
         db_table = 'wc_unidad_neu'
 
 
@@ -873,10 +795,48 @@ class VwNeumaticosPosicion(models.Model):
         item = model_to_dict(self)
         return item
     class Meta:
-        managed = False
+        managed = False  # Created from a view. Don't remove.
         db_table = 'vw_neumaticos_posicion'
 
 
+class UnidadNeumatico(models.Model):
+    id_posicion = models.IntegerField(db_column='ID_POSICION', primary_key=True)  
+    id_unidad = models.IntegerField(db_column='ID_UNIDAD')  
+    posicion = models.IntegerField(db_column='POSICION')  
+    fh_alta = models.DateTimeField(db_column='FH_ALTA')  
+    cve_usu_alta = models.CharField(db_column='CVE_USU_ALTA', max_length=32)  
+    kilometraje = models.IntegerField(db_column='KILOMETRAJE')  
+    folio = models.IntegerField(db_column='FOLIO')  
+    tx_referencia = models.TextField(db_column='TX_REFERENCIA')  
+    id_concepto = models.IntegerField(db_column='ID_CONCEPTO')  
+    no_serie = models.CharField(db_column='NO_SERIE', max_length=64)  
+    sit_code = models.IntegerField(db_column='SIT_CODE')  
+    id_orden_detalle = models.IntegerField(db_column='ID_ORDEN_DETALLE', blank=True, null=True)
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        managed = False
+        db_table = 'unidad_neumatico'
+
+
+class Reportes(models.Model):
+    id_reporte = models.AutoField(db_column='ID_REPORTE', primary_key=True)  
+    titulo_reporte = models.CharField(db_column='TITULO_REPORTE', max_length=45)  
+    desc_reporte = models.CharField(db_column='DESC_REPORTE', max_length=128)  
+    vista = models.CharField(db_column='VISTA', max_length=45)  
+    activo = models.CharField(db_column='ACTIVO', max_length=45)  
+    nom_file = models.CharField(db_column='NOM_FILE', max_length=128)  
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        managed = False
+        db_table = 'reportes'
 
 
 class VwrServicioUnidad(models.Model):
@@ -890,34 +850,8 @@ class VwrServicioUnidad(models.Model):
         return item
 
     class Meta:
-        managed = False
-        db_table = 'vwr_servicio_unidad'
-
-
-class WUnidadAsignacion(models.Model):
-    id_unidad_asigna = models.IntegerField(db_column='ID_UNIDAD_ASIGNA', primary_key=True)
-    cod_acceso = models.IntegerField(db_column='COD_ACCESO', blank=True, null=True)
-    sit_code = models.IntegerField(db_column='SIT_CODE', blank=True, null=True)
-    status = models.CharField(db_column='STATUS', max_length=11, db_collation='utf8mb4_0900_ai_ci')
-    fh_asignacion = models.DateTimeField(db_column='FH_ASIGNACION', blank=True, null=True)
-    fh_entrega = models.DateTimeField(db_column='FH_ENTREGA', blank=True, null=True)
-    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', blank=True, null=True)
-    id_unidad = models.IntegerField(db_column='ID_UNIDAD', blank=True, null=True)
-    id_personal = models.IntegerField(db_column='ID_PERSONAL', blank=True, null=True)
-    nombre = models.CharField(db_column='NOMBRE', max_length=40, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)
-    apellido = models.CharField(db_column='APELLIDO', max_length=40, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)
-    nombre_asignado  = models.CharField(db_column='NOMBRE_ASIGNADO', max_length=40, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)
-    consumo_com_total = models.DecimalField(db_column='CONSUMO_COM_TOTAL', max_digits=40, decimal_places=2, blank=True, null=True)
-
-    def toJSON(self):
-        item = model_to_dict(self)
-        return item
-
-    class Meta:
         managed = False  # Created from a view. Don't remove.
-        db_table = 'w_unidad_asignacion'
-
-
+        db_table = 'vwr_servicio_unidad'
 
 #
 # class User(AbstractUser):

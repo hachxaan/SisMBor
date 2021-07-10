@@ -4,7 +4,7 @@ from django import forms
 from django.forms import Select, ModelForm, TextInput, Textarea
 
 from appMainSite.const import *
-from .models import Unidad, Cliente, Concepto, ConceptoCategoria, Personal, ConceptoTipoMarca, UnidadMedida
+from .models import Unidad, Cliente, Concepto, ConceptoCategoria, Personal, ConceptoMarca, UnidadMedida
 
 
 class ClienteForm(ModelForm):
@@ -14,7 +14,7 @@ class ClienteForm(ModelForm):
 
         #     form.field.widget.attrs['autocomplete'] = 'off'
         self.fields['cve_usu_alta'].widget = forms.HiddenInput()
-        self.fields['fh_registro'].widget = forms.HiddenInput()
+        # self.fields['fh_registro'].widget = forms.HiddenInput()
         self.fields['ruc'].widget.attrs['autofocus'] = True
         self.fields['telefono_contacto'].required = True
         self.fields['nombre_empresa'].required = True
@@ -26,7 +26,8 @@ class ClienteForm(ModelForm):
 
     class Meta:
         model = Cliente
-        fields = ['cve_usu_alta', 'fh_registro', 'id_cliente', 'ruc', 'nombre_empresa', 'telefono_contacto',
+        # 'fh_registro',
+        fields = ['cve_usu_alta', 'id_cliente', 'ruc', 'nombre_empresa', 'telefono_contacto',
                   'celular_contacto', 'correo_electronico', 'direccion', 'nombre', 'apellido']
         widgets = {
             'ruc': TextInput(
@@ -69,7 +70,7 @@ class UnidadForm(forms.ModelForm):
 
     class Meta:
         model = Unidad
-        fields = '__all__'
+        fields = ['id_cliente','placa','marca','modelo','motor','chasis']
         widgets = {
             'id_cliente': Select(
                 attrs={
@@ -214,7 +215,8 @@ class MantenimientoForm(forms.ModelForm):
         self.fields['precio_compra'].widget.attrs['value'] = 0
         self.fields['id_periodo_km'].widget.attrs['value'] = 0
         self.fields['stock'].widget.attrs['value'] = 0
-        self.fields['id_tipo_servicio'].widget.attrs['value'] = 2
+        self.fields['id_tipo_servicio'].widget.attrs['value'] = 0
+        self.fields['id_categoria'].widget.attrs['value'] = 1
         self.fields['id_tipo_concepto'].widget = forms.HiddenInput()
         self.fields['b_numero_serie'].widget = forms.HiddenInput()
         self.fields['id_periodo_km'].widget = forms.HiddenInput()
@@ -305,7 +307,7 @@ class InventarioForm(forms.ModelForm):
         queryset=ConceptoCategoria.objects.filter(id_tipo_concepto=TCONCEPTO_REPUESTOS))
     id_unidad_medida = forms.ModelChoiceField(queryset=UnidadMedida.objects.all())
     id_marca = forms.ModelChoiceField(
-        queryset=ConceptoTipoMarca.objects.filter(id_tipo_concepto=TCONCEPTO_REPUESTOS))
+        queryset=ConceptoMarca.objects.filter(id_tipo_concepto=TCONCEPTO_REPUESTOS))
 
     b_numero_serie = forms.BooleanField()
     b_nserie_obligatorio = forms.BooleanField()
@@ -319,7 +321,7 @@ class InventarioForm(forms.ModelForm):
 
         initial = kwargs.get('initial', {})
         initial['stock'] = '0'
-        initial['id_tipo_servicio'] = '1'
+
         initial['b_numero_serie'] = False
         initial['b_nserie_obligatorio'] = False
         initial['vida_util_km'] = '0'
@@ -333,10 +335,10 @@ class InventarioForm(forms.ModelForm):
         # super().__init__(*args, **kwargs)
         self.fields['cve_concepto'].widget.attrs['autofocus'] = True
         self.fields['id_tipo_concepto'].widget.attrs['value'] = TCONCEPTO_REPUESTOS
-        self.fields['id_tipo_servicio'].widget.attrs['value'] = 0
+        # self.fields['id_tipo_servicio'].widget.attrs['value'] = 0
 
         self.fields['id_tipo_concepto'].widget = forms.HiddenInput()
-        self.fields['id_tipo_servicio'].widget = forms.HiddenInput()
+        # self.fields['id_tipo_servicio'].widget = forms.HiddenInput()
 
         self.fields['id_categoria'].label = "Categoría"
         self.fields['id_marca'].label = "Marca"
@@ -350,6 +352,7 @@ class InventarioForm(forms.ModelForm):
         self.fields['stock'].required = True
         self.fields['precio_venta'].required = True
         self.fields['precio_compra'].required = True
+        # self.fields['b_'].required = True
         self.fields['vida_util_km'].required = True
         self.fields['vida_util_hr'].required = True
         self.fields['b_numero_serie'].required = False
@@ -372,7 +375,7 @@ class InventarioForm(forms.ModelForm):
                   'id_tipo_concepto',
                   'b_numero_serie',
                   'b_nserie_obligatorio',
-                  'id_tipo_servicio'
+                  # 'id_tipo_servicio'
                   ]
         widgets = {
 
@@ -460,6 +463,7 @@ class InventarioForm(forms.ModelForm):
         form = super()
 
         try:
+
             if form.is_valid():
                 form.save()
             else:
@@ -476,7 +480,7 @@ class InventarioFormEdit(forms.ModelForm):
         queryset=ConceptoCategoria.objects.filter(id_tipo_concepto=TCONCEPTO_REPUESTOS))
     id_unidad_medida = forms.ModelChoiceField(queryset=UnidadMedida.objects.all())
     id_marca = forms.ModelChoiceField(
-        queryset=ConceptoTipoMarca.objects.filter(id_tipo_concepto=TCONCEPTO_REPUESTOS))
+        queryset=ConceptoMarca.objects.filter(id_tipo_concepto=TCONCEPTO_REPUESTOS))
 
     b_numero_serie = forms.BooleanField()
     b_nserie_obligatorio = forms.BooleanField()
@@ -670,7 +674,7 @@ class InventarioNeumaticosForm(forms.ModelForm):
         queryset=ConceptoCategoria.objects.filter(id_tipo_concepto=TCONCEPTO_NEUMATICOS))
     # id_unidad_medida = forms.ModelChoiceField(queryset=UnidadMedida.objects.all())
     id_marca = forms.ModelChoiceField(
-        queryset=ConceptoTipoMarca.objects.filter(id_tipo_concepto=TCONCEPTO_NEUMATICOS))
+        queryset=ConceptoMarca.objects.filter(id_tipo_concepto=TCONCEPTO_NEUMATICOS))
 
     b_numero_serie = forms.BooleanField()
     b_nserie_obligatorio = forms.BooleanField()
@@ -684,7 +688,7 @@ class InventarioNeumaticosForm(forms.ModelForm):
 
         initial = kwargs.get('initial', {})
         initial['stock'] = '0'
-        initial['id_tipo_servicio'] = '1'
+        initial['id_tipo_servicio'] = '0'
         initial['b_numero_serie'] = False
         initial['b_nserie_obligatorio'] = False
         initial['vida_util_km'] = '0'
@@ -827,7 +831,7 @@ class InventarioNeumaticosFormEdit(forms.ModelForm):
         queryset=ConceptoCategoria.objects.filter(id_tipo_concepto=TCONCEPTO_NEUMATICOS))
     id_unidad_medida = forms.ModelChoiceField(queryset=UnidadMedida.objects.all())
     id_marca = forms.ModelChoiceField(
-        queryset=ConceptoTipoMarca.objects.filter(id_tipo_concepto=TCONCEPTO_NEUMATICOS))
+        queryset=ConceptoMarca.objects.filter(id_tipo_concepto=TCONCEPTO_NEUMATICOS))
 
     b_numero_serie = forms.BooleanField()
     b_nserie_obligatorio = forms.BooleanField()

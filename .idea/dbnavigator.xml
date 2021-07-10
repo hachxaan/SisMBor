@@ -25,100 +25,30 @@
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
     <loaded-nodes>
-      <connection connection-id="6d2dc9a3-5f6f-4dbb-86a9-14b924cb26df">
-        <schema name="sismbor" object-types="table, view" />
+      <connection connection-id="8dbc90ca-bb26-496a-8543-4f513bd5b4f2">
+        <schema name="mysql" object-types="table, view" />
+        <schema name="sismbordb" object-types="table, view, procedure, function, constraint, index, column, dataset trigger" />
       </connection>
     </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="6d2dc9a3-5f6f-4dbb-86a9-14b924cb26df">
-      <console name="sismbor" type="STANDARD" schema="sismbor" session="Main"><![CDATA[/*SELECT 
-        `u`.`PLACA` AS `Placa`,
-        COUNT(1) AS `Servicios`,
-        SELECT 
-        `u`.`PLACA` AS `Placa`,
-        COUNT(1) AS `Servicios`,
-        CONCAT('S/. ',
-                FORMAT(SUM(`d`.`PRECIO_COMPRA`), 2)) AS `Compra`,
-        CONCAT('S/. ',
-                FORMAT(SUM(`d`.`PRECIO_VENTA`), 2)) AS `Venta`,
-        CONCAT('S/. ',
-                FORMAT(SUM((`d`.`PRECIO_VENTA` - `d`.`PRECIO_COMPRA`)),
-                    2)) AS `Ganancia`,
-        DATE_FORMAT(`o`.`FH_SALIDA`, '%d/%M/%Y') AS `Fecha`
-    FROM
-        (((`orden` `o`
-        LEFT JOIN `unidad` `u` ON ((`u`.`ID_UNIDAD` = `o`.`ID_UNIDAD`)))
-        left JOIN `cuenta` `c` ON ((`c`.`FOLIO` = `o`.`FOLIO`)))
-        LEFT JOIN `orden_detalle` `d` ON (((`d`.`FOLIO` = `o`.`FOLIO`)
-            AND (`d`.`FOLIO` = `c`.`FOLIO`))))
-    WHERE
-        (`o`.`STATUS` = 2)
-    GROUP BY `u`.`PLACA` , DATE_FORMAT(`o`.`FH_SALIDA`, '%d/%M/%Y')
-    ORDER BY `u`.`PLACA`, DATE_FORMAT(`o`.`FH_SALIDA`, '%d/%M/%Y')
-        DATE_FORMAT(`o`.`FH_SALIDA`, '%d/%M/%Y') AS `Fecha`
-    FROM
-        (((`orden` `o`
-        LEFT JOIN `unidad` `u` ON ((`u`.`ID_UNIDAD` = `o`.`ID_UNIDAD`)))
-        left JOIN `cuenta` `c` ON ((`c`.`FOLIO` = `o`.`FOLIO`)))
-        LEFT JOIN (SELECT FOLIO, SUM(PRECIO_COMPRA) AS PRECIO_COMPRA, SUM(PRECIO_VENTA) AS PRECIO_VENTA FROM `orden_detalle` `d` ON (((`d`.`FOLIO` = `o`.`FOLIO`)
-            AND (`d`.`FOLIO` = `c`.`FOLIO`))))
-    WHERE
-        (`o`.`STATUS` = 2)
-    GROUP BY `u`.`PLACA` , DATE_FORMAT(`o`.`FH_SALIDA`, '%d/%M/%Y')
-    ORDER BY `u`.`PLACA`, DATE_FORMAT(`o`.`FH_SALIDA`, '%d/%M/%Y');*/
-    
-  --  (SELECT count(1) from orden oo where oo.status = 2);
-    
-    
-    SELECT M1.*,
-            (SELECT count(1) from orden oo where oo.id_unidad = M1.id_unidad and M1.status = 2) as servicios 
-    FROM  (SELECT `or`.FOLIO,
-            `un`.ID_UNIDAD,  
-			`un`.PLACA, 
-            DATE_FORMAT(`or`.`FH_SALIDA`, '%d/%M/%Y') AS FECHA,
-			SUM(PRECIO_COMPRA) AS PRECIO_COMPRA, 
-			SUM(PRECIO_VENTA) AS PRECIO_VENTA
-            
-		FROM `orden_detalle` `od`, `orden` `or` , `unidad` `un` 
-        WHERE `od`.`FOLIO`     = `or`.`FOLIO`
-          AND `un`.`ID_UNIDAD` = `or`.`ID_UNIDAD`
-          AND `or`.STATUS = 2
-	group by `or`.FOLIO, `un`.ID_UNIDAD, `un`.PLACA, DATE_FORMAT(`or`.`FH_SALIDA`, '%d/%M/%Y') AS M1);
-        
-
-
-/*SELECT 
-        `u`.`PLACA` AS `Placa`,
-        COUNT(1) AS `Servicios`,
-        CONCAT('S/. ',
-                FORMAT(SUM(`d`.`PRECIO_COMPRA`), 2)) AS `Compra`,
-        CONCAT('S/. ',
-                FORMAT(SUM(`d`.`PRECIO_VENTA`), 2)) AS `Venta`,
-        CONCAT('S/. ',
-                FORMAT(SUM((`d`.`PRECIO_VENTA` - `d`.`PRECIO_COMPRA`)),
-                    2)) AS `Ganancia`,
-        DATE_FORMAT(`o`.`FH_SALIDA`, '%d/%M/%Y') AS `Fecha`
-    FROM
-        (((`orden` `o`
-        LEFT JOIN `unidad` `u` ON ((`u`.`ID_UNIDAD` = `o`.`ID_UNIDAD`)))
-        left JOIN `cuenta` `c` ON ((`c`.`FOLIO` = `o`.`FOLIO`)))
-        LEFT JOIN `orden_detalle` `d` ON (((`d`.`FOLIO` = `o`.`FOLIO`)
-            AND (`d`.`FOLIO` = `c`.`FOLIO`))))
-    WHERE
-        (`o`.`STATUS` = 2)
-    GROUP BY `u`.`PLACA` , DATE_FORMAT(`o`.`FH_SALIDA`, '%d/%M/%Y')
-    ORDER BY `u`.`PLACA`, DATE_FORMAT(`o`.`FH_SALIDA`, '%d/%M/%Y')*/]]></console>
+    <connection id="8dbc90ca-bb26-496a-8543-4f513bd5b4f2">
+      <console name="Connection" type="STANDARD" schema="sismbordb" session="Main"><![CDATA[SELECT * 
+FROM unidad]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="8dbc90ca-bb26-496a-8543-4f513bd5b4f2" object-ref="schemas/sismbordb/tables/unidad_asignacion" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
-    <connection id="6d2dc9a3-5f6f-4dbb-86a9-14b924cb26df" />
+    <connection id="8dbc90ca-bb26-496a-8543-4f513bd5b4f2" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
-    <filter-actions connection-id="6d2dc9a3-5f6f-4dbb-86a9-14b924cb26df" dataset="sismbor.unidad_neumatico" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="8dbc90ca-bb26-496a-8543-4f513bd5b4f2" dataset="sismbordb.concepto_categoria" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="8dbc90ca-bb26-496a-8543-4f513bd5b4f2" dataset="sismbordb.concepto_marca" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="8dbc90ca-bb26-496a-8543-4f513bd5b4f2" dataset="sismbordb.unidad_asignacion" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
@@ -148,10 +78,10 @@
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="6d2dc9a3-5f6f-4dbb-86a9-14b924cb26df" active="true">
+      <connection id="8dbc90ca-bb26-496a-8543-4f513bd5b4f2" active="true">
         <database>
-          <name value="sismbor" />
-          <description value="sismbor" />
+          <name value="Sismbordb" />
+          <description value="sismbordb" />
           <database-type value="MYSQL" />
           <config-type value="BASIC" />
           <database-version value="8.0" />
@@ -161,7 +91,7 @@
           <url-type value="DATABASE" />
           <host value="localhost" />
           <port value="3306" />
-          <database value="sismbor" />
+          <database value="mysql" />
           <type value="USER_PASSWORD" />
           <user value="admin" />
           <deprecated-pwd value="MTIzNDU2" />

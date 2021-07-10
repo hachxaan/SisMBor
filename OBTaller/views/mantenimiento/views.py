@@ -103,6 +103,7 @@ class MantenimientoCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixi
         context['catalogos']='menu-is-opening menu-open'
         context['mantenimiento']='active'
         context['id_tipo_concepto']=const.TCONCEPTO_MANTENIMIENTO
+        context['id_categoria']=const.ID_CATEGORIA_MANTO
 
         return context
 # **********************************************************************************************************************

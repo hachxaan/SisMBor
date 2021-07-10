@@ -6,7 +6,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView
 from OBTaller.forms import UnidadForm
 from OBTaller.models import WcUnidad, ConceptoCategoria, TipoServicio, Parametros, \
-    ConceptoTipoMarca, UnidadMedida, WcUnidadNeu
+    ConceptoMarca, UnidadMedida, WcUnidadNeu
 
 
 def addConceptoCategoria(request):
@@ -32,8 +32,8 @@ def addConceptoMarca(request):
         desc_marca=request.POST['desc_marca']
         try:
             data = {}
-            rocordLast = ConceptoTipoMarca.objects.create( id_tipo_concepto=id_tipo_concepto,
-                                                           desc_marca=desc_marca )
+            rocordLast = ConceptoMarca.objects.create(id_tipo_concepto=id_tipo_concepto,
+                                                      desc_marca=desc_marca)
             data={'id_marca': rocordLast.id_marca,
                  'desc_marca': rocordLast.desc_marca}
 
@@ -117,7 +117,7 @@ def getInfoUnidad(request):
 
 
 def login(request):
-    return render(request, 'registration/login.html')
+    return render(request, 'login.html')
 
 
 def index(request):

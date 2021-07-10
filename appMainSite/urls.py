@@ -18,9 +18,16 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
 from django.views import static
+from OBTaller.loginus.views import LoginFromView, LoginOperador
 
 urlpatterns = [
+
     path('', include('OBTaller.urls')),
+    path('accounts/login/', LoginFromView.as_view()),
+    path('login/', LoginFromView.as_view()),
+    path('LoginOperador/', LoginOperador.as_view(), name='login_operador'),
+    # path('', include('Oper.urls')),
+
     path('admin/', admin.site.urls),
     path( 'accounts/', include( 'django.contrib.auth.urls' ) ),
     url(r'^static/(?P<path>.*)$', static.serve, {'document_root': settings.STATIC_ROOT}, name='static'),

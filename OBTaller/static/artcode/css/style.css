@@ -113,11 +113,17 @@ table.dataTable tbody tr td a {
 }
 
 .card-crista.card-crista {
-    background-color: rgba(255, 255, 255, .4);  
+    background-color: rgba(255, 255, 255, .7);
     backdrop-filter: blur(5px);
     border-radius: 10px;
     color: #1d455b;
+
    }
+
+#loginForm div label{
+    text-align: left;
+
+}
 
 .btn-login {
     background-color: rgb(33, 5, 29);

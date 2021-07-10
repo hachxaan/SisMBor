@@ -19,8 +19,44 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e0074843-61a2-4bac-b21d-d2a6f08bf969" name="Default Changelist" comment="AJUSTE EN ETIQUETAS&#10;{folio_current}">
+    <list default="true" id="e0074843-61a2-4bac-b21d-d2a6f08bf969" name="Default Changelist" comment="INICIA V03">
+      <change afterPath="$PROJECT_DIR$/OBTaller/loginus/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/operacion/js/unidad_asignacion.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/templates/operacion/unidad_asignacion.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/views/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/views/unidad_asignacion_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/artcode/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/artcode/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/libs/jquery-ui-1.12.1/jquery-ui.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/libs/jquery-ui-1.12.1/jquery-ui.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/libs/jquery-ui-1.12.1/jquery-ui.theme.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/MainSections/MENU.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/MainSections/MENU.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/neumaticos/neumaticos-admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/neumaticos/neumaticos-admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/loginus/templates/loginoperador.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/usuarios/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/loginus/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/usuarios/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/loginus/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/usuarios/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/usuarios/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/loginus/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/usuarios/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/loginus/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/usuarios/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/views/neumaticos_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/neumaticos_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/views/unidad/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/unidad_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/views/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Oper/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/loginus.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Oper/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Oper/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/loginus/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Oper/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Oper/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/loginus/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Oper/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Oper/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Oper/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/appMainSite/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/appMainSite/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appMainSite/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/appMainSite/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work_migrtate_db.sh" beforeDir="false" afterPath="$PROJECT_DIR$/work_migrtate_db.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,8 +70,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -81,19 +117,24 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/OBTaller/loginus/templates" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/OBTaller/loginus/templates" />
+      <recent name="$PROJECT_DIR$/OBTaller" />
+      <recent name="$PROJECT_DIR$/Oper/templates" />
       <recent name="$PROJECT_DIR$/OBTaller/static/sismbor/js" />
       <recent name="$PROJECT_DIR$/OBTaller/static/sismbor/css" />
-      <recent name="$PROJECT_DIR$/OBTaller/templates" />
-      <recent name="$PROJECT_DIR$/OBTaller/views" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/appMainSite" />
+      <recent name="$PROJECT_DIR$/OBTaller/views" />
+      <recent name="$PROJECT_DIR$/OBTaller/static/sismbor/operacion/js" />
+      <recent name="$PROJECT_DIR$/OBTaller/loginus" />
+      <recent name="$PROJECT_DIR$/OBTaller" />
+      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunManager" selected="Python.appMainSite">
@@ -286,7 +327,28 @@
       <option name="project" value="LOCAL" />
       <updated>1625336902503</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="rewirements.txt">
+      <created>1625431123784</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1625431123784</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Iinicia Operador">
+      <created>1625763847084</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1625763847084</updated>
+    </task>
+    <task id="LOCAL-00014" summary="INICIA V03">
+      <created>1625856201636</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1625856201636</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -298,12 +360,17 @@
         <entry key="MAIN">
           <value>
             <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
               <option name="FILTERS">
                 <map>
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="main-lx" />
+                        <option value="des_operador" />
                       </list>
                     </value>
                   </entry>
@@ -327,7 +394,10 @@
     <MESSAGE value=".gitignore" />
     <MESSAGE value="- PRINT" />
     <MESSAGE value="AJUSTE EN ETIQUETAS&#10;{folio_current}" />
-    <option name="LAST_COMMIT_MESSAGE" value="AJUSTE EN ETIQUETAS&#10;{folio_current}" />
+    <MESSAGE value="rewirements.txt" />
+    <MESSAGE value="Iinicia Operador" />
+    <MESSAGE value="INICIA V03" />
+    <option name="LAST_COMMIT_MESSAGE" value="INICIA V03" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -346,11 +416,6 @@
           <url>file://$PROJECT_DIR$/OBTaller/tests.py</url>
           <line>41</line>
           <option name="timeStamp" value="41" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/OBTaller/views/views.py</url>
-          <line>99</line>
-          <option name="timeStamp" value="47" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
