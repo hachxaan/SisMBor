@@ -4,7 +4,7 @@ from django import forms
 from django.forms import Select, ModelForm, TextInput, Textarea
 
 from appMainSite.const import *
-from .models import Unidad, Cliente, Concepto, ConceptoCategoria, Personal, ConceptoTipoMarca, UnidadMedida
+from .models import Unidad, Cliente, Concepto, ConceptoCategoria, Personal, ConceptoMarca, UnidadMedida
 
 
 class ClienteForm(ModelForm):
@@ -307,7 +307,7 @@ class InventarioForm(forms.ModelForm):
         queryset=ConceptoCategoria.objects.filter(id_tipo_concepto=TCONCEPTO_REPUESTOS))
     id_unidad_medida = forms.ModelChoiceField(queryset=UnidadMedida.objects.all())
     id_marca = forms.ModelChoiceField(
-        queryset=ConceptoTipoMarca.objects.filter(id_tipo_concepto=TCONCEPTO_REPUESTOS))
+        queryset=ConceptoMarca.objects.filter(id_tipo_concepto=TCONCEPTO_REPUESTOS))
 
     b_numero_serie = forms.BooleanField()
     b_nserie_obligatorio = forms.BooleanField()
@@ -480,7 +480,7 @@ class InventarioFormEdit(forms.ModelForm):
         queryset=ConceptoCategoria.objects.filter(id_tipo_concepto=TCONCEPTO_REPUESTOS))
     id_unidad_medida = forms.ModelChoiceField(queryset=UnidadMedida.objects.all())
     id_marca = forms.ModelChoiceField(
-        queryset=ConceptoTipoMarca.objects.filter(id_tipo_concepto=TCONCEPTO_REPUESTOS))
+        queryset=ConceptoMarca.objects.filter(id_tipo_concepto=TCONCEPTO_REPUESTOS))
 
     b_numero_serie = forms.BooleanField()
     b_nserie_obligatorio = forms.BooleanField()
@@ -674,7 +674,7 @@ class InventarioNeumaticosForm(forms.ModelForm):
         queryset=ConceptoCategoria.objects.filter(id_tipo_concepto=TCONCEPTO_NEUMATICOS))
     # id_unidad_medida = forms.ModelChoiceField(queryset=UnidadMedida.objects.all())
     id_marca = forms.ModelChoiceField(
-        queryset=ConceptoTipoMarca.objects.filter(id_tipo_concepto=TCONCEPTO_NEUMATICOS))
+        queryset=ConceptoMarca.objects.filter(id_tipo_concepto=TCONCEPTO_NEUMATICOS))
 
     b_numero_serie = forms.BooleanField()
     b_nserie_obligatorio = forms.BooleanField()
@@ -831,7 +831,7 @@ class InventarioNeumaticosFormEdit(forms.ModelForm):
         queryset=ConceptoCategoria.objects.filter(id_tipo_concepto=TCONCEPTO_NEUMATICOS))
     id_unidad_medida = forms.ModelChoiceField(queryset=UnidadMedida.objects.all())
     id_marca = forms.ModelChoiceField(
-        queryset=ConceptoTipoMarca.objects.filter(id_tipo_concepto=TCONCEPTO_NEUMATICOS))
+        queryset=ConceptoMarca.objects.filter(id_tipo_concepto=TCONCEPTO_NEUMATICOS))
 
     b_numero_serie = forms.BooleanField()
     b_nserie_obligatorio = forms.BooleanField()

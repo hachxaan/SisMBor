@@ -15,9 +15,11 @@ mysql -u admin -p123456 sismbordb  < ../db/migration.v03/parametros_iniciales.sq
 echo "../db/migration.v03/datos_desarrollo.sql"
 echo "-------------------------------------------------------------------"
 mysql -u admin -p123456 sismbordb  < ../db/migration.v03/datos_desarrollo.sql
+echo "../db/migration.v03/categorias_desarrollo.sql"
+echo "-------------------------------------------------------------------"
+mysql -u admin -p123456 sismbordb  < ../db/migration.v03/categorias_desarrollo.sql
 echo "../db/migration.v03/conceptos_desarrollo.sql"
 echo "-------------------------------------------------------------------"
-
 mysql -u admin -p123456 sismbordb  < ../db/migration.v03/conceptos_desarrollo.sql
 echo "../db/migration.v03/unidades_desarrollo.sql"
 echo "-------------------------------------------------------------------"
@@ -25,6 +27,7 @@ mysql -u admin -p123456 sismbordb  < ../db/migration.v03/unidades_desarrollo.sql
 echo "../db/migration.v03/set_id_base.sql"
 echo "-------------------------------------------------------------------"
 mysql -u admin -p123456 sismbordb  < ../db/migration.v03/set_id_base.sql
+echo "-------------------------------------------------------------------"
 echo "LISTO"
 echo "-------------------------------------------------------------------"
 

@@ -43,7 +43,30 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item {{ operacion }}">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-bus"></i>
+                        <p>
+                            Unidades
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="pl-4 nav nav-treeview loading-click">
+                        <li class="">
+                            <a href="{% url 'OBTaller:unidad_asignacion' %}" class="nav-link  {{ unidad_asignacion }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Asignacion</p>
+                            </a>
+                        </li>
+<!--                        <li class=" loading-click">-->
+<!--                            <a href="{% url 'OBTaller:unidad_list' %}" class="nav-link {{ unidades }}">-->
+<!--                                <i class="far fa-circle nav-icon"></i>-->
+<!--                                <p>Unidades</p>-->
+<!--                            </a>-->
+<!--                        </li>-->
+                    </ul>
 
+                </li>
                 <li class="nav-item {{ catalogos }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>

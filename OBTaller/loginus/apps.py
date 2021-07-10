@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class UsuariosConfig(AppConfig):
+class LoginusConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'usuarios'
+    name = 'OBTaller.loginus'

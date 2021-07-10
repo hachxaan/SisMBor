@@ -3,15 +3,15 @@ from django.db.models import Max
 from django.http import JsonResponse
 import datetime as dt
 from django.utils.decorators import method_decorator
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 
 from OBTaller.models import VwNeumaticosPosicion, WConceptosMain, Orden, Concepto, UnidadNeumatico, OrdenDetalle
 from appMainSite.const import TCONCEPTO_NEUMATICOS
 
 
-class NeumaticosAdmin( ListView ):
+class NeumaticosAdmin( TemplateView ):
     template_name = 'neumaticos/neumaticos-admin.html'
-    model = VwNeumaticosPosicion
+    # model = VwNeumaticosPosicion
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):

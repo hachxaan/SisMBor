@@ -15,10 +15,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 import os
 
-
-
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -27,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-132+-6o**fxw)7h!)o#0i(wvs%cm_9tivdj3+=q$&rdyg@8yn5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['192.168.1.71', '18.223.162.255', '192.168.5.2', '127.0.0.1', 'yonk-e', '18.223.167.9', 'localhost']
 
@@ -43,13 +40,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'widget_tweaks',
     'OBTaller',
-    'Oper',
+    'OBTaller.loginus',
+
 ]
 
 MIDDLEWARE = [
     'OBTaller.middleware.StatusMenu',
     'OBTaller.middleware.MenuReportes',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -80,33 +79,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'appMainSite.wsgi.application'
 
-#
-# AUTH_USER_MODEL = 'OBTaller.User'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sismbordb',
-        'USER': 'admin',
-        'PASSWORD': '123456',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-        'PORT': '3306',
+    'ENGINE': 'django.db.backends.mysql',
+    'NAME': 'sismbordb',
+    'USER': 'admin',
+    # 'PASSWORD': '123456',
+	'PASSWORD': 'CveDb.123456',
+    # 'HOST': 'localhost',
+	'HOST': 'database-hotelweb.cjg26m5mzcaw.us-east-2.rds.amazonaws.com',
+    'PORT': '3306',
     }
 }
 
-# DATABASES = {
-#      'default': {
-#          'ENGINE': 'django.db.backends.mysql',
-#          'NAME': 'sismbor',
-#          'USER': 'admin',
-#          'PASSWORD': 'CveDb.123456',
-#          'HOST': 'database-hotelweb.cjg26m5mzcaw.us-east-2.rds.amazonaws.com',   # Or an IP Address that your DB is hosted on
-#          'PORT': '3306',
-#      }
-#  }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -144,8 +133,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
+
+
+
 STATIC_URL = '/static/'
-STATIC_ROOT = 'static'
+
+STATIC_ROOT = os.path.normpath(os.path.join(PROJECT_ROOT, 'static'))
 
 
 # Default primary key field type
@@ -154,9 +150,5 @@ STATIC_ROOT = 'static'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, '/static/')
-]
-
-LOGIN_REDIRECT_URL = '/operaciones/'
-LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/login/'

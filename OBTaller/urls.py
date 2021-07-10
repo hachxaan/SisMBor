@@ -16,9 +16,10 @@ from OBTaller.views.mantenimiento.views import MantenimientoListView, Mantenimie
 from OBTaller.views.personal.views import PersonalListView, PersonalCreateView, PersonalUpdateView, PersonalDeleteView
 from OBTaller.views.reportes_view import ReportesView
 
-from OBTaller.views.unidad.views import UnidadListView, UnidadCreateView, UnidadUpdateView, UnidadDeleteView
-from OBTaller.views.views import login, addConceptoCategoria, addTipoServicio, \
-    getInfoUnidad, SetParametros, addConceptoMarca, addUnidadMedida, EsDemo
+from OBTaller.views.unidad_view import UnidadListView, UnidadCreateView, UnidadUpdateView, UnidadDeleteView
+from OBTaller.views.unidad_asignacion_view import UnidadAsignacionView
+from OBTaller.views.views import addConceptoCategoria, addTipoServicio, \
+    getInfoUnidad, SetParametros, addConceptoMarca, addUnidadMedida
 
 from OBTaller.views.orden_view import WCuentaAbiertaListView, OrdenNuevaView, UpdSitOrden, OrdenListaEditar, \
     OrdenListaDetalle
@@ -31,10 +32,7 @@ app_name='OBTaller'
 urlpatterns=[
 
     path( '', WCuentaAbiertaListView.as_view(), name='panel-operacion' ),
-    path( 'operador/', login, name='login' ),
     path( 'parametros/', SetParametros, name='parametros' ),
-    # path( 'esdemo/', EsDemo, name='es_demo' ),
-    path( 'operacion/', WCuentaAbiertaListView.as_view(), name='panel-operacion' ),
     path( 'ordennueva/', OrdenNuevaView.as_view(), name='orden_nueva' ),
     path( 'getInfoUnidad/', getInfoUnidad, name='get_info_unidad' ),
     path( 'ordennueva/getInfoUnidad/', getInfoUnidad, name='get_info_unidad' ),
@@ -75,6 +73,12 @@ urlpatterns=[
         path( 'operacion/ordeneditar/', OrdenListaEditar.as_view(), name='editar_order' ),
         path( 'ordeneditar/', OrdenListaEditar.as_view(), name='editar_order' ),
         # path( 'operacion/ordeneditar/lista/', OrdenListaEditar.as_view(), name='lista_editar_order' ),
+
+    # *******************************************************************************************************************
+    # C A T A L O G O S
+    # *******************************************************************************************************************
+        path( 'unidades/asignacion/', UnidadAsignacionView.as_view(), name='unidad_asignacion' ),
+
     # *******************************************************************************************************************
     # C A T A L O G O S
     # *******************************************************************************************************************
