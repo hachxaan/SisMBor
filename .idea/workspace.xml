@@ -112,24 +112,20 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/OBTaller/loginus/templates" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../oper" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/OBTaller/loginus/templates" />
-      <recent name="$PROJECT_DIR$/OBTaller" />
       <recent name="$PROJECT_DIR$/Oper/templates" />
       <recent name="$PROJECT_DIR$/OBTaller/static/sismbor/js" />
       <recent name="$PROJECT_DIR$/OBTaller/static/sismbor/css" />
+      <recent name="$PROJECT_DIR$/OBTaller/templates" />
+      <recent name="$PROJECT_DIR$/OBTaller/views" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/OBTaller/views" />
-      <recent name="$PROJECT_DIR$/OBTaller/static/sismbor/operacion/js" />
-      <recent name="$PROJECT_DIR$/OBTaller/loginus" />
-      <recent name="$PROJECT_DIR$/OBTaller" />
-      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/appMainSite" />
     </key>
   </component>
   <component name="RunManager" selected="Python.appMainSite">
@@ -365,7 +361,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="des_operador" />
+                        <option value="main-lx" />
                       </list>
                     </value>
                   </entry>
@@ -411,6 +407,11 @@
           <url>file://$PROJECT_DIR$/OBTaller/tests.py</url>
           <line>41</line>
           <option name="timeStamp" value="41" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/OBTaller/views/views.py</url>
+          <line>99</line>
+          <option name="timeStamp" value="47" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
