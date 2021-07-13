@@ -28,7 +28,7 @@ class ReportesView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListView
     def post(self, request, *args, **kwargs):
         data = {}
         try:
-            request.session['reporte_id'] = 52
+            # request.session['reporte_id'] = 52
             action = request.POST['action']
             if action == 'searchdata':
                 data = []

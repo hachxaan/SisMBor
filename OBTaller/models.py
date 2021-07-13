@@ -11,6 +11,8 @@ from django.db import models
 from django.forms import model_to_dict
 from django.utils import timezone
 
+from appMainSite.const import UNIDAD_MEDIDA_COMBUSTIBLE
+
 
 class BitInventario(models.Model):
     id_trans_inventario = models.AutoField(db_column='ID_TRANS_INVENTARIO', primary_key=True)
@@ -115,7 +117,7 @@ class ConceptoCategoria(models.Model):
     id_categoria = models.AutoField(db_column='ID_CATEGORIA', primary_key=True)
     desc_categoria = models.CharField(db_column='DESC_CATEGORIA', max_length=32)
     fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now)
-    id_tipo_concepto = models.ForeignKey(ConceptoTipo, models.DO_NOTHING, db_column='ID_TIPO_CONCEPTO')
+    id_tipo_concepto = models.ForeignKey(ConceptoTipo, models.PROTECT, db_column='ID_TIPO_CONCEPTO')
 
     def toJSON(self):
         item = model_to_dict(self)
@@ -193,25 +195,43 @@ class UnidadMedida(models.Model):
     class Meta:
         db_table = 'unidad_medida'
 
+
+class UnidadMedidaCombustible(models.Model):
+    id_unidad_medida_com = models.AutoField(db_column='ID_UNIDAD_MEDIDA_COM', primary_key=True)
+    desc_unidad_medida_com = models.CharField(db_column='DESC_UNIDAD_MEDIDA_COM', max_length=45, blank=True, null=True)
+    abreb_unidad_medida_com = models.CharField(db_column='ABREB_UNIDAD_MEDIDA_COM', max_length=45, blank=True, null=True)
+    # fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now, blank=True, null=True)
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+    def __str__(self):
+        return self.desc_unidad_medida + ' (' + self.abreb_unidad_medida +')'
+
+    class Meta:
+        db_table = 'unidad_medida_combustible'
+
+
+
 class Concepto(models.Model):
     id_concepto=models.AutoField( db_column='ID_CONCEPTO', primary_key=True)
     cve_concepto = models.CharField(db_column='CVE_CONCEPTO', unique=True,max_length=32)
     desc_concepto = models.CharField(db_column='DESC_CONCEPTO', unique=True, max_length=128)  
     id_tipo_concepto = models.IntegerField(db_column='ID_TIPO_CONCEPTO')  
-    id_categoria = models.ForeignKey( ConceptoCategoria, models.DO_NOTHING, db_column='ID_CATEGORIA')
+    id_categoria = models.ForeignKey( ConceptoCategoria, models.PROTECT, db_column='ID_CATEGORIA')
     precio_venta = models.DecimalField(db_column='PRECIO_VENTA', max_digits=18, decimal_places=2, default=0)
-    id_unidad_medida = models.ForeignKey(UnidadMedida, models.DO_NOTHING,db_column='ID_UNIDAD_MEDIDA', blank=True, null=True)
-    id_periodo_km = models.ForeignKey( PeriodoKm, models.DO_NOTHING, db_column='ID_PERIODO_KM', blank=True, null=True)  
+    id_unidad_medida = models.ForeignKey(UnidadMedida, models.PROTECT,db_column='ID_UNIDAD_MEDIDA', blank=True, null=True)
+    id_periodo_km = models.ForeignKey( PeriodoKm, models.PROTECT, db_column='ID_PERIODO_KM', blank=True, null=True)  
     vida_util_km = models.IntegerField(db_column='VIDA_UTIL_KM', blank=True, null=True)  
     vida_util_hr = models.IntegerField(db_column='VIDA_UTIL_HR', blank=True, null=True)  
     descuento = models.DecimalField(db_column='DESCUENTO', max_digits=18, decimal_places=2, blank=True, null=True, default=0)
-    id_marca = models.ForeignKey(ConceptoMarca, models.DO_NOTHING, db_column='ID_MARCA', blank=True, null=True)
+    id_marca = models.ForeignKey(ConceptoMarca, models.PROTECT, db_column='ID_MARCA', blank=True, null=True)
     hora_hombre = models.DecimalField(db_column='HORA_HOMBRE', max_digits=9, decimal_places=2, blank=True, null=True)  
     cve_usu_alta = models.CharField(db_column='CVE_USU_ALTA', max_length=16, blank=True, null=True)
     no_serie = models.CharField(db_column='NO_SERIE', max_length=128, blank=True, null=True)  
     b_numero_serie = models.BooleanField(db_column='B_NUMERO_SERIE')
     precio_compra = models.DecimalField(db_column='PRECIO_COMPRA', max_digits=18, decimal_places=2, default=0)
-    id_tipo_servicio = models.ForeignKey( TipoServicio, models.DO_NOTHING, default=1, db_column='ID_TIPO_SERVICIO', blank=True, null=True)
+    id_tipo_servicio = models.ForeignKey( TipoServicio, models.PROTECT, default=1, db_column='ID_TIPO_SERVICIO', blank=True, null=True)
     b_agrega_conceptos = models.BooleanField(db_column='B_AGREGA_CONCEPTOS', default=0)
     stock=models.IntegerField( db_column='STOCK' )
     b_nserie_obligatorio=models.BooleanField( db_column='B_NSERIE_OBLIGATORIO' )
@@ -242,7 +262,7 @@ class ConceptoKilometraje(models.Model):
 
 class Cuenta(models.Model):
     id_cuenta = models.AutoField(db_column='ID_CUENTA', primary_key=True)  
-    folio = models.ForeignKey('Orden', models.DO_NOTHING, db_column='FOLIO')  
+    folio = models.ForeignKey('Orden', models.PROTECT, db_column='FOLIO')  
     descuento_cuenta = models.DecimalField(db_column='DESCUENTO_CUENTA', max_digits=18, decimal_places=4, default=0)
     imp_total = models.DecimalField(db_column='IMP_TOTAL', max_digits=18, decimal_places=2, default=0)
     tipo_pago = models.CharField(db_column='TIPO_PAGO', max_length=16, blank=True, null=True)
@@ -278,13 +298,15 @@ class Operacion(models.Model):
 
 class Unidad(models.Model):
     id_unidad = models.AutoField(db_column='ID_UNIDAD', primary_key=True)
-    id_cliente = models.ForeignKey(Cliente, models.DO_NOTHING, db_column='ID_CLIENTE', related_name='unidades')
+    id_cliente = models.ForeignKey(Cliente, models.PROTECT, db_column='ID_CLIENTE', related_name='unidades')
     placa = models.CharField(db_column='PLACA', unique=True, max_length=16)
     marca = models.CharField(db_column='MARCA', max_length=32, blank=True, null=True)
     modelo = models.CharField(db_column='MODELO', max_length=32, blank=True, null=True)
     motor = models.CharField(db_column='MOTOR', max_length=64, blank=True, null=True)
     chasis = models.CharField(db_column='CHASIS', max_length=64, blank=True, null=True)
+    unida_medida_combustible = models.IntegerField(choices=UNIDAD_MEDIDA_COMBUSTIBLE , default=1)
     fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now)
+
 
     def toJSON(self):
         item = model_to_dict(self)
@@ -295,7 +317,7 @@ class Unidad(models.Model):
 
 class Orden(models.Model):
     folio = models.AutoField(db_column='FOLIO', primary_key=True)
-    id_unidad = models.ForeignKey(Unidad, models.DO_NOTHING, db_column='ID_UNIDAD', related_name='ordenes')
+    id_unidad = models.ForeignKey(Unidad, models.PROTECT, db_column='ID_UNIDAD', related_name='ordenes')
     kilometraje = models.IntegerField(db_column='KILOMETRAJE', blank=True, null=True)  
     kilometraje_pq = models.IntegerField(db_column='KILOMETRAJE_PQ', blank=True, null=True)
     cve_usu_alta = models.CharField(db_column='CVE_USU_ALTA', max_length=16, blank=True, null=True)
@@ -323,7 +345,7 @@ class OrdenDetalle(models.Model):
     consecutivo = models.IntegerField(db_column='CONSECUTIVO')  
     cantidad = models.IntegerField(db_column='CANTIDAD', default=1)
     id_concepto = models.IntegerField(db_column='ID_CONCEPTO')  
-    id_personal=models.IntegerField( db_column='ID_PERSONAL', default=0 )
+    id_personal = models.IntegerField( db_column='ID_PERSONAL', default=0 )
     no_serie = models.CharField(db_column='NO_SERIE', max_length=512, blank=True, null=True)  
     precio_compra = models.DecimalField(db_column='PRECIO_COMPRA', max_digits=10, decimal_places=2, default=0)
     precio_venta = models.DecimalField(db_column='PRECIO_VENTA', max_digits=10, decimal_places=2, default=0)
@@ -354,6 +376,19 @@ class OrdenReferencias(models.Model):
     class Meta:
         db_table = 'orden_referencias'
 
+class PersonalTipo(models.Model):
+    id_tipo_personal = models.AutoField(db_column='ID_TIPO_PERSONAL', primary_key=True)
+    desc_tipo_personal = models.CharField(db_column='DESC_TIPO_PERSONAL', max_length=45)
+
+    def __str__(self):
+        return self.desc_tipo_personal
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        db_table = 'personal_tipo'
 
 class Personal(models.Model):
     id_personal = models.AutoField(db_column='ID_PERSONAL', primary_key=True)  
@@ -362,6 +397,8 @@ class Personal(models.Model):
     # cve_usu_alta = models.ForeignKey(User, null=True, blank=True)
     cve_usu_alta = models.CharField(User, db_column='CVE_USU_ALTA', max_length=16, blank=True, null=True)
     fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now, blank=True, null=True)
+    id_tipo_personal = models.ForeignKey( PersonalTipo, models.PROTECT, db_column='ID_TIPO_PERSONAL', default=1, related_name="personas")
+
     # , auto_now_add=True
 
     def toJSON(self):
@@ -390,13 +427,15 @@ class Usuario(models.Model):
 
 class UnidadAsignacion(models.Model):
     id_unidad_asigna = models.AutoField(db_column='ID_UNIDAD_ASIGNA', unique=True, primary_key=True)
-    id_unidad = models.ForeignKey(Unidad, models.DO_NOTHING, db_column='ID_UNIDAD', related_name='gasto_combustible')
-    id_personal = models.ForeignKey(Personal, models.DO_NOTHING, db_column='ID_PERSONAL', related_name='asignacion')
+    id_unidad = models.ForeignKey(Unidad, models.PROTECT, db_column='ID_UNIDAD', related_name='gasto_combustible')
+    id_personal = models.ForeignKey(Personal, models.PROTECT, db_column='ID_PERSONAL', related_name='asignacion')
     cod_acceso = models.IntegerField(db_column='COD_ACCESO', default=0)
     sit_code = models.IntegerField(db_column='SIT_CODE', default=0)
     fh_asignacion = models.DateTimeField(db_column='FH_ASIGNACION', blank=True, null=True)
     fh_entrega = models.DateTimeField(db_column='FH_ENTREGA', blank=True, null=True)
     fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now)
+
+
 
     def toJSON(self):
         item = model_to_dict(self)
@@ -405,9 +444,11 @@ class UnidadAsignacion(models.Model):
     class Meta:
         db_table = 'unidad_asignacion'
 
+
+
 class UnidadCombustible(models.Model):
     id_unidad_combustible = models.AutoField(db_column='ID_UNIDAD_COMBUSTIBLE', primary_key=True)
-    id_unidad_asigna = models.ForeignKey(UnidadAsignacion, models.DO_NOTHING, db_column='ID_UNIDAD_ASIGNA')
+    id_unidad_asigna = models.ForeignKey(UnidadAsignacion, models.PROTECT, db_column='ID_UNIDAD_ASIGNA')
     fh_ticket = models.DateTimeField(db_column='FH_TICKET', blank=True, null=True)
     imp_ticket = models.DecimalField(db_column='IMP_TICKET', max_digits=18, decimal_places=2, default=0)
     cantidad = models.IntegerField(db_column='CANTIDAD', default=0)
@@ -420,6 +461,21 @@ class UnidadCombustible(models.Model):
 
     class Meta:
         db_table = 'unidad_combustible'
+
+class UnidadPeaje(models.Model):
+    id_unidad_peaje = models.AutoField(db_column='ID_UNIDAD_PEAJE', primary_key=True)
+    id_unidad_asigna = models.ForeignKey(UnidadAsignacion, models.PROTECT, db_column='ID_UNIDAD_ASIGNA')
+    fh_ticket = models.DateTimeField(db_column='FH_TICKET', blank=True, null=True)
+    imp_ticket = models.DecimalField(db_column='IMP_TICKET', max_digits=18, decimal_places=2, default=0)
+    img_ticket = models.ImageField(db_column='IMG_TICKET', upload_to='uploads/tickets/peaje/%Y/%m/%d', blank=True, null=True)
+    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now)
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        db_table = 'unidad_peaje'
 
 class UnidadNeumatico(models.Model):
     id_posicion = models.AutoField(db_column='ID_POSICION', primary_key=True)
@@ -480,6 +536,21 @@ class Reportes(models.Model):
 
     class Meta:
         db_table = 'reportes'
+
+
+
+
+class UsuarioTipo(models.Model):
+    id_tipo_usuario = models.AutoField(db_column='ID_TIPO_USUARIO', primary_key=True)
+    desc_tipo_usuario = models.CharField(db_column='DESC_TIPO_USUARIO', max_length=45)
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        db_table = 'usuario_tipo'
+
 
 # **********************************************************************************************************************
 #         vistas
@@ -893,21 +964,30 @@ class VwrServicioUnidad(models.Model):
         managed = False
         db_table = 'vwr_servicio_unidad'
 
-
 class WUnidadAsignacion(models.Model):
-    id_unidad_asigna = models.IntegerField(db_column='ID_UNIDAD_ASIGNA', primary_key=True)
-    cod_acceso = models.IntegerField(db_column='COD_ACCESO', blank=True, null=True)
-    sit_code = models.IntegerField(db_column='SIT_CODE', blank=True, null=True)
-    status = models.CharField(db_column='STATUS', max_length=11, db_collation='utf8mb4_0900_ai_ci')
-    fh_asignacion = models.DateTimeField(db_column='FH_ASIGNACION', blank=True, null=True)
-    fh_entrega = models.DateTimeField(db_column='FH_ENTREGA', blank=True, null=True)
-    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', blank=True, null=True)
-    id_unidad = models.IntegerField(db_column='ID_UNIDAD', blank=True, null=True)
-    id_personal = models.IntegerField(db_column='ID_PERSONAL', blank=True, null=True)
-    nombre = models.CharField(db_column='NOMBRE', max_length=40, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)
-    apellido = models.CharField(db_column='APELLIDO', max_length=40, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)
-    nombre_asignado  = models.CharField(db_column='NOMBRE_ASIGNADO', max_length=40, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)
-    consumo_com_total = models.DecimalField(db_column='CONSUMO_COM_TOTAL', max_digits=40, decimal_places=2, blank=True, null=True)
+    id_unidad_asigna = models.IntegerField(db_column='ID_UNIDAD_ASIGNA', verbose_name='Entrada', primary_key=True)
+    placa = models.CharField(db_column='PLACA', verbose_name='Placa', max_length=16)
+    nombre_empresa = models.CharField(db_column='NOMBRE_EMPRESA', verbose_name='Empresa', max_length=64, blank=True, null=True)
+    nombre_operador = models.CharField(db_column='NOMBRE_OPERADOR', verbose_name='Operador', max_length=81, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)
+    cod_acceso = models.IntegerField(db_column='COD_ACCESO', verbose_name='Clave de Acceso', blank=True, null=True)
+    status = models.CharField(db_column='STATUS', verbose_name='Estado', max_length=11, db_collation='utf8mb4_0900_ai_ci')
+    fh_asignacion = models.CharField(db_column='FH_ASIGNACION', verbose_name='Fehca Asignado', max_length=32,blank=True, null=True)
+    fh_entrega = models.CharField(db_column='FH_ENTREGA', verbose_name='Fecha Entregado', max_length=32,blank=True, null=True)
+    total_combustible_s = models.CharField(db_column='TOTAL_COMBUSTIBLE_S', verbose_name='Total Combustible',
+                                           max_length=40, blank=True, null=True)
+
+    total_peaje_s = models.CharField(db_column='TOTAL_PEAJE_S', verbose_name='Total Peaje',
+                                     max_length=40, blank=True, null=True)
+
+    total_combustible_n = models.DecimalField(db_column='TOTAL_COMBUSTIBLE_N', verbose_name='Total Consumo',
+                                              max_digits=40, decimal_places=2, blank=True, null=True)
+    total_peaje_n = models.DecimalField(db_column='TOTAL_PEAJE_N', verbose_name='Total Peaje',
+                                              max_digits=40, decimal_places=2, blank=True, null=True)
+
+    sit_code = models.IntegerField(db_column='SIT_CODE', verbose_name='SIT_CODE', blank=True, null=True)
+    id_unidad = models.IntegerField(db_column='ID_UNIDAD', verbose_name='ID_UNIDAD', blank=True, null=True)
+    id_personal = models.IntegerField(db_column='ID_PERSONAL', verbose_name='ID_PERSONAL', blank=True, null=True)
+    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', verbose_name='FH_REGISTRO', blank=True, null=True)
 
     def toJSON(self):
         item = model_to_dict(self)
@@ -917,6 +997,23 @@ class WUnidadAsignacion(models.Model):
         managed = False  # Created from a view. Don't remove.
         db_table = 'w_unidad_asignacion'
 
+class WCombustibleTicket(models.Model):
+    id_unidad_combustible = models.IntegerField(db_column='ID_UNIDAD_COMBUSTIBLE', primary_key=True)  # Field name made lowercase.
+    fh_ticket = models.CharField(db_column='FH_TICKET', max_length=24, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  # Field name made lowercase.
+    cantidad = models.IntegerField(db_column='CANTIDAD')  # Field name made lowercase.
+    imp_ticket_s = models.CharField(db_column='IMP_TICKET_S', max_length=61, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  # Field name made lowercase.
+    img_ticket = models.CharField(db_column='IMG_TICKET', max_length=100, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  # Field name made lowercase.
+    fh_registro = models.CharField(db_column='FH_REGISTRO', max_length=24, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  # Field name made lowercase.
+    imp_ticket_n = models.DecimalField(db_column='IMP_TICKET_N', max_digits=18, decimal_places=2)  # Field name made lowercase.
+    id_unidad_asigna = models.IntegerField(db_column='ID_UNIDAD_ASIGNA')  # Field name made lowercase.
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'w_combustible_ticket'
 
 
 #

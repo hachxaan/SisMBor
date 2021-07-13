@@ -4,7 +4,7 @@ from django import forms
 from django.forms import Select, ModelForm, TextInput, Textarea
 
 from appMainSite.const import *
-from .models import Unidad, Cliente, Concepto, ConceptoCategoria, Personal, ConceptoMarca, UnidadMedida
+from .models import Unidad, Cliente, Concepto, ConceptoCategoria, Personal, ConceptoMarca, UnidadMedida, PersonalTipo
 
 
 class ClienteForm(ModelForm):
@@ -70,7 +70,7 @@ class UnidadForm(forms.ModelForm):
 
     class Meta:
         model = Unidad
-        fields = ['id_cliente','placa','marca','modelo','motor','chasis']
+        fields = ['id_cliente','placa','marca','modelo','motor','chasis', 'unida_medida_combustible']
         widgets = {
             'id_cliente': Select(
                 attrs={
@@ -629,16 +629,18 @@ class InventarioFormEdit(forms.ModelForm):
 
 
 class PersonalForm(ModelForm):
+    id_tipo_personal = forms.ModelChoiceField(queryset=PersonalTipo.objects.all())
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # self.fields['cve_usu_alta'].widget=forms.HiddenInput()
         # self.fields['fh_registro'].widget=forms.HiddenInput()
-        # self.fields['fh_registro'].required=False
+        self.fields['id_tipo_personal'].required=True
+        self.fields['id_tipo_personal'].label = "Personal"
         self.fields['nombre'].widget.attrs['autofocus'] = True
 
     class Meta:
         model = Personal
-        fields = ['nombre', 'apellido']
+        fields = ['nombre', 'apellido', 'id_tipo_personal']
         widgets = {
             'nombre': TextInput(
                 attrs={
@@ -648,6 +650,12 @@ class PersonalForm(ModelForm):
             'apellido': TextInput(
                 attrs={
                     'placeholder': 'Ingrese el apellido de la persona'
+                }
+            ),
+            'id_tipo_personal': Select(
+                attrs={
+                    'class': 'select2',
+                    'style': 'width: 100%'
                 }
             ),
         }

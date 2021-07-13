@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-132+-6o**fxw)7h!)o#0i(wvs%cm_9tivdj3+=q$&rdyg@8yn5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['192.168.1.71', '18.223.162.255', '192.168.5.2', '127.0.0.1', 'yonk-e', '18.223.167.9', 'localhost']
 
@@ -82,15 +82,17 @@ WSGI_APPLICATION = 'appMainSite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-# 'PASSWORD': '123456',
-# 'HOST': 'localhost',
+
 DATABASES = {
     'default': {
     'ENGINE': 'django.db.backends.mysql',
     'NAME': 'sismbordb',
     'USER': 'admin',
-    'PASSWORD': 'CveDb.123456',
-	'HOST': 'database-hotelweb.cjg26m5mzcaw.us-east-2.rds.amazonaws.com',
+    'PASSWORD': '123456',
+    # 'PASSWORD': 'CveDb.123456',
+    'HOST': 'localhost',
+	# 'HOST': 'database-hotelweb.cjg26m5mzcaw.us-east-2.rds.amazonaws.com',
+
     'PORT': '3306',
     }
 }
@@ -134,13 +136,15 @@ USE_TZ = True
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+WHITENOISE_AUTOREFRESH = DEBUG
+# WHITENOISE_USE_FINDERS = True
+
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 
 
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.normpath(os.path.join(PROJECT_ROOT, 'static'))
 
 
 # Default primary key field type
@@ -151,3 +155,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'
+
+STATIC_ROOT = os.path.normpath(os.path.join(PROJECT_ROOT, 'static'))
+
+# STATIC_ROOT = os.path.normpath(os.path.join(BASE_DIR, 'static'))

@@ -1,28 +1,37 @@
 {% extends 'body.html' %}
 {% load static %}
 {% block stylesheet %}
-    {% include '../MainSections/CSS-DataTables.html' %}
-    <link rel="stylesheet" href="{% static 'sismbor/css/neumaticos-admin.css' %}">
+{% include '../MainSections/CSS-DataTables.html' %}
+<link rel="stylesheet" href="{% static 'sismbor/css/unidad_asignacion.css' %}">
 {% endblock %}
 
 {% block contento %}
-
-
-<!--dtUnidadAsignacion-->
-        <!--{# ************************************************************************************************ #}-->
-        <!--{# UNIDAD ASIGNACION ADMIN #}-->
-        <!--{# ************************************************************************************************ #}-->
-        <table class="table table-bordered" id="dtUnidadAsignacion">
-            <thead>
-            <tr>
-                {% for field in titleFields %}
-                    <th scope="col" style="width: 5px;">{{ field.field_title }}</th>
-                {% endfor %}
-            </tr>
-            </thead>
-        </table>
-        <!--{# ************************************************************************************************ #}-->
-
+<div class="row">
+    <div class="col-lg-12 col-md-12">
+        <!-- Nueva Orden -->
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Asignación de unidades</h3>
+            </div>
+            <div class="card-body">
+                <!--dtUnidadAsignacion-->
+                <!--{# ************************************************************************************************ #}-->
+                <!--{# UNIDAD ASIGNACION ADMIN #}-->
+                <!--{# ************************************************************************************************ #}-->
+                <table class="table table-bordered" id="dtUnidadAsignacion">
+                    <thead>
+                    <tr>
+                        {% for field in titleFields %}
+                            <th scope="col" style="width: {{field.width}}%;">{{ field.field_title }}</th>
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                </table>
+                <!--{# ************************************************************************************************ #}-->
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
 
@@ -43,7 +52,7 @@
             </div>
             <div class="modal-body">
                 <!--{# BUSCADOR TABLA #}-->
-                <!--{# ****     {# ************************************************************************************************ #}-->
+                <!--{# ***************************************************************************************** #}-->
                 <!--******************************************************************************************** #}-->
                 <table class="table table-bordered" id="dtBuscador">
                     <thead>
@@ -59,7 +68,7 @@
                     </tr>
                     </thead>
                 </table>
-                <!--                    {# ************************************************************************************************ #}-->
+                <!--{# ************************************************************************************************ #}-->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -71,47 +80,44 @@
 <!--    {# ************************************************************************************************ #}-->
 
 <!--    {# ************************************************************************************************ #}-->
-<!--    ********  ASIGNAR NUEVO NEUMATICO   ***********-->
+<!--    ********  ASIGNAR UNIDAD   ***********-->
 <!--    {# ************************************************************************************************ #}-->
-<div class="modal fade modal-lg" id="AsignaNeumaticoModal" tabindex="-1" role="dialog"
-     aria-labelledby="AsignaNeumaticoLabel" aria-hidden="true">
-    <!--         data-id_concepto="0" data-cve_operacion="NCOMPRA" -->
+<div class="modal fade modal-lg" id="AsignaUnidadModal" tabindex="-1" role="dialog"
+     aria-labelledby="AsignaUnidadLabel" aria-hidden="true">
+    <!-- data-id_concepto="0" data-cve_operacion="NCOMPRA" -->
 
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-info">
-                <h5 class="modal-title" id="AsignaNeumaticoLabel">Asignar Neumatico</h5>
+                <h5 class="modal-title" id="AsignaUnidadLabel">Asignar Unidad</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form>
-                    <div class="form-group">
-                        <label class="col-form-label">Orde de taller activa:</label>
-                        <input id="folio_asignar" type="text" class="form-control" placeholder="Se requiere de orden de taller"
-                               readonly>
-                        <span class="mt-2 input-group-append">
-                            <button href="" id="btnNuevaOrden"
-                                    type="button"
-                                    class="btn-info btn">Nueva orden
+                    <div class="row form-group grupo-b_nserie_obligatorio">
+                        <label for="edtPlaca" class="col-12">Placa</label>
+                        <input id="edtPlaca" value="" name="placa" type="text" class="col-10 form-control uppercase"
+                               required
+                               placeholder="ABC-123">
+                        <span class="col-2">
+                            <button type="button" class="btn btn-outline-info btn" data-toggle="modal"
+                                    data-target="#BuscarUnidadModal">Buscar
                             </button>
                         </span>
                     </div>
-                    <div class="form-group">
-                        <label class="col-form-label">Posición:</label>
-                        <select class="form-control select2 select2-danger" name='posicion' id='cbPosicion'></select>
-                    </div>
 
                     <div class="form-group">
-                        <label for="cbNeumaticos" class="col-form-label">Neumático:</label>
-                        <select class="form-control select2 select2-danger" name='id_concepto' id='cbNeumaticos'></select>
+                        <label class="col-form-label">Operador:</label>
+                        <select class="select2 w-100" name='personal' id='cbPersonal'>
+                            <option value="0">Seleccionar...</option>
+                            {% for persona in personal %}
+                                <option value="{{persona.id_personal}}">{{ persona.nombre }} {{ persona.apellido }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
 
-                    </div>
-                    <div class="form-group grupo-b_nserie_obligatorio">
-                        <label for="edtNoSerie" class="col-form-label">Número de serie</label>
-                        <input id="edtNoSerie" value="" type="number" class="form-control" required>
-                    </div>
                     <div class="form-group">
                         <label for="edtTxReferencia" class="col-form-label">Referencia</label>
                         <textarea id="edtTxReferencia" value="" type="textarea" class="form-control"></textarea>
@@ -122,7 +128,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button id="btnGuardarAsignaNeumatico" type="button" class="btn btn-primary">Guardar</button>
+                <button id="btnCrearAsignaUnidad" type="button" class="btn btn-primary">Crear Asignación</button>
             </div>
         </div>
     </div>
@@ -132,10 +138,13 @@
 
 {% block scripts %}
 {% include '../MainSections/JS-DataTables.html' %}
-    <script type="application/javascript">
+<script type="application/javascript">
         sessionStorage.setItem('fieldsColums', JSON.stringify({{ fieldsColums|safe }}));
-    </script>
-    <script src="{% static 'sismbor/operacion/js/unidad_asignacion.js' %}" type="text/javascript"></script>
-    <script src="{% static 'sismbor/js/buscador-unidad.js' %}" type="text/javascript"></script>
-  <!--<script src="{% static 'artcode/js/utils.js' %}" type="text/javascript"></script>-->
+
+
+
+</script>
+<script src="{% static 'sismbor/operacion/js/unidad_asignacion.js' %}" type="text/javascript"></script>
+<script src="{% static 'sismbor/js/buscador-unidad.js' %}" type="text/javascript"></script>
+<!--<script src="{% static 'artcode/js/utils.js' %}" type="text/javascript"></script>-->
 {% endblock %}

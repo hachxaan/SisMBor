@@ -17,7 +17,7 @@ from OBTaller.views.personal.views import PersonalListView, PersonalCreateView, 
 from OBTaller.views.reportes_view import ReportesView
 
 from OBTaller.views.unidad_view import UnidadListView, UnidadCreateView, UnidadUpdateView, UnidadDeleteView
-from OBTaller.views.unidad_asignacion_view import UnidadAsignacionView
+from OBTaller.views.unidad_asignacion_view import UnidadAsignacionView, UnidadCombustibleTicketView
 from OBTaller.views.views import addConceptoCategoria, addTipoServicio, \
     getInfoUnidad, SetParametros, addConceptoMarca, addUnidadMedida
 
@@ -32,6 +32,7 @@ app_name='OBTaller'
 urlpatterns=[
 
     path( '', WCuentaAbiertaListView.as_view(), name='panel-operacion' ),
+    path( 'operacion/', WCuentaAbiertaListView.as_view(), name='panel-operacion' ),
     path( 'parametros/', SetParametros, name='parametros' ),
     path( 'ordennueva/', OrdenNuevaView.as_view(), name='orden_nueva' ),
     path( 'getInfoUnidad/', getInfoUnidad, name='get_info_unidad' ),
@@ -75,9 +76,10 @@ urlpatterns=[
         # path( 'operacion/ordeneditar/lista/', OrdenListaEditar.as_view(), name='lista_editar_order' ),
 
     # *******************************************************************************************************************
-    # C A T A L O G O S
+    # C O M B U S T I B L E   Y   P E A J E S
     # *******************************************************************************************************************
         path( 'unidades/asignacion/', UnidadAsignacionView.as_view(), name='unidad_asignacion' ),
+        path( 'unidades/combustible_ticket/', UnidadCombustibleTicketView.as_view(), name='unidad_combustible_ticket' ),
 
     # *******************************************************************************************************************
     # C A T A L O G O S

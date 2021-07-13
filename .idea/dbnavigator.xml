@@ -24,11 +24,26 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes />
+    <loaded-nodes>
+      <connection connection-id="6d2dc9a3-5f6f-4dbb-86a9-14b924cb26df">
+        <schema name="sismbordb" object-types="table, view, procedure, function, constraint, index, column, dataset trigger" />
+      </connection>
+    </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="6d2dc9a3-5f6f-4dbb-86a9-14b924cb26df">
-      <console name="sismbor" type="STANDARD" schema="sismbor" session="Main" />
+      <console name="LOCAL 1" type="STANDARD" schema="sismbor" session="Main" />
+      <console name="sismbor" type="STANDARD" schema="sismbordb" session="Main"><![CDATA[select
+    ua.COD_ACCESO,
+    ua.FH_ASIGNACION,
+    ua.FH_ENTREGA,
+    ua.FH_REGISTRO,
+    ua.ID_PERSONAL,
+    ua.ID_UNIDAD,
+    ua.ID_UNIDAD_ASIGNA,
+    ua.SIT_CODE
+from
+    unidad_asignacion ua;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
@@ -38,10 +53,15 @@
     <connection id="6d2dc9a3-5f6f-4dbb-86a9-14b924cb26df" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="6d2dc9a3-5f6f-4dbb-86a9-14b924cb26df" dataset="sismbordb.concepto_tipo" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="6d2dc9a3-5f6f-4dbb-86a9-14b924cb26df" dataset="sismbor.unidad_neumatico" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="6d2dc9a3-5f6f-4dbb-86a9-14b924cb26df" dataset="sismbordb.unidad_asignacion" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="6d2dc9a3-5f6f-4dbb-86a9-14b924cb26df" dataset="sismbordb.personal_tipo" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
-    <last-used-providers />
+    <last-used-providers>
+      <object-type object-type="TABLE" editor-provider="DATA" />
+    </last-used-providers>
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />
@@ -70,7 +90,7 @@
     <connections>
       <connection id="6d2dc9a3-5f6f-4dbb-86a9-14b924cb26df" active="true">
         <database>
-          <name value="sismbor" />
+          <name value="LOCAL" />
           <description value="sismbor" />
           <database-type value="MYSQL" />
           <config-type value="BASIC" />

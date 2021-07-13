@@ -25,7 +25,6 @@ $(function () {
         });
     $(document).ready(function () {
         if ($("#edtPlaca").val() !== '') {
-
             pValidaPlaca($("#edtPlaca").val());
         }
     });

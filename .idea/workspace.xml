@@ -19,13 +19,32 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e0074843-61a2-4bac-b21d-d2a6f08bf969" name="Default Changelist" comment="V03 (NO DEBUG; models OK)">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="e0074843-61a2-4bac-b21d-d2a6f08bf969" name="Default Changelist" comment="V03 (NO DEBUG; models OK 2)">
+      <change afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/css/unidad_asignacion.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/css/unidad_ticket_combustible.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/operacion/js/unidad_tickets_combustible.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/templates/operacion/unidad_tickets_combustible.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/loginus/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/loginus/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/loginus/templates/loginoperador.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/loginus/templates/loginoperador.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/artcode/js/utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/artcode/js/utils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/buscador-unidad.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/buscador-unidad.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-nueva.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/orden-nueva.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/operacion/js/unidad_asignacion.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/operacion/js/unidad_asignacion.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/operacion/unidad_asignacion.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/operacion/unidad_asignacion.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/orden/orden-detalle.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/orden/orden-detalle.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/templates/orden/orden-editar.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/orden/orden-editar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/views/reportes_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/reportes_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/views/unidad_asignacion_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/unidad_asignacion_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appMainSite/const.py" beforeDir="false" afterPath="$PROJECT_DIR$/appMainSite/const.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appMainSite/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/appMainSite/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work_migrtate_db.sh" beforeDir="false" afterPath="$PROJECT_DIR$/work_migrtate_db.sh" afterDir="false" />
     </list>
-    <list id="3c06267f-cbfe-45c7-9d6a-68516316c8d2" name="Uncommitted changes before Checkout at 21/06/21 17:23 [Default Changelist]" comment="Uncommitted changes before Checkout at 21/06/21 17:23 [Default Changelist]">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list id="3c06267f-cbfe-45c7-9d6a-68516316c8d2" name="Uncommitted changes before Checkout at 21/06/21 17:23 [Default Changelist]" comment="Uncommitted changes before Checkout at 21/06/21 17:23 [Default Changelist]" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -59,29 +78,16 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="InvalidFacetManager">
+    <ignored-facets>
+      <facet id="appMainSite/invalid/Django" />
+    </ignored-facets>
+  </component>
   <component name="JsFlowSettings">
     <service-enabled>true</service-enabled>
     <exe-path />
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/.idea/workspace.xml">
-      <ranges>
-        <range start1="23" end1="29" start2="23" end2="23" changelist="e0074843-61a2-4bac-b21d-d2a6f08bf969" />
-        <range start1="71" end1="93" start2="65" end2="65" changelist="e0074843-61a2-4bac-b21d-d2a6f08bf969" />
-        <range start1="114" end1="115" start2="86" end2="87" changelist="3c06267f-cbfe-45c7-9d6a-68516316c8d2" />
-        <range start1="120" end1="122" start2="92" end2="92" changelist="3c06267f-cbfe-45c7-9d6a-68516316c8d2" />
-        <range start1="125" end1="125" start2="95" end2="97" changelist="3c06267f-cbfe-45c7-9d6a-68516316c8d2" />
-        <range start1="127" end1="132" start2="99" end2="100" changelist="3c06267f-cbfe-45c7-9d6a-68516316c8d2" />
-        <range start1="331" end1="333" start2="299" end2="301" changelist="e0074843-61a2-4bac-b21d-d2a6f08bf969" />
-        <range start1="336" end1="344" start2="304" end2="305" changelist="e0074843-61a2-4bac-b21d-d2a6f08bf969" />
-        <range start1="345" end1="346" start2="306" end2="307" changelist="e0074843-61a2-4bac-b21d-d2a6f08bf969" />
-        <range start1="367" end1="368" start2="328" end2="329" changelist="3c06267f-cbfe-45c7-9d6a-68516316c8d2" />
-        <range start1="392" end1="395" start2="353" end2="355" changelist="e0074843-61a2-4bac-b21d-d2a6f08bf969" />
-        <range start1="413" end1="413" start2="373" end2="378" changelist="3c06267f-cbfe-45c7-9d6a-68516316c8d2" />
-      </ranges>
-    </file>
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
@@ -103,17 +109,17 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../oper" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/OBTaller/templates/operacion" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/OBTaller/templates/operacion" />
       <recent name="$PROJECT_DIR$/Oper/templates" />
       <recent name="$PROJECT_DIR$/OBTaller/static/sismbor/js" />
       <recent name="$PROJECT_DIR$/OBTaller/static/sismbor/css" />
       <recent name="$PROJECT_DIR$/OBTaller/templates" />
-      <recent name="$PROJECT_DIR$/OBTaller/views" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/appMainSite" />
@@ -176,7 +182,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/manage.py" />
-      <option name="PARAMETERS" value="runserver 9000" />
+      <option name="PARAMETERS" value="runserver 9000 --nostatic" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -323,7 +329,21 @@
       <option name="project" value="LOCAL" />
       <updated>1625955338800</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Uncommitted changes before Checkout at 21/06/21 17:23 [Default Changelist]">
+      <created>1625955484445</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1625955484445</updated>
+    </task>
+    <task id="LOCAL-00015" summary="V03 (NO DEBUG; models OK 2)">
+      <created>1625955492096</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1625955492096</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -371,7 +391,9 @@
     <MESSAGE value="AJUSTE EN ETIQUETAS&#10;{folio_current}" />
     <MESSAGE value="rewirements.txt" />
     <MESSAGE value="V03 (NO DEBUG; models OK)" />
-    <option name="LAST_COMMIT_MESSAGE" value="V03 (NO DEBUG; models OK)" />
+    <MESSAGE value="Uncommitted changes before Checkout at 21/06/21 17:23 [Default Changelist]" />
+    <MESSAGE value="V03 (NO DEBUG; models OK 2)" />
+    <option name="LAST_COMMIT_MESSAGE" value="V03 (NO DEBUG; models OK 2)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -392,9 +414,14 @@
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/OBTaller/views/views.py</url>
-          <line>99</line>
-          <option name="timeStamp" value="47" />
+          <url>file://$PROJECT_DIR$/../env-lx/lib/python3.9/site-packages/django/core/handlers/base.py</url>
+          <line>182</line>
+          <option name="timeStamp" value="51" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/OBTaller/forms.py</url>
+          <line>632</line>
+          <option name="timeStamp" value="64" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

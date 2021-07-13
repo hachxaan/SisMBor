@@ -263,7 +263,7 @@
                                 del trabajo:</label>
                             <select class="select2 w-100" name='personal' id='cbPersonal'>
                                 {% for persona in personal %}
-                                    <option value="{{ persona.id_personal }}">{{ persona.nombre }} {{ persona.nombre }}</option>
+                                    <option value="{{persona.id_personal}}">{{ persona.nombre }} {{ persona.apellido }}</option>
                                 {% endfor %}
                             </select>
                         </div>

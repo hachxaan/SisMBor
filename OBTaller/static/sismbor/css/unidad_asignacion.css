@@ -1,0 +1,16 @@
+#AsignaUnidadModal{
+    z-index: 3500;
+}
+#BuscarUnidadModal{
+    z-index: 4500;
+}
+
+.btn-action-g {
+    height: 30px;
+}
+.c_btn {
+     font-size: 13px !important;
+     width: 120px !important;
+     height: 30px !important;
+
+}

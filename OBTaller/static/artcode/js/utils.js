@@ -44,6 +44,65 @@ function blockUI_(){
                 }
             });
 }
+// # ***************************************************************************************************************** #
+// # ***************************************************************************************************************** #
+function fajax(parameters, callback) {
+    'use strict';
+    var url = window.location.pathname;
+    $.ajax({
+        url: url,
+        type: 'POST',
+        beforeSend: function (request) {
+            request.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        },
+        data: parameters,
+        dataType: 'json'
+    }).done(function (data) {
+
+        if (!data.hasOwnProperty('error')) {
+            if (data.hasOwnProperty('msgInfo')) {
+                message_info(data.msgInfo, callback, data);
+                return false;
+            }
+
+            if (data.hasOwnProperty('msgConfirmar')) {
+
+                message_info(data.msgConfirmar, function (data) {
+
+
+                    parameters.set("confirmado", true);
+
+                    _ajax(url, parameters, callback(data));
+                }, data);
+                return false;
+            }
+
+            if (data.hasOwnProperty('psCOD_RESP')) {
+                if (parseInt(data.psCOD_RESP) == 0 ) {
+                    callback(data);
+                    return false;
+                } else {
+                    message_error(data.psSTR_RESP);
+                    return false;
+                }
+            }
+
+            callback(data);
+            return false;
+        }
+
+        if (data['error'].indexOf('1062') == 1) {
+            message_error('Registro duplicado ' + data['info_datos']);
+        } else {
+            message_error(data.error);
+        }
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        alert(textStatus + ': ' + errorThrown);
+    }).always(function (data) {
+
+
+    });
+}
 
 // # ***************************************************************************************************************** #
 // # ***************************************************************************************************************** #
