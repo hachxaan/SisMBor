@@ -1,4 +1,4 @@
-ssh /home/apipiltzin/DESARROLLOS/OscarBordon/V02/db/getLocalAll.sh
+sh /home/apipiltzin/DESARROLLOS/OscarBordon/V02/db/getLocalAll.sh
 
 sh /home/apipiltzin/DESARROLLOS/OscarBordon/V02/db/migration.v03/dump/dump_store_triggers.sh
 sh /home/apipiltzin/DESARROLLOS/OscarBordon/V02/db/migration.v03/dump/dump_views.sh

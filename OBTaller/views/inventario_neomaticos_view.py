@@ -14,7 +14,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from OBTaller.forms import InventarioNeumaticosForm, InventarioNeumaticosFormEdit
 from appMainSite import const
-from OBTaller.mixins import ValidatePermissionRequiredMixin
+from OBTaller.mixins import ValidatePermissionRequiredMixin, ValidaPerfilMixin, ValidaTemp1, ValidaTemp2
 from OBTaller.models import WConceptosMain, Concepto, WsTipoSalida
 
 # **********************************************************************************************************************
@@ -22,7 +22,7 @@ from OBTaller.models import WConceptosMain, Concepto, WsTipoSalida
 
 
 
-class InventarioNeumaticosView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListView):
+class InventarioNeumaticosView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRequiredMixin, ValidatePermissionRequiredMixin, ListView):
     model = WConceptosMain
     template_name ='inventario_neumaticos/list.html'
     # permission_required = 'OBTaller.view_unidad'
@@ -72,7 +72,7 @@ class InventarioNeumaticosView(LoginRequiredMixin, ValidatePermissionRequiredMix
         return context
 # **********************************************************************************************************************
 # **********************************************************************************************************************
-class InventarioNeumaticosCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, CreateView):
+class InventarioNeumaticosCreateView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRequiredMixin, ValidatePermissionRequiredMixin, CreateView):
     model = Concepto
     form_class = InventarioNeumaticosForm
     template_name ='inventario_neumaticos/create.html'
@@ -115,7 +115,7 @@ class InventarioNeumaticosCreateView(LoginRequiredMixin, ValidatePermissionRequi
 # **********************************************************************************************************************
 # **********************************************************************************************************************
     
-class InventarioNeumaticosUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, UpdateView):
+class InventarioNeumaticosUpdateView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRequiredMixin, ValidatePermissionRequiredMixin, UpdateView):
     model = Concepto
     form_class = InventarioNeumaticosFormEdit
     template_name = 'inventario_neumaticos/create.html'
@@ -162,7 +162,7 @@ class InventarioNeumaticosUpdateView(LoginRequiredMixin, ValidatePermissionRequi
 # **********************************************************************************************************************
 # **********************************************************************************************************************
 
-class InventarioNeumaticosDeleteView(LoginRequiredMixin, ValidatePermissionRequiredMixin, DeleteView):
+class InventarioNeumaticosDeleteView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRequiredMixin, ValidatePermissionRequiredMixin, DeleteView):
     model = Concepto
     template_name = 'inventario_neumaticos/delete.html'
     success_url = reverse_lazy('OBTaller:inventario_neumaticos_list')

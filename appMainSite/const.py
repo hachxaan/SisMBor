@@ -47,3 +47,4 @@ UNIDAD_MEDIDA_COMBUSTIBLE = (
     (2, "GNV")
 )
 
+urlsOperador = ['/registro/', '/loginoper/']

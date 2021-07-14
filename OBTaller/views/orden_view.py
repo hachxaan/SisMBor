@@ -1,13 +1,15 @@
 from django.contrib.auth.decorators import login_required
 import datetime as dt
+
+from OBTaller.mixins import ValidaTemp2, ValidaTemp1, ValidaPerfilMixin
 from appMainSite.const import *
 from django.db.models import Max
 from django.http import JsonResponse
-from django.shortcuts import render
+
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView
 
-from OBTaller import forms
+
 from OBTaller.models import WCuentaAbierta, Orden, WConceptosMain, OrdenDetalle, Concepto, WOrdenDetalle, Personal, \
     Parametros, WListaMantenimiento, UnidadNeumatico
 
@@ -24,7 +26,7 @@ def UpdSitOrden(request):
             context['error']=str( e )
         return JsonResponse( context, safe=False )
 
-class OrdenNuevaView( ListView ):
+class OrdenNuevaView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2,  ListView ):
     template_name = 'orden/orden-nueva.html'
     model = Orden
     @method_decorator(login_required)
@@ -51,7 +53,7 @@ class OrdenNuevaView( ListView ):
         context['nueva_orden'] = 'active'
         return context
 
-class OrdenListaEditar( ListView ):
+class OrdenListaEditar(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2,  ListView ):
     model=WConceptosMain
     template_name='orden/orden-editar.html'
 
@@ -282,7 +284,7 @@ class OrdenListaEditar( ListView ):
         return context
 
 
-class OrdenListaDetalle( ListView ):
+class OrdenListaDetalle(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2,  ListView ):
     model=WConceptosMain
     template_name='orden/orden-detalle.html'
     @method_decorator( login_required )
@@ -488,7 +490,7 @@ class OrdenListaDetalle( ListView ):
 # +'&prev=/operacion/'
 # +'&prev=' + prev \
 
-class WCuentaAbiertaListView( ListView ):
+class WCuentaAbiertaListView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, ListView ):
     model=WCuentaAbierta
     template_name='orden/orden-operacion.html'
 

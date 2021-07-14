@@ -5,11 +5,12 @@ import datetime as dt
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, TemplateView
 
+from OBTaller.mixins import ValidaPerfilMixin, ValidaTemp2, ValidaTemp1
 from OBTaller.models import VwNeumaticosPosicion, WConceptosMain, Orden, Concepto, UnidadNeumatico, OrdenDetalle
 from appMainSite.const import TCONCEPTO_NEUMATICOS
 
 
-class NeumaticosAdmin( TemplateView ):
+class NeumaticosAdmin(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, TemplateView ):
     template_name = 'neumaticos/neumaticos-admin.html'
     # model = VwNeumaticosPosicion
 

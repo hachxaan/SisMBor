@@ -5,13 +5,14 @@
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
-
+from django.conf.global_settings import MEDIA_URL
 from django.contrib.auth.models import User
 from django.db import models
 from django.forms import model_to_dict
 from django.utils import timezone
 
 from appMainSite.const import UNIDAD_MEDIDA_COMBUSTIBLE
+from appMainSite.settings import STATIC_URL
 
 
 class BitInventario(models.Model):
@@ -298,15 +299,14 @@ class Operacion(models.Model):
 
 class Unidad(models.Model):
     id_unidad = models.AutoField(db_column='ID_UNIDAD', primary_key=True)
-    id_cliente = models.ForeignKey(Cliente, models.PROTECT, db_column='ID_CLIENTE', related_name='unidades')
     placa = models.CharField(db_column='PLACA', unique=True, max_length=16)
     marca = models.CharField(db_column='MARCA', max_length=32, blank=True, null=True)
     modelo = models.CharField(db_column='MODELO', max_length=32, blank=True, null=True)
     motor = models.CharField(db_column='MOTOR', max_length=64, blank=True, null=True)
     chasis = models.CharField(db_column='CHASIS', max_length=64, blank=True, null=True)
-    unida_medida_combustible = models.IntegerField(choices=UNIDAD_MEDIDA_COMBUSTIBLE , default=1)
+    unida_medida_combustible = models.IntegerField(db_column='UNIDAD_MEDIDA_COMBUSTIBLE', choices=UNIDAD_MEDIDA_COMBUSTIBLE , default=1)
     fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now)
-
+    id_cliente = models.ForeignKey(Cliente, models.PROTECT, db_column='ID_CLIENTE', related_name='unidades')
 
     def toJSON(self):
         item = model_to_dict(self)
@@ -458,6 +458,11 @@ class UnidadCombustible(models.Model):
     def toJSON(self):
         item = model_to_dict(self)
         return item
+
+    def get_image(self):
+        if self.img_ticket:
+            return '{}{}'.format(MEDIA_URL, self.img_ticket)
+        return '{}{}'.format(STATIC_URL, 'img/empy.png')
 
     class Meta:
         db_table = 'unidad_combustible'

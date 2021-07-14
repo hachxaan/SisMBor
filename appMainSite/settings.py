@@ -40,18 +40,29 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'widget_tweaks',
     'OBTaller',
+
     'OBTaller.loginus',
+    'OBTaller.user',
+
 
 ]
+
+# MIDDLEWARE_CLASSES = [
+#     # 'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
+#     'OBTaller.redirect.CustomRedirectFallbackMiddleware',
+# ]
 
 MIDDLEWARE = [
     'OBTaller.middleware.StatusMenu',
     'OBTaller.middleware.MenuReportes',
+    # 'OBTaller.middleware.CustomRedirectFallbackMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    # 'OBTaller.redirect.CustomRedirectFallbackMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     # 'current_user.CurrentUserMiddleware',
@@ -152,10 +163,12 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+URL_OPERADOR = '/registro/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'
 
 STATIC_ROOT = os.path.normpath(os.path.join(PROJECT_ROOT, 'static'))
+
+AUTH_USER_MODEL = 'user.User'
 
 # STATIC_ROOT = os.path.normpath(os.path.join(BASE_DIR, 'static'))

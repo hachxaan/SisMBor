@@ -14,7 +14,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView, D
 
 from appMainSite import const
 from OBTaller.forms import InventarioForm, InventarioFormEdit
-from OBTaller.mixins import ValidatePermissionRequiredMixin
+from OBTaller.mixins import ValidatePermissionRequiredMixin, ValidaTemp2, ValidaTemp1, ValidaPerfilMixin
 from OBTaller.models import WConceptosMain, Concepto, WsTipoSalida
 
 # **********************************************************************************************************************
@@ -22,7 +22,7 @@ from OBTaller.models import WConceptosMain, Concepto, WsTipoSalida
 
 
 
-class InventarioView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListView):
+class InventarioView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRequiredMixin, ValidatePermissionRequiredMixin, ListView):
     model = WConceptosMain
     template_name ='inventario/list.html'
     # permission_required = 'OBTaller.view_unidad'
@@ -72,7 +72,7 @@ class InventarioView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListVi
         return context
 # **********************************************************************************************************************
 # **********************************************************************************************************************
-class InventarioCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, CreateView):
+class InventarioCreateView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRequiredMixin, ValidatePermissionRequiredMixin, CreateView):
     model = Concepto
     form_class = InventarioForm
     template_name ='inventario/create.html'
@@ -115,7 +115,7 @@ class InventarioCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, 
 # **********************************************************************************************************************
 # **********************************************************************************************************************
     
-class InventarioUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, UpdateView):
+class InventarioUpdateView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRequiredMixin, ValidatePermissionRequiredMixin, UpdateView):
     model = Concepto
     form_class = InventarioFormEdit
     template_name = 'inventario/create.html'
@@ -161,7 +161,7 @@ class InventarioUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, 
 # **********************************************************************************************************************
 # **********************************************************************************************************************
 
-class InventarioDeleteView(LoginRequiredMixin, ValidatePermissionRequiredMixin, DeleteView):
+class InventarioDeleteView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRequiredMixin, ValidatePermissionRequiredMixin, DeleteView):
     model = Concepto
     template_name = 'inventario/delete.html'
     success_url = reverse_lazy('OBTaller:inventario_list')

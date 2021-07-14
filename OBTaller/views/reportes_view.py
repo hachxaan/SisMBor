@@ -7,11 +7,11 @@ from django.shortcuts import get_object_or_404
 from django.db import connection
 from django.views.generic import ListView, DetailView
 
-from OBTaller.mixins import ValidatePermissionRequiredMixin
+from OBTaller.mixins import ValidatePermissionRequiredMixin, ValidaTemp2, ValidaTemp1, ValidaPerfilMixin
 from OBTaller.models import Reportes
 
 
-class ReportesView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListView, DetailView):
+class ReportesView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRequiredMixin, ValidatePermissionRequiredMixin, ListView, DetailView):
     model = Reportes
     template_name ='reportes_list.html'
     # permission_required = 'OBTaller.view_unidad'

@@ -31,7 +31,7 @@ app_name='OBTaller'
 
 urlpatterns=[
 
-    path( '', WCuentaAbiertaListView.as_view(), name='panel-operacion' ),
+    path( '', WCuentaAbiertaListView.as_view(), name='panel_web' ),
     path( 'operacion/', WCuentaAbiertaListView.as_view(), name='panel-operacion' ),
     path( 'parametros/', SetParametros, name='parametros' ),
     path( 'ordennueva/', OrdenNuevaView.as_view(), name='orden_nueva' ),

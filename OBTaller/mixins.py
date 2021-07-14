@@ -4,6 +4,32 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 
+from appMainSite import settings
+
+
+class ValidaPerfilMixin(object):
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.es_operador:
+            if request.path != settings.URL_OPERADOR:
+                return redirect('index_operador')
+        else:
+            if request.path == settings.URL_OPERADOR:
+                return redirect('OBTaller:panel_web')
+        # else:
+        #     if
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['date_now'] = datetime.now()
+        return context
+
+class ValidaTemp1(object):
+    pass
+
+class ValidaTemp2(object):
+    pass
+
 
 class IsSuperuserMixin(object):
     def dispatch(self, request, *args, **kwargs):

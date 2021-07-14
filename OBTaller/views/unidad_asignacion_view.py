@@ -8,10 +8,12 @@ from django.http import JsonResponse
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
+
+from OBTaller.mixins import ValidaPerfilMixin, ValidaTemp1, ValidaTemp2
 from OBTaller.models import WUnidadAsignacion, Personal, Unidad, UnidadAsignacion, Cliente, WCombustibleTicket
 from appMainSite.const import TPERSONAL_OPERADOR_UNIDAD
 
-class UnidadCombustibleTicketView(TemplateView):
+class UnidadCombustibleTicketView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, TemplateView):
     template_name = 'operacion/unidad_tickets_combustible.html'
 
     @method_decorator(login_required)
@@ -101,7 +103,7 @@ class UnidadCombustibleTicketView(TemplateView):
         return context
 
 
-class UnidadAsignacionView(TemplateView):
+class UnidadAsignacionView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, TemplateView):
     template_name = 'operacion/unidad_asignacion.html'
 
     @method_decorator(login_required)

@@ -14,13 +14,13 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from OBTaller.forms import UnidadForm
-from OBTaller.mixins import ValidatePermissionRequiredMixin
+from OBTaller.mixins import ValidatePermissionRequiredMixin, ValidaPerfilMixin, ValidaTemp2, ValidaTemp1
 from OBTaller.models import Unidad, WbUnidad, WbUnidadNeu
 
 
 # **********************************************************************************************************************
 # **********************************************************************************************************************
-class UnidadListView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListView):
+class UnidadListView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRequiredMixin, ValidatePermissionRequiredMixin, ListView):
     model = Unidad
     template_name ='catalogos/Unidad/list.html'
     # permission_required = 'OBTaller.view_unidad'
@@ -72,7 +72,7 @@ class UnidadListView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListVi
         return context
 # **********************************************************************************************************************
 # **********************************************************************************************************************
-class UnidadCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, CreateView):
+class UnidadCreateView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRequiredMixin, ValidatePermissionRequiredMixin, CreateView):
     model = Unidad
     form_class = UnidadForm
     template_name ='catalogos/Unidad/create.html'
@@ -117,7 +117,7 @@ class UnidadCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Crea
 # **********************************************************************************************************************
 # **********************************************************************************************************************
     
-class UnidadUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, UpdateView):
+class UnidadUpdateView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRequiredMixin, ValidatePermissionRequiredMixin, UpdateView):
     model = Unidad
     form_class = UnidadForm
     template_name = 'catalogos/Unidad/create.html'
@@ -162,7 +162,7 @@ class UnidadUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Upda
 # **********************************************************************************************************************
 # **********************************************************************************************************************
 
-class UnidadDeleteView(LoginRequiredMixin, ValidatePermissionRequiredMixin, DeleteView):
+class UnidadDeleteView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRequiredMixin, ValidatePermissionRequiredMixin, DeleteView):
     model = Unidad
     template_name = 'catalogos/Unidad/delete.html'
     success_url = reverse_lazy('OBTaller:unidad_list')
