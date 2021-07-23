@@ -67,10 +67,19 @@ class UnidadForm(forms.ModelForm):
         self.fields['modelo'].required = True
         self.fields['motor'].required = True
         self.fields['chasis'].required = True
+        self.fields['fh_registro'].widget = forms.HiddenInput()
+
+        if kwargs['instance']:
+            Unidad = kwargs['instance']
+            self.fields['fh_registro'].initial = Unidad.fh_registro
+            self.fields['placa'].widget.attrs['readonly'] = True
+            self.fields['id_cliente'].widget.attrs['readonly'] = True
+            self.fields['marca'].widget.attrs['autofocus'] = True
+
 
     class Meta:
         model = Unidad
-        fields = ['id_cliente','placa','marca','modelo','motor','chasis', 'unida_medida_combustible']
+        fields = ['id_cliente','placa','marca','modelo','motor','chasis', 'fh_registro', 'unida_medida_combustible']
         widgets = {
             'id_cliente': Select(
                 attrs={

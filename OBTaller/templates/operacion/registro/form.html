@@ -12,7 +12,7 @@
 
 <div class="wrapper pt-2">
     <!-- Header -->
-<div style="z-index: 5000; display:none;" id="loadingDiv">
+<div style="z-index: 1000; display:none;" id="loadingDiv">
     <table style="margin: 0px auto;">
 
         <tr>
@@ -33,7 +33,7 @@
                         <div class="card-header">
 
                             <h3 class="card-title">
-                                <a href="{% url 'index_operador' %}"
+                                <a href="{% url 'operador:index_operador' %}"
                                    class="mr-2 pt-3 btn btn-secondary"> <i
                                 class="fas fa-backward"></i></a>
                                 {% if action == 'add' %}
@@ -120,6 +120,7 @@
 </script>
 
 <script>
+
 
         {% if messages %}
             var html = '<p>';

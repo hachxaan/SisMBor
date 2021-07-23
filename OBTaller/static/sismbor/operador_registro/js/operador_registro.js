@@ -6,6 +6,4 @@ $(function () {
             $('#imgModal').modal('show');
     });
 
-
-
 });

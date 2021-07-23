@@ -38,7 +38,7 @@ class LoginOperador(TemplateView):
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             if request.user.es_operador:
-                return redirect(reverse_lazy('index_operador'))
+                return redirect(reverse_lazy('operador:index_operador'))
             else:
                 return redirect(reverse_lazy('OBTaller:panel_web'))
         return super().dispatch(request, *args, **kwargs)
@@ -72,7 +72,7 @@ class LoginOperador(TemplateView):
                                 insOperadorSession.save()
 
                                 data['id_unidad_asigna'] = dataSetUnidadAsignacion.id_unidad_asigna
-                                data['cod_acceso'] = cod_acceso.cod_acceso
+                                data['cod_acceso'] = cod_acceso
                                 # return redirect(reverse('indexl', kwargs={"session_auth_hash": session_auth_hash}))
                                 # return redirect(reverse('login_operador'))
                         else:

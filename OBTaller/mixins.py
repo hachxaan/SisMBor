@@ -15,7 +15,7 @@ class ValidaPerfilMixin(object):
         path_val = request.path.split('/')[1]
         if request.user.es_operador:
             if path_val != settings.URL_OPERADOR:
-                return redirect('index_operador')
+                return redirect('operador:index_operador')
         else:
             if path_val == settings.URL_OPERADOR:
                 return redirect('OBTaller:panel_web')

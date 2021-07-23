@@ -6,7 +6,7 @@ $(function () {
         var cod_acceso = $('#cod_acceso').val();
         var _parameters =  {'cod_acceso': cod_acceso,
                             'action': 'loginus_oper'};
-
+        console.log(_parameters);
         lajax(_parameters, function(response) {
             var id_unidad_asigna = response['id_unidad_asigna'];
             var cod_acceso = response['cod_acceso'];

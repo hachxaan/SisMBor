@@ -23,19 +23,20 @@
                         </div>
                         <div class="lh-100 mt-1 col-8 text-right">
 
-                            <a href="{% url 'create_combustible' %}" id="btnNuevoCombustible"
+                            <a href="{% url 'operador:create_combustible' %}" id="btnNuevoCombustible"
                                class="btn btn-app btn-info">
                                 <i class="nav-icon fas fa-plus-circle"></i>
                                 <p>
                                     Combustible
                                 </p>
                             </a>
-                            <button id="btnNuevoPeaje" class="btn btn-app btn-info">
+                            <a href="{% url 'operador:create_peaje' %}" id="btnNuevoPeaje"
+                               class="btn btn-app btn-info">
                                 <i class="nav-icon fas fa-plus-circle"></i>
                                 <p>
-                                    Peaje
+                                    Peajes
                                 </p>
-                            </button>
+                            </a>
                         </div>
 
                     </div>
@@ -116,8 +117,8 @@
                                                 </div>
                                             </div>
                                             <!-- /.card-body -->
-                                            <a href="#" class="ml-1 small-box-footer">
-                                                Editar <i class="fas fa-arrow-circle-right"></i>
+                                            <a href="{% url 'operador:delete_combustible' ticket.id_unidad_combustible %}" class="ml-1 small-box-footer">
+                                                Borrar <i class="fas fa-trash"></i>
                                             </a>
                                         </div>
                                         <!-- /.card -->
@@ -130,7 +131,64 @@
                             </div>
                             <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel"
                                  aria-labelledby="custom-tabs-four-profile-tab">
+                                <div class="col-12 p-2 row">
+                                    {% for ticket in Tickets_pej %}
+                                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                                        <div class="card card-outline card-primary collapsed-card">
+                                            <div class="row card-header">
+                                                <div class="col-10">
+                                                    {% if ticket.tx_referencia %}
+                                                    <h4 class="card-title">{{ ticket.tx_referencia }}</h4>
+                                                    {% else %}
+                                                    <small class="col-12 card-title-com">{{ ticket.fh_ticket
+                                                        }}</small><br>
+                                                    <small class="col-12 card-title-com">{{ticket.imp_ticket_s}}</small>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-2">
+                                                    <div class="card-tools">
+                                                        <button type="button" class="btn btn-tool"
+                                                                data-card-widget="collapse">
+                                                            <i class="fas fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
 
+                                                <!-- /.card-tools -->
+                                            </div>
+                                            <!-- /.card-header -->
+                                            <div class="card-body" style="display: none;">
+                                                <div class="direct-chat-infos clearfix">
+
+                                                    <span class="direct-chat-timestamp float-left">Fecha</span>
+                                                    <span class="direct-chat-name float-right">{{ ticket.fh_ticket }}</span>
+                                                </div>
+                                                <div class="direct-chat-infos clearfix">
+                                                    <span class="direct-chat-timestamp float-left">Importe</span>
+                                                    <span class="direct-chat-name float-right">{{ ticket.imp_ticket_s }}</span>
+                                                </div>
+                                                <div class="direct-chat-infos clearfix">
+                                                    <span class="direct-chat-timestamp float-left mt-2">Foto</span>
+                                                    <a id="btnVerFotoPej" type="button"
+                                                            data-img_ticket="{{MEDIA_ROOT}}/{{ ticket.img_ticket }}"
+
+                                                            style="height:33px; width:50px; padding:0px;"
+                                                            class="float-right btn btn-outline-info btn mt-2">Ver
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <!-- /.card-body -->
+                                            <a href="{% url 'operador:delete_peaje' ticket.id_unidad_peaje %}" class="ml-1 small-box-footer">
+                                                Borrar <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                        <!-- /.card -->
+
+                                    </div>
+                                    {% endfor %}
+
+
+                                </div>
 
                             </div>
 

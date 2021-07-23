@@ -307,7 +307,7 @@ class Unidad(models.Model):
     motor = models.CharField(db_column='MOTOR', max_length=64, blank=True, null=True)
     chasis = models.CharField(db_column='CHASIS', max_length=64, blank=True, null=True)
     unida_medida_combustible = models.IntegerField(db_column='UNIDAD_MEDIDA_COMBUSTIBLE', choices=UNIDAD_MEDIDA_COMBUSTIBLE , default=1)
-    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now)
+    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now, blank=True, null=True)
     id_cliente = models.ForeignKey(Cliente, models.PROTECT, db_column='ID_CLIENTE', related_name='unidades')
 
     def toJSON(self):
@@ -493,10 +493,16 @@ class UnidadPeaje(models.Model):
     imp_ticket = models.DecimalField(db_column='IMP_TICKET', max_digits=18, decimal_places=2, default=0)
     img_ticket = models.ImageField(db_column='IMG_TICKET', upload_to='uploads/tickets/peaje/%Y/%m/%d', blank=True, null=True)
     fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now)
+    tx_referencia = models.CharField(db_column='TX_REFERENCIA', max_length=1024, blank=True, null=True)
 
     def toJSON(self):
         item = model_to_dict(self)
         return item
+
+    def get_image(self):
+        if self.img_ticket:
+            return '{}{}'.format(MEDIA_URL, self.img_ticket)
+        return '{}{}'.format(STATIC_URL, 'img/empy.png')
 
     class Meta:
         db_table = 'unidad_peaje'
@@ -1044,6 +1050,31 @@ class WCombustibleTicket(models.Model):
     class Meta:
         managed = False  # Created from a view. Don't remove.
         db_table = 'w_combustible_ticket'
+
+
+
+class WPeajeTicket(models.Model):
+    id_unidad_peaje = models.IntegerField(db_column='ID_UNIDAD_PEAJE', primary_key=True)  # Field name made lowercase.
+    fh_ticket = models.CharField(db_column='FH_TICKET', max_length=10, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  # Field name made lowercase.
+    imp_ticket_s = models.CharField(db_column='IMP_TICKET_S', max_length=61, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  # Field name made lowercase.
+    img_ticket = models.CharField(db_column='IMG_TICKET', max_length=100, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  # Field name made lowercase.
+    fh_registro = models.CharField(db_column='FH_REGISTRO', max_length=24, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  # Field name made lowercase.
+    imp_ticket_n = models.DecimalField(db_column='IMP_TICKET_N', max_digits=18, decimal_places=2)  # Field name made lowercase.
+    tx_referencia = models.CharField(db_column='TX_REFERENCIA', max_length=1024, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  # Field name made lowercase.
+    id_unidad_asigna = models.IntegerField(db_column='ID_UNIDAD_ASIGNA')  # Field name made lowercase.
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    def get_image(self):
+        if self.img_ticket:
+            return '{}{}'.format(MEDIA_URL, self.img_ticket)
+        return '{}{}'.format(STATIC_URL, 'img/empy.png')
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'w_peaje_ticket'
 
 
 #
