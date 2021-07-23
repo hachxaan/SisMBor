@@ -1,3 +1,6 @@
+from os.path import split
+from urllib.parse import urlparse
+
 from django.shortcuts import redirect
 from datetime import datetime
 from django.contrib import messages
@@ -9,14 +12,14 @@ from appMainSite import settings
 
 class ValidaPerfilMixin(object):
     def dispatch(self, request, *args, **kwargs):
+        path_val = request.path.split('/')[1]
         if request.user.es_operador:
-            if request.path != settings.URL_OPERADOR:
+            if path_val != settings.URL_OPERADOR:
                 return redirect('index_operador')
         else:
-            if request.path == settings.URL_OPERADOR:
+            if path_val == settings.URL_OPERADOR:
                 return redirect('OBTaller:panel_web')
-        # else:
-        #     if
+
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -60,7 +63,7 @@ class ValidatePermissionRequiredMixin(object):
         return self.url_redirect
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.has_perms(self.get_perms()):
-            return super().dispatch(request, *args, **kwargs)
-        messages.error(request, 'No tiene permiso para ingresar a este módulo')
-        return HttpResponseRedirect(self.get_url_redirect())
+        # if request.user.has_perms(self.get_perms()):
+        return super().dispatch(request, *args, **kwargs)
+        # messages.error(request, 'No tiene permiso para ingresar a este módulo')
+        # return HttpResponseRedirect(self.get_url_redirect())

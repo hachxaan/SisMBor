@@ -36,7 +36,7 @@ window.onload = function() {
                     url: window.location.pathname,
                     type: 'POST',
                     beforeSend: function (request) {
-                        request.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                            request.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
                     },
                     data: {
                         'action': 'searchdata',

@@ -13,12 +13,12 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 import datetime as dt
 from OBTaller.forms import ClienteForm
-from OBTaller.mixins import ValidatePermissionRequiredMixin
+from OBTaller.mixins import ValidatePermissionRequiredMixin, ValidaPerfilMixin, ValidaTemp1, ValidaTemp2
 from OBTaller.models import Cliente
 
 # **********************************************************************************************************************
 # **********************************************************************************************************************
-class ClienteListView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListView):
+class ClienteListView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRequiredMixin, ValidatePermissionRequiredMixin, ListView):
     model = Cliente
     template_name ='catalogos/Cliente/list.html'
     # permission_required = 'OBTaller.view_cliente'
@@ -53,7 +53,7 @@ class ClienteListView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListV
         return context
 # **********************************************************************************************************************
 # **********************************************************************************************************************
-class ClienteCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, CreateView):
+class ClienteCreateView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRequiredMixin, ValidatePermissionRequiredMixin, CreateView):
     model = Cliente
     form_class = ClienteForm
     template_name ='catalogos/Cliente/create.html'
@@ -94,7 +94,7 @@ class ClienteCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Cre
 # **********************************************************************************************************************
 # **********************************************************************************************************************
     
-class ClienteUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, UpdateView):
+class ClienteUpdateView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRequiredMixin, ValidatePermissionRequiredMixin, UpdateView):
     model = Cliente
     form_class = ClienteForm
     template_name = 'catalogos/Cliente/create.html'
@@ -138,7 +138,7 @@ class ClienteUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Upd
 # **********************************************************************************************************************
 # **********************************************************************************************************************
 
-class ClienteDeleteView(LoginRequiredMixin, ValidatePermissionRequiredMixin, DeleteView):
+class ClienteDeleteView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRequiredMixin, ValidatePermissionRequiredMixin, DeleteView):
     model = Cliente
     template_name = 'catalogos/Cliente/delete.html'
     success_url = reverse_lazy('OBTaller:cliente_list')

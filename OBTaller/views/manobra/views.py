@@ -14,7 +14,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from appMainSite import const
 from OBTaller.forms import ManobraForm
-from OBTaller.mixins import ValidatePermissionRequiredMixin
+from OBTaller.mixins import ValidatePermissionRequiredMixin, ValidaTemp2, ValidaTemp1, ValidaPerfilMixin
 from OBTaller.models import WConceptosMain, Concepto
 
 
@@ -24,7 +24,7 @@ from appMainSite import settings
 from appMainSite.const import TCONCEPTO_MANOBRA
 
 
-class ManobraListView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListView):
+class ManobraListView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRequiredMixin, ValidatePermissionRequiredMixin, ListView):
     model = WConceptosMain
     template_name ='catalogos/Manobra/list.html'
     # permission_required = 'OBTaller.view_unidad'
@@ -64,7 +64,7 @@ class ManobraListView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListV
         return context
 # **********************************************************************************************************************
 # **********************************************************************************************************************
-class ManobraCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, CreateView):
+class ManobraCreateView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRequiredMixin, ValidatePermissionRequiredMixin, CreateView):
     model = Concepto
     form_class = ManobraForm
     template_name ='catalogos/Manobra/create.html'
@@ -108,7 +108,7 @@ class ManobraCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Cre
 # **********************************************************************************************************************
 # **********************************************************************************************************************
     
-class ManobraUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, UpdateView):
+class ManobraUpdateView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRequiredMixin, ValidatePermissionRequiredMixin, UpdateView):
     model = Concepto
     form_class = ManobraForm
     template_name = 'catalogos/Manobra/create.html'
@@ -123,6 +123,15 @@ class ManobraUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Upd
     def get_object(self):
         id_concepto=self.kwargs.get( 'id_concepto' )
         return get_object_or_404( Concepto , id_concepto=id_concepto )
+
+    # {
+    #     type: histogram,
+    #     xAxis: 1,
+    #     yAxis: 1,
+    #     baseSeries: 1
+    # }, {
+    #     data: [3.5, 3, 3.2, 3.1, 3.6, 3.9, 3.4]
+    # }
 
     def post(self, request, *args, **kwargs):
         data = {}
@@ -153,7 +162,7 @@ class ManobraUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Upd
 # **********************************************************************************************************************
 # **********************************************************************************************************************
 
-class ManobraDeleteView(LoginRequiredMixin, ValidatePermissionRequiredMixin, DeleteView):
+class ManobraDeleteView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRequiredMixin, ValidatePermissionRequiredMixin, DeleteView):
     model = Concepto
     template_name = 'catalogos/Manobra/delete.html'
     success_url = reverse_lazy('OBTaller:manobra_list')

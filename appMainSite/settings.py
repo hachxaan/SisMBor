@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
+    'tempus_dominus',
     'OBTaller',
 
     'OBTaller.loginus',
@@ -163,7 +164,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-URL_OPERADOR = '/registro/'
+URL_OPERADOR = 'registro'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'
 
@@ -171,4 +172,7 @@ STATIC_ROOT = os.path.normpath(os.path.join(PROJECT_ROOT, 'static'))
 
 AUTH_USER_MODEL = 'user.User'
 
+BASE_URL_MEDIA = 'static/images/upload'
+MEDIA_URL   = '/upload/'
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, BASE_URL_MEDIA)
 # STATIC_ROOT = os.path.normpath(os.path.join(BASE_DIR, 'static'))

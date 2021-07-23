@@ -28,8 +28,8 @@
                                              class="">
                                         <h5 class="mt-3"><b>Sistema de Mantenimiento Bordon</b></h5>
                                     </div>
-                                    <form action="." method="POST" id="loginForm"
-                                          style="text-align: center;">
+<!--                                    <form action="." method="POST" id="loginForm"-->
+<!--                                          style="text-align: center;">-->
                                         {% csrf_token %}
                                         <input type="hidden" name="action" value="loginus_oper">
 
@@ -40,9 +40,9 @@
                                             </div>
                                         {% endif %}
                                         <div class="form-group">
-                                            <label for="codeacces">Código de Acceso</label>
-                                            <input id="codeacces" class="form-control" placeholder="6 digitos"
-                                                   name="codeacces" type="number" min="10000" max="999999" required>
+                                            <label for="cod_acceso">Código de Acceso</label>
+                                            <input id="cod_acceso" class="form-control" placeholder="6 digitos"
+                                                   name="cod_acceso" type="number" min="10000" max="999999" required>
                                         </div>
 
                                         <div class="form-group">
@@ -53,7 +53,7 @@
                                             </div>
                                         </div>
 
-                                    </form>
+<!--                                    </form>-->
                                 </div>
                             </div>
                         </div>

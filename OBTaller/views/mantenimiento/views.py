@@ -14,7 +14,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from appMainSite import const
 from OBTaller.forms import MantenimientoForm
-from OBTaller.mixins import ValidatePermissionRequiredMixin
+from OBTaller.mixins import ValidatePermissionRequiredMixin, ValidaPerfilMixin, ValidaTemp1, ValidaTemp2
 from OBTaller.models import WConceptosMain, Concepto
 
 
@@ -24,7 +24,7 @@ from appMainSite import settings
 
 
 
-class MantenimientoListView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListView):
+class MantenimientoListView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRequiredMixin, ValidatePermissionRequiredMixin, ListView):
     model = WConceptosMain
     template_name ='catalogos/Mantenimiento/list.html'
     # permission_required = 'OBTaller.view_unidad'
@@ -64,7 +64,7 @@ class MantenimientoListView(LoginRequiredMixin, ValidatePermissionRequiredMixin,
         return context
 # **********************************************************************************************************************
 # **********************************************************************************************************************
-class MantenimientoCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, CreateView):
+class MantenimientoCreateView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRequiredMixin, ValidatePermissionRequiredMixin, CreateView):
     model = Concepto
     form_class = MantenimientoForm
     template_name ='catalogos/Mantenimiento/create.html'
@@ -109,7 +109,7 @@ class MantenimientoCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixi
 # **********************************************************************************************************************
 # **********************************************************************************************************************
     
-class MantenimientoUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, UpdateView):
+class MantenimientoUpdateView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRequiredMixin, ValidatePermissionRequiredMixin, UpdateView):
     model = Concepto
     form_class = MantenimientoForm
     template_name = 'catalogos/Mantenimiento/create.html'
@@ -154,7 +154,7 @@ class MantenimientoUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixi
 # **********************************************************************************************************************
 # **********************************************************************************************************************
 
-class MantenimientoDeleteView(LoginRequiredMixin, ValidatePermissionRequiredMixin, DeleteView):
+class MantenimientoDeleteView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRequiredMixin, ValidatePermissionRequiredMixin, DeleteView):
     model = Concepto
     template_name = 'catalogos/Mantenimiento/delete.html'
     success_url = reverse_lazy('OBTaller:mantenimiento_list')

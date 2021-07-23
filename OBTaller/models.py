@@ -7,10 +7,12 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.conf.global_settings import MEDIA_URL
 from django.contrib.auth.models import User
+from django.core.files.storage import get_storage_class
 from django.db import models
 from django.forms import model_to_dict
 from django.utils import timezone
 
+from appMainSite import settings
 from appMainSite.const import UNIDAD_MEDIDA_COMBUSTIBLE
 from appMainSite.settings import STATIC_URL
 
@@ -390,6 +392,8 @@ class PersonalTipo(models.Model):
     class Meta:
         db_table = 'personal_tipo'
 
+
+
 class Personal(models.Model):
     id_personal = models.AutoField(db_column='ID_PERSONAL', primary_key=True)  
     nombre = models.CharField(db_column='NOMBRE', unique=True, max_length=40, blank=True, null=True)  
@@ -425,6 +429,8 @@ class Usuario(models.Model):
     class Meta:
         db_table = 'usuario'
 
+
+
 class UnidadAsignacion(models.Model):
     id_unidad_asigna = models.AutoField(db_column='ID_UNIDAD_ASIGNA', unique=True, primary_key=True)
     id_unidad = models.ForeignKey(Unidad, models.PROTECT, db_column='ID_UNIDAD', related_name='gasto_combustible')
@@ -434,7 +440,7 @@ class UnidadAsignacion(models.Model):
     fh_asignacion = models.DateTimeField(db_column='FH_ASIGNACION', blank=True, null=True)
     fh_entrega = models.DateTimeField(db_column='FH_ENTREGA', blank=True, null=True)
     fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now)
-
+    session_auth_hash = models.CharField(max_length=128, default='')
 
 
     def toJSON(self):
@@ -444,16 +450,29 @@ class UnidadAsignacion(models.Model):
     class Meta:
         db_table = 'unidad_asignacion'
 
+class OperadorSession(models.Model):
+    id_session = models.AutoField(db_column='ID_SESSION', primary_key=True)
+    session_key = models.CharField(db_column='SESSION_KEY', unique=True, max_length=128, blank=True, null=True)
+    id_unidad_asigna = models.ForeignKey(UnidadAsignacion, models.PROTECT, db_column='ID_UNIDAD_ASIGNA')
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        db_table = 'operador_session'
+
 
 
 class UnidadCombustible(models.Model):
     id_unidad_combustible = models.AutoField(db_column='ID_UNIDAD_COMBUSTIBLE', primary_key=True)
-    id_unidad_asigna = models.ForeignKey(UnidadAsignacion, models.PROTECT, db_column='ID_UNIDAD_ASIGNA')
     fh_ticket = models.DateTimeField(db_column='FH_TICKET', blank=True, null=True)
     imp_ticket = models.DecimalField(db_column='IMP_TICKET', max_digits=18, decimal_places=2, default=0)
     cantidad = models.IntegerField(db_column='CANTIDAD', default=0)
-    img_ticket = models.ImageField(db_column='IMG_TICKET', upload_to='uploads/tickets/combustible/%Y/%m/%d', blank=True, null=True)
+    img_ticket = models.ImageField(db_column='IMG_TICKET', upload_to='tickets/combustible/%Y/%m/%d', blank=True, null=True)
+    tx_referencia = models.CharField(db_column='TX_REFERENCIA', max_length=1024, blank=True, null=True)
     fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now)
+    id_unidad_asigna = models.ForeignKey(UnidadAsignacion, models.PROTECT, db_column='ID_UNIDAD_ASIGNA')
 
     def toJSON(self):
         item = model_to_dict(self)
@@ -1010,11 +1029,17 @@ class WCombustibleTicket(models.Model):
     img_ticket = models.CharField(db_column='IMG_TICKET', max_length=100, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  # Field name made lowercase.
     fh_registro = models.CharField(db_column='FH_REGISTRO', max_length=24, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  # Field name made lowercase.
     imp_ticket_n = models.DecimalField(db_column='IMP_TICKET_N', max_digits=18, decimal_places=2)  # Field name made lowercase.
+    tx_referencia = models.CharField(db_column='TX_REFERENCIA', max_length=1024, blank=True, null=True)
     id_unidad_asigna = models.IntegerField(db_column='ID_UNIDAD_ASIGNA')  # Field name made lowercase.
 
     def toJSON(self):
         item = model_to_dict(self)
         return item
+
+    def get_image(self):
+        if self.img_ticket:
+            return '{}{}'.format(MEDIA_URL, self.img_ticket)
+        return '{}{}'.format(STATIC_URL, 'img/empy.png')
 
     class Meta:
         managed = False  # Created from a view. Don't remove.

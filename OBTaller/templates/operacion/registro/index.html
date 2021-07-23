@@ -1,10 +1,197 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Reporte</title>
-</head>
-<body>
-    <display-1> Probando ando </display-1>
+{% extends 'home.html' %}
+{% load static %}
+
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'sismbor/operador_registro/css/style.css' %}">
+{% endblock %}
+{% block body %}
+<body class="hold-transition {{ status_menu }} layout-fixed">
+<div class="wrapper">
+    <!-- Header -->
+    {% include './navbar.html' %}
+    <!-- Content -->
+    <div class="content-wrapper">
+        <div class="content">
+            <div class="container-fluid row">
+                <div class="col-12">
+                    <div class="d-flex align-items-center p-2 my-3 text-white-50 bg-secondary rounded shadow-sm">
+
+                        <div class="lh-100 col-4">
+                            <h6 class="mb-0 text-white lh-100">Reporte de Gastos</h6>
+                            <display-3 class="mt-3">{{ placa }}</display-3>
+                        </div>
+                        <div class="lh-100 mt-1 col-8 text-right">
+
+                            <a href="{% url 'create_combustible' %}" id="btnNuevoCombustible"
+                               class="btn btn-app btn-info">
+                                <i class="nav-icon fas fa-plus-circle"></i>
+                                <p>
+                                    Combustible
+                                </p>
+                            </a>
+                            <button id="btnNuevoPeaje" class="btn btn-app btn-info">
+                                <i class="nav-icon fas fa-plus-circle"></i>
+                                <p>
+                                    Peaje
+                                </p>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="col-12 card card-primary card-outline card-outline-tabs">
+                    <div class="card-header p-0 border-bottom-0">
+                        <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill"
+                                   href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home"
+                                   aria-selected="false">Combustible</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill"
+                                   href="#custom-tabs-four-profile" role="tab" aria-controls="custom-tabs-four-profile"
+                                   aria-selected="true">Peaje</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content" id="custom-tabs-four-tabContent">
+                            <div class="tab-pane fade active show" id="custom-tabs-four-home" role="tabpanel"
+                                 aria-labelledby="custom-tabs-four-home-tab">
+
+                                <div class="col-12 p-2 row">
+                                    {% for ticket in Tickets_com %}
+                                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                                        <div class="card card-outline card-primary collapsed-card">
+                                            <div class="row card-header">
+                                                <div class="col-10">
+                                                    {% if ticket.tx_referencia %}
+                                                    <h4 class="card-title">{{ ticket.tx_referencia }}</h4>
+                                                    {% else %}
+                                                    <small class="col-12 card-title-com">{{ ticket.fh_ticket
+                                                        }}</small><br>
+                                                    <small class="col-12 card-title-com">{{ticket.imp_ticket_s}}</small>
+                                                    <small class="col-6 card-title-com">{{ ticket.cantidad }} {{unida_medida_combustible}}</small>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-2">
+                                                    <div class="card-tools">
+                                                        <button type="button" class="btn btn-tool"
+                                                                data-card-widget="collapse">
+                                                            <i class="fas fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                <!-- /.card-tools -->
+                                            </div>
+                                            <!-- /.card-header -->
+                                            <div class="card-body" style="display: none;">
+                                                <div class="direct-chat-infos clearfix">
+
+                                                    <span class="direct-chat-timestamp float-left">Fecha</span>
+                                                    <span class="direct-chat-name float-right">{{ ticket.fh_ticket }}</span>
+                                                </div>
+                                                <div class="direct-chat-infos clearfix">
+
+                                                    <span class="direct-chat-timestamp float-left">Cantidad</span>
+                                                    <span class="direct-chat-name float-right">{{ ticket.cantidad }} {{unida_medida_combustible}}</span>
+                                                </div>
+                                                <div class="direct-chat-infos clearfix">
+                                                    <span class="direct-chat-timestamp float-left">Importe</span>
+                                                    <span class="direct-chat-name float-right">{{ ticket.imp_ticket_s }}</span>
+                                                </div>
+                                                <div class="direct-chat-infos clearfix">
+                                                    <span class="direct-chat-timestamp float-left mt-2">Foto</span>
+                                                    <a id="btnVerFoto" type="button"
+                                                            data-img_ticket="{{MEDIA_ROOT}}/{{ ticket.img_ticket }}"
+
+                                                            style="height:33px; width:50px; padding:0px;"
+                                                            class="float-right btn btn-outline-info btn mt-2">Ver
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <!-- /.card-body -->
+                                            <a href="#" class="ml-1 small-box-footer">
+                                                Editar <i class="fas fa-arrow-circle-right"></i>
+                                            </a>
+                                        </div>
+                                        <!-- /.card -->
+
+                                    </div>
+                                    {% endfor %}
+
+
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel"
+                                 aria-labelledby="custom-tabs-four-profile-tab">
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+    <!-- Footer -->
+    {% include 'MainSections/Footer.html' %}
+
+
+    {% block modals %}
+    <div id="imgModal" class="modal fade" tabindex="-1" role="dialog" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="TxReferenciaLabel">Salida bla</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img id="img_ticket" src="" class="img-responsive img_ticket">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% endblock %}
+</div>
+
+{% block scripts %}
+
+    <script src="{% static 'sismbor/operador_registro/js/operador_registro.js' %}" type="text/javascript"></script>
+
+
+<script>
+
+        {% if messages %}
+            var html = '<p>';
+            {% for message in messages %}
+                html += '{{ message }}<br>';
+            {% endfor %}
+            html += '</p>';
+            Swal.fire({
+                title: 'Error!',
+                html: html,
+                icon: 'error'
+            });
+        {% endif %}
+
+</script>
+{% endblock %}
+
 </body>
-</html>
+{% endblock %}
