@@ -19,38 +19,16 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e0074843-61a2-4bac-b21d-d2a6f08bf969" name="Default Changelist" comment="100% registro / operador">
-      <change afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/css/dashboard.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/dashboard/dashboard_combustible_gasto.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/dashboard/dashboard_peaje.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/js/buscador-id-unidad.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/operacion/js/unidad_tickets_peaje.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/templates/dashboard/dashboard_combustible_gasto.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/templates/dashboard/dashboard_peaje.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/templates/operacion/create_combustible_admin.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/templates/operacion/create_ticket_admin.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/templates/operacion/form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/templates/operacion/unidad_tickets_peaje.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/views/dash_combustible_gasto_view.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OBTaller/views/dash_peaje_gasto_view.py" afterDir="false" />
+    <list default="true" id="e0074843-61a2-4bac-b21d-d2a6f08bf969" name="Default Changelist" comment="99% Ya casi dashboard">
+      <change afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/dashboard/dashboard_combustible_consumo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/templates/dashboard/dashboard_combustible_consumo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OBTaller/views/dash_combustible_consumo_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/mixins.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/mixins.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/operador/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/operador/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/operador/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/operador/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/operacion/js/unidad_asignacion.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/operacion/js/unidad_asignacion.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/operacion/js/unidad_tickets_combustible.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/operacion/js/unidad_tickets_combustible.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/MainSections/Footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/MainSections/Footer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/dashboard/dashboard_combustible_gasto.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/dashboard/dashboard_combustible_gasto.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OBTaller/static/sismbor/dashboard/dashboard_peaje.js" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/static/sismbor/dashboard/dashboard_peaje.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/templates/MainSections/MENU.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/MainSections/MENU.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/operacion/registro/form.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/operacion/registro/form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/operacion/registro/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/operacion/registro/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/operacion/unidad_asignacion.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/operacion/unidad_asignacion.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/operacion/unidad_tickets_combustible.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/operacion/unidad_tickets_combustible.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/templates/panel.html" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/templates/panel.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/tests.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBTaller/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBTaller/views/unidad_asignacion_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/OBTaller/views/unidad_asignacion_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appMainSite/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/appMainSite/settings.py" afterDir="false" />
     </list>
     <list id="3c06267f-cbfe-45c7-9d6a-68516316c8d2" name="Uncommitted changes before Checkout at 21/06/21 17:23 [Default Changelist]" comment="Uncommitted changes before Checkout at 21/06/21 17:23 [Default Changelist]" />
     <option name="SHOW_DIALOG" value="false" />
@@ -87,8 +65,8 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/../env-lx/lib/python3.9/site-packages/django/contrib/redirects/middleware.py" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/../env-lx/lib/python3.9/site-packages/django/core/handlers/base.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/../env-lx/lib/python3.9/site-packages/django/contrib/redirects/middleware.py" root0="SKIP_INSPECTION" />
   </component>
   <component name="InvalidFacetManager">
     <ignored-facets>
@@ -121,16 +99,16 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/OBTaller/static/sismbor/js" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/OBTaller/static/sismbor/dashboard" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/OBTaller/static/sismbor/js" />
       <recent name="$PROJECT_DIR$/OBTaller/static/sismbor/dashboard" />
       <recent name="$PROJECT_DIR$/OBTaller/views" />
       <recent name="$PROJECT_DIR$/OBTaller/templates/dashboard" />
+      <recent name="$PROJECT_DIR$/OBTaller/static/sismbor/js" />
       <recent name="$PROJECT_DIR$/OBTaller/templates/operacion" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -414,11 +392,21 @@
       <option name="project" value="LOCAL" />
       <updated>1627050735724</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="99% Ya casi dashboard">
+      <created>1627495086802</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1627495086802</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.js" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -468,7 +456,8 @@
     <MESSAGE value="MIXINS OK" />
     <MESSAGE value="50% registro / operador" />
     <MESSAGE value="100% registro / operador" />
-    <option name="LAST_COMMIT_MESSAGE" value="100% registro / operador" />
+    <MESSAGE value="99% Ya casi dashboard" />
+    <option name="LAST_COMMIT_MESSAGE" value="99% Ya casi dashboard" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -524,14 +513,29 @@
           <option name="timeStamp" value="139" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/OBTaller/views/dash_peaje_gasto_view.py</url>
-          <line>82</line>
-          <option name="timeStamp" value="158" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OBTaller/tests.py</url>
           <line>29</line>
           <option name="timeStamp" value="171" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/OBTaller/views/dash_combustible_consumo_view.py</url>
+          <line>18</line>
+          <option name="timeStamp" value="173" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/OBTaller/views/dash_combustible_consumo_view.py</url>
+          <line>74</line>
+          <option name="timeStamp" value="175" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/OBTaller/views/dash_combustible_gasto_view.py</url>
+          <line>76</line>
+          <option name="timeStamp" value="176" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/OBTaller/views/dash_peaje_gasto_view.py</url>
+          <line>80</line>
+          <option name="timeStamp" value="177" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

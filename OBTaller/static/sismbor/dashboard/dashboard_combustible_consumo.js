@@ -1,4 +1,5 @@
 'use strict';
+'use strict';
 const cNameDT_PeajeDiario = '#dtPeajeDiario';
 const cNameDT_PeajeMes = '#dtPeajeMensual';
 const cNameDT_PeajeAnual = '#dtPeajeAnual';
@@ -94,10 +95,10 @@ function reloadGraficaDashboardDiario(tipo, id_unidad, ano_mes, container, titul
                     type: 'column'
             },
             title: {
-                text: 'Diario',
+                text: titulo,
             },
             subtitle: {
-                text: titulo
+                text: 'Diario'
             },
             xAxis: {
 //                reversed: false,
@@ -107,7 +108,7 @@ function reloadGraficaDashboardDiario(tipo, id_unidad, ano_mes, container, titul
             },
             yAxis: {
                 title: {
-                    text: 'Soles'
+                    text: data['unida_medida_combustible']
                 }
             },
             legend: {
@@ -213,7 +214,7 @@ function reloadGraficaDashboardPeajeMensual(tipo, id_unidad, ano, container, tit
             },
             yAxis: {
                 min: 0,
-                title: { text: data['unida_medida_combustible'] }
+                title: { text: 'Promedio (Soles)' }
             },
             legend: { enabled: false },
             tooltip: {
@@ -232,7 +233,7 @@ function reloadGraficaDashboardPeajeMensual(tipo, id_unidad, ano, container, tit
             },
             series: [{
                 name: '',
-                data: data['data']
+                data: data
             },
             ]
         });
@@ -305,7 +306,7 @@ function realoadDataDashboardPeaje(element, fieldsColums, tipo, id_unidad, selec
                                     } else {
                                         var ano_mes_split = ano_mes.split('-')
                                         var ano = ano_mes_split[0]
-                                        reloadGraficaDashboardPeajeMensual('mensual_promedio', id_unidad, ano, 'GraficaPromedio', 'Promedio ' +ano);
+                                        reloadGraficaDashboardPeajeMensual('mensual_promedio', id_unidad, ano, 'GraficaPromedio', 'Mensual Promedio ' +ano);
                                     }
                                 }
                             } );

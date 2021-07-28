@@ -1261,3 +1261,88 @@ class VwrCombustibleGastoXAnoAcumulado(models.Model):
     class Meta:
         managed = False  # Created from a view. Don't remove.
         db_table = 'vwr_combustible_gasto_x_ano_acumulado'
+
+class VwrCombustibleConsumoPromedioXDia(models.Model):
+    id_unidad = models.IntegerField(db_column='ID_UNIDAD')  # Field name made lowercase.
+    placa = models.CharField(db_column='PLACA', max_length=16, db_collation='utf8mb4_0900_ai_ci')  # Field name made lowercase.
+    fh_ticket = models.DateTimeField(db_column='FH_TICKET', primary_key=True)  # Field name made lowercase.
+    promedio = models.DecimalField(db_column='PROMEDIO', max_digits=14, decimal_places=4, blank=True, null=True)  # Field name made lowercase.
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'vwr_combustible_consumo_promedio_x_dia'
+
+
+class VwrCombustibleConsumoPromedioXMes(models.Model):
+    id_unidad = models.IntegerField(db_column='ID_UNIDAD')  # Field name made lowercase.
+    placa = models.CharField(db_column='PLACA', max_length=16, db_collation='utf8mb4_0900_ai_ci')  # Field name made lowercase.
+    mes = models.CharField(db_column='MES', max_length=7, db_collation='utf8mb4_0900_ai_ci', primary_key=True)  # Field name made lowercase.
+    promedio = models.DecimalField(db_column='PROMEDIO', max_digits=14, decimal_places=4, blank=True, null=True)  # Field name made lowercase.
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'vwr_combustible_consumo_promedio_x_mes'
+
+class VwrCombustibleConsumoPromedioXAno(models.Model):
+    id_unidad = models.IntegerField(db_column='ID_UNIDAD')  # Field name made lowercase.
+    placa = models.CharField(db_column='PLACA', max_length=16, db_collation='utf8mb4_0900_ai_ci')  # Field name made lowercase.
+    ano = models.CharField(db_column='ANO', max_length=4, db_collation='utf8mb4_0900_ai_ci', primary_key=True)  # Field name made lowercase.
+    promedio = models.DecimalField(db_column='PROMEDIO', max_digits=14, decimal_places=4, blank=True, null=True)  # Field name made lowercase.
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'vwr_combustible_consumo_promedio_x_ano'
+
+class VwrCombustibleConsumoAcumuladoXDia(models.Model):
+    id_unidad = models.IntegerField(db_column='ID_UNIDAD')  # Field name made lowercase.
+    placa = models.CharField(db_column='PLACA', max_length=16, db_collation='utf8mb4_0900_ai_ci')  # Field name made lowercase.
+    fh_ticket = models.DateTimeField(db_column='FH_TICKET', primary_key=True)  # Field name made lowercase.
+    acumulado = models.DecimalField(db_column='ACUMULADO', max_digits=32, decimal_places=0, blank=True, null=True)  # Field name made lowercase.
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'vwr_combustible_consumo_acumulado_x_dia'
+
+class VwrCombustibleConsumoAcumuladoXMes(models.Model):
+    id_unidad = models.IntegerField(db_column='ID_UNIDAD')  # Field name made lowercase.
+    placa = models.CharField(db_column='PLACA', max_length=16, db_collation='utf8mb4_0900_ai_ci')  # Field name made lowercase.
+    mes = models.CharField(db_column='MES', max_length=7, db_collation='utf8mb4_0900_ai_ci', primary_key=True)  # Field name made lowercase.
+    acumulado = models.DecimalField(db_column='ACUMULADO', max_digits=32, decimal_places=0, blank=True, null=True)  # Field name made lowercase.
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'vwr_combustible_consumo_acumulado_x_mes'
+
+class VwrCombustibleConsumoAcumuladoXAno(models.Model):
+    id_unidad = models.IntegerField(db_column='ID_UNIDAD')  # Field name made lowercase.
+    placa = models.CharField(db_column='PLACA', max_length=16, db_collation='utf8mb4_0900_ai_ci')  # Field name made lowercase.
+    ano = models.CharField(db_column='ANO', max_length=4, db_collation='utf8mb4_0900_ai_ci', primary_key=True)  # Field name made lowercase.
+    acumulado = models.DecimalField(db_column='ACUMULADO', max_digits=32, decimal_places=0, blank=True, null=True)  # Field name made lowercase.
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'vwr_combustible_consumo_acumulado_x_ano'

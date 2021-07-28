@@ -7,6 +7,8 @@ from django.conf.urls.static import static
 from OBTaller.operador.views import UnidadCombustibleCreateView
 from OBTaller.views.StoreProcedures import StpInsOrden, StpInsBitInventario
 from OBTaller.views.cliente.views import ClienteListView, ClienteCreateView, ClienteUpdateView, ClienteDeleteView
+from OBTaller.views.dash_combustible_consumo_view import DashboardCombustibleConsumoView, \
+    DashboardCombustibleConsumoGraficaView
 from OBTaller.views.dash_combustible_gasto_view import DashboardCombustibleGastoGraficaView, \
     DashboardCombustibleGastoView
 from OBTaller.views.dash_peaje_gasto_view import DashboardPeajeView, DashboardPeajeGraficaView
@@ -95,6 +97,9 @@ urlpatterns=[
 
         path('dashboard/combustible_gasto/', DashboardCombustibleGastoView.as_view(), name='dashboard_combustible_gasto'),
         path('dashboard/combustible_gasto/data/<str:tipo>/<int:id_unidad>/<str:filtro>/', DashboardCombustibleGastoGraficaView.as_view(), name='dashboard_combustible_gasto_grafica'),
+
+        path('dashboard/combustible_consumo/', DashboardCombustibleConsumoView.as_view(), name='dashboard_combustible_consumo'),
+        path('dashboard/combustible_consumo/data/<str:tipo>/<int:id_unidad>/<str:filtro>/', DashboardCombustibleConsumoGraficaView.as_view(), name='dashboard_combustible_consumo_grafica'),
 
 
     # *******************************************************************************************************************

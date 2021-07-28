@@ -296,7 +296,7 @@ function realoadDataDashboardPeaje(element, fieldsColums, tipo, id_unidad, selec
                                     } else {
                                         var ano_mes_split = ano_mes.split('-')
                                         var ano = ano_mes_split[0]
-                                        reloadGraficaDashboardPeajeMensual('mensual_promedio', id_unidad, ano, 'GraficaPromedio', 'Mensual Promedio ' +ano);
+                                        reloadGraficaDashboardPeajeMensual('mensual_promedio', id_unidad, ano, 'GraficaPromedio', 'Promedio ' +ano);
                                     }
                                 }
                             } );
