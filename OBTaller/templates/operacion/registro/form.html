@@ -1,10 +1,10 @@
-{% extends 'home.html' %}
+{% extends 'layout.html' %}
 {% load widget_tweaks %}
 {% load static %}
 {% block head %}
-    <link rel="stylesheet" href="{% static 'sismbor/operador_registro/css/style.css' %}">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-    {{ form.media }}
+<link rel="stylesheet" href="{% static 'sismbor/operador_registro/css/style.css' %}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+{{ form.media }}
 {% endblock %}
 
 {% block body %}
@@ -12,17 +12,19 @@
 
 <div class="wrapper pt-2">
     <!-- Header -->
-<div style="z-index: 1000; display:none;" id="loadingDiv">
-    <table style="margin: 0px auto;">
+    <div style="z-index: 1000; display:none;" id="loadingDiv">
+        <table style="margin: 0px auto;">
 
-        <tr>
-            <td style="padding-top:200px;" align="center"><img src="https://www.punjabidharti.com/wp-content/plugins/wp-email/images/loading.gif" alt="loading image"/></td>
-        </tr>
-        <tr>
-            <td style="padding-top:200px;" align="center"><p>Espere un momento...</p></td>
-        </tr>
-    </table>
-</div>
+            <tr>
+                <td style="padding-top:200px;" align="center"><img
+                        src="https://www.punjabidharti.com/wp-content/plugins/wp-email/images/loading.gif"
+                        alt="loading image"/></td>
+            </tr>
+            <tr>
+                <td style="padding-top:200px;" align="center"><p>Espere un momento...</p></td>
+            </tr>
+        </table>
+    </div>
     <!-- Content -->
     <div class="content-wrapper">
         <div class="content">
@@ -35,7 +37,7 @@
                             <h3 class="card-title">
                                 <a href="{% url 'operador:index_operador' %}"
                                    class="mr-2 pt-3 btn btn-secondary"> <i
-                                class="fas fa-backward"></i></a>
+                                        class="fas fa-backward"></i></a>
                                 {% if action == 'add' %}
                                 <i class="fas fa-plus"></i>
                                 {% else %}
@@ -51,6 +53,7 @@
                             {% csrf_token %}
                             <input type="hidden" name="action" value="{{ action }}">
                             <input type="hidden" name="id_unidad_asigna" value="{{ id_unidad_asigna }}">
+                            <input type="hidden" name="id_unidad" value="{{ id_unidad }}">
                             {% block fieldscontrol %}
                             {% endblock %}
                             {% if form.errors %}
@@ -69,19 +72,19 @@
                             {% endif %}
                             {% for field in form.visible_fields %}
 
-                                <div class="form-group">
-                                    {% if field.label == 'unida_medida_combustible'%}
-                                        <label for="">Cantidad ({{ unida_medida_combustible }}):</label>
-                                    {% else %}
-                                        <label for="">{{ field.label }}:</label>
-                                    {% endif %}
+                            <div class="form-group">
+                                {% if field.label == 'unida_medida_combustible'%}
+                                <label for="">Cantidad ({{ unida_medida_combustible }}):</label>
+                                {% else %}
+                                <label for="">{{ field.label }}:</label>
+                                {% endif %}
 
-                                    {{ field|add_class:'form-control'|attr:'autocomplete:off' }}
-                                    {% if form.readonly %}
-                                    {{ field|attr:'readonly' }}
-                                    {% endif %}
+                                {{ field|add_class:'form-control'|attr:'autocomplete:off' }}
+                                {% if form.readonly %}
+                                {{ field|attr:'readonly' }}
+                                {% endif %}
 
-                                </div>
+                            </div>
                             {% endfor %}
 
                         </div>
@@ -161,6 +164,7 @@
                     location.href = '{{ list_url }}';
             });
         });
+
 
 
 

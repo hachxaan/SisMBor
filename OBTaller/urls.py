@@ -4,9 +4,12 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-
+from OBTaller.operador.views import UnidadCombustibleCreateView
 from OBTaller.views.StoreProcedures import StpInsOrden, StpInsBitInventario
 from OBTaller.views.cliente.views import ClienteListView, ClienteCreateView, ClienteUpdateView, ClienteDeleteView
+from OBTaller.views.dash_combustible_gasto_view import DashboardCombustibleGastoGraficaView, \
+    DashboardCombustibleGastoView
+from OBTaller.views.dash_peaje_gasto_view import DashboardPeajeView, DashboardPeajeGraficaView
 from OBTaller.views.inventario_neomaticos_view import InventarioNeumaticosView, InventarioNeumaticosUpdateView, \
     InventarioNeumaticosCreateView
 from OBTaller.views.inventario_view import InventarioView, InventarioCreateView, InventarioUpdateView
@@ -17,7 +20,8 @@ from OBTaller.views.personal.views import PersonalListView, PersonalCreateView, 
 from OBTaller.views.reportes_view import ReportesView
 
 from OBTaller.views.unidad_view import UnidadListView, UnidadCreateView, UnidadUpdateView, UnidadDeleteView
-from OBTaller.views.unidad_asignacion_view import UnidadAsignacionView, UnidadCombustibleTicketView
+from OBTaller.views.unidad_asignacion_view import UnidadAsignacionView, UnidadCombustibleTicketView, \
+    UnidadCombustibleAdminCreateView, UnidadPeajeTicketView, UnidadPeajeAdminCreateView
 from OBTaller.views.views import addConceptoCategoria, addTipoServicio, \
     getInfoUnidad, SetParametros, addConceptoMarca, addUnidadMedida
 
@@ -80,6 +84,18 @@ urlpatterns=[
     # *******************************************************************************************************************
         path( 'unidades/asignacion/', UnidadAsignacionView.as_view(), name='unidad_asignacion' ),
         path( 'unidades/combustible_ticket/', UnidadCombustibleTicketView.as_view(), name='unidad_combustible_ticket' ),
+        path( 'unidades/combustible_ticket/add/<int:id_unidad_asigna>/', UnidadCombustibleAdminCreateView.as_view(), name='create_ticket_combustible' ),
+        # path( 'unidades/combustible_ticket/add/', UnidadCombustibleCreateView.as_view(), name='create_unidad_asignacion' ),
+        path('unidades/peaje_ticket/', UnidadPeajeTicketView.as_view(), name='unidad_peaje_ticket'),
+        path( 'unidades/peaje_ticket/add/<int:id_unidad_asigna>/', UnidadPeajeAdminCreateView.as_view(), name='create_ticket_peaje' ),
+
+        # DASHBOARD ########################################
+        path('dashboard/peaje/', DashboardPeajeView.as_view(), name='dashboard_peaje'),
+        path('dashboard/peaje/data/<str:tipo>/<int:id_unidad>/<str:filtro>/', DashboardPeajeGraficaView.as_view(), name='dashboard_peaje_grafica'),
+
+        path('dashboard/combustible_gasto/', DashboardCombustibleGastoView.as_view(), name='dashboard_combustible_gasto'),
+        path('dashboard/combustible_gasto/data/<str:tipo>/<int:id_unidad>/<str:filtro>/', DashboardCombustibleGastoGraficaView.as_view(), name='dashboard_combustible_gasto_grafica'),
+
 
     # *******************************************************************************************************************
     # C A T A L O G O S

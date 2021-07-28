@@ -2,15 +2,19 @@ import random
 import string
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import connection
 from django.db.models import Q
 from django.http import JsonResponse
+from django.urls import reverse_lazy
 from django.utils import timezone
 from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, CreateView
 
-from OBTaller.mixins import ValidaPerfilMixin, ValidaTemp1, ValidaTemp2
-from OBTaller.models import WUnidadAsignacion, Personal, Unidad, UnidadAsignacion, Cliente, WCombustibleTicket
+from OBTaller.mixins import ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, ValidatePermissionRequiredMixin
+from OBTaller.models import WUnidadAsignacion, Personal, Unidad, UnidadAsignacion, Cliente, WCombustibleTicket, \
+    UnidadCombustible, WPeajeTicket, UnidadPeaje
+from OBTaller.operador.forms import UnidadCombustibleForm, UnidadPeajeForm
 from appMainSite.const import TPERSONAL_OPERADOR_UNIDAD
 
 class UnidadCombustibleTicketView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, TemplateView):
@@ -35,10 +39,7 @@ class UnidadCombustibleTicketView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, T
                     data.append(item)
             # if action == 'asigna_personal':
             #     data = self.pAsignaUnidad(request)
-            # if action == 'gen_code_asignacion':
-            #     data = self.pEntregaUnidad(request)
-            # if action == 'recibe_unidad':
-            #     data = self.pRecibeUnidad(request)
+
 
         except Exception as e:
             data = {}
@@ -65,6 +66,7 @@ class UnidadCombustibleTicketView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, T
 
 
         context['id_unidad_asigna'] = qryWUnidadAsignacion.id_unidad_asigna
+        context['id_unidad'] = qryWUnidadAsignacion.id_unidad
         context['entrada'] = qryWUnidadAsignacion.id_unidad_asigna
         context['placa'] = qryUnidad.placa
         context['nombre_operador'] = qryWUnidadAsignacion.nombre_operador
@@ -80,6 +82,7 @@ class UnidadCombustibleTicketView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, T
 
         fieldsColums.append({"data": 'id_unidad_combustible'})
         fieldsColums.append({"data": 'fh_ticket'})
+        fieldsColums.append({"data": 'tx_referencia'})
         fieldsColums.append({"data": 'cantidad'})
         fieldsColums.append({"data": 'imp_ticket_s'})
         fieldsColums.append({"data": 'img_ticket'})
@@ -90,6 +93,7 @@ class UnidadCombustibleTicketView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, T
         unida_medida_combustible = qryUnidad.get_unida_medida_combustible_display()
         titleFields.append({"field_title": 'Entrada', "width": '3'})
         titleFields.append({"field_title": 'Fecha Ticket', "width": '15'})
+        titleFields.append({"field_title": 'Título/Referencia', "width": '20'})
         titleFields.append({"field_title": 'Cantidad ' + unida_medida_combustible, "width": '10'})
         titleFields.append({"field_title": 'Importe', "width": '10'})
         titleFields.append({"field_title": 'Foto', "width": '5'})
@@ -102,6 +106,89 @@ class UnidadCombustibleTicketView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, T
 
         return context
 
+
+class UnidadPeajeTicketView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, TemplateView):
+    template_name = 'operacion/unidad_tickets_peaje.html'
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        data={}
+        try:
+            action=request.POST['action']
+            if action == 'searchdata':
+                data = []
+                id_unidad_asigna = request.POST['id_unidad_asigna']
+                for i in WPeajeTicket.objects.filter(id_unidad_asigna=id_unidad_asigna):
+                    item = i.toJSON()
+                    data.append(item)
+
+        except Exception as e:
+            data = {}
+            data['error']=str( e )
+        return JsonResponse( data, safe=False )
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data( **kwargs )
+
+        id_unidad = self.request.GET.get('id_unidad')
+        id_unidad_asigna = self.request.GET.get('id_unidad_asigna')
+
+        qryWUnidadAsignacion = WUnidadAsignacion.objects.get(id_unidad_asigna=id_unidad_asigna)
+        sit_code = qryWUnidadAsignacion.sit_code
+        status = qryWUnidadAsignacion.status
+        context['status_desc'] = status
+        if (sit_code == 0):
+            context['status_tipo'] = 'warning'
+        if (sit_code == 1):
+            context['status_tipo']='info'
+        if (sit_code == 2):
+            context['status_tipo']='success'
+
+        qryUnidad = Unidad.objects.get(id_unidad=id_unidad)
+
+
+        context['id_unidad_asigna'] = qryWUnidadAsignacion.id_unidad_asigna
+        context['id_unidad'] = qryWUnidadAsignacion.id_unidad
+        context['entrada'] = qryWUnidadAsignacion.id_unidad_asigna
+        context['placa'] = qryUnidad.placa
+        context['nombre_operador'] = qryWUnidadAsignacion.nombre_operador
+        context['total_peaje_s'] = qryWUnidadAsignacion.total_peaje_s
+        context['cliente'] = qryWUnidadAsignacion.nombre_empresa
+        context['fh_asignacion'] = qryWUnidadAsignacion.fh_asignacion
+        context['fh_entrega'] = qryWUnidadAsignacion.fh_entrega
+        context['sit_code'] = qryWUnidadAsignacion.sit_code
+
+
+        fieldsColums = []
+        titleFields = []
+
+        fieldsColums.append({"data": 'id_unidad_peaje'})
+        fieldsColums.append({"data": 'fh_ticket'})
+        fieldsColums.append({"data": 'tx_referencia'})
+        # fieldsColums.append({"data": 'cantidad'})
+        fieldsColums.append({"data": 'imp_ticket_s'})
+        fieldsColums.append({"data": 'img_ticket'})
+        fieldsColums.append({"data": 'fh_registro'})
+
+        # for fieldname in WCombustibleTicket._meta.fields:
+        #     fieldsColums.append({"data": fieldname.name})
+        # unida_medida_combustible = qryUnidad.get_unida_medida_combustible_display()
+        titleFields.append({"field_title": 'Entrada', "width": '3'})
+        titleFields.append({"field_title": 'Fecha Ticket', "width": '15'})
+        titleFields.append({"field_title": 'Título/Referencia', "width": '20'})
+        # titleFields.append({"field_title": 'Cantidad ' + unida_medida_combustible, "width": '10'})
+        titleFields.append({"field_title": 'Importe', "width": '10'})
+        titleFields.append({"field_title": 'Foto', "width": '5'})
+        titleFields.append({"field_title": 'Fecha Registro', "width": '15'})
+
+        context['fieldsColums'] = fieldsColums
+        context['titleFields'] = titleFields
+        context['operacion'] = 'menu-is-opening menu-open'
+        context['unidad_asignacion'] = 'active'
+
+        return context
 
 class UnidadAsignacionView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, TemplateView):
     template_name = 'operacion/unidad_asignacion.html'
@@ -236,5 +323,116 @@ class UnidadAsignacionView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, Template
                     data['ok'] = 'ok'
         return data
 
+
+
+# **********************************************************************************************************************
+# **********************************************************************************************************************
+class UnidadCombustibleAdminCreateView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRequiredMixin, ValidatePermissionRequiredMixin, CreateView):
+    model = UnidadCombustible
+    form_class = UnidadCombustibleForm
+    template_name = 'operacion/create_combustible_admin.html'
+    success_url = reverse_lazy('OBTaller:unidad_combustible_ticket')
+    # permission_required = 'OB. add_personal'
+    url_redirect = success_url
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        data = {}
+        try:
+            action = request.POST['action']
+            if action == 'add':
+                form = self.get_form()
+                data = form.save()
+            else:
+                data = {}
+                data['error'] = 'No ha ingresado a ninguna opción'
+        except Exception as e:
+            data = {}
+            data['error'] = str(e)
+        return JsonResponse(data)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Nuevo Ticket Combustible'
+        context['entity'] = 'Combustible'
+        context['list_url'] = self.success_url
+        context['action'] = 'add'
+
+        id_unidad_asigna = self.kwargs['id_unidad_asigna']
+
+        Asignacion = WUnidadAsignacion.objects.filter(id_unidad_asigna=id_unidad_asigna).values('id_unidad')
+        id_unidad = Asignacion[0]['id_unidad']
+        qryUnidad = Unidad.objects.get(id_unidad=id_unidad)
+        context['unida_medida_combustible'] = qryUnidad.get_unida_medida_combustible_display()
+        context['id_unidad_asigna'] = id_unidad_asigna
+        context['id_unidad'] = id_unidad
+        context['list_url_comp'] = f'{self.success_url}?id_unidad_asigna={id_unidad_asigna}&id_unidad={id_unidad}'
+        # context['list_url'] = '{}?id_unidad_asigna={}&id_unidad={}'.format(self.success_url, id_unidad_asigna, id_unidad)
+
+
+
+        # context['cod_acceso'] = cod_acceso
+        # context['catalogos'] = 'menu-is-opening menu-open'
+        # context['personal'] = 'active'
+        return context
+
+
+
+# **********************************************************************************************************************
+# **********************************************************************************************************************
+class UnidadPeajeAdminCreateView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRequiredMixin, ValidatePermissionRequiredMixin, CreateView):
+    model = UnidadPeaje
+    form_class = UnidadPeajeForm
+    template_name = 'operacion/create_combustible_admin.html'
+    success_url = reverse_lazy('OBTaller:unidad_peaje_ticket')
+    # permission_required = 'OB. add_personal'
+    url_redirect = success_url
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        data = {}
+        try:
+            action = request.POST['action']
+            if action == 'add':
+                form = self.get_form()
+                data = form.save()
+            else:
+                data = {}
+                data['error'] = 'No ha ingresado a ninguna opción'
+        except Exception as e:
+            data = {}
+            data['error'] = str(e)
+        return JsonResponse(data)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Nuevo Ticket Peaje'
+        context['entity'] = 'Peaje'
+        context['list_url'] = self.success_url
+        context['action'] = 'add'
+
+        id_unidad_asigna = self.kwargs['id_unidad_asigna']
+
+        Asignacion = WUnidadAsignacion.objects.filter(id_unidad_asigna=id_unidad_asigna).values('id_unidad')
+        id_unidad = Asignacion[0]['id_unidad']
+
+
+        context['id_unidad_asigna'] = id_unidad_asigna
+        context['id_unidad'] = id_unidad
+        context['list_url_comp'] = f'{self.success_url}?id_unidad_asigna={id_unidad_asigna}&id_unidad={id_unidad}'
+        # context['list_url'] = '{}?id_unidad_asigna={}&id_unidad={}'.format(self.success_url, id_unidad_asigna, id_unidad)
+
+
+
+        # context['cod_acceso'] = cod_acceso
+        # context['catalogos'] = 'menu-is-opening menu-open'
+        # context['personal'] = 'active'
+        return context
 
 

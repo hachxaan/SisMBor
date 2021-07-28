@@ -58,12 +58,24 @@
                                 <p>Asignacion</p>
                             </a>
                         </li>
-<!--                        <li class=" loading-click">-->
-<!--                            <a href="{% url 'OBTaller:unidad_list' %}" class="nav-link {{ unidades }}">-->
-<!--                                <i class="far fa-circle nav-icon"></i>-->
-<!--                                <p>Unidades</p>-->
-<!--                            </a>-->
-<!--                        </li>-->
+                        <li class=" loading-click">
+                            <a href="{% url 'OBTaller:dashboard_peaje' %}" class="nav-link {{ unidad_peaje }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Rep. Gasto Peaje</p>
+                            </a>
+                        </li>
+                        <li class=" loading-click">
+                            <a href="{% url 'OBTaller:dashboard_combustible_gasto' %}" class="nav-link {{ unidad_combustible_gasto }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Rep. Gasto Combustible</p>
+                            </a>
+                        </li>
+                        <li class=" loading-click">
+                            <a href="{% url 'OBTaller:dashboard_combustible_gasto' %}" class="nav-link {{ unidad_combustible_consumo }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Rep. Consumo Combustible</p>
+                            </a>
+                        </li>
                     </ul>
 
                 </li>

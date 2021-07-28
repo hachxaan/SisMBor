@@ -1,0 +1,18 @@
+tr {
+    line-height: 0.5 !important;
+
+}
+
+td {
+    margin : 0px !important;
+    border-left : 0px !important;
+    border-right : 0px !important;
+}
+
+table {
+    border : 0px !important ;
+}
+
+.highcharts-credits {
+    display:none;
+}

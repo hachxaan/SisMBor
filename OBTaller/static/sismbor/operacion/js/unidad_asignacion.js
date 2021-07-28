@@ -180,7 +180,9 @@ window.onload = function() {
                 class: 'text-right',
                 render: function (data, type, row) {
 //                    if (row['total_combustible_n'] > 0) {
-                        return `<div class="row pr-3"><label class="col-6 pr-3" >${data}</label> <a href="/unidades/combustible_ticket/?id_unidad_asigna=${row['id_unidad_asigna']}&id_unidad=${row['id_unidad']}" type="button" class="col-6 pt-1 btn btn-outline-info c_btn">Tickets</a></div>`;
+                        return `<div class="row pr-3"><label class="col-6 pr-3" >${data}</label> <a
+                            href="/unidades/combustible_ticket/?id_unidad_asigna=${row['id_unidad_asigna']}&id_unidad=${row['id_unidad']}"
+                            type="button" class="col-6 pt-1 btn btn-outline-info c_btn">Tickets</a></div>`;
 //                    } else {
 //                        return data
 //                    }
@@ -190,7 +192,9 @@ window.onload = function() {
                 class: 'text-right',
                 render: function (data, type, row) {
 //                    if (row['total_peaje_n'] > 0) {
-                        return `<div class="row pr-3"><label class="col-6 pr-3" >${data}</label><a type="button" class="col-6 pt-1 btn btn-outline-info c_btn">Tickets</a></div>`;
+                        return `<div class="row pr-3"><label class="col-6 pr-3" >${data}</label><a
+                         href="/unidades/peaje_ticket/?id_unidad_asigna=${row['id_unidad_asigna']}&id_unidad=${row['id_unidad']}"
+                         type="button" class="col-6 pt-1 btn btn-outline-info c_btn">Tickets</a></div>`;
 //                    } else {
 //                        return data
 //                    }

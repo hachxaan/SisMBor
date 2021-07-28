@@ -473,6 +473,7 @@ class UnidadCombustible(models.Model):
     tx_referencia = models.CharField(db_column='TX_REFERENCIA', max_length=1024, blank=True, null=True)
     fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now)
     id_unidad_asigna = models.ForeignKey(UnidadAsignacion, models.PROTECT, db_column='ID_UNIDAD_ASIGNA')
+    id_unidad = models.ForeignKey(Unidad, models.PROTECT, db_column='ID_UNIDAD', related_name='tickets_combustible')
 
     def toJSON(self):
         item = model_to_dict(self)
@@ -491,9 +492,10 @@ class UnidadPeaje(models.Model):
     id_unidad_asigna = models.ForeignKey(UnidadAsignacion, models.PROTECT, db_column='ID_UNIDAD_ASIGNA')
     fh_ticket = models.DateTimeField(db_column='FH_TICKET', blank=True, null=True)
     imp_ticket = models.DecimalField(db_column='IMP_TICKET', max_digits=18, decimal_places=2, default=0)
-    img_ticket = models.ImageField(db_column='IMG_TICKET', upload_to='uploads/tickets/peaje/%Y/%m/%d', blank=True, null=True)
+    img_ticket = models.ImageField(db_column='IMG_TICKET', upload_to='tickets/peaje/%Y/%m/%d', blank=True, null=True)
     fh_registro = models.DateTimeField(db_column='FH_REGISTRO', default=timezone.now)
     tx_referencia = models.CharField(db_column='TX_REFERENCIA', max_length=1024, blank=True, null=True)
+    id_unidad = models.ForeignKey(Unidad, models.PROTECT, db_column='ID_UNIDAD', related_name='tickets_peaje')
 
     def toJSON(self):
         item = model_to_dict(self)
@@ -719,7 +721,8 @@ class WbUnidad(models.Model):
     modelo = models.CharField(db_column='MODELO', max_length=32, blank=True, null=True)  
     motor = models.CharField(db_column='MOTOR', max_length=64, blank=True, null=True)  
     chasis = models.CharField(db_column='CHASIS', max_length=64, blank=True, null=True)  
-    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', blank=True, null=True)  
+    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', blank=True, null=True)
+
 
     def toJSON(self):
         item = model_to_dict(self)
@@ -887,7 +890,8 @@ class WbUnidadNeu(models.Model):
     modelo = models.CharField(db_column='MODELO', max_length=32, blank=True, null=True)  
     motor = models.CharField(db_column='MOTOR', max_length=64, blank=True, null=True)  
     chasis = models.CharField(db_column='CHASIS', max_length=64, blank=True, null=True)  
-    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', blank=True, null=True)  
+    fh_registro = models.DateTimeField(db_column='FH_REGISTRO', blank=True, null=True)
+    nombre_empresa = models.CharField(db_column='NOMBRE_EMPRESA', max_length=64, blank=True, null=True)
 
     def toJSON(self):
         item=model_to_dict( self )
@@ -1028,15 +1032,15 @@ class WUnidadAsignacion(models.Model):
         db_table = 'w_unidad_asignacion'
 
 class WCombustibleTicket(models.Model):
-    id_unidad_combustible = models.IntegerField(db_column='ID_UNIDAD_COMBUSTIBLE', primary_key=True)  # Field name made lowercase.
-    fh_ticket = models.CharField(db_column='FH_TICKET', max_length=24, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  # Field name made lowercase.
-    cantidad = models.IntegerField(db_column='CANTIDAD')  # Field name made lowercase.
-    imp_ticket_s = models.CharField(db_column='IMP_TICKET_S', max_length=61, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  # Field name made lowercase.
-    img_ticket = models.CharField(db_column='IMG_TICKET', max_length=100, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  # Field name made lowercase.
-    fh_registro = models.CharField(db_column='FH_REGISTRO', max_length=24, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  # Field name made lowercase.
-    imp_ticket_n = models.DecimalField(db_column='IMP_TICKET_N', max_digits=18, decimal_places=2)  # Field name made lowercase.
+    id_unidad_combustible = models.IntegerField(db_column='ID_UNIDAD_COMBUSTIBLE', primary_key=True)  
+    fh_ticket = models.CharField(db_column='FH_TICKET', max_length=24, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  
+    cantidad = models.IntegerField(db_column='CANTIDAD')  
+    imp_ticket_s = models.CharField(db_column='IMP_TICKET_S', max_length=61, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  
+    img_ticket = models.CharField(db_column='IMG_TICKET', max_length=100, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  
+    fh_registro = models.CharField(db_column='FH_REGISTRO', max_length=24, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  
+    imp_ticket_n = models.DecimalField(db_column='IMP_TICKET_N', max_digits=18, decimal_places=2)  
     tx_referencia = models.CharField(db_column='TX_REFERENCIA', max_length=1024, blank=True, null=True)
-    id_unidad_asigna = models.IntegerField(db_column='ID_UNIDAD_ASIGNA')  # Field name made lowercase.
+    id_unidad_asigna = models.IntegerField(db_column='ID_UNIDAD_ASIGNA')  
 
     def toJSON(self):
         item = model_to_dict(self)
@@ -1054,14 +1058,14 @@ class WCombustibleTicket(models.Model):
 
 
 class WPeajeTicket(models.Model):
-    id_unidad_peaje = models.IntegerField(db_column='ID_UNIDAD_PEAJE', primary_key=True)  # Field name made lowercase.
-    fh_ticket = models.CharField(db_column='FH_TICKET', max_length=10, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  # Field name made lowercase.
-    imp_ticket_s = models.CharField(db_column='IMP_TICKET_S', max_length=61, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  # Field name made lowercase.
-    img_ticket = models.CharField(db_column='IMG_TICKET', max_length=100, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  # Field name made lowercase.
-    fh_registro = models.CharField(db_column='FH_REGISTRO', max_length=24, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  # Field name made lowercase.
-    imp_ticket_n = models.DecimalField(db_column='IMP_TICKET_N', max_digits=18, decimal_places=2)  # Field name made lowercase.
-    tx_referencia = models.CharField(db_column='TX_REFERENCIA', max_length=1024, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  # Field name made lowercase.
-    id_unidad_asigna = models.IntegerField(db_column='ID_UNIDAD_ASIGNA')  # Field name made lowercase.
+    id_unidad_peaje = models.IntegerField(db_column='ID_UNIDAD_PEAJE', primary_key=True)  
+    fh_ticket = models.CharField(db_column='FH_TICKET', max_length=10, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  
+    imp_ticket_s = models.CharField(db_column='IMP_TICKET_S', max_length=61, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  
+    img_ticket = models.CharField(db_column='IMG_TICKET', max_length=100, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  
+    fh_registro = models.CharField(db_column='FH_REGISTRO', max_length=24, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  
+    imp_ticket_n = models.DecimalField(db_column='IMP_TICKET_N', max_digits=18, decimal_places=2)  
+    tx_referencia = models.CharField(db_column='TX_REFERENCIA', max_length=1024, db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)  
+    id_unidad_asigna = models.IntegerField(db_column='ID_UNIDAD_ASIGNA')  
 
     def toJSON(self):
         item = model_to_dict(self)
@@ -1077,14 +1081,183 @@ class WPeajeTicket(models.Model):
         db_table = 'w_peaje_ticket'
 
 
-#
-# class User(AbstractUser):
-#     is_admin_web = models.BooleanField(default=False)
-#     is_user_web = models.BooleanField(default=False)
-#     is_unidad = models.BooleanField(default=False)
-#
-#
-# class UnidadUser(models.Model):
-#     id_unidad = models.OneToOneField(Unidad, on_delete=models.CASCADE, primary_key=True)
-#     id_personal = models.IntegerField(Personal)
-#
+class VwrPeajeXDia(models.Model):
+
+    id_unidad = models.IntegerField(db_column='ID_UNIDAD')
+    placa = models.CharField(db_column='PLACA', max_length=16, db_collation='utf8mb4_0900_ai_ci')
+    fh_ticket = models.DateTimeField(db_column='FH_TICKET', primary_key=True)
+    promedio = models.DecimalField(db_column='PROMEDIO', max_digits=22, decimal_places=6, blank=True, null=True)
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'vwr_peaje_x_dia'
+
+
+
+class VwrPeajeXMes(models.Model):
+    id_unidad = models.IntegerField(db_column='ID_UNIDAD')  
+    placa = models.CharField(db_column='PLACA', max_length=16, db_collation='utf8mb4_0900_ai_ci')  
+    mes = models.CharField(db_column='MES', max_length=7, db_collation='utf8mb4_0900_ai_ci', primary_key=True)  
+    promedio = models.DecimalField(db_column='PROMEDIO', max_digits=22, decimal_places=6, blank=True, null=True)  
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'vwr_peaje_x_mes'
+
+
+class VwrPeajeXAno(models.Model):
+    id_unidad = models.IntegerField(db_column='ID_UNIDAD')  
+    placa = models.CharField(db_column='PLACA', max_length=16, db_collation='utf8mb4_0900_ai_ci')  
+    ano = models.CharField(db_column='ANO', max_length=4, db_collation='utf8mb4_0900_ai_ci', primary_key=True)
+    promedio = models.DecimalField(db_column='PROMEDIO', max_digits=22, decimal_places=6, blank=True, null=True)  
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+    
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'vwr_peaje_x_ano'
+
+
+class VwrPeajeXAnoAcumulado(models.Model):
+    id_unidad = models.IntegerField(db_column='ID_UNIDAD')  # Field name made lowercase.
+    placa = models.CharField(db_column='PLACA', max_length=16, db_collation='utf8mb4_0900_ai_ci')  # Field name made lowercase.
+    ano = models.CharField(db_column='ANO', max_length=4, db_collation='utf8mb4_0900_ai_ci', primary_key=True)  # Field name made lowercase.
+    acumulado = models.DecimalField(db_column='ACUMULADO', max_digits=40, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'vwr_peaje_x_ano_acumulado'
+
+
+class VwrPeajeXMesAcumulado(models.Model):
+    id_unidad = models.IntegerField(db_column='ID_UNIDAD')  # Field name made lowercase.
+    placa = models.CharField(db_column='PLACA', max_length=16, db_collation='utf8mb4_0900_ai_ci')  # Field name made lowercase.
+    mes = models.CharField(db_column='MES', max_length=7, db_collation='utf8mb4_0900_ai_ci', primary_key=True)  # Field name made lowercase.
+    acumulado = models.DecimalField(db_column='ACUMULADO', max_digits=40, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'vwr_peaje_x_mes_acumulado'
+
+
+
+class VwrPeajeXDiaAcumulado(models.Model):
+    id_unidad = models.IntegerField(db_column='ID_UNIDAD')  # Field name made lowercase.
+    placa = models.CharField(db_column='PLACA', max_length=16, db_collation='utf8mb4_0900_ai_ci')  # Field name made lowercase.
+    fh_ticket = models.DateTimeField(db_column='FH_TICKET', primary_key=True)
+    acumulado = models.DecimalField(db_column='ACUMULADO', max_digits=40, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'vwr_peaje_x_dia_acumulado'
+
+
+
+class VwrCombustibleGastoPromedioXDia(models.Model):
+    id_unidad = models.IntegerField(db_column='ID_UNIDAD')  # Field name made lowercase.
+    placa = models.CharField(db_column='PLACA', max_length=16, db_collation='utf8mb4_0900_ai_ci')  # Field name made lowercase.
+    fh_ticket = models.DateTimeField(db_column='FH_TICKET', primary_key=True)
+    promedio = models.DecimalField(db_column='PROMEDIO', max_digits=22, decimal_places=6, blank=True, null=True)  # Field name made lowercase.
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'vwr_combustible_gasto_promedio_x_dia'
+
+
+class VwrCombustibleGastoPromedioXMes(models.Model):
+    id_unidad = models.IntegerField(db_column='ID_UNIDAD')  # Field name made lowercase.
+    placa = models.CharField(db_column='PLACA', max_length=16, db_collation='utf8mb4_0900_ai_ci')  # Field name made lowercase.
+    mes = models.CharField(db_column='MES', max_length=7, db_collation='utf8mb4_0900_ai_ci', primary_key=True)
+    promedio = models.DecimalField(db_column='PROMEDIO', max_digits=22, decimal_places=6, blank=True, null=True)  # Field name made lowercase.
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'vwr_combustible_gasto_promedio_x_mes'
+
+
+class VwrCombustibleGastoPromedioXAno(models.Model):
+    id_unidad = models.IntegerField(db_column='ID_UNIDAD')  # Field name made lowercase.
+    placa = models.CharField(db_column='PLACA', max_length=16, db_collation='utf8mb4_0900_ai_ci')  # Field name made lowercase.
+    ano = models.CharField(db_column='ANO', max_length=4, db_collation='utf8mb4_0900_ai_ci', primary_key=True)
+    promedio = models.DecimalField(db_column='PROMEDIO', max_digits=22, decimal_places=6, blank=True, null=True)  # Field name made lowercase.
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'vwr_combustible_gasto_promedio_x_ano'
+
+class VwrCombustibleGastoXDiaAcumulado(models.Model):
+    id_unidad = models.IntegerField(db_column='ID_UNIDAD')  # Field name made lowercase.
+    placa = models.CharField(db_column='PLACA', max_length=16, db_collation='utf8mb4_0900_ai_ci')  # Field name made lowercase.
+    fh_ticket = models.DateTimeField(db_column='FH_TICKET', primary_key=True)
+    acumulado = models.DecimalField(db_column='ACUMULADO', max_digits=40, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'vwr_combustible_gasto_x_dia_acumulado'
+
+class VwrCombustibleGastoXMesAcumulado(models.Model):
+    id_unidad = models.IntegerField(db_column='ID_UNIDAD')  # Field name made lowercase.
+    placa = models.CharField(db_column='PLACA', max_length=16, db_collation='utf8mb4_0900_ai_ci')  # Field name made lowercase.
+    mes = models.CharField(db_column='MES', max_length=7, db_collation='utf8mb4_0900_ai_ci', primary_key=True)  # Field name made lowercase.
+    acumulado = models.DecimalField(db_column='ACUMULADO', max_digits=40, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'vwr_combustible_gasto_x_mes_acumulado'
+
+
+class VwrCombustibleGastoXAnoAcumulado(models.Model):
+    id_unidad = models.IntegerField(db_column='ID_UNIDAD')  # Field name made lowercase.
+    placa = models.CharField(db_column='PLACA', max_length=16, db_collation='utf8mb4_0900_ai_ci')  # Field name made lowercase.
+    ano = models.CharField(db_column='ANO', max_length=4, db_collation='utf8mb4_0900_ai_ci', primary_key=True)
+    acumulado = models.DecimalField(db_column='ACUMULADO', max_digits=40, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'vwr_combustible_gasto_x_ano_acumulado'

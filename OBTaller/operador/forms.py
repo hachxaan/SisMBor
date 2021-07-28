@@ -14,8 +14,7 @@ class UnidadCombustibleForm(ModelForm):
         widget=DatePicker(attrs={
             'class': 'form-control datetimepicker-input',
             'data-target': '#id_fh_ticket',
-            'data-toggle': "datetimepicker",
-             'dateFormat' : 'dd/mm/yy'
+            'data-toggle': "datetimepicker"
         })
     )
     test = None
@@ -57,11 +56,11 @@ class UnidadCombustibleForm(ModelForm):
                     'placeholder': 'Ingrese un nombre o referencia',
                 }
             ),
-            # 'fh_ticket': forms.DateTimeInput(attrs={
-            #             'class': 'form-control datetimepicker-input',
-            #             'data-target': '#id_fh_ticket',
-            #             'data-toggle' : "datetimepicker"
-            #         }),
+            'fh_ticket': forms.DateTimeInput(attrs={
+                        'class': 'form-control datetimepicker-input',
+                        'data-target': '#id_fh_ticket',
+                        'data-toggle' : "datetimepicker"
+                    }),
             'imp_ticket':    TextInput(
                 attrs={
                     'type': "number",
@@ -96,7 +95,6 @@ class UnidadCombustibleForm(ModelForm):
         return data
 
 
-
 class UnidadPeajeForm(ModelForm):
 
     # fh_ticket = forms.DateField(widget=DatePicker())
@@ -114,6 +112,7 @@ class UnidadPeajeForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['id_unidad_asigna'].widget=forms.HiddenInput()
+        self.fields['id_unidad'].widget=forms.HiddenInput()
         # self.fields['fh_registro'].widget=forms.HiddenInput()
         self.fields['tx_referencia'].required=True
         self.fields['fh_ticket'].required=True
@@ -142,7 +141,7 @@ class UnidadPeajeForm(ModelForm):
 
     class Meta:
         model = UnidadPeaje
-        fields = ['tx_referencia', 'fh_ticket', 'imp_ticket', 'img_ticket', 'id_unidad_asigna']
+        fields = ['id_unidad', 'tx_referencia', 'fh_ticket', 'imp_ticket', 'img_ticket', 'id_unidad_asigna']
         widgets = {
             'tx_referencia': TextInput(
                 attrs={

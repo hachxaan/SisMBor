@@ -1,5 +1,5 @@
 'use strict';
-const cNameDT_UnidadAsignacion = '#dtUnidadTicketCombustible';
+const cNameDT_UnidadTicketPeaje = '#dtUnidadTicketPeaje';
 
 
 function pAgregarTicket(){
@@ -20,7 +20,7 @@ window.onload = function() {
     var sit_code =  sessionStorage.getItem('sit_code');
 
 
-    $(cNameDT_UnidadAsignacion).DataTable({
+    $(cNameDT_UnidadTicketPeaje).DataTable({
 //        language: {
 //            url: '../../static/libs/datatables-es_orde-editar.json'
 //        },

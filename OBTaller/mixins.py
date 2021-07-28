@@ -12,13 +12,16 @@ from appMainSite import settings
 
 class ValidaPerfilMixin(object):
     def dispatch(self, request, *args, **kwargs):
-        path_val = request.path.split('/')[1]
-        if request.user.es_operador:
-            if path_val != settings.URL_OPERADOR:
-                return redirect('operador:index_operador')
+        if not request.user.is_authenticated:
+            return redirect('login')
         else:
-            if path_val == settings.URL_OPERADOR:
-                return redirect('OBTaller:panel_web')
+            path_val = request.path.split('/')[1]
+            if request.user.es_operador:
+                if path_val != settings.URL_OPERADOR:
+                    return redirect('operador:index_operador')
+            else:
+                if path_val == settings.URL_OPERADOR:
+                    return redirect('OBTaller:panel_web')
 
         return super().dispatch(request, *args, **kwargs)
 

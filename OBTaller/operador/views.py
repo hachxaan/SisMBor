@@ -102,6 +102,7 @@ class UnidadCombustibleCreateView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, L
 
 # **********************************************************************************************************************
 # **********************************************************************************************************************
+
 class UnidadCombustibleUpdateView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRequiredMixin, ValidatePermissionRequiredMixin, UpdateView):
     model = UnidadCombustible
     form_class = UnidadCombustibleForm
@@ -230,11 +231,13 @@ class UnidadPeajeCreateView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, LoginRe
         session_key = self.request.session.session_key
         dataSetOperadorSession = OperadorSession.objects.filter(session_key=session_key).values('id_unidad_asigna')
         id_unidad_asigna = dataSetOperadorSession[0]['id_unidad_asigna']
-
+        qryUnidadAsignacion = UnidadAsignacion.objects.filter(id_unidad_asigna=id_unidad_asigna).values('id_unidad')
+        id_unidad = qryUnidadAsignacion[0]['id_unidad']
         # Asignacion = WUnidadAsignacion.objects.filter(id_unidad_asigna=id_unidad_asigna).values('id_unidad')
         # qryUnidad = Unidad.objects.get(id_unidad=Asignacion[0]['id_unidad'])
         # context['unida_medida_combustible'] = qryUnidad.get_unida_medida_combustible_display()
         context['id_unidad_asigna'] = id_unidad_asigna
+        context['id_unidad'] = id_unidad
         # context['cod_acceso'] = cod_acceso
         # context['catalogos'] = 'menu-is-opening menu-open'
         # context['personal'] = 'active'

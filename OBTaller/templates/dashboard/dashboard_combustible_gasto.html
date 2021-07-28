@@ -1,0 +1,348 @@
+{% extends 'body.html' %}
+{% load static %}
+{% block stylesheet %}
+{% include '../MainSections/CSS-DataTables.html' %}
+<link rel="stylesheet" href="{% static 'sismbor/css/dashboard.css' %}">
+{% endblock %}
+
+{% block contento %}
+<div class="row">
+    <div class="col-xl-5 col-lg-5 mr-3 row">
+        <div class="col-lg-12 pl-3 row" style="height:100px">
+            <div class="col-lg-6 input-group mt-md-3 mt-sm-1">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-primary">Placa</span>
+                </div>
+                <input id="edtPlaca" name="placa" type="text" class="form-control uppercase" required
+                       placeholder="ABC-123" value="{{ placa }}">
+                <span class="input-group-append">
+                        <button type="button" class="btn btn-outline-info btn" data-toggle="modal"
+                                data-target="#BuscarUnidadModal">Buscar</button>
+                </span>
+            </div>
+
+            <div class="col-lg-6 input-group mt-md-3 mt-sm-1">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-secondary">Promedio</span>
+                </div>
+                <input id="edtPromedio" type="text" class="form-control uppercase" readonly="" value="">
+            </div>
+
+            <div class="col-lg-6 input-group mt-md-3 mt-sm-1">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-secondary">Cliente</span>
+                </div>
+                <input type="text" id="edtCliente" class="form-control uppercase" readonly="" value="">
+            </div>
+            <div class="col-lg-6 input-group mt-md-3 mt-sm-1">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-secondary">Acumulado</span>
+                </div>
+                <input id="edtAcumulado" type="text" class="form-control uppercase" readonly="" value="">
+            </div>
+        </div>
+        <div class="col-12 row">
+
+            <div class="col-lg-4 col-md-4 p-0">
+                <div class="card card-primary p-1">
+                    <div class="card-header">
+                        <h3 class="card-title">Anual</h3>
+                    </div>
+                    <div class="card-body p-1">
+                        <!--dtPeajeDiario-->
+                        <!--{# ************************************************************************************************ #}-->
+                        <!--{# Peaje por dia #}-->
+                        <!--{# ************************************************************************************************ #}-->
+                        <table class="table table-bordered" id="dtPeajeAnual">
+                            <thead>
+                            <tr>
+                                {% for field in titleFieldsAno %}
+                                <th scope="col" style="width: {{field.width}}%;">{{ field.field_title }}</th>
+                                {% endfor %}
+                            </tr>
+                            </thead>
+                        </table>
+                        <!--{# ************************************************************************************************ #}-->
+                    </div>
+                </div>
+                <div class="card card-primary p-1">
+                    <div class="card-body p-1">
+                        <!--dtPeajeDiario-->
+                        <!--{# ************************************************************************************************ #}-->
+                        <!--{# Peaje por dia #}-->
+                        <!--{# ************************************************************************************************ #}-->
+                        <table class="table table-bordered" id="dtPeajeAnualAcum">
+                            <thead>
+                            <tr>
+                                {% for field in titleFieldsAnoAcum %}
+                                <th scope="col" style="width: {{field.width}}%;">{{ field.field_title }}</th>
+                                {% endfor %}
+                            </tr>
+                            </thead>
+                        </table>
+                        <!--{# ************************************************************************************************ #}-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 p-0">
+                <div class="card card-primary p-1">
+                    <div class="card-header">
+                        <h3 class="card-title">Mensual</h3>
+                    </div>
+                    <div class="card-body p-1">
+                        <!--dtPeajeDiario-->
+                        <!--{# ************************************************************************************************ #}-->
+                        <!--{# Peaje por dia #}-->
+                        <!--{# ************************************************************************************************ #}-->
+                        <table class="table table-bordered" id="dtPeajeMensual">
+                            <thead>
+                            <tr>
+                                {% for field in titleFieldsMes %}
+                                <th scope="col" style="width: {{field.width}}%;">{{ field.field_title }}</th>
+                                {% endfor %}
+                            </tr>
+                            </thead>
+                        </table>
+                        <!--{# ************************************************************************************************ #}-->
+                    </div>
+                </div>
+                <div class="card card-primary">
+                    <div class="card-body p-1">
+                        <!--dtPeajeDiario-->
+                        <!--{# ************************************************************************************************ #}-->
+                        <!--{# Peaje por dia #}-->
+                        <!--{# ************************************************************************************************ #}-->
+                        <table class="table table-bordered" id="dtPeajeMensualAcum">
+                            <thead>
+                            <tr>
+                                {% for field in titleFieldsMesAcum %}
+                                <th scope="col" style="width: {{field.width}}%;">{{ field.field_title }}</th>
+                                {% endfor %}
+                            </tr>
+                            </thead>
+                        </table>
+                        <!--{# ************************************************************************************************ #}-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4  p-0">
+
+                <div class="card card-primary p-1">
+                    <div class="card-header">
+                        <h3 class="card-title">Diario</h3>
+                    </div>
+                    <div class="card-body p-1">
+                        <!--dtPeajeDiario-->
+                        <!--{# ************************************************************************************************ #}-->
+                        <!--{# Peaje por dia #}-->
+                        <!--{# ************************************************************************************************ #}-->
+                        <table class="table table-bordered" id="dtPeajeDiario">
+                            <thead>
+                            <tr>
+                                {% for field in titleFieldsDiario %}
+                                <th scope="col" style="width: {{field.width}}%;">{{ field.field_title }}</th>
+                                {% endfor %}
+                            </tr>
+                            </thead>
+                        </table>
+                        <!--{# ************************************************************************************************ #}-->
+                    </div>
+                </div>
+                <div class="card card-primary p-1">
+                    <div class="card-body p-1">
+                        <!--dtPeajeDiario-->
+                        <!--{# ************************************************************************************************ #}-->
+                        <!--{# Peaje por dia #}-->
+                        <!--{# ************************************************************************************************ #}-->
+                        <table class="table table-bordered" id="dtPeajeDiarioAcum">
+                            <thead>
+                            <tr>
+                                {% for field in titleFieldsDiarioAcum %}
+                                <th scope="col" style="width: {{field.width}}%;">{{ field.field_title }}</th>
+                                {% endfor %}
+                            </tr>
+                            </thead>
+                        </table>
+                        <!--{# ************************************************************************************************ #}-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="col-xl-7 col-lg-7 mt-4 row">
+        <div class="card card-primary p-1 w-100" style="height:400px">
+            <div class="card-header">
+                <div class="col-4 btn-group btn-group-toggle" data-toggle="buttons" style="heigth:40px;">
+                    <!--<label class="btn btn-info m-1">-->
+                    <!--    <input type="radio" name="options" id="option_a1" autocomplete="off"> Anual-->
+                    <!--</label>-->
+                    <label class="btn btn-secondary m-1">
+                        <input type="radio" name="options" id="CheckMensualProm" autocomplete="off"> Mensual
+                    </label>
+                    <label class="btn btn-secondary active m-1">
+                        <input type="radio" name="options" id="CheckDiarioProm" autocomplete="off" checked=""> Diario
+                    </label>
+                </div>
+                <!--                <h3 class="card-title">Grafica</h3>-->
+            </div>
+            <div class="card-body p-1">
+                <div class="col-12 h-100" id="GraficaPromedio">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card card-primary p-1 w-100" style="height:400px">
+            <div class="card-header">
+                <div class="col-4 btn-group btn-group-toggle" data-toggle="buttons" style="heigth:40px;">
+                    <!--                    <label class="btn btn-info m-1">-->
+                    <!--                        <input type="radio" name="options2" id="option_b1" autocomplete="off"> Anual-->
+                    <!--                    </label>-->
+                    <label class="btn btn-secondary m-1">
+                        <input type="radio" name="options2" id="CheckMensaulAcum" autocomplete="off"> Mensual
+                    </label>
+                    <label class="btn btn-secondary active m-1">
+                        <input type="radio" name="options2" id="CheckDiarioAcum" autocomplete="off" checked=""> Diario
+                    </label>
+                </div>
+                <!--                <h3 class="card-title">Grafica</h3>-->
+            </div>
+            <div class="card-body p-1">
+                <div class="col-12 h-100" id="GraficaAcumulado">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block modals %}
+<!--    {# ************************************************************************************************ #}-->
+<!--    {# BUSCADOR MAIN#}-->
+<!--    {# ************************************************************************************************ #}-->
+<div class="modal fade" id="BuscarUnidadModal" data-b_todas="b_todas" tabindex="-1" role="dialog"
+     aria-labelledby="BuscarUnidadModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="BuscarUnidadModalLabel">Buscar unidad</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!--{# BUSCADOR TABLA #}-->
+                <!--{# ***************************************************************************************** #}-->
+                <!--******************************************************************************************** #}-->
+                <table class="table table-bordered" id="dtBuscador">
+                    <thead>
+                    <tr>
+                        <th scope="col" style="width: 5%;">Entrada</th>
+                        <th scope="col" style="width: 20%;">Cliente</th>
+                        <th scope="col" style="width: 10%;">Placa</th>
+                        <th scope="col" style="width: 10%;">Marca</th>
+                        <th scope="col" style="width: 10%;">Modelo</th>
+                        <th scope="col" style="width: 10%;">Motor</th>
+                        <th scope="col" style="width: 8%;">Chasis</th>
+                    </tr>
+                    </thead>
+                </table>
+                <!--{# ************************************************************************************************ #}-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button id="btnSeleccionarUnidad" type="button" class="btn btn-primary">Seleccionar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--    {# ************************************************************************************************ #}-->
+
+<!--    {# ************************************************************************************************ #}-->
+<!--    ********  ASIGNAR UNIDAD   ***********-->
+<!--    {# ************************************************************************************************ #}-->
+<div class="modal fade modal-lg" id="AsignaUnidadModal" tabindex="-1" role="dialog"
+     aria-labelledby="AsignaUnidadLabel" aria-hidden="true">
+    <!-- data-id_concepto="0" data-cve_operacion="NCOMPRA" -->
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title" id="AsignaUnidadLabel">Asignar Unidad</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row form-group grupo-b_nserie_obligatorio">
+                        <label for="edtPlacaBusca" class="col-12">Placa</label>
+                        <input id="edtPlacaBusca" value="" name="placa" type="text"
+                               class="col-10 form-control uppercase"
+                               required
+                               placeholder="ABC-123">
+                        <span class="col-2">
+                            <button type="button" class="btn btn-outline-info btn" data-toggle="modal"
+                                    data-target="#BuscarUnidadModal">Buscar
+                            </button>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-form-label">Operador:</label>
+                        <select class="select2 w-100" name='personal' id='cbPersonal'>
+                            <option value="0">Seleccionar...</option>
+                            {% for persona in personal %}
+                            <option value="{{persona.id_personal}}">{{ persona.nombre }} {{ persona.apellido }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edtTxReferencia" class="col-form-label">Referencia</label>
+                        <textarea id="edtTxReferencia" value="" type="textarea" class="form-control"></textarea>
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button id="btnCrearAsignaUnidad" type="button" class="btn btn-primary">Crear Asignación</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+{% include '../MainSections/JS-DataTables.html' %}
+<script type="application/javascript">
+        sessionStorage.setItem('fieldsColumsDiario', JSON.stringify({{ fieldsColumsDiario|safe }}));
+        sessionStorage.setItem('fieldsColumsMes', JSON.stringify({{ fieldsColumsMes|safe }}));
+        sessionStorage.setItem('fieldsColumsAno', JSON.stringify({{ fieldsColumsAno|safe }}));
+
+        sessionStorage.setItem('fieldsColumsDiarioAcum', JSON.stringify({{ fieldsColumsDiarioAcum|safe }}));
+        sessionStorage.setItem('fieldsColumsMesAcum', JSON.stringify({{ fieldsColumsMesAcum|safe }}));
+        sessionStorage.setItem('fieldsColumsAnoAcum', JSON.stringify({{ fieldsColumsAnoAcum|safe }}));
+</script>
+
+<script src="{% static 'plugins/highcharts/highcharts.js' %}"></script>
+<script src="{% static 'plugins/highcharts/modules/exporting.js' %}"></script>
+<script src="{% static 'plugins/highcharts/modules/export-data.js' %}"></script>
+<script src="{% static 'plugins/highcharts/modules/accessibility.js' %}"></script>
+
+<script src="{% static 'sismbor/dashboard/dashboard_combustible_gasto.js' %}" type="text/javascript"></script>
+<script src="{% static 'sismbor/js/buscador-id-unidad.js' %}" type="text/javascript"></script>
+<!--<script src="{% static 'artcode/js/utils.js' %}" type="text/javascript"></script>-->
+{% endblock %}

@@ -8,6 +8,7 @@ from distutils import debug
 from django.contrib.gis.db.backends import mysql
 
 from django.db import connection
+from django.db.models import Avg
 from django.db.models.functions import datetime
 from django.utils.datetime_safe import date
 
@@ -22,15 +23,38 @@ from OBTaller.models import *
 # Create your tests here.
 
 
-cursor = connection.cursor()
-cursor.execute('''SELECT * FROM vwr_servicio_unidad''')
-resp = cursor.fetchall()
-fieldsColums = []
-titleFields = []
-DESC = cursor.description
-for field in DESC:
-    fieldsColums.append({"data": field[0].lower()})
-    titleFields.append({"field_title": field[0]})
+
+
+promedio = UnidadPeaje.objects.all().aggregate(Avg('imp_ticket'))
+
+print(round(promedio['imp_ticket__avg'], 2))
+
+
+
+
+
+# data = []
+# ano = 2021
+# id_unidad = 67
+#
+# qry = VwrPeajeXMes.objects.filter(ano=ano, id_unidad=id_unidad).values('mes', 'promedio')
+
+# for num_mes in range(1, 13):
+#     ano_mes =
+#     if
+
+
+
+
+# cursor = connection.cursor()
+# cursor.execute('''SELECT * FROM vwr_servicio_unidad''')
+# resp = cursor.fetchall()
+# fieldsColums = []
+# titleFields = []
+# DESC = cursor.description
+# for field in DESC:
+#     fieldsColums.append({"data": field[0].lower()})
+#     titleFields.append({"field_title": field[0]})
 
 
 
@@ -182,3 +206,13 @@ for field in DESC:
 # IN peTX_REFERENCIA varchar(1024),
 # IN peCVE_USUARIO varchar(45),
 # OUT psSTR_RESP  TEXT
+
+
+
+
+
+
+
+
+
+

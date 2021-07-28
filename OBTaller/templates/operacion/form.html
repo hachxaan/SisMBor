@@ -1,0 +1,109 @@
+{% extends 'layout.html' %}
+{% load widget_tweaks %}
+{% block head %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+{{ form.media }}
+{% block head_form %}
+
+{% endblock %}
+{% endblock %}
+{% block contento %}
+<form method="post" action="." enctype="multipart/form-data">
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">
+                {% if action == 'add' %}
+                <i class="fas fa-plus"></i>
+                {% else %}
+                <i class="fas fa-edit"></i>
+                {% endif %}
+
+                {{ title }}
+            </h3>
+        </div>
+        <div class="card-body">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="{{ action }}">
+            <input type="hidden" name="id_unidad_asigna" value="{{ id_unidad_asigna }}">
+            <input type="hidden" name="id_unidad" value="{{ id_unidad }}">
+            {% block fieldscontrol %}
+            {% endblock %}
+            {% if form.errors %}
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-ban"></i> Ha ocurrido un error al intentar guardar el registro</h5>
+                <ul>
+                    {% for field in form %}
+                    {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% for field in form.visible_fields %}
+
+            <div class="form-group">
+                {% if field.label == 'unida_medida_combustible'%}
+                <label for="">Cantidad ({{ unida_medida_combustible }}):</label>
+                {% else %}
+                <label for="">{{ field.label }}:</label>
+                {% endif %}
+                {{ field|add_class:'form-control'|attr:'autocomplete:off' }}
+                {% if form.readonly %}
+                {{ field|attr:'readonly' }}
+                {% endif %}
+
+            </div>
+            {% endfor %}
+            {% block acciones %}{% endblock %}
+        </div>
+
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary btn-flat">
+                <i class="fas fa-save"></i> Guardar registro
+            </button>
+            <a href="{{ list_url_comp }}" class="btn btn-danger btn-flat">
+                <i class="fas fa-times"></i> Cancelar
+            </a>
+        </div>
+    </div>
+</form>
+{% block modals %}
+{% endblock %}
+<script>
+        {% if form.errors %}
+            var errors = '';
+            {% for field in form %}
+                {% for error in field.errors %}
+                    errors += '{{ error }}\n';
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                errors += '{{ error }}\n';
+            {% endfor %}
+            Swal.fire({
+                title: 'Error!',
+                text: errors,
+                icon: 'error'
+            });
+        {% endif %}
+        var laURL = '{{ list_url_comp }}';
+        $('form').on('submit', function (e) {
+            e.preventDefault();
+
+
+            var parameters = new FormData(this);
+            submit_with_ajax_catalogos(window.location.pathname, 'Notificación', '¿Estas seguro de realizar la siguiente acción?', parameters, function (context) {
+
+                    console.log(laURL);
+                    location.href = laURL.replaceAll('&amp;', '&');;
+            });
+        });
+
+       
+
+
+</script>
+
+{% endblock %}
