@@ -69,12 +69,15 @@ class UnidadForm(forms.ModelForm):
         self.fields['chasis'].required = True
         self.fields['fh_registro'].widget = forms.HiddenInput()
 
-        if kwargs['instance']:
-            Unidad = kwargs['instance']
-            self.fields['fh_registro'].initial = Unidad.fh_registro
-            self.fields['placa'].widget.attrs['readonly'] = True
-            self.fields['id_cliente'].widget.attrs['readonly'] = True
-            self.fields['marca'].widget.attrs['autofocus'] = True
+        try:
+            if kwargs['instance']:
+                laUnidad = kwargs['instance']
+                self.fields['fh_registro'].initial = laUnidad.fh_registro
+                self.fields['placa'].widget.attrs['readonly'] = True
+                self.fields['id_cliente'].widget.attrs['readonly'] = True
+                self.fields['marca'].widget.attrs['autofocus'] = True
+        except Exception:
+            pass
 
 
     class Meta:
