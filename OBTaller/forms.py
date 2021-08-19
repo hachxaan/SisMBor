@@ -80,6 +80,7 @@ class UnidadForm(forms.ModelForm):
             pass
 
 
+
     class Meta:
         model = Unidad
         fields = ['id_cliente','placa','marca','modelo','motor','chasis', 'fh_registro', 'unida_medida_combustible']
