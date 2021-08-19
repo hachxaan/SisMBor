@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-132+-6o**fxw)7h!)o#0i(wvs%cm_9tivdj3+=q$&rdyg@8yn5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['192.168.1.71', '18.223.162.255', '192.168.5.2', '127.0.0.1', 'yonk-e', '18.223.167.9', 'localhost']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-        'widget_tweaks',
+    'widget_tweaks',
     'tempus_dominus',
     'OBTaller',
     'OBTaller.operador',
@@ -152,13 +152,23 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 WHITENOISE_AUTOREFRESH = DEBUG
 # WHITENOISE_USE_FINDERS = True
 
+
+
+
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 
 
 
 STATIC_URL = '/static/'
 
+MIDDLEWARE_CLASSES = [
+'whitenoise.middleware.WhiteNoiseMiddleware',
+]
 
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -171,9 +181,22 @@ LOGOUT_REDIRECT_URL = '/login/'
 
 STATIC_ROOT = os.path.normpath(os.path.join(PROJECT_ROOT, 'static'))
 
-AUTH_USER_MODEL = 'user.User'
 
-BASE_URL_MEDIA = 'static/images/upload'
+BASE_URL_MEDIA = 'https://img-sismbor.s3.us-east-2.amazonaws.com/'
 MEDIA_URL   = '/upload/'
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, BASE_URL_MEDIA)
 # STATIC_ROOT = os.path.normpath(os.path.join(BASE_DIR, 'static'))
+
+
+AUTH_USER_MODEL = 'user.User'
+
+
+AWS_ACCESS_KEY_ID = 'AKIAXVP35N3DJTM7Z4EP'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'img-sismbor'
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_S3_REGION_NAME = 'EE. UU. Este (Ohio) us-east-2'
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+AWS_S3_VERIFY = True
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

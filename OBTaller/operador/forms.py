@@ -21,6 +21,7 @@ class UnidadCombustibleForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['id_unidad_asigna'].widget=forms.HiddenInput()
+        self.fields['id_unidad'].widget = forms.HiddenInput()
         # self.fields['fh_registro'].widget=forms.HiddenInput()
         self.fields['tx_referencia'].required=True
         self.fields['fh_ticket'].required=True
@@ -49,7 +50,7 @@ class UnidadCombustibleForm(ModelForm):
 
     class Meta:
         model = UnidadCombustible
-        fields = ['tx_referencia', 'fh_ticket', 'imp_ticket', 'cantidad', 'img_ticket', 'id_unidad_asigna']
+        fields = ['id_unidad','tx_referencia', 'fh_ticket', 'imp_ticket', 'cantidad', 'img_ticket', 'id_unidad_asigna']
         widgets = {
             'tx_referencia': TextInput(
                 attrs={

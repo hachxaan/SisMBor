@@ -178,6 +178,7 @@ class DashboardPeajeView(ValidaPerfilMixin, ValidaTemp1, ValidaTemp2, TemplateVi
         except Exception as e:
             data = {}
             data['error']=str( e )
+        print(data)
         return JsonResponse( data, safe=False )
     def get_context_data(self, **kwargs):
         context=super().get_context_data( **kwargs )

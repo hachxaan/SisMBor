@@ -22,7 +22,6 @@ $(function () {
                 dataSrc: ""
             },
             columns: [
-
                 {"data": "id_concepto"},
                 {"data": "cve_concepto"},
                 {"data": "abreb_unidad_medida", "class": "text-center"},

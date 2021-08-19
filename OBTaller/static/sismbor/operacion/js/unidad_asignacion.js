@@ -71,12 +71,7 @@ function pRecibeUnidad(id_unidad_asigna){
 }
 
 window.onload = function() {
-
-//    var id_reporte = sessionStorage.getItem('id_reporte');
     var fieldsColums = JSON.parse( sessionStorage.getItem('fieldsColums'));
-//    var titulo_reporte =  sessionStorage.getItem('titulo_reporte');
-//    var filename =  sessionStorage.getItem('filename');
-
 
     $(cNameDT_UnidadAsignacion).DataTable({
 //        language: {
