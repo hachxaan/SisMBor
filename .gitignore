@@ -1,4 +1,5 @@
 ### Django ###
+*.sql
 *.log
 *.pot
 *.pyc
@@ -13,6 +14,9 @@ media
 **/migrations/*
 appMainSite/static
 appMainSite/.idea
+
+temp_static/
+
 workspace.xml
 *.xml
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
